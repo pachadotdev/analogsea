@@ -6,7 +6,7 @@
 do_images(filter = NULL, what = "list", callopts = list())
 }
 \arguments{
-\item{filter}{Filter stuff}
+\item{filter}{Filter stuff, one of my_images or global}
 
 \item{what}{One of lit or raw}
 
@@ -17,7 +17,8 @@ Get list of images and their metadata
 }
 \examples{
 \dontrun{
-do_images(filter='my_images', client_id='dfadeb9dc1b68d93119f886f8aa36393', api_key='16ff41ec1f6a4ec6d3f0107f639a59b7')
+do_images()
+do_images(filter='my_images')
 }
 }
 

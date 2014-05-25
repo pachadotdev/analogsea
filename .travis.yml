@@ -8,12 +8,8 @@ before_install:
 install:
 - ./travis-tool.sh install_deps
 - ./travis-tool.sh github_package hadley/testthat
-- ./travis-tool.sh install_r rjson
 
 script: ./travis-tool.sh run_tests
 
 on_failure:
   - ./travis-tool.sh dump_logs
-
-notifications:
- slack: ropensci:wh30e1MP9Am3wXb2wJx1ZRFi

@@ -10,7 +10,8 @@
 
 do_regions <- function(what="list", callopts=list())
 {
+  au <- do_get_auth()
   url <- 'https://api.digitalocean.com/v1/regions'
-  args <- do_compact(list(client_id=client_id, api_key=api_key))
-  do_handle(url, args, callopts)
+  args <- do_compact(list(client_id=au$id, api_key=au$key))
+  do_handle(what, url, args, callopts)
 }

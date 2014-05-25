@@ -48,6 +48,8 @@ do_droplets_new <- function(name=NULL, size_id=NULL, size_slug=NULL, image_id=NU
   region_id=NULL, region_slug=NULL, ssh_key_ids=NULL, private_networking=FALSE,
   backups_enable=FALSE, what="list", callopts=list())
 {
+  au <- do_get_auth()
+  
   assert_that(!is.null(name))
   assert_that(xor(is.null(size_id), is.null(size_slug)))
   assert_that(xor(is.null(image_id), is.null(image_slug)))
@@ -57,8 +59,8 @@ do_droplets_new <- function(name=NULL, size_id=NULL, size_slug=NULL, image_id=NU
   args <- do_compact(list(name=name, size_id=size_id, size_slug=size_slug, image_id=image_id,
                        image_slug=image_slug, region_id=region_id, region_slug=region_slug,
                        ssh_key_ids=ssh_key_ids, private_networking=private_networking,
-                       backups_enable=backups_enable,client_id=client_id, api_key=api_key))
-  do_handle(url, args, callopts)
+                       backups_enable=backups_enable,client_id=au$id, api_key=au$key))
+  do_handle(what, url, args, callopts)
 }
 
 #' Reboot a droplet.
@@ -77,10 +79,12 @@ do_droplets_new <- function(name=NULL, size_id=NULL, size_slug=NULL, image_id=NU
 
 do_droplets_reboot <- function(id=NULL, what="list", callopts=list())
 {
+  au <- do_get_auth()
+  
   assert_that(!is.null(id))
   url <- sprintf('https://api.digitalocean.com/v1/droplets/%s/reboot', id)
-  args <- do_compact(list(client_id=client_id, api_key=api_key))
-  do_handle(url, args, callopts)
+  args <- do_compact(list(client_id=au$id, api_key=au$key))
+  do_handle(what, url, args, callopts)
 }
 
 #' Power cycle a droplet.
@@ -98,10 +102,12 @@ do_droplets_reboot <- function(id=NULL, what="list", callopts=list())
 
 do_droplets_power_cycle <- function(id=NULL, what="list", callopts=list())
 {
+  au <- do_get_auth()
+  
   assert_that(!is.null(id))
   url <- sprintf('https://api.digitalocean.com/v1/droplets/%s/power_cycle', id)
-  args <- do_compact(list(client_id=client_id, api_key=api_key))
-  do_handle(url, args, callopts)
+  args <- do_compact(list(client_id=au$id, api_key=au$key))
+  do_handle(what, url, args, callopts)
 }
 
 #' Shutdown a droplet.
@@ -119,10 +125,12 @@ do_droplets_power_cycle <- function(id=NULL, what="list", callopts=list())
 
 do_droplets_shutdown <- function(id=NULL, what="list", callopts=list())
 {
+  au <- do_get_auth()
+  
   assert_that(!is.null(id))
   url <- sprintf('https://api.digitalocean.com/v1/droplets/%s/shutdown', id)
-  args <- do_compact(list(client_id=client_id, api_key=api_key))
-  do_handle(url, args, callopts)
+  args <- do_compact(list(client_id=au$id, api_key=au$key))
+  do_handle(what, url, args, callopts)
 }
 
 #' Power off a droplet.
@@ -140,10 +148,12 @@ do_droplets_shutdown <- function(id=NULL, what="list", callopts=list())
 
 do_droplets_power_off <- function(id=NULL, what="list", callopts=list())
 {
+  au <- do_get_auth()
+  
   assert_that(!is.null(id))
   url <- sprintf('https://api.digitalocean.com/v1/droplets/%s/power_off', id)
-  args <- do_compact(list(client_id=client_id, api_key=api_key))
-  do_handle(url, args, callopts)
+  args <- do_compact(list(client_id=au$id, api_key=au$key))
+  do_handle(what, url, args, callopts)
 }
 
 #' Power on a droplet.
@@ -161,10 +171,12 @@ do_droplets_power_off <- function(id=NULL, what="list", callopts=list())
 
 do_droplets_power_on <- function(id=NULL, what="list", callopts=list())
 {
+  au <- do_get_auth()
+  
   assert_that(!is.null(id))
   url <- sprintf('https://api.digitalocean.com/v1/droplets/%s/power_on', id)
-  args <- do_compact(list(client_id=client_id, api_key=api_key))
-  do_handle(url, args, callopts)
+  args <- do_compact(list(client_id=au$id, api_key=au$key))
+  do_handle(what, url, args, callopts)
 }
 
 
@@ -184,10 +196,12 @@ do_droplets_power_on <- function(id=NULL, what="list", callopts=list())
 
 do_droplets_password_reset <- function(id=NULL, what="list", callopts=list())
 {
+  au <- do_get_auth()
+  
   assert_that(!is.null(id))
   url <- sprintf('https://api.digitalocean.com/v1/droplets/%s/password_reset', id)
-  args <- do_compact(list(client_id=client_id, api_key=api_key))
-  do_handle(url, args, callopts)
+  args <- do_compact(list(client_id=au$id, api_key=au$key))
+  do_handle(what, url, args, callopts)
 }
 
 #' Resize a droplet.
@@ -208,11 +222,13 @@ do_droplets_password_reset <- function(id=NULL, what="list", callopts=list())
 
 do_droplets_resize <- function(id=NULL, size_id=NULL, size_slug=NULL, what="list", callopts=list())
 {
+  au <- do_get_auth()
+  
   assert_that(!is.null(id))
   assert_that(xor(is.null(size_id), is.null(size_slug)))
   url <- sprintf('https://api.digitalocean.com/v1/droplets/%s/resize', id)
-  args <- do_compact(list(size_id=size_id, size_slug=size_slug, client_id=client_id, api_key=api_key))
-  do_handle(url, args, callopts)
+  args <- do_compact(list(size_id=size_id, size_slug=size_slug, client_id=au$id, api_key=au$key))
+  do_handle(what, url, args, callopts)
 }
 
 #' Take a snapshot of a droplet.
@@ -233,10 +249,12 @@ do_droplets_resize <- function(id=NULL, size_id=NULL, size_slug=NULL, what="list
 
 do_droplets_snapshot <- function(id=NULL, name=NULL, what="list", callopts=list())
 {
+  au <- do_get_auth()
+  
   assert_that(!is.null(id))
   url <- sprintf('https://api.digitalocean.com/v1/droplets/%s/snapshot', id)
-  args <- do_compact(list(name=name, client_id=client_id, api_key=api_key))
-  do_handle(url, args, callopts)
+  args <- do_compact(list(name=name, client_id=au$id, api_key=au$key))
+  do_handle(what, url, args, callopts)
 }
 
 
@@ -258,11 +276,13 @@ do_droplets_snapshot <- function(id=NULL, name=NULL, what="list", callopts=list(
 
 do_droplets_restore <- function(id=NULL, image_id=NULL, what="list", callopts=list())
 {
+  au <- do_get_auth()
+  
   assert_that(!is.null(id))
   assert_that(!is.null(image_id))
   url <- sprintf('https://api.digitalocean.com/v1/droplets/%s/restore', id)
-  args <- do_compact(list(image_id=image_id, client_id=client_id, api_key=api_key))
-  do_handle(url, args, callopts)
+  args <- do_compact(list(image_id=image_id, client_id=au$id, api_key=au$key))
+  do_handle(what, url, args, callopts)
 }
 
 
@@ -283,11 +303,13 @@ do_droplets_restore <- function(id=NULL, image_id=NULL, what="list", callopts=li
 
 do_droplets_rebuild <- function(id=NULL, image_id=NULL, what="list", callopts=list())
 {
+  au <- do_get_auth()
+  
   assert_that(!is.null(id))
   assert_that(!is.null(image_id))
   url <- sprintf('https://api.digitalocean.com/v1/droplets/%s/rebuild', id)
-  args <- do_compact(list(image_id=image_id, client_id=client_id, api_key=api_key))
-  do_handle(url, args, callopts)
+  args <- do_compact(list(image_id=image_id, client_id=au$id, api_key=au$key))
+  do_handle(what, url, args, callopts)
 }
 
 
@@ -308,10 +330,11 @@ do_droplets_rebuild <- function(id=NULL, image_id=NULL, what="list", callopts=li
 do_droplets_destroy <- function(id=NULL, scrub_data=FALSE, what="list", callopts=list())
 {
   au <- do_get_auth()
+  
   assert_that(!is.null(id))
   url <- sprintf('https://api.digitalocean.com/v1/droplets/%s/destroy', id)
   args <- do_compact(list(scrub_data=scrub_data, client_id=au$id, api_key=au$key))
-  do_handle(url, args, callopts)
+  do_handle(what, url, args, callopts)
 }
 
 
@@ -331,9 +354,11 @@ do_droplets_destroy <- function(id=NULL, scrub_data=FALSE, what="list", callopts
 
 do_droplets_rename <- function(id=NULL, name=NULL, what="list", callopts=list())
 {
+  au <- do_get_auth()
+  
   assert_that(!is.null(id))
   assert_that(!is.null(name))
   url <- sprintf('https://api.digitalocean.com/v1/droplets/%s/rename', id)
-  args <- do_compact(list(name=name, client_id=client_id, api_key=api_key))
-  do_handle(url, args, callopts)
+  args <- do_compact(list(name=name, client_id=au$id, api_key=au$key))
+  do_handle(what, url, args, callopts)
 }
