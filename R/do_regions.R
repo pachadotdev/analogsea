@@ -11,6 +11,6 @@
 do_regions <- function(what="list", callopts=list())
 {
   url <- 'https://api.digitalocean.com/v1/regions'
-  args <- compact(list(client_id=client_id, api_key=api_key))
+  args <- do_compact(list(client_id=client_id, api_key=api_key))
   do_handle(url, args, callopts)
 }

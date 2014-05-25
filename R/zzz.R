@@ -1,7 +1,8 @@
 #' Get request and output result or errors
 #' 
-#' @import httr jsonlite assertthat
+#' @import httr jsonlite assertthat XML
 #' @export
+#' @param what What to return, list or raw
 #' @param url URL for the call
 #' @param args Arguments to GET
 #' @param curl Callopts

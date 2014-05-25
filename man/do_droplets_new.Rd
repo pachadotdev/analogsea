@@ -9,8 +9,6 @@ do_droplets_new(name = NULL, size_id = NULL, size_slug = NULL,
   backups_enable = FALSE, what = "list", callopts = list())
 }
 \arguments{
-\item{id}{(numeric) A droplet id (optional)}
-
 \item{name}{(character) Name of the droplet}
 
 \item{size_id}{(logical) Size id. Use one of size_id or size_slug, not both}

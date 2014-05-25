@@ -27,7 +27,6 @@ do_droplets_get <- function(id=NULL, what="list", callopts=list())
 #' Create a new droplet.
 #'
 #' @export
-#' @param id (numeric) A droplet id (optional)
 #' @param name (character) Name of the droplet
 #' @param size_id (logical) Size id. Use one of size_id or size_slug, not both
 #' @param size_slug (character) Size slug

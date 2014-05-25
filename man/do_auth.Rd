@@ -9,9 +9,7 @@ do_auth(force = FALSE)
 \method{print}{doauth}(x, ...)
 }
 \arguments{
-\item{client_id}{Your Digital Ocean client id.}
-
-\item{api_key}{Your Digital Ocean api key.}
+\item{force}{(logical) Force update}
 
 \item{x}{Object of class doauth}
 
@@ -27,11 +25,13 @@ Create an object and pass on to each function call.
 Print method for doauth object
 }
 \examples{
+\dontrun{
 client_id = '<client id>'
 api_key = '<api key>'
 do_auth(client_id=client_id, api_key=api_key)
 
 # from .Rprofile
 do_auth()
+}
 }
 

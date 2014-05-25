@@ -3,17 +3,17 @@
 #' Create an object and pass on to each function call.
 #' 
 #' @export
-#' @param client_id Your Digital Ocean client id.
-#' @param api_key Your Digital Ocean api key.
+#' @param force (logical) Force update
 #' @return A simple S3 class ("doauth") as a list that has a print method to nicely print out your 
 #' auth details.
-#' @examples
+#' @examples \dontrun{
 #' client_id = '<client id>'
 #' api_key = '<api key>'
 #' do_auth(client_id=client_id, api_key=api_key)
 #' 
 #' # from .Rprofile
 #' do_auth()
+#' }
 
 do_auth <- function(force = FALSE) {
   env <- Sys.getenv('DO_CLIENT_ID')
