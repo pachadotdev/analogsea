@@ -1,5 +1,7 @@
 #' Install stuff on a Digital Ocean droplet
 #' 
+#' @export
+#' @param id A Digital Ocean droplet ID
 #' @param what One or more of 'nothing', 'r', 'rstudio_server', 'shiny_server'
 #' @param usr Username to use to login - ignored if rstudio_server not installed
 #' @param pwd Password to use to login - ignored if rstudio_server not installed
@@ -17,46 +19,76 @@
 #' 
 #' @examples \dontrun{
 #' # Image id 3101045 is an Unbuntu 12.04 x64
-#' (res <- do_droplets_new(name="dropthebeat", size_slug = '512mb', image_slug = 'ubuntu-12-04-x64', 
+#' (res <- do_droplets_new(name="candyland", size_slug = '512mb', image_slug = 'ubuntu-14-04-x64', 
 #'    region_slug = 'sfo1', ssh_key_ids = 89103))
-#' do_install(what=c('r'))
-#' do_install(what=c('r','rstudio'), usr='jim', pwd='bob')
+#' do_install(id=res$droplet$id, what='r')
+#' do_install(res$droplet$id, what='rstudio', usr='jim', pwd='bob')
+#' do_install(res$droplet$id, what='shiny')
 #' }
 
 do_install <- function(id=NULL, what='r', usr=NULL, pwd=NULL, browse=TRUE, verbose=TRUE,
   rstudio_server_ver='0.98.507', shiny_ver='1.1.0.10000')
 {    
   out <- do_droplets_get(id)
-  
-  
+#   do_images() %in% out$droplet$image_id
+#   assert_that()
   ip <- out$droplet$ip_address
+
+  # remove known_hosts key
+  mssg(verbose, "Removing known host if already present")
+  system(sprintf('ssh-keygen -R %s', ip))
   
   what <- match.arg(what, c('nothing','r','rstudio_server','shiny_server'))
-  if('rstudio_server' %in% what | 'shiny_server' %in% what)
-    what <- c(what, 'r')
+#   if('rstudio_server' %in% what | 'shiny_server' %in% what)
+#     what <- c(what, 'r')
   
-  if('r' %in% what){
-    mssg(verbose, "Installing R...")
-    installr(verbose, ip)
-  }
-  
-  if('rstudio_server' %in% what){
-    mssg(verbose, "Installing RStudio Server...")
-    installrstudio(verbose, ip)
+  if('nothing' %in% what){
+    message("Nothing installed...stoppings")
+  } else {
+    if('r' %in% what){
+      writefile("doinstallr.sh", r_string)
+      mssg(verbose, "Installing R...")
+      installr(verbose, ip)
+    }
     
-    rstudiolink <- sprintf("http://%s:8787/", ip)
-    if(browse) browseURL(rstudiolink) else rstudiolink
-  }
-  
-  if('shiny_server' %in% what){
-    mssg(verbose, "Installing RStudio Shiny Server...")
-    installshinyserver(verbose, ip)
+    if('rstudio_server' %in% what){
+      chr <- tryCatch(system(sprintf('ssh root@%s "which R"', ip), intern=TRUE), warning=function(e) e)
+      if("warning" %in% class(chr)){
+        writefile("doinstallr.sh", r_string)
+        mssg(verbose, "Installing R...")
+        installr(verbose, ip)
+      }
+      
+      rstudio_string2 <- sprintf(rstudio_string, rstudio_server_ver, rstudio_server_ver, usr, usr, pwd)
+      writefile("doinstall_rstudio.sh", rstudio_string2)
+      
+      mssg(verbose, "Installing RStudio Server...")
+      installrstudio(verbose, ip)
+      
+      rstudiolink <- sprintf("http://%s:8787/", ip)
+      if(browse) browseURL(rstudiolink) else rstudiolink
+    }
     
-    shinyserverlink <- sprintf("http://%s:3838/", ip)
-    if(browse) browseURL(shinyserverlink) else shinyserverlink
+    if('shiny_server' %in% what){
+      chr <- tryCatch(system(sprintf('ssh root@%s "which R"', ip), intern=TRUE), warning=function(e) e)
+      if("warning" %in% class(chr)){
+        writefile("doinstallr.sh", r_string)
+        mssg(verbose, "Installing R...")
+        installr(verbose, ip)
+      }
+      
+      shiny_string2 <- sprintf(shiny_string, shiny_ver, shiny_ver)
+      writefile("doinstall_shiny.sh", shiny_string2)
+      
+      mssg(verbose, "Installing RStudio Shiny Server...")
+      installshinyserver(verbose, ip)
+      
+      shinyserverlink <- sprintf("http://%s:3838/", ip)
+      if(browse) browseURL(shinyserverlink) else shinyserverlink
+    }
   }
-  
-  mssg(verbose, sprintf("Log in (then enter password from email): \n  ssh root@%s", ip))
+
+  mssg(verbose, sprintf("Log in (ussing ssh key or enter password from email): \n  ssh root@%s", ip))
   sprintf("ssh root@%s", ip)
 }
 
@@ -89,29 +121,31 @@ installshinyserver <- function(verbose, ip){
 
 mssg <- function(x, y) if(x) message(y)
 
-# installr <- '
-# sudo echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list
-# sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
-# sudo apt-get update --yes --force-yes
-# sudo apt-get install r-base-dev --yes --force-yes
-# '
-# 
-# installrstudio_ <- '
-# sudo apt-get install gdebi-core --yes --force-yes
-# sudo apt-get install libapparmor1 --yes --force-yes
-# wget http://download2.rstudio.org/rstudio-server-%s-amd64.deb
-# sudo gdebi rstudio-server-%s-amd64.deb --non-interactive
-# adduser %s --disabled-password --gecos ""
-# echo "%s:%s"|chpasswd
-# '
-# installrstudio <- sprintf(installrstudio_, rstudio_server_ver, rstudio_server_ver, usr, usr, pwd)
-# 
-# installshiny_ <- '
-# sudo su - \
-#     -c "R -e \"install.packages("shiny", repos="http://cran.rstudio.com/")\""
-# sudo apt-get install gdebi-core --yes --force-yes
-# wget http://download3.rstudio.org/ubuntu-12.04/x86_64/shiny-server-%s-amd64.deb
-# sudo gdebi shiny-server-%s-amd64.deb --non-interactive
-# '
-# 
-# installshiny <- sprintf(installshiny_, shiny_ver, shiny_ver)
+r_string <- 
+'sudo echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+sudo apt-get update --yes --force-yes
+sudo apt-get install r-base-core r-base-dev --yes --force-yes'
+
+rstudio_string <- 
+'sudo apt-get install gdebi-core --yes --force-yes
+sudo apt-get install libapparmor1 --yes --force-yes
+wget http://download2.rstudio.org/rstudio-server-%s-amd64.deb
+sudo gdebi rstudio-server-%s-amd64.deb --non-interactive
+adduser %s --disabled-password --gecos ""
+echo "%s:%s"|chpasswd'
+
+shiny_string <- 
+# 'sudo su - \
+#     -c "R -e \"install.packages('shiny', repos='http://cran.rstudio.com/')\""
+'apt-get install r-cran-shiny
+sudo apt-get install gdebi-core --yes --force-yes
+wget http://download3.rstudio.org/ubuntu-12.04/x86_64/shiny-server-%s-amd64.deb
+sudo gdebi shiny-server-%s-amd64.deb --non-interactive'
+
+writefile <- function(filename, installstring){  
+  installrfile = filename
+  fileConn <- file(installrfile)
+  writeLines(installstring, fileConn)
+  close(fileConn)
+}

@@ -8,6 +8,8 @@ do_install(id = NULL, what = "r", usr = NULL, pwd = NULL,
   shiny_ver = "1.1.0.10000")
 }
 \arguments{
+\item{id}{A Digital Ocean droplet ID}
+
 \item{what}{One or more of 'nothing', 'r', 'rstudio_server', 'shiny_server'}
 
 \item{usr}{Username to use to login - ignored if rstudio_server not installed}
@@ -33,10 +35,11 @@ could be made options later.
 \examples{
 \dontrun{
 # Image id 3101045 is an Unbuntu 12.04 x64
-(res <- do_droplets_new(name="dropthebeat", size_slug = '512mb', image_slug = 'ubuntu-12-04-x64',
+(res <- do_droplets_new(name="candyland", size_slug = '512mb', image_slug = 'ubuntu-14-04-x64',
    region_slug = 'sfo1', ssh_key_ids = 89103))
-do_install(what=c('r'))
-do_install(what=c('r','rstudio'), usr='jim', pwd='bob')
+do_install(id=res$droplet$id, what='r')
+do_install(res$droplet$id, what='rstudio', usr='jim', pwd='bob')
+do_install(res$droplet$id, what='shiny')
 }
 }
 
