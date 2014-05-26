@@ -19,6 +19,7 @@ Get list of images and their metadata
 \dontrun{
 do_images()
 do_images(filter='my_images')
+do.call(rbind, do_images()$images)
 }
 }
 

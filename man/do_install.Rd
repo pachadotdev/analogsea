@@ -33,7 +33,7 @@ could be made options later.
 \examples{
 \dontrun{
 # Image id 3101045 is an Unbuntu 12.04 x64
-(res <- do_droplets_new(name="dropthebeat", size_id = 64, image_id = 3101045,
+(res <- do_droplets_new(name="dropthebeat", size_slug = '512mb', image_slug = 'ubuntu-12-04-x64',
    region_slug = 'sfo1', ssh_key_ids = 89103))
 do_install(what=c('r'))
 do_install(what=c('r','rstudio'), usr='jim', pwd='bob')

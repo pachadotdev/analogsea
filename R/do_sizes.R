@@ -6,6 +6,7 @@
 #' @examples \dontrun{
 #' do_auth()
 #' do_sizes()
+#' do.call(rbind, do_sizes()$sizes)
 #' }
 
 do_sizes <- function(what="list", callopts=list())

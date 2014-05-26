@@ -17,6 +17,7 @@ Get all the available sizes that can be used to create a droplet.
 \dontrun{
 do_auth()
 do_sizes()
+do.call(rbind, do_sizes()$sizes)
 }
 }
 
