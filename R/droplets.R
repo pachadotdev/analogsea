@@ -60,7 +60,9 @@ do_droplets_new <- function(name=NULL, size_id=NULL, size_slug=NULL, image_id=NU
                        image_slug=image_slug, region_id=region_id, region_slug=region_slug,
                        ssh_key_ids=ssh_key_ids, private_networking=private_networking,
                        backups_enable=backups_enable,client_id=au$id, api_key=au$key))
-  do_handle(what, url, args, callopts)
+  out <- do_handle(what, url, args, callopts)
+  class(out) <- "dodroplet"
+  return( out )
 }
 
 #' Reboot a droplet.
