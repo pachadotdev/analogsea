@@ -4,11 +4,10 @@
 \title{Install stuff on a Digital Ocean droplet}
 \usage{
 do_install(id = NULL, what = "r", usr = NULL, pwd = NULL,
-  browse = TRUE, verbose = TRUE)
+  browse = TRUE, verbose = TRUE, rstudio_server_ver = "0.98.507",
+  shiny_ver = "1.1.0.10000")
 }
 \arguments{
-\item{id}{Droplet id}
-
 \item{what}{One or more of 'nothing', 'r', 'rstudio_server', 'shiny_server'}
 
 \item{usr}{Username to use to login - ignored if rstudio_server not installed}
@@ -20,15 +19,24 @@ do_install(id = NULL, what = "r", usr = NULL, pwd = NULL,
 \item{verbose}{Print messages (default TRUE)}
 }
 \description{
-Install one or more of R, RStudio Server, Rstudio Shiny Server
+Install stuff on a Digital Ocean droplet
+}
+\details{
+Creates a new Digital Ocean Droplet, then installs one or more of R, RStudio Server, Rstudio
+Shiny Server. This is all Ubuntu based for now. If you install RStudio Server or Shiny Server,
+then R is installed too.
+
+Note that right now droplet creation is done internally to force the details of the new droplet
+to be Ubuntu 12.04, so that the appropriate R stuff is easily installed, but machine details
+could be made options later.
 }
 \examples{
 \dontrun{
-(res <- do_droplets_new(name="dropwithrstudio", size_id = 64, image_id = 3240036,
+# Image id 3101045 is an Unbuntu 12.04 x64
+(res <- do_droplets_new(name="dropthebeat", size_id = 64, image_id = 3101045,
    region_slug = 'sfo1', ssh_key_ids = 89103))
-
-do_install(res$droplet$id, what=c('r'))
-do_install(res$droplet$id, what=c('r','rstudio'), usr='jim', pwd='bob')
+do_install(what=c('r'))
+do_install(what=c('r','rstudio'), usr='jim', pwd='bob')
 }
 }
 

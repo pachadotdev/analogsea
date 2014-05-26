@@ -16,7 +16,8 @@
 #' could be made options later.
 #' 
 #' @examples \dontrun{
-#' (res <- do_droplets_new(name="dropthebeat", size_id = 64, image_id = 3240036, 
+#' # Image id 3101045 is an Unbuntu 12.04 x64
+#' (res <- do_droplets_new(name="dropthebeat", size_id = 64, image_id = 3101045, 
 #'    region_slug = 'sfo1', ssh_key_ids = 89103))
 #' do_install(what=c('r'))
 #' do_install(what=c('r','rstudio'), usr='jim', pwd='bob')
@@ -88,29 +89,29 @@ installshinyserver <- function(verbose, ip){
 
 mssg <- function(x, y) if(x) message(y)
 
-installr <- '
-sudo echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
-sudo apt-get update --yes --force-yes
-sudo apt-get install r-base-dev --yes --force-yes
-'
-
-installrstudio_ <- '
-sudo apt-get install gdebi-core --yes --force-yes
-sudo apt-get install libapparmor1 --yes --force-yes
-wget http://download2.rstudio.org/rstudio-server-%s-amd64.deb
-sudo gdebi rstudio-server-%s-amd64.deb --non-interactive
-adduser %s --disabled-password --gecos ""
-echo "%s:%s"|chpasswd
-'
-installrstudio <- sprintf(installrstudio_, rstudio_server_ver, rstudio_server_ver, usr, usr, pwd)
-
-installshiny_ <- '
-sudo su - \
-    -c "R -e \"install.packages("shiny", repos="http://cran.rstudio.com/")\""
-sudo apt-get install gdebi-core --yes --force-yes
-wget http://download3.rstudio.org/ubuntu-12.04/x86_64/shiny-server-%s-amd64.deb
-sudo gdebi shiny-server-%s-amd64.deb --non-interactive
-'
-
-installshiny <- sprintf(installshiny_, shiny_ver, shiny_ver)
+# installr <- '
+# sudo echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list
+# sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+# sudo apt-get update --yes --force-yes
+# sudo apt-get install r-base-dev --yes --force-yes
+# '
+# 
+# installrstudio_ <- '
+# sudo apt-get install gdebi-core --yes --force-yes
+# sudo apt-get install libapparmor1 --yes --force-yes
+# wget http://download2.rstudio.org/rstudio-server-%s-amd64.deb
+# sudo gdebi rstudio-server-%s-amd64.deb --non-interactive
+# adduser %s --disabled-password --gecos ""
+# echo "%s:%s"|chpasswd
+# '
+# installrstudio <- sprintf(installrstudio_, rstudio_server_ver, rstudio_server_ver, usr, usr, pwd)
+# 
+# installshiny_ <- '
+# sudo su - \
+#     -c "R -e \"install.packages("shiny", repos="http://cran.rstudio.com/")\""
+# sudo apt-get install gdebi-core --yes --force-yes
+# wget http://download3.rstudio.org/ubuntu-12.04/x86_64/shiny-server-%s-amd64.deb
+# sudo gdebi shiny-server-%s-amd64.deb --non-interactive
+# '
+# 
+# installshiny <- sprintf(installshiny_, shiny_ver, shiny_ver)
