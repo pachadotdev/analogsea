@@ -13,20 +13,20 @@
 #' Shiny Server. This is all Ubuntu based for now. If you install RStudio Server or Shiny Server, 
 #' then R is installed too.
 #' 
-#' Note that right now droplet creation is done internally to force the details of the new droplet 
-#' to be Ubuntu 12.04, so that the appropriate R stuff is easily installed, but machine details 
-#' could be made options later.
+#' Note that Shiny installs but isn't working right. RStudio Server installs and works great.
 #' 
 #' @examples \dontrun{
-#' # Image id 3101045 is an Unbuntu 12.04 x64
-#' (res <- do_droplets_new(name="candyland", size_slug = '512mb', image_slug = 'ubuntu-14-04-x64', 
+#' # Image slug 'ubuntu-14-04-x64' is an Unbuntu 14.04 x64 box with 512 mb given by size_slug param
+#' (res <- do_droplets_new(name="foo", size_slug = '512mb', image_slug = 'ubuntu-14-04-x64',
 #'    region_slug = 'sfo1', ssh_key_ids = 89103))
 #' do_install(id=res$droplet$id, what='r')
 #' do_install(res$droplet$id, what='rstudio', usr='jim', pwd='bob')
 #' do_install(res$droplet$id, what='shiny')
+#' do_install(res$droplet$id, what='r', deps=c('xml','curl'))
+#' do_install(res$droplet$id, what='r', deps=c('xml','curl','gdal','rcpp'))
 #' }
 
-do_install <- function(id=NULL, what='r', usr=NULL, pwd=NULL, browse=TRUE, verbose=TRUE,
+do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=TRUE, verbose=TRUE,
   rstudio_server_ver='0.98.507', shiny_ver='1.1.0.10000')
 {    
   out <- do_droplets_get(id)
@@ -49,6 +49,26 @@ do_install <- function(id=NULL, what='r', usr=NULL, pwd=NULL, browse=TRUE, verbo
       writefile("doinstallr.sh", r_string)
       mssg(verbose, "Installing R...")
       installr(verbose, ip)
+    }
+    
+    if(!is.null(deps)){
+      chr <- tryCatch(system(sprintf('ssh root@%s "which R"', ip), intern=TRUE), warning=function(e) e)
+      if("warning" %in% class(chr)){
+        writefile("doinstallr.sh", r_string)
+        mssg(verbose, "Installing R...")
+        installr(verbose, ip)
+      }
+      
+      deps <- match.arg(deps, c("xml","curl","gdal","rcpp"), TRUE)
+      depstomatch <- c("r-cran-xml","libcurl4-openssl-dev","gdal-bin libgdal-dev libproj-dev","r-cran-rcpp")
+      depinstall <- vapply(deps, function(x) grep(x, depstomatch, value = TRUE), "", USE.NAMES = FALSE)
+      depinstall <- paste(depinstall, collapse = " ")
+      
+      deps_string2 <- sprintf(dep_string, depinstall)
+      writefile("doinstall_deps.sh", deps_string2)
+      
+      mssg(verbose, "Installing dependencies...")
+      installdeps(verbose, ip)
     }
     
     if('rstudio_server' %in% what){
@@ -119,6 +139,14 @@ installshinyserver <- function(verbose, ip){
   system(cmd_shiny)
 }
 
+installdeps <- function(verbose, ip){
+  scp_deps_cmd <- sprintf('scp doinstall_deps.sh root@%s:~/', ip)
+  system(scp_deps_cmd)
+  
+  cmd_deps <- sprintf('ssh root@%s "sh doinstall_deps.sh"', ip)
+  system(cmd_deps)
+}
+
 mssg <- function(x, y) if(x) message(y)
 
 r_string <- 
@@ -136,12 +164,12 @@ adduser %s --disabled-password --gecos ""
 echo "%s:%s"|chpasswd'
 
 shiny_string <- 
-# 'sudo su - \
-#     -c "R -e \"install.packages('shiny', repos='http://cran.rstudio.com/')\""
 'apt-get install r-cran-shiny
 sudo apt-get install gdebi-core --yes --force-yes
 wget http://download3.rstudio.org/ubuntu-12.04/x86_64/shiny-server-%s-amd64.deb
 sudo gdebi shiny-server-%s-amd64.deb --non-interactive'
+
+dep_string <- 'sudo apt-get install %s --yes --force-yes'
 
 writefile <- function(filename, installstring){  
   installrfile = filename

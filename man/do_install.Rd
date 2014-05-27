@@ -3,7 +3,7 @@
 \alias{do_install}
 \title{Install stuff on a Digital Ocean droplet}
 \usage{
-do_install(id = NULL, what = "r", usr = NULL, pwd = NULL,
+do_install(id = NULL, what = "r", deps = NULL, usr = NULL, pwd = NULL,
   browse = TRUE, verbose = TRUE, rstudio_server_ver = "0.98.507",
   shiny_ver = "1.1.0.10000")
 }
@@ -28,18 +28,18 @@ Creates a new Digital Ocean Droplet, then installs one or more of R, RStudio Ser
 Shiny Server. This is all Ubuntu based for now. If you install RStudio Server or Shiny Server,
 then R is installed too.
 
-Note that right now droplet creation is done internally to force the details of the new droplet
-to be Ubuntu 12.04, so that the appropriate R stuff is easily installed, but machine details
-could be made options later.
+Note that Shiny installs but isn't working right. RStudio Server installs and works great.
 }
 \examples{
 \dontrun{
-# Image id 3101045 is an Unbuntu 12.04 x64
-(res <- do_droplets_new(name="candyland", size_slug = '512mb', image_slug = 'ubuntu-14-04-x64',
+# Image slug 'ubuntu-14-04-x64' is an Unbuntu 14.04 x64 box with 512 mb given by size_slug param
+(res <- do_droplets_new(name="foo", size_slug = '512mb', image_slug = 'ubuntu-14-04-x64',
    region_slug = 'sfo1', ssh_key_ids = 89103))
 do_install(id=res$droplet$id, what='r')
 do_install(res$droplet$id, what='rstudio', usr='jim', pwd='bob')
 do_install(res$droplet$id, what='shiny')
+do_install(res$droplet$id, what='r', deps=c('xml','curl'))
+do_install(res$droplet$id, what='r', deps=c('xml','curl','gdal','rcpp'))
 }
 }
 
