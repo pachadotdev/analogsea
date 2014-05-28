@@ -6,7 +6,7 @@
 do_handle(what, url, args, curl)
 }
 \arguments{
-\item{what}{What to return, list or raw}
+\item{what}{What to return, parsed or raw}
 
 \item{url}{URL for the call}
 

@@ -3,10 +3,10 @@
 \alias{do_regions}
 \title{Get list of regions and their metadata}
 \usage{
-do_regions(what = "list", callopts = list())
+do_regions(what = "parsed", callopts = list())
 }
 \arguments{
-\item{what}{One of lit or raw}
+\item{what}{(character) One of parsed (data.frame) or raw (httr response object)}
 
 \item{callopts}{Curl options passed on to httr::GET}
 }
@@ -17,6 +17,7 @@ Get list of regions and their metadata
 \dontrun{
 do_auth()
 do_regions()
+do_regions('raw')
 }
 }
 
