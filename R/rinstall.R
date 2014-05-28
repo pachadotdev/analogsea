@@ -29,9 +29,12 @@
 do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=TRUE, verbose=TRUE,
   rstudio_server_ver='0.98.507', shiny_ver='1.1.0.10000')
 {    
-  out <- do_droplets_get(id)
-#   do_images() %in% out$droplet$image_id
-#   assert_that()
+  stat <- "new"
+  while(stat == "new"){
+    Sys.sleep(1)
+    out <- do_droplets_get(id)
+    stat <- out$droplet$status
+  }
   ip <- out$droplet$ip_address
 
   # remove known_hosts key
@@ -39,8 +42,6 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=
   system(sprintf('ssh-keygen -R %s', ip))
   
   what <- match.arg(what, c('nothing','r','rstudio_server','shiny_server'))
-#   if('rstudio_server' %in% what | 'shiny_server' %in% what)
-#     what <- c(what, 'r')
   
   if('nothing' %in% what){
     message("Nothing installed...stoppings")
