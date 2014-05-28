@@ -42,7 +42,7 @@ $droplets[[1]]$id
 [1] 1713037
 
 $droplets[[1]]$name
-[1] "stuffthingsbutt"
+[1] "stuffthings"
 
 $droplets[[1]]$image_id
 [1] 3240036
