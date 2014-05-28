@@ -3,10 +3,15 @@
 #' @export
 #' @param id A Digital Ocean droplet ID
 #' @param what One or more of 'nothing', 'r', 'rstudio_server', 'shiny_server'
+#' @param deps (character) One or more dependencies to install. Currently supported are: libcurl,
+#' libxml, gdal, and rcpp. We'll add more as time goes on. This is intended to install things that 
+#' you often have to drop down into the terminal and ssh into the machine to install.
 #' @param usr Username to use to login - ignored if rstudio_server not installed
 #' @param pwd Password to use to login - ignored if rstudio_server not installed
 #' @param browse Only applies if what includes rstudio_server and/or shiny_server
 #' @param verbose Print messages (default TRUE)
+#' @param rstudio_server_ver RStudio server version number.
+#' @param shiny_ver RStudio Shiny version number.
 #' 
 #' @details
 #' Creates a new Digital Ocean Droplet, then installs one or more of R, RStudio Server, Rstudio 

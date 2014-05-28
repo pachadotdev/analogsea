@@ -12,6 +12,10 @@ do_install(id = NULL, what = "r", deps = NULL, usr = NULL, pwd = NULL,
 
 \item{what}{One or more of 'nothing', 'r', 'rstudio_server', 'shiny_server'}
 
+\item{deps}{(character) One or more dependencies to install. Currently supported are: libcurl,
+libxml, gdal, and rcpp. We'll add more as time goes on. This is intended to install things that
+you often have to drop down into the terminal and ssh into the machine to install.}
+
 \item{usr}{Username to use to login - ignored if rstudio_server not installed}
 
 \item{pwd}{Password to use to login - ignored if rstudio_server not installed}
@@ -19,6 +23,10 @@ do_install(id = NULL, what = "r", deps = NULL, usr = NULL, pwd = NULL,
 \item{browse}{Only applies if what includes rstudio_server and/or shiny_server}
 
 \item{verbose}{Print messages (default TRUE)}
+
+\item{rstudio_server_ver}{RStudio server version number.}
+
+\item{shiny_ver}{RStudio Shiny version number.}
 }
 \description{
 Install stuff on a Digital Ocean droplet
