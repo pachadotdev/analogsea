@@ -13,12 +13,13 @@ do_droplets_power_cycle(id = NULL, what = "parsed", callopts = list())
 \item{callopts}{Curl options passed on to httr::GET}
 }
 \description{
-This method allows you to power cycle a droplet. This will turn off the droplet and then turn it back on
+This method allows you to power cycle a droplet. This will turn off the droplet and then turn it
+back on
 }
 \examples{
 \dontrun{
 do_auth()
-do_droplets_power_cycle(id=1707487)
+do_droplets_power_cycle(id=1739894)
 }
 }
 

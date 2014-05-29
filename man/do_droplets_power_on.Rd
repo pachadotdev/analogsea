@@ -18,7 +18,7 @@ This method allows you to poweron a powered off droplet.
 \examples{
 \dontrun{
 do_auth()
-do_droplets_power_on(id=1707487)
+do_droplets_power_on(id=1739894)
 }
 }
 

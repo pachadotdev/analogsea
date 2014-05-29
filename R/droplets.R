@@ -76,7 +76,7 @@ do_droplets_new <- function(name=NULL, size_id=NULL, size_slug=NULL, image_id=NU
 #' @param callopts Curl options passed on to httr::GET
 #' @examples \dontrun{
 #' do_auth()
-#' do_droplets_reboot(id=1707487)
+#' do_droplets_reboot(id=1739894)
 #' }
 
 do_droplets_reboot <- function(id=NULL, what="parsed", callopts=list())
@@ -91,7 +91,8 @@ do_droplets_reboot <- function(id=NULL, what="parsed", callopts=list())
 
 #' Power cycle a droplet.
 #'
-#' This method allows you to power cycle a droplet. This will turn off the droplet and then turn it back on
+#' This method allows you to power cycle a droplet. This will turn off the droplet and then turn it 
+#' back on
 #'
 #' @export
 #' @param id (numeric) A droplet id (optional)
@@ -99,7 +100,7 @@ do_droplets_reboot <- function(id=NULL, what="parsed", callopts=list())
 #' @param callopts Curl options passed on to httr::GET
 #' @examples \dontrun{
 #' do_auth()
-#' do_droplets_power_cycle(id=1707487)
+#' do_droplets_power_cycle(id=1739894)
 #' }
 
 do_droplets_power_cycle <- function(id=NULL, what="parsed", callopts=list())
@@ -145,7 +146,7 @@ do_droplets_shutdown <- function(id=NULL, what="parsed", callopts=list())
 #' @param callopts Curl options passed on to httr::GET
 #' @examples \dontrun{
 #' do_auth()
-#' do_droplets_power_off(id=1707487)
+#' do_droplets_power_off(id=1739894)
 #' }
 
 do_droplets_power_off <- function(id=NULL, what="parsed", callopts=list())
@@ -168,7 +169,7 @@ do_droplets_power_off <- function(id=NULL, what="parsed", callopts=list())
 #' @param callopts Curl options passed on to httr::GET
 #' @examples \dontrun{
 #' do_auth()
-#' do_droplets_power_on(id=1707487)
+#' do_droplets_power_on(id=1739894)
 #' }
 
 do_droplets_power_on <- function(id=NULL, what="parsed", callopts=list())

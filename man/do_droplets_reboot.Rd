@@ -19,7 +19,7 @@ not responding
 \examples{
 \dontrun{
 do_auth()
-do_droplets_reboot(id=1707487)
+do_droplets_reboot(id=1739894)
 }
 }
 
