@@ -41,6 +41,9 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=
     stat <- out$droplet$status
   }
   ip <- out$droplet$ip_address
+  
+  # stops function if scp and ssh arent found
+  cli_tools()
 
   # remove known_hosts key
   mssg(verbose, "Removing known host if already present")

@@ -15,7 +15,7 @@
 
 droplets_get <- function(id=NULL, what="parsed", ...)
 {
-  au <- do_get_auth()
+#   au <- do_get_auth()
   path <- if(is.null(id)) 'droplets' else sprintf('droplets/%s', id)
   do_handle(what, path, ...)
 }

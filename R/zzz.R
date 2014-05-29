@@ -10,6 +10,7 @@
 
 do_handle <- function(what, path, query = NULL, ...) {
   url <- file.path("https://api.digitalocean.com/v1", path)
+  au <- do_get_auth()
   args <- c(list(client_id = au$id, api_key = au$key), query)
 
   tt <- GET(url, query = args, ...)
@@ -34,4 +35,11 @@ writefile <- function(filename, installstring){
   fileConn <- file(installrfile)
   writeLines(installstring, fileConn)
   close(fileConn)
+}
+
+cli_tools <- function(ip){
+  tmp <- Sys.which(c("ssh","scpasdf"))
+  nf <- names(tmp[vapply(tmp, nchar, 1) == 0])
+  if(length(nf) != 0)
+    stop(sprintf("%s not found on your computer\nTry ssh'ing into the machine\n    (ssh root@%s)\n& manually installing things. See ?do_scripts for help", nf, ip))
 }
