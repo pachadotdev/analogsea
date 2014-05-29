@@ -3,14 +3,14 @@
 \alias{do_droplets_get}
 \title{Get metadata on all your droplets, or droplets by id}
 \usage{
-do_droplets_get(id = NULL, what = "parsed", callopts = list())
+do_droplets_get(id = NULL, what = "parsed", ...)
 }
 \arguments{
 \item{id}{(numeric) A droplet id (optional)}
 
 \item{what}{(character) One of list or raw}
 
-\item{callopts}{Curl options passed on to httr::GET}
+\item{...}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 Get metadata on all your droplets, or droplets by id
@@ -19,6 +19,9 @@ Get metadata on all your droplets, or droplets by id
 \dontrun{
 do_auth()
 do_droplets_get()
+do_droplets_get(config=verbose())
+do_droplets_get(config=timeout(seconds = 0.3))
+do_droplets_get(config=timeout(seconds = 0.3))
 # raw output
 do_droplets_get(what="raw")
 }

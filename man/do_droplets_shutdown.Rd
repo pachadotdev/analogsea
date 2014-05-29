@@ -3,14 +3,14 @@
 \alias{do_droplets_shutdown}
 \title{Shutdown a droplet.}
 \usage{
-do_droplets_shutdown(id = NULL, what = "parsed", callopts = list())
+do_droplets_shutdown(id = NULL, what = "parsed", ...)
 }
 \arguments{
 \item{id}{(numeric) A droplet id (optional)}
 
 \item{what}{(character) One of list or raw}
 
-\item{callopts}{Curl options passed on to httr::GET}
+\item{...}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 This method allows you to shutdown a running droplet. The droplet will remain in your account

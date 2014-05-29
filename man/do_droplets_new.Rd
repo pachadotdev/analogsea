@@ -6,7 +6,7 @@
 do_droplets_new(name = NULL, size_id = NULL, size_slug = NULL,
   image_id = NULL, image_slug = NULL, region_id = NULL,
   region_slug = NULL, ssh_key_ids = NULL, private_networking = FALSE,
-  backups_enable = FALSE, what = "parsed", callopts = list())
+  backups_enable = FALSE, what = "parsed", ...)
 }
 \arguments{
 \item{name}{(character) Name of the droplet}
@@ -31,7 +31,7 @@ do_droplets_new(name = NULL, size_id = NULL, size_slug = NULL,
 
 \item{what}{(character) One of list or raw}
 
-\item{callopts}{Curl options passed on to httr::GET}
+\item{...}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 Create a new droplet.

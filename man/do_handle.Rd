@@ -3,16 +3,16 @@
 \alias{do_handle}
 \title{Get request and output result or errors}
 \usage{
-do_handle(what, url, args, curl)
+do_handle(what, path, query = NULL, ...)
 }
 \arguments{
 \item{what}{What to return, parsed or raw}
 
-\item{url}{URL for the call}
+\item{path}{Path to append to the end of the base Digital Ocean API URL}
 
-\item{args}{Arguments to GET}
+\item{query}{Arguments to GET}
 
-\item{curl}{Callopts}
+\item{...}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \value{
 Some combination of warnings and httr response object or list

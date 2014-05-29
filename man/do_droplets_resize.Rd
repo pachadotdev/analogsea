@@ -4,7 +4,7 @@
 \title{Resize a droplet.}
 \usage{
 do_droplets_resize(id = NULL, size_id = NULL, size_slug = NULL,
-  what = "parsed", callopts = list())
+  what = "parsed", ...)
 }
 \arguments{
 \item{id}{(numeric) A droplet id (optional)}
@@ -15,7 +15,7 @@ do_droplets_resize(id = NULL, size_id = NULL, size_slug = NULL,
 
 \item{what}{(character) One of list or raw}
 
-\item{callopts}{Curl options passed on to httr::GET}
+\item{...}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 This method allows you to resize a specific droplet to a different size. This will affect the
@@ -24,7 +24,7 @@ number of processors and memory allocated to the droplet.
 \examples{
 \dontrun{
 do_auth()
-do_droplets_resize(id=1707487)
+do_droplets_resize(id=1707487, size_id=66)
 }
 }
 

@@ -3,8 +3,7 @@
 \alias{do_droplets_snapshot}
 \title{Take a snapshot of a droplet.}
 \usage{
-do_droplets_snapshot(id = NULL, name = NULL, what = "parsed",
-  callopts = list())
+do_droplets_snapshot(id = NULL, name = NULL, what = "parsed", ...)
 }
 \arguments{
 \item{id}{(numeric) A droplet id (optional)}
@@ -13,7 +12,7 @@ do_droplets_snapshot(id = NULL, name = NULL, what = "parsed",
 
 \item{what}{(character) One of list or raw}
 
-\item{callopts}{Curl options passed on to httr::GET}
+\item{...}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 This method allows you to take a snapshot of the droplet once it has been powered off, which can

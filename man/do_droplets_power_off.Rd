@@ -3,14 +3,14 @@
 \alias{do_droplets_power_off}
 \title{Power off a droplet.}
 \usage{
-do_droplets_power_off(id = NULL, what = "parsed", callopts = list())
+do_droplets_power_off(id = NULL, what = "parsed", ...)
 }
 \arguments{
 \item{id}{(numeric) A droplet id (optional)}
 
 \item{what}{(character) One of list or raw}
 
-\item{callopts}{Curl options passed on to httr::GET}
+\item{...}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 This method allows you to poweroff a running droplet. The droplet will remain in your account.

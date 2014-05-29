@@ -18,7 +18,7 @@ do_keys_get <- function(ssh_key_id=NULL, what="parsed", callopts=list())
   } else {
     url <- sprintf('https://api.digitalocean.com/v1/ssh_keys/%s', ssh_key_id)
   }
-  args <- do_compact(list(client_id=au$id, api_key=au$key))
+  args <- ct(client_id=au$id, api_key=au$key)
   res <- do_handle(what, url, args, callopts)
   if(res$status == "OK") res[ !names(res) %in% "status" ]
 }

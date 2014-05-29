@@ -3,8 +3,7 @@
 \alias{do_droplets_rebuild}
 \title{Rebuild a droplet.}
 \usage{
-do_droplets_rebuild(id = NULL, image_id = NULL, what = "parsed",
-  callopts = list())
+do_droplets_rebuild(id = NULL, image_id = NULL, what = "parsed", ...)
 }
 \arguments{
 \item{id}{(numeric) A droplet id (optional)}
@@ -13,7 +12,7 @@ do_droplets_rebuild(id = NULL, image_id = NULL, what = "parsed",
 
 \item{what}{(character) One of list or raw}
 
-\item{callopts}{Curl options passed on to httr::GET}
+\item{...}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 This method allows you to reinstall a droplet with a default image. This is useful if you want to

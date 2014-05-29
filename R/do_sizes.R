@@ -16,7 +16,7 @@ do_sizes <- function(what='parsed', callopts=list())
 {
   au <- do_get_auth()
   url <- 'https://api.digitalocean.com/v1/sizes'
-  args <- do_compact(list(client_id=au$id, api_key=au$key))
+  args <- ct(client_id=au$id, api_key=au$key)
   res <- do_handle(what, url, args, callopts)
   if(what == 'raw'){ res } else {
     do.call(rbind, lapply(res$sizes, data.frame, stringsAsFactors = FALSE))

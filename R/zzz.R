@@ -3,13 +3,20 @@
 #' @import httr jsonlite assertthat XML
 #' @export
 #' @param what What to return, parsed or raw
-#' @param url URL for the call
-#' @param args Arguments to GET
-#' @param curl Callopts
+#' @param path Path to append to the end of the base Digital Ocean API URL
+#' @param query Arguments to GET
+#' @param ... Options passed on to httr::GET. Must be named, see examples.
 #' @return Some combination of warnings and httr response object or list
-do_handle <- function(what, url, args, curl){
-  tt <- GET(url, query=args, curl)
-  warn_for_status(tt)
+
+do_handle <- function(what, path, query = NULL, ...) {
+  url <- file.path("https://api.digitalocean.com/v1", path)
+  args <- c(list(client_id = au$id, api_key = au$key), query)
+
+  tt <- GET(url, query = args, ...)
+  if(tt$status_code > 202 || content(tt)$status == "ERROR"){
+    if(tt$status_code > 202) stop(tt$headers$statusmessage)
+    if(content(tt)$status == "ERROR") stop(content(tt)$error_message)
+  }
   res <- content(tt, as = "text")
   if(what=='parsed') fromJSON(res, FALSE) else tt
 }
@@ -17,5 +24,5 @@ do_handle <- function(what, url, args, curl){
 #' Compact
 #'
 #' @export
-#' @param l List input
-do_compact <- function (l) Filter(Negate(is.null), l)
+#' @param ... List input
+ct <- function (...) Filter(Negate(is.null), list(...))

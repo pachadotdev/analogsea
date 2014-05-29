@@ -3,8 +3,7 @@
 \alias{do_droplets_destroy}
 \title{Destory a droplet.}
 \usage{
-do_droplets_destroy(id = NULL, scrub_data = FALSE, what = "parsed",
-  callopts = list())
+do_droplets_destroy(id = NULL, scrub_data = FALSE, what = "parsed", ...)
 }
 \arguments{
 \item{id}{(numeric) A droplet id (optional)}
@@ -13,7 +12,7 @@ do_droplets_destroy(id = NULL, scrub_data = FALSE, what = "parsed",
 
 \item{what}{(character) One of list or raw}
 
-\item{callopts}{Curl options passed on to httr::GET}
+\item{...}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 This method destroys one of your droplets - this is irreversible
