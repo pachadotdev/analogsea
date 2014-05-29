@@ -3,7 +3,7 @@
 \alias{do_droplets_power_off}
 \title{Power off a droplet.}
 \usage{
-do_droplets_power_off(id = NULL, what = "list", callopts = list())
+do_droplets_power_off(id = NULL, what = "parsed", callopts = list())
 }
 \arguments{
 \item{id}{(numeric) A droplet id (optional)}

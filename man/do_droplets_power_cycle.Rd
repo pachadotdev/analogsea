@@ -3,7 +3,7 @@
 \alias{do_droplets_power_cycle}
 \title{Power cycle a droplet.}
 \usage{
-do_droplets_power_cycle(id = NULL, what = "list", callopts = list())
+do_droplets_power_cycle(id = NULL, what = "parsed", callopts = list())
 }
 \arguments{
 \item{id}{(numeric) A droplet id (optional)}

@@ -4,7 +4,7 @@
 \title{Resize a droplet.}
 \usage{
 do_droplets_resize(id = NULL, size_id = NULL, size_slug = NULL,
-  what = "list", callopts = list())
+  what = "parsed", callopts = list())
 }
 \arguments{
 \item{id}{(numeric) A droplet id (optional)}

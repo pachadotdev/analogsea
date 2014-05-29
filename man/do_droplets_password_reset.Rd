@@ -3,7 +3,7 @@
 \alias{do_droplets_password_reset}
 \title{Reset a password for a droplet.}
 \usage{
-do_droplets_password_reset(id = NULL, what = "list", callopts = list())
+do_droplets_password_reset(id = NULL, what = "parsed", callopts = list())
 }
 \arguments{
 \item{id}{(numeric) A droplet id (optional)}

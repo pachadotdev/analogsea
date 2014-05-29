@@ -3,7 +3,7 @@
 \alias{do_droplets_reboot}
 \title{Reboot a droplet.}
 \usage{
-do_droplets_reboot(id = NULL, what = "list", callopts = list())
+do_droplets_reboot(id = NULL, what = "parsed", callopts = list())
 }
 \arguments{
 \item{id}{(numeric) A droplet id (optional)}

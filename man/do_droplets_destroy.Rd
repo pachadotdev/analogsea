@@ -3,7 +3,7 @@
 \alias{do_droplets_destroy}
 \title{Destory a droplet.}
 \usage{
-do_droplets_destroy(id = NULL, scrub_data = FALSE, what = "list",
+do_droplets_destroy(id = NULL, scrub_data = FALSE, what = "parsed",
   callopts = list())
 }
 \arguments{

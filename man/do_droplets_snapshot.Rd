@@ -3,7 +3,7 @@
 \alias{do_droplets_snapshot}
 \title{Take a snapshot of a droplet.}
 \usage{
-do_droplets_snapshot(id = NULL, name = NULL, what = "list",
+do_droplets_snapshot(id = NULL, name = NULL, what = "parsed",
   callopts = list())
 }
 \arguments{

@@ -3,7 +3,7 @@
 \alias{do_droplets_get}
 \title{Get metadata on all your droplets, or droplets by id}
 \usage{
-do_droplets_get(id = NULL, what = "list", callopts = list())
+do_droplets_get(id = NULL, what = "parsed", callopts = list())
 }
 \arguments{
 \item{id}{(numeric) A droplet id (optional)}

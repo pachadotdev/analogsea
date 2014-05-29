@@ -3,7 +3,7 @@
 \alias{do_droplets_restore}
 \title{Restore a droplet.}
 \usage{
-do_droplets_restore(id = NULL, image_id = NULL, what = "list",
+do_droplets_restore(id = NULL, image_id = NULL, what = "parsed",
   callopts = list())
 }
 \arguments{

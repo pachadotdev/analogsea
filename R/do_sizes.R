@@ -7,7 +7,9 @@
 #' @examples \dontrun{
 #' do_auth()
 #' do_sizes()
-#' do_sizes('raw')
+#' res <- do_sizes('raw')
+#' res$url
+#' res$headers
 #' }
 
 do_sizes <- function(what='parsed', callopts=list())

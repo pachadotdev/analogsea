@@ -20,7 +20,9 @@ Get all the available sizes that can be used to create a droplet.
 \dontrun{
 do_auth()
 do_sizes()
-do_sizes('raw')
+res <- do_sizes('raw')
+res$url
+res$headers
 }
 }
 

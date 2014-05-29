@@ -3,7 +3,7 @@
 \alias{do_droplets_rebuild}
 \title{Rebuild a droplet.}
 \usage{
-do_droplets_rebuild(id = NULL, image_id = NULL, what = "list",
+do_droplets_rebuild(id = NULL, image_id = NULL, what = "parsed",
   callopts = list())
 }
 \arguments{

@@ -3,12 +3,12 @@
 \alias{do_keys_get}
 \title{Get metadata on your ssh keys}
 \usage{
-do_keys_get(ssh_key_id = NULL, what = "list", callopts = list())
+do_keys_get(ssh_key_id = NULL, what = "parsed", callopts = list())
 }
 \arguments{
 \item{ssh_key_id}{(numeric) An ssh key id (optional)}
 
-\item{what}{(character) One of list or raw}
+\item{what}{(character) One of parsed (list) or raw (httr response object)}
 
 \item{callopts}{Curl options passed on to httr::GET}
 }
@@ -19,6 +19,7 @@ Get metadata on your ssh keys
 \dontrun{
 do_auth()
 do_keys_get()
+do_keys_get(ssh_key_id=89103)
 }
 }
 

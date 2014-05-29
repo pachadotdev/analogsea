@@ -3,7 +3,7 @@
 \alias{do_droplets_rename}
 \title{Rename a droplet.}
 \usage{
-do_droplets_rename(id = NULL, name = NULL, what = "list",
+do_droplets_rename(id = NULL, name = NULL, what = "parsed",
   callopts = list())
 }
 \arguments{

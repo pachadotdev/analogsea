@@ -6,7 +6,7 @@
 do_droplets_new(name = NULL, size_id = NULL, size_slug = NULL,
   image_id = NULL, image_slug = NULL, region_id = NULL,
   region_slug = NULL, ssh_key_ids = NULL, private_networking = FALSE,
-  backups_enable = FALSE, what = "list", callopts = list())
+  backups_enable = FALSE, what = "parsed", callopts = list())
 }
 \arguments{
 \item{name}{(character) Name of the droplet}
