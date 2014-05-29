@@ -17,7 +17,6 @@ This method allows you to shutdown a running droplet. The droplet will remain in
 }
 \examples{
 \dontrun{
-do_auth()
 droplets_shutdown(id=1707487)
 }
 }

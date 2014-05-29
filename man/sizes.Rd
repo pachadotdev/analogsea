@@ -18,7 +18,6 @@ Get all the available sizes that can be used to create a droplet.
 }
 \examples{
 \dontrun{
-do_auth()
 sizes()
 res <- sizes('raw')
 res$url

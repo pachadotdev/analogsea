@@ -10,7 +10,6 @@
 
 regions <- function(what="parsed", ...)
 {
-  au <- do_get_auth()
   res <- do_handle(what, 'regions', ...)
   if(what == 'raw'){ res } else {
     do.call(rbind, lapply(res$regions, data.frame, stringsAsFactors = FALSE))

@@ -18,7 +18,6 @@ not responding
 }
 \examples{
 \dontrun{
-do_auth()
 droplets_reboot(id=1739894)
 }
 }

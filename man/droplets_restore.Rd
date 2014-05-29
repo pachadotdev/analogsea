@@ -21,7 +21,6 @@ cause a reboot.
 }
 \examples{
 \dontrun{
-do_auth()
 droplets_restore(id=1707487, image_id=3240036)
 }
 }

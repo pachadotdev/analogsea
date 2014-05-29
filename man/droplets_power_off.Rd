@@ -17,7 +17,6 @@ This method allows you to poweroff a running droplet. The droplet will remain in
 }
 \examples{
 \dontrun{
-do_auth()
 droplets_power_off(id=1739894)
 }
 }

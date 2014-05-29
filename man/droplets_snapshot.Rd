@@ -21,7 +21,6 @@ cause a reboot.
 }
 \examples{
 \dontrun{
-do_auth()
 droplets_snapshot(id=1707487)
 }
 }

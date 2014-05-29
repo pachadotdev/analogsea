@@ -38,7 +38,6 @@ Create a new droplet.
 }
 \examples{
 \dontrun{
-do_auth()
 droplets_new(name="newdrop", size_id = 64, image_id = 3240036, region_slug = 'sfo1')
 }
 }

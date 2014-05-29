@@ -18,7 +18,6 @@ back on
 }
 \examples{
 \dontrun{
-do_auth()
 droplets_power_cycle(id=1739894)
 }
 }

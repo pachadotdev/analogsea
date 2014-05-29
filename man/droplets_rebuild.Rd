@@ -20,7 +20,6 @@ start again but retain the same IP address for your droplet.
 }
 \examples{
 \dontrun{
-do_auth()
 droplets_rebuild(id=1707487, image_id=3240036)
 }
 }

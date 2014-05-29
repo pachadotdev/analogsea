@@ -18,7 +18,6 @@ the droplet to allow resetting the password.
 }
 \examples{
 \dontrun{
-do_auth()
 droplets_password_reset(id=1707487)
 }
 }

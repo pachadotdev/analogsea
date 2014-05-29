@@ -17,7 +17,6 @@ Get metadata on your ssh keys
 }
 \examples{
 \dontrun{
-do_auth()
 keys_get()
 keys_get(ssh_key_id=89103)
 }

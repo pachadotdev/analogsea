@@ -4,7 +4,6 @@
 #' @template id
 #' @template params
 #' @examples \dontrun{
-#' do_auth()
 #' droplets_get()
 #' droplets_get(config=verbose())
 #' droplets_get(config=timeout(seconds = 0.3))
@@ -15,7 +14,6 @@
 
 droplets_get <- function(id=NULL, what="parsed", ...)
 {
-#   au <- do_get_auth()
   path <- if(is.null(id)) 'droplets' else sprintf('droplets/%s', id)
   do_handle(what, path, ...)
 }
@@ -35,7 +33,6 @@ droplets_get <- function(id=NULL, what="parsed", ...)
 #' @param backups_enable (logical) Enable backups
 #' @template params
 #' @examples \dontrun{
-#' do_auth()
 #' droplets_new(name="newdrop", size_id = 64, image_id = 3240036, region_slug = 'sfo1')
 #' }
 
@@ -43,8 +40,6 @@ droplets_new <- function(name=NULL, size_id=NULL, size_slug=NULL, image_id=NULL,
   region_id=NULL, region_slug=NULL, ssh_key_ids=NULL, private_networking=FALSE,
   backups_enable=FALSE, what="parsed", ...)
 {
-  au <- do_get_auth()
-
   assert_that(!is.null(name))
   assert_that(xor(is.null(size_id), is.null(size_slug)))
   assert_that(xor(is.null(image_id), is.null(image_slug)))
@@ -65,13 +60,11 @@ droplets_new <- function(name=NULL, size_id=NULL, size_slug=NULL, image_id=NULL,
 #' @template id
 #' @template params
 #' @examples \dontrun{
-#' do_auth()
 #' droplets_reboot(id=1739894)
 #' }
 
 droplets_reboot <- function(id=NULL, what="parsed", ...)
 {
-  au <- do_get_auth()
   assert_that(!is.null(id))
   do_handle(what, sprintf('droplets/%s/reboot', id), ...)
 }
@@ -85,13 +78,11 @@ droplets_reboot <- function(id=NULL, what="parsed", ...)
 #' @template id
 #' @template params
 #' @examples \dontrun{
-#' do_auth()
 #' droplets_power_cycle(id=1739894)
 #' }
 
 droplets_power_cycle <- function(id=NULL, what="parsed", ...)
 {
-  au <- do_get_auth()
   assert_that(!is.null(id))
   do_handle(what, sprintf('droplets/%s/power_cycle', id), ...)
 }
@@ -104,13 +95,11 @@ droplets_power_cycle <- function(id=NULL, what="parsed", ...)
 #' @template id
 #' @template params
 #' @examples \dontrun{
-#' do_auth()
 #' droplets_shutdown(id=1707487)
 #' }
 
 droplets_shutdown <- function(id=NULL, what="parsed", ...)
 {
-  au <- do_get_auth()
   assert_that(!is.null(id))
   do_handle(what, sprintf('droplets/%s/shutdown', id), ...)
 }
@@ -123,13 +112,11 @@ droplets_shutdown <- function(id=NULL, what="parsed", ...)
 #' @template id
 #' @template params
 #' @examples \dontrun{
-#' do_auth()
 #' droplets_power_off(id=1739894)
 #' }
 
 droplets_power_off <- function(id=NULL, what="parsed", ...)
 {
-  au <- do_get_auth()
   assert_that(!is.null(id))
   do_handle(what, sprintf('droplets/%s/power_off', id), ...)
 }
@@ -142,13 +129,11 @@ droplets_power_off <- function(id=NULL, what="parsed", ...)
 #' @template id
 #' @template params
 #' @examples \dontrun{
-#' do_auth()
 #' droplets_power_on(id=1739894)
 #' }
 
 droplets_power_on <- function(id=NULL, what="parsed", ...)
 {
-  au <- do_get_auth()
   assert_that(!is.null(id))
   do_handle(what, sprintf('droplets/%s/power_on', id), ...)
 }
@@ -163,13 +148,11 @@ droplets_power_on <- function(id=NULL, what="parsed", ...)
 #' @template id
 #' @template params
 #' @examples \dontrun{
-#' do_auth()
 #' droplets_password_reset(id=1707487)
 #' }
 
 droplets_password_reset <- function(id=NULL, what="parsed", ...)
 {
-  au <- do_get_auth()
   assert_that(!is.null(id))
   do_handle(what, sprintf('droplets/%s/password_reset', id), ...)
 }
@@ -185,13 +168,11 @@ droplets_password_reset <- function(id=NULL, what="parsed", ...)
 #' @param size_slug (character) Size slug (name) of the image size
 #' @template params
 #' @examples \dontrun{
-#' do_auth()
 #' droplets_resize(id=1707487, size_id=66)
 #' }
 
 droplets_resize <- function(id=NULL, size_id=NULL, size_slug=NULL, what="parsed", ...)
 {
-  au <- do_get_auth()
   assert_that(!is.null(id))
   assert_that(xor(is.null(size_id), is.null(size_slug)))
   do_handle(what, sprintf('droplets/%s/resize', id), ct(size_id=size_id, size_slug=size_slug), ...)
@@ -208,13 +189,11 @@ droplets_resize <- function(id=NULL, size_id=NULL, size_slug=NULL, what="parsed"
 #' @param name (character) Name of the droplet
 #' @template params
 #' @examples \dontrun{
-#' do_auth()
 #' droplets_snapshot(id=1707487)
 #' }
 
 droplets_snapshot <- function(id=NULL, name=NULL, what="parsed", ...)
 {
-  au <- do_get_auth()
   assert_that(!is.null(id))
   do_handle(what, sprintf('droplets/%s/snapshot', id), ct(name=name), ...)
 }
@@ -230,13 +209,11 @@ droplets_snapshot <- function(id=NULL, name=NULL, what="parsed", ...)
 #' @param image_id The image id to use to rebuild the droplet.
 #' @template params
 #' @examples \dontrun{
-#' do_auth()
 #' droplets_restore(id=1707487, image_id=3240036)
 #' }
 
 droplets_restore <- function(id=NULL, image_id=NULL, what="parsed", ...)
 {
-  au <- do_get_auth()
   assert_that(!is.null(id), !is.null(image_id))
   do_handle(what, sprintf('droplets/%s/restore', id), ct(image_id=image_id), ...)
 }
@@ -251,13 +228,11 @@ droplets_restore <- function(id=NULL, image_id=NULL, what="parsed", ...)
 #' @param image_id The image id to use to rebuild the droplet.
 #' @template params
 #' @examples \dontrun{
-#' do_auth()
 #' droplets_rebuild(id=1707487, image_id=3240036)
 #' }
 
 droplets_rebuild <- function(id=NULL, image_id=NULL, what="parsed", ...)
 {
-  au <- do_get_auth()
   assert_that(!is.null(id), !is.null(image_id))
   do_handle(what, sprintf('droplets/%s/rebuild', id), ct(image_id=image_id), ...)
 }
@@ -271,13 +246,11 @@ droplets_rebuild <- function(id=NULL, image_id=NULL, what="parsed", ...)
 #' @param scrub_data (logical) To scrub data or not
 #' @template params
 #' @examples \dontrun{
-#' do_auth()
 #' droplets_destroy(id=1707487)
 #' }
 
 droplets_destroy <- function(id=NULL, scrub_data=FALSE, what="parsed", ...)
 {
-  au <- do_get_auth()
   assert_that(!is.null(id))
   do_handle(what, sprintf('droplets/%s/destroy', id), ct(scrub_data=scrub_data), ...)
 }
@@ -291,13 +264,11 @@ droplets_destroy <- function(id=NULL, scrub_data=FALSE, what="parsed", ...)
 #' @param name (character) Name of the droplet
 #' @template params
 #' @examples \dontrun{
-#' do_auth()
 #' droplets_rename(id=1707487, name='wadup')
 #' }
 
 droplets_rename <- function(id=NULL, name=NULL, what="parsed", ...)
 {
-  au <- do_get_auth()
   assert_that(!is.null(id), !is.null(name))
   do_handle(what, sprintf('droplets/%s/rename', id), ct(name=name), ...)
 }

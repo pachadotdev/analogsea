@@ -17,7 +17,6 @@ Get metadata on all your droplets, or droplets by id
 }
 \examples{
 \dontrun{
-do_auth()
 droplets_get()
 droplets_get(config=verbose())
 droplets_get(config=timeout(seconds = 0.3))

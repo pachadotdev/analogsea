@@ -12,7 +12,6 @@
 
 images <- function(filter=NULL, what="parsed", ...)
 {
-  au <- do_get_auth()
   res <- do_handle(what, 'images', ct(filter=filter), ...)
   if(what == 'raw'){ res } else {
     dat <- lapply(res$images, parseres)

@@ -19,7 +19,6 @@ This method renames the droplet to the specified name.
 }
 \examples{
 \dontrun{
-do_auth()
 droplets_rename(id=1707487, name='wadup')
 }
 }

@@ -23,7 +23,6 @@ number of processors and memory allocated to the droplet.
 }
 \examples{
 \dontrun{
-do_auth()
 droplets_resize(id=1707487, size_id=66)
 }
 }

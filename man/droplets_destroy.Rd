@@ -19,7 +19,6 @@ This method destroys one of your droplets - this is irreversible
 }
 \examples{
 \dontrun{
-do_auth()
 droplets_destroy(id=1707487)
 }
 }
