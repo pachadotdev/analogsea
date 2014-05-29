@@ -41,7 +41,7 @@ Note that Shiny installs but isn't working right. RStudio Server installs and wo
 \examples{
 \dontrun{
 # Image slug 'ubuntu-14-04-x64' is an Unbuntu 14.04 x64 box with 512 mb given by size_slug param
-(res <- do_droplets_new(name="foo", size_slug = '512mb', image_slug = 'ubuntu-14-04-x64',
+(res <- droplets_new(name="foo", size_slug = '512mb', image_slug = 'ubuntu-14-04-x64',
    region_slug = 'sfo1', ssh_key_ids = 89103))
 do_install(id=res$droplet$id, what='r')
 do_install(res$droplet$id, what='rstudio', usr='jim', pwd='bob')
