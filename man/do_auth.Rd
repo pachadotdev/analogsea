@@ -4,11 +4,15 @@
 \alias{print.doauth}
 \title{Set up authentication details for the Digital Ocean API}
 \usage{
-do_auth(force = FALSE)
+do_auth(client_id = NULL, api_key = NULL, force = FALSE)
 
 \method{print}{doauth}(x, ...)
 }
 \arguments{
+\item{client_id}{(character) Your Digital Ocean client ID. Default NULL}
+
+\item{api_key}{(character) Your Digital Ocean API key. Default NULL}
+
 \item{force}{(logical) Force update}
 
 \item{x}{Object of class doauth}
@@ -20,17 +24,31 @@ A simple S3 class ("doauth") as a list that has a print method to nicely print o
 auth details.
 }
 \description{
-Create an object and pass on to each function call.
+This function sets options in your current R session, and passes on to each function call.
 
 Print method for doauth object
 }
+\details{
+There are three ways you can use this function.
+
+\itemize{
+ \item You can enter your details using the client_id and api_key parameters directly.
+ \item You can execute the function without any inputs. The function then first looks in your
+ options for the option variables digocean_client_id and digocean_api_key. If they are not found
+ the function asks you to enter them. You can set force=TRUE to force the function to ask
+ you for new id and key.
+ \item Set your options using the function \code{options}. See examples.
+ \item Set your options in your .Rprofile file with entries
+ \code{options(digocean_client_id = '<clientid>')} and
+ \code{options(digocean_api_key = '<apikey>')}. Remember to restart your R session after you
+ do this so that R knows about them. If you do this option, you don't have to use this auth
+ function at all - the various functions in the package will read your client id and api key
+ from your .Rprofile file.
+}
+}
 \examples{
 \dontrun{
-client_id = '<client id>'
-api_key = '<api key>'
-do_auth(client_id=client_id, api_key=api_key)
-
-# from .Rprofile
+# If you do
 do_auth()
 }
 }
