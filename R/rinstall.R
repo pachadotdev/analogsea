@@ -54,7 +54,7 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=
     if('r' %in% what){
       writefile("doinstallr.sh", r_string)
       mssg(verbose, "Installing R...")
-      installr(verbose, ip)
+      scp_ssh('doinstallr.sh', ip)
     }
 
     if(!is.null(deps)){
@@ -62,7 +62,7 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=
       if("warning" %in% class(chr)){
         writefile("doinstallr.sh", r_string)
         mssg(verbose, "Installing R...")
-        installr(verbose, ip)
+        scp_ssh('doinstallr.sh', ip)
       }
 
       deps <- match.arg(deps, c("xml","curl","gdal","rcpp"), TRUE)
@@ -74,7 +74,7 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=
       writefile("doinstall_deps.sh", deps_string2)
 
       mssg(verbose, "Installing dependencies...")
-      installdeps(verbose, ip)
+      scp_ssh('doinstall_deps.sh', ip)
     }
 
     if('rstudio_server' %in% what){
@@ -82,14 +82,14 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=
       if("warning" %in% class(chr)){
         writefile("doinstallr.sh", r_string)
         mssg(verbose, "Installing R...")
-        installr(verbose, ip)
+        scp_ssh('doinstallr.sh', ip)
       }
 
       rstudio_string2 <- sprintf(rstudio_string, rstudio_server_ver, rstudio_server_ver, usr, usr, pwd)
       writefile("doinstall_rstudio.sh", rstudio_string2)
 
       mssg(verbose, "Installing RStudio Server...")
-      installrstudio(verbose, ip)
+      scp_ssh('doinstall_rstudio.sh', ip)
 
       rstudiolink <- sprintf("http://%s:8787/", ip)
       if(browse) browseURL(rstudiolink) else rstudiolink
@@ -100,14 +100,14 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=
       if("warning" %in% class(chr)){
         writefile("doinstallr.sh", r_string)
         mssg(verbose, "Installing R...")
-        installr(verbose, ip)
+        scp_ssh('doinstallr.sh', ip)
       }
 
       shiny_string2 <- sprintf(shiny_string, shiny_ver, shiny_ver)
       writefile("doinstall_shiny.sh", shiny_string2)
 
       mssg(verbose, "Installing RStudio Shiny Server...")
-      installshinyserver(verbose, ip)
+      scp_ssh('doinstall_shiny.sh', ip)
 
       shinyserverlink <- sprintf("http://%s:3838/", ip)
       if(browse) browseURL(shinyserverlink) else shinyserverlink
@@ -118,42 +118,20 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=
   sprintf("ssh root@%s", ip)
 }
 
-installr <- function(verbose, ip){
-  # scpfile
-  scp_r_cmd <- sprintf('scp doinstallr.sh root@%s:~/', ip)
-  system(scp_r_cmd)
-  # execute file install R on DO instance
-  cmd_r <- sprintf('ssh root@%s "sh doinstallr.sh"', ip)
-#   mssg(verbose, cmd_r)
-  system(cmd_r)
+scp_ssh <- function(file, ip, user='root'){
+  scp(file, ip, user)
+  ssh(file, ip, user)
 }
 
-installrstudio <- function(verbose, ip){
-  scp_rstudio_cmd <- sprintf('scp doinstall_rstudio.sh root@%s:~/', ip)
-  system(scp_rstudio_cmd)
-
-  cmd_rstudio <- sprintf('ssh root@%s "sh doinstall_rstudio.sh"', ip)
-#   mssg(verbose, cmd_rstudio)
-  system(cmd_rstudio)
+scp <- function(file, ip, user='root'){
+  scp_cmd <- sprintf('scp %s %s@%s:~/', file, user, ip)
+  system(scp_cmd)
 }
 
-installshinyserver <- function(verbose, ip){
-  scp_shiny_cmd <- sprintf('scp doinstall_shiny.sh root@%s:~/', ip)
-  system(scp_shiny_cmd)
-
-  cmd_shiny <- sprintf('ssh root@%s "sh doinstall_shiny.sh"', ip)
-  system(cmd_shiny)
+ssh <- function(file, ip, user='root'){
+  ssh_cmd <- sprintf('ssh %s@%s "sh %s"', user, ip, file)
+  system(ssh_cmd)
 }
-
-installdeps <- function(verbose, ip){
-  scp_deps_cmd <- sprintf('scp doinstall_deps.sh root@%s:~/', ip)
-  system(scp_deps_cmd)
-
-  cmd_deps <- sprintf('ssh root@%s "sh doinstall_deps.sh"', ip)
-  system(cmd_deps)
-}
-
-mssg <- function(x, y) if(x) message(y)
 
 r_string <-
 'sudo echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list
@@ -176,10 +154,3 @@ wget http://download3.rstudio.org/ubuntu-12.04/x86_64/shiny-server-%s-amd64.deb
 sudo gdebi shiny-server-%s-amd64.deb --non-interactive'
 
 dep_string <- 'sudo apt-get install %s --yes --force-yes'
-
-writefile <- function(filename, installstring){
-  installrfile = filename
-  fileConn <- file(installrfile)
-  writeLines(installstring, fileConn)
-  close(fileConn)
-}

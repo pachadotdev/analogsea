@@ -11,4 +11,5 @@ ct(...)
 \description{
 Compact
 }
+\keyword{internal}
 

@@ -23,6 +23,15 @@ do_handle <- function(what, path, query = NULL, ...) {
 
 #' Compact
 #'
-#' @export
 #' @param ... List input
+#' @keywords internal
 ct <- function (...) Filter(Negate(is.null), list(...))
+
+mssg <- function(x, y) if(x) message(y)
+
+writefile <- function(filename, installstring){
+  installrfile = filename
+  fileConn <- file(installrfile)
+  writeLines(installstring, fileConn)
+  close(fileConn)
+}
