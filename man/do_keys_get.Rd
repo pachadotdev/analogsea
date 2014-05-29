@@ -3,14 +3,14 @@
 \alias{do_keys_get}
 \title{Get metadata on your ssh keys}
 \usage{
-do_keys_get(ssh_key_id = NULL, what = "parsed", callopts = list())
+do_keys_get(ssh_key_id = NULL, what = "parsed", ...)
 }
 \arguments{
 \item{ssh_key_id}{(numeric) An ssh key id (optional)}
 
-\item{what}{(character) One of parsed (list) or raw (httr response object)}
+\item{what}{(character) One of list or raw}
 
-\item{callopts}{Curl options passed on to httr::GET}
+\item{...}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 Get metadata on your ssh keys

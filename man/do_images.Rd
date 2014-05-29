@@ -3,14 +3,14 @@
 \alias{do_images}
 \title{Get list of images and their metadata}
 \usage{
-do_images(filter = NULL, what = "parsed", callopts = list())
+do_images(filter = NULL, what = "parsed", ...)
 }
 \arguments{
 \item{filter}{Filter stuff, one of my_images or global}
 
-\item{what}{(character) One of parsed (data.frame) or raw (httr response object)}
+\item{what}{(character) One of list or raw}
 
-\item{callopts}{Curl options passed on to httr::GET}
+\item{...}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 Get list of images and their metadata

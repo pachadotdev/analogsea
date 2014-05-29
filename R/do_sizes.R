@@ -1,8 +1,7 @@
 #' Get all the available sizes that can be used to create a droplet.
 #'
 #' @export
-#' @param what (character) One of parsed (data.frame) or raw (httr response object)
-#' @param callopts Curl options passed on to httr::GET
+#' @template params
 #' @return A data.frame with available sizes (RAM, disk, no. CPU's) and their costs
 #' @examples \dontrun{
 #' do_auth()
@@ -12,12 +11,10 @@
 #' res$headers
 #' }
 
-do_sizes <- function(what='parsed', callopts=list())
+do_sizes <- function(what='parsed', ...)
 {
   au <- do_get_auth()
-  url <- 'https://api.digitalocean.com/v1/sizes'
-  args <- ct(client_id=au$id, api_key=au$key)
-  res <- do_handle(what, url, args, callopts)
+  res <- do_handle(what, 'sizes', ...)
   if(what == 'raw'){ res } else {
     do.call(rbind, lapply(res$sizes, data.frame, stringsAsFactors = FALSE))
   }

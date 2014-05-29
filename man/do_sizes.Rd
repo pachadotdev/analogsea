@@ -3,12 +3,12 @@
 \alias{do_sizes}
 \title{Get all the available sizes that can be used to create a droplet.}
 \usage{
-do_sizes(what = "parsed", callopts = list())
+do_sizes(what = "parsed", ...)
 }
 \arguments{
-\item{what}{(character) One of parsed (data.frame) or raw (httr response object)}
+\item{what}{(character) One of list or raw}
 
-\item{callopts}{Curl options passed on to httr::GET}
+\item{...}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \value{
 A data.frame with available sizes (RAM, disk, no. CPU's) and their costs

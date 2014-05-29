@@ -3,12 +3,12 @@
 \alias{do_regions}
 \title{Get list of regions and their metadata}
 \usage{
-do_regions(what = "parsed", callopts = list())
+do_regions(what = "parsed", ...)
 }
 \arguments{
-\item{what}{(character) One of parsed (data.frame) or raw (httr response object)}
+\item{what}{(character) One of list or raw}
 
-\item{callopts}{Curl options passed on to httr::GET}
+\item{...}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 Get list of regions and their metadata

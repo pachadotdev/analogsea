@@ -3,20 +3,17 @@
 #' @importFrom plyr rbind.fill
 #' @export
 #' @param filter Filter stuff, one of my_images or global
-#' @param what (character) One of parsed (data.frame) or raw (httr response object)
-#' @param callopts Curl options passed on to httr::GET
+#' @template params
 #' @examples \dontrun{
 #' head(do_images())
 #' do_images(filter='my_images')
 #' do_images(what='raw')
 #' }
 
-do_images <- function(filter=NULL, what="parsed", callopts=list())
+do_images <- function(filter=NULL, what="parsed", ...)
 {
   au <- do_get_auth()
-  url <- 'https://api.digitalocean.com/v1/images'
-  args <- ct(filter=filter, client_id=au$id, api_key=au$key)
-  res <- do_handle(what, url, args, callopts)
+  res <- do_handle(what, 'images', ct(filter=filter), ...)
   if(what == 'raw'){ res } else {
     dat <- lapply(res$images, parseres)
     do.call(rbind.fill, dat)
