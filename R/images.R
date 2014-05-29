@@ -5,12 +5,12 @@
 #' @param filter Filter stuff, one of my_images or global
 #' @template params
 #' @examples \dontrun{
-#' head(do_images())
-#' do_images(filter='my_images')
-#' do_images(what='raw')
+#' head(images())
+#' images(filter='my_images')
+#' images(what='raw')
 #' }
 
-do_images <- function(filter=NULL, what="parsed", ...)
+images <- function(filter=NULL, what="parsed", ...)
 {
   au <- do_get_auth()
   res <- do_handle(what, 'images', ct(filter=filter), ...)

@@ -4,11 +4,11 @@
 #' @template params
 #' @examples \dontrun{
 #' do_auth()
-#' do_regions()
-#' do_regions('raw')
+#' regions()
+#' regions('raw')
 #' }
 
-do_regions <- function(what="parsed", ...)
+regions <- function(what="parsed", ...)
 {
   au <- do_get_auth()
   res <- do_handle(what, 'regions', ...)

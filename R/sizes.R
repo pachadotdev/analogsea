@@ -5,13 +5,13 @@
 #' @return A data.frame with available sizes (RAM, disk, no. CPU's) and their costs
 #' @examples \dontrun{
 #' do_auth()
-#' do_sizes()
-#' res <- do_sizes('raw')
+#' sizes()
+#' res <- sizes('raw')
 #' res$url
 #' res$headers
 #' }
 
-do_sizes <- function(what='parsed', ...)
+sizes <- function(what='parsed', ...)
 {
   au <- do_get_auth()
   res <- do_handle(what, 'sizes', ...)
