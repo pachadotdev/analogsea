@@ -9,7 +9,7 @@
 
 regions <- function(what="parsed", ...)
 {
-  res <- do_handle(what, path='regions', ...)
+  res <- do_GET(what, path='regions', ...)
   if(what == 'raw'){ res } else {
     do.call(rbind, lapply(res$regions, data.frame, stringsAsFactors = FALSE))
   }

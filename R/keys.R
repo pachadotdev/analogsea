@@ -11,6 +11,6 @@
 keys_get <- function(ssh_key_id=NULL, what="parsed", ...)
 {
   path <- if(is.null(ssh_key_id)) 'ssh_keys' else sprintf('ssh_keys/%s', ssh_key_id)
-  res <- do_handle(what, path=path, ...)
+  res <- do_GET(what, path=path, ...)
   res[ !names(res) %in% "status" ]
 }

@@ -15,7 +15,7 @@
 droplets_get <- function(id=NULL, what="parsed", ...)
 {
   path <- if(is.null(id)) 'droplets' else sprintf('droplets/%s', id)
-  do_handle(what, TRUE, path, ...)
+  do_GET(what, TRUE, path, ...)
 }
 
 #' Create a new droplet.
@@ -48,7 +48,7 @@ droplets_new <- function(name=NULL, size_id=NULL, size_slug=NULL, image_id=NULL,
     image_id=image_id,image_slug=image_slug, region_id=region_id,
     region_slug=region_slug,ssh_key_ids=ssh_key_ids, private_networking=private_networking,
     backups_enable=backups_enable)
-  do_handle(what, TRUE, 'droplets/new', args, ...)
+  do_GET(what, TRUE, 'droplets/new', args, ...)
 }
 
 #' Reboot a droplet.
@@ -66,7 +66,7 @@ droplets_new <- function(name=NULL, size_id=NULL, size_slug=NULL, image_id=NULL,
 droplets_reboot <- function(id=NULL, what="parsed", ...)
 {
   assert_that(!is.null(id))
-  do_handle(what, TRUE, sprintf('droplets/%s/reboot', id), ...)
+  do_GET(what, TRUE, sprintf('droplets/%s/reboot', id), ...)
 }
 
 #' Power cycle a droplet.
@@ -84,7 +84,7 @@ droplets_reboot <- function(id=NULL, what="parsed", ...)
 droplets_power_cycle <- function(id=NULL, what="parsed", ...)
 {
   assert_that(!is.null(id))
-  do_handle(what, TRUE, sprintf('droplets/%s/power_cycle', id), ...)
+  do_GET(what, TRUE, sprintf('droplets/%s/power_cycle', id), ...)
 }
 
 #' Shutdown a droplet.
@@ -101,7 +101,7 @@ droplets_power_cycle <- function(id=NULL, what="parsed", ...)
 droplets_shutdown <- function(id=NULL, what="parsed", ...)
 {
   assert_that(!is.null(id))
-  do_handle(what, TRUE, sprintf('droplets/%s/shutdown', id), ...)
+  do_GET(what, TRUE, sprintf('droplets/%s/shutdown', id), ...)
 }
 
 #' Power off a droplet.
@@ -118,7 +118,7 @@ droplets_shutdown <- function(id=NULL, what="parsed", ...)
 droplets_power_off <- function(id=NULL, what="parsed", ...)
 {
   assert_that(!is.null(id))
-  do_handle(what, TRUE, sprintf('droplets/%s/power_off', id), ...)
+  do_GET(what, TRUE, sprintf('droplets/%s/power_off', id), ...)
 }
 
 #' Power on a droplet.
@@ -135,7 +135,7 @@ droplets_power_off <- function(id=NULL, what="parsed", ...)
 droplets_power_on <- function(id=NULL, what="parsed", ...)
 {
   assert_that(!is.null(id))
-  do_handle(what, TRUE, sprintf('droplets/%s/power_on', id), ...)
+  do_GET(what, TRUE, sprintf('droplets/%s/power_on', id), ...)
 }
 
 
@@ -154,7 +154,7 @@ droplets_power_on <- function(id=NULL, what="parsed", ...)
 droplets_password_reset <- function(id=NULL, what="parsed", ...)
 {
   assert_that(!is.null(id))
-  do_handle(what, TRUE, sprintf('droplets/%s/password_reset', id), ...)
+  do_GET(what, TRUE, sprintf('droplets/%s/password_reset', id), ...)
 }
 
 #' Resize a droplet.
@@ -182,7 +182,7 @@ droplets_resize <- function(id=NULL, size_id=NULL, size_slug=NULL, what="parsed"
 {
   assert_that(!is.null(id))
   assert_that(xor(is.null(size_id), is.null(size_slug)))
-  do_handle(what, TRUE, sprintf('droplets/%s/resize', id), ct(size_id=size_id, size_slug=size_slug), ...)
+  do_GET(what, TRUE, sprintf('droplets/%s/resize', id), ct(size_id=size_id, size_slug=size_slug), ...)
 }
 
 #' Take a snapshot of a droplet.
@@ -202,7 +202,7 @@ droplets_resize <- function(id=NULL, size_id=NULL, size_slug=NULL, what="parsed"
 droplets_snapshot <- function(id=NULL, name=NULL, what="parsed", ...)
 {
   assert_that(!is.null(id))
-  do_handle(what, TRUE, sprintf('droplets/%s/snapshot', id), ct(name=name), ...)
+  do_GET(what, TRUE, sprintf('droplets/%s/snapshot', id), ct(name=name), ...)
 }
 
 #' Restore a droplet.
@@ -222,7 +222,7 @@ droplets_snapshot <- function(id=NULL, name=NULL, what="parsed", ...)
 droplets_restore <- function(id=NULL, image_id=NULL, what="parsed", ...)
 {
   assert_that(!is.null(id), !is.null(image_id))
-  do_handle(what, TRUE, sprintf('droplets/%s/restore', id), ct(image_id=image_id), ...)
+  do_GET(what, TRUE, sprintf('droplets/%s/restore', id), ct(image_id=image_id), ...)
 }
 
 #' Rebuild a droplet.
@@ -241,7 +241,7 @@ droplets_restore <- function(id=NULL, image_id=NULL, what="parsed", ...)
 droplets_rebuild <- function(id=NULL, image_id=NULL, what="parsed", ...)
 {
   assert_that(!is.null(id), !is.null(image_id))
-  do_handle(what, TRUE, sprintf('droplets/%s/rebuild', id), ct(image_id=image_id), ...)
+  do_GET(what, TRUE, sprintf('droplets/%s/rebuild', id), ct(image_id=image_id), ...)
 }
 
 #' Destory a droplet.
@@ -264,7 +264,7 @@ droplets_rebuild <- function(id=NULL, image_id=NULL, what="parsed", ...)
 droplets_destroy <- function(id=NULL, scrub_data=FALSE, what="parsed", ...)
 {
   assert_that(!is.null(id))
-  do_handle(what, TRUE, sprintf('droplets/%s/destroy', id), ct(scrub_data=scrub_data), ...)
+  do_GET(what, TRUE, sprintf('droplets/%s/destroy', id), ct(scrub_data=scrub_data), ...)
 }
 
 #' Rename a droplet.
@@ -282,5 +282,5 @@ droplets_destroy <- function(id=NULL, scrub_data=FALSE, what="parsed", ...)
 droplets_rename <- function(id=NULL, name=NULL, what="parsed", ...)
 {
   assert_that(!is.null(id), !is.null(name))
-  do_handle(what, TRUE, sprintf('droplets/%s/rename', id), ct(name=name), ...)
+  do_GET(what, TRUE, sprintf('droplets/%s/rename', id), ct(name=name), ...)
 }

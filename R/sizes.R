@@ -12,7 +12,7 @@
 
 sizes <- function(what='parsed', ...)
 {
-  res <- do_handle(what, path='sizes', ...)
+  res <- do_GET(what, path='sizes', ...)
   if(what == 'raw'){ res } else {
     do.call(rbind, lapply(res$sizes, data.frame, stringsAsFactors = FALSE))
   }

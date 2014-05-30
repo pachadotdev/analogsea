@@ -36,7 +36,7 @@ Creates a new Digital Ocean Droplet, then installs one or more of R, RStudio Ser
 Shiny Server. This is all Ubuntu based for now. If you install RStudio Server or Shiny Server,
 then R is installed too.
 
-Note that Shiny installs but isn't working right. RStudio Server installs and works great.
+Note that Shiny installs but isn't working right. RStudio Server installs and works.
 }
 \examples{
 \dontrun{
