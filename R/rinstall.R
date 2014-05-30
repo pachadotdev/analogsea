@@ -18,7 +18,7 @@
 #' Shiny Server. This is all Ubuntu based for now. If you install RStudio Server or Shiny Server,
 #' then R is installed too.
 #'
-#' Note that Shiny installs but isn't working right. RStudio Server installs and works great.
+#' Note that Shiny installs but isn't working right. RStudio Server installs and works.
 #'
 #' @examples \dontrun{
 #' # Image slug 'ubuntu-14-04-x64' is an Unbuntu 14.04 x64 box with 512 mb given by size_slug param
