@@ -7,14 +7,31 @@
 #' droplets_get()
 #' droplets_get(config=verbose())
 #' droplets_get(config=timeout(seconds = 0.3))
-#' droplets_get(config=timeout(seconds = 0.3))
+#' 
 #' # raw output
 #' droplets_get(what="raw")
+#' res <- droplets_get(1746449, what="raw")
+#' res$headers
+#' 
+#' # Get info on a single droplet, passing in a list of droplet details
+#' drops <- droplets_get()
+#' droplets_get(droplet=drops$droplets[[1]])
+#' 
+#' # Get info on a single droplet, passing in a numeric droplet id
+#' droplets_get(droplet=1746449)
 #' }
 
-droplets_get <- function(id=NULL, what="parsed", ...)
+droplets_get <- function(droplet=NULL, what="parsed", ...)
 {
-  path <- if(is.null(id)) 'droplets' else sprintf('droplets/%s', id)
+  if(!is.null(droplet)){
+    if(is.list(droplet)){
+      if(!is.numeric(droplet$id)) stop("Could not detect a droplet id")
+    } else {
+      if(!is.numeric(as.numeric(as.character(droplet)))) stop("Could not detect a droplet id")
+    }
+    id <- if(is.numeric(droplet)) droplet else droplet$id 
+  } else { id <- NULL }
+  path <- if(is.null(droplet)) 'droplets' else sprintf('droplets/%s', id)
   do_GET(what, TRUE, path, ...)
 }
 

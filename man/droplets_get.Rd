@@ -3,7 +3,7 @@
 \alias{droplets_get}
 \title{Get metadata on all your droplets, or droplets by id}
 \usage{
-droplets_get(id = NULL, what = "parsed", ...)
+droplets_get(droplet = NULL, what = "parsed", ...)
 }
 \arguments{
 \item{id}{(numeric) A droplet id (optional)}
@@ -20,9 +20,18 @@ Get metadata on all your droplets, or droplets by id
 droplets_get()
 droplets_get(config=verbose())
 droplets_get(config=timeout(seconds = 0.3))
-droplets_get(config=timeout(seconds = 0.3))
+
 # raw output
 droplets_get(what="raw")
+res <- droplets_get(1746449, what="raw")
+res$headers
+
+# Get info on a single droplet, passing in a list of droplet details
+drops <- droplets_get()
+droplets_get(droplet=drops$droplets[[1]])
+
+# Get info on a single droplet, passing in a numeric droplet id
+droplets_get(droplet=1746449)
 }
 }
 
