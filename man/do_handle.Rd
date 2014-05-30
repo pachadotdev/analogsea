@@ -3,10 +3,12 @@
 \alias{do_handle}
 \title{Get request and output result or errors}
 \usage{
-do_handle(what, path, query = NULL, ...)
+do_handle(what, droplets = FALSE, path, query = NULL, ...)
 }
 \arguments{
 \item{what}{What to return, parsed or raw}
+
+\item{droplets}{(logical) If TRUE, selects droplets element and returns that}
 
 \item{path}{Path to append to the end of the base Digital Ocean API URL}
 

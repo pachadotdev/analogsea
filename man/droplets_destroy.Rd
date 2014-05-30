@@ -21,5 +21,10 @@ This method destroys one of your droplets - this is irreversible
 \dontrun{
 droplets_destroy(id=1707487)
 }
+\donttest{
+# Chain operations together - FUTURE, shut off multiple droplets
+drops <- droplets_get()
+drops$droplets \%>\% droplets_destroy
+}
 }
 

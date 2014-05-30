@@ -23,7 +23,14 @@ number of processors and memory allocated to the droplet.
 }
 \examples{
 \dontrun{
-droplets_resize(id=1707487, size_id=66)
+droplets_resize(id=1707487, size_id=63)
+}
+\donttest{
+# chain operations together - FUTURE workflow
+drops <- droplets_get()
+drops$droplets[[1]]$id \%>\%
+   droplets_power_off \%>\%
+   droplets_resize(size_id = 62)
 }
 }
 

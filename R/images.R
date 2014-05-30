@@ -12,7 +12,7 @@
 
 images <- function(filter=NULL, what="parsed", ...)
 {
-  res <- do_handle(what, 'images', ct(filter=filter), ...)
+  res <- do_handle(what, path='images', query = ct(filter=filter), ...)
   if(what == 'raw'){ res } else {
     dat <- lapply(res$images, parseres)
     do.call(rbind.fill, dat)

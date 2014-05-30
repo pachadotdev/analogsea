@@ -15,7 +15,6 @@ Get list of regions and their metadata
 }
 \examples{
 \dontrun{
-do_auth()
 regions()
 regions('raw')
 }

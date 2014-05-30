@@ -3,12 +3,13 @@
 #' @import httr jsonlite assertthat XML
 #' @export
 #' @param what What to return, parsed or raw
+#' @param droplets (logical) If TRUE, selects droplets element and returns that
 #' @param path Path to append to the end of the base Digital Ocean API URL
 #' @param query Arguments to GET
 #' @param ... Options passed on to httr::GET. Must be named, see examples.
 #' @return Some combination of warnings and httr response object or list
 
-do_handle <- function(what, path, query = NULL, ...) {
+do_handle <- function(what, droplets=FALSE, path, query = NULL, ...) {
   url <- file.path("https://api.digitalocean.com/v1", path)
   au <- do_get_auth()
   args <- c(list(client_id = au$id, api_key = au$key), query)
@@ -19,7 +20,10 @@ do_handle <- function(what, path, query = NULL, ...) {
     if(content(tt)$status == "ERROR") stop(content(tt)$error_message)
   }
   res <- content(tt, as = "text")
-  if(what=='parsed') fromJSON(res, FALSE) else tt
+  if(what=='parsed'){
+    tmp <- fromJSON(res, FALSE)
+    if(droplets) tmp[ !names(tmp) %in% 'status' ] else tmp
+  } else { tt }
 }
 
 #' Compact
