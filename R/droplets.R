@@ -32,7 +32,12 @@ droplets_get <- function(droplet=NULL, what="parsed", ...)
     id <- if(is.numeric(droplet)) droplet else droplet$id 
   } else { id <- NULL }
   path <- if(is.null(droplet)) 'droplets' else sprintf('droplets/%s', id)
-  do_GET(what, TRUE, path, ...)
+  tmp <- do_GET(what, TRUE, path, ...)
+  if ("droplet" %in% names(tmp)){
+    names(tmp) <- "droplets"
+    ids <- tmp$droplets$id
+  } else { ids <- sapply(tmp$droplets, "[[", "id") }
+  list(droplet_ids = ids, droplets = tmp$droplets)
 }
 
 #' Create a new droplet.
@@ -130,10 +135,14 @@ droplets_shutdown <- function(id=NULL, what="parsed", ...)
 #' @template params
 #' @examples \dontrun{
 #' droplets_power_off(id=1739894)
+#' 
+#' # pipe together operations
+droplets_get() %>% droplets_power_off
 #' }
 
-droplets_power_off <- function(id=NULL, what="parsed", ...)
+droplets_power_off <- function(droplet=NULL, what="parsed", ...)
 {
+  id <- check_droplet(droplet)
   assert_that(!is.null(id))
   do_GET(what, TRUE, sprintf('droplets/%s/power_off', id), ...)
 }
@@ -147,14 +156,36 @@ droplets_power_off <- function(id=NULL, what="parsed", ...)
 #' @template params
 #' @examples \dontrun{
 #' droplets_power_on(id=1739894)
+#' 
+#' # many droplets
+#' out <- droplets_get()
+#' droplets_power_on(droplet=out)
+#' 
+#' # from retrieving info on a single droplet
+#' out <- droplets_get(1783835)
+#' droplets_power_on(droplet=out)
 #' }
 
-droplets_power_on <- function(id=NULL, what="parsed", ...)
+droplets_power_on <- function(droplet=NULL, what="parsed", ...)
 {
+  id <- check_droplet(droplet)
   assert_that(!is.null(id))
   do_GET(what, TRUE, sprintf('droplets/%s/power_on', id), ...)
 }
 
+check_droplet <- function(x){
+  if(!is.null(x)){
+    if(is.list(x)){
+      if(length(x$droplet_ids) > 1) message("More than 1 droplet, using first")
+      x <- x$droplet_ids[[1]]
+      if(!is.numeric(x)) stop("Could not detect a droplet id")
+    } else {
+      x <- as.numeric(as.character(x))
+      if(!is.numeric(x)) stop("Could not detect a droplet id")
+    }
+    x 
+  } else { NULL }
+}
 
 #' Reset a password for a droplet.
 #'
