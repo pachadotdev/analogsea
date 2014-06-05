@@ -1,5 +1,6 @@
 #' Get metadata on all your droplets, or droplets by id
 #'
+#' @import magrittr
 #' @export
 #' @template id
 #' @template params
@@ -137,7 +138,7 @@ droplets_shutdown <- function(id=NULL, what="parsed", ...)
 #' droplets_power_off(id=1739894)
 #' 
 #' # pipe together operations
-droplets_get() %>% droplets_power_off
+#' droplets_get() %>% droplets_power_off %>% events
 #' }
 
 droplets_power_off <- function(droplet=NULL, what="parsed", ...)
@@ -164,6 +165,9 @@ droplets_power_off <- function(droplet=NULL, what="parsed", ...)
 #' # from retrieving info on a single droplet
 #' out <- droplets_get(1783835)
 #' droplets_power_on(droplet=out)
+#' 
+#' # pipe together operations
+#' droplets_get() %>% droplets_power_on
 #' }
 
 droplets_power_on <- function(droplet=NULL, what="parsed", ...)

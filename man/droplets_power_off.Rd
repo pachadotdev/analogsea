@@ -3,7 +3,7 @@
 \alias{droplets_power_off}
 \title{Power off a droplet.}
 \usage{
-droplets_power_off(id = NULL, what = "parsed", ...)
+droplets_power_off(droplet = NULL, what = "parsed", ...)
 }
 \arguments{
 \item{id}{(numeric) A droplet id (optional)}
@@ -18,6 +18,9 @@ This method allows you to poweroff a running droplet. The droplet will remain in
 \examples{
 \dontrun{
 droplets_power_off(id=1739894)
+
+# pipe together operations
+droplets_get() \%>\% droplets_power_off \%>\% events
 }
 }
 

@@ -23,9 +23,12 @@ droplets_power_on(id=1739894)
 out <- droplets_get()
 droplets_power_on(droplet=out)
 
-# from retrieving info ona  single droplet
+# from retrieving info on a single droplet
 out <- droplets_get(1783835)
 droplets_power_on(droplet=out)
+
+# pipe together operations
+droplets_get() \%>\% droplets_power_on
 }
 }
 
