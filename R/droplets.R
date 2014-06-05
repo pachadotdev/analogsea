@@ -2,7 +2,7 @@
 #'
 #' @importFrom magrittr %>%
 #' @export
-#' @template id
+#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
 #' @template params
 #' @examples \dontrun{
 #' droplets_get()
@@ -132,7 +132,7 @@ droplets_shutdown <- function(id=NULL, what="parsed", ...)
 #' This method allows you to poweroff a running droplet. The droplet will remain in your account.
 #'
 #' @export
-#' @template id
+#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
 #' @template params
 #' @examples \dontrun{
 #' droplets_power_off(id=1739894)
@@ -153,7 +153,7 @@ droplets_power_off <- function(droplet=NULL, what="parsed", ...)
 #' This method allows you to poweron a powered off droplet.
 #'
 #' @export
-#' @template id
+#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
 #' @template params
 #' @examples \dontrun{
 #' droplets_power_on(id=1739894)
@@ -301,7 +301,7 @@ droplets_rebuild <- function(id=NULL, image_id=NULL, what="parsed", ...)
 #' This method destroys one of your droplets - this is irreversible
 #'
 #' @export
-#' @template id
+#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
 #' @param scrub_data (logical) To scrub data or not
 #' @template params
 #' @examples \dontrun{
@@ -311,10 +311,14 @@ droplets_rebuild <- function(id=NULL, image_id=NULL, what="parsed", ...)
 #' # Chain operations together - FUTURE, shut off multiple droplets
 #' drops <- droplets_get()
 #' drops$droplets %>% droplets_destroy
+#' 
+#' # Pipe 'em
+#' droplets_get(1790260) %>% droplets_destroy %>% events
 #' }
 
-droplets_destroy <- function(id=NULL, scrub_data=FALSE, what="parsed", ...)
+droplets_destroy <- function(droplet=NULL, scrub_data=FALSE, what="parsed", ...)
 {
+  id <- check_droplet(droplet)
   assert_that(!is.null(id))
   do_GET(what, TRUE, sprintf('droplets/%s/destroy', id), ct(scrub_data=scrub_data), ...)
 }

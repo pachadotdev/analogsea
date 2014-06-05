@@ -6,7 +6,7 @@
 droplets_power_on(droplet = NULL, what = "parsed", ...)
 }
 \arguments{
-\item{id}{(numeric) A droplet id (optional)}
+\item{droplet}{A droplet number or the result from a call to \code{droplets_get()}}
 
 \item{what}{(character) One of list or raw}
 

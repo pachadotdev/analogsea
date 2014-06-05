@@ -3,10 +3,10 @@
 \alias{droplets_destroy}
 \title{Destory a droplet.}
 \usage{
-droplets_destroy(id = NULL, scrub_data = FALSE, what = "parsed", ...)
+droplets_destroy(droplet = NULL, scrub_data = FALSE, what = "parsed", ...)
 }
 \arguments{
-\item{id}{(numeric) A droplet id (optional)}
+\item{droplet}{A droplet number or the result from a call to \code{droplets_get()}}
 
 \item{scrub_data}{(logical) To scrub data or not}
 
@@ -25,6 +25,9 @@ droplets_destroy(id=1707487)
 # Chain operations together - FUTURE, shut off multiple droplets
 drops <- droplets_get()
 drops$droplets \%>\% droplets_destroy
+
+# Pipe 'em
+droplets_get(1790260) \%>\% droplets_destroy \%>\% events
 }
 }
 
