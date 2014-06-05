@@ -1,6 +1,6 @@
 #' Get metadata on all your droplets, or droplets by id
 #'
-#' @import magrittr
+#' @importFrom magrittr %>%
 #' @export
 #' @template id
 #' @template params
