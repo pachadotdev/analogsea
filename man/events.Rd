@@ -3,10 +3,10 @@
 \alias{events}
 \title{Get information on an event}
 \usage{
-events(id = NULL, what = "parsed", ...)
+events(x = NULL, what = "parsed", ...)
 }
 \arguments{
-\item{id}{Event ID.}
+\item{x}{Event ID or a droplet object.}
 
 \item{what}{(character) One of list or raw}
 
@@ -17,7 +17,11 @@ Get information on an event
 }
 \examples{
 \dontrun{
-events(id=25914777)
+events(x=25914777)
+gg <- droplets_get() \%>\% droplets_power_on
+events(x=gg)
+
+droplets_get() \%>\% droplets_power_off \%>\% events
 }
 }
 
