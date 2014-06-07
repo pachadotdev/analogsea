@@ -38,12 +38,12 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=
   while(stat == "new"){
     Sys.sleep(1)
     out <- droplets_get(id)
-    stat <- out$droplet$status
+    stat <- out$droplets$status
   }
-  ip <- out$droplet$ip_address
+  ip <- out$droplets$ip_address
   
   # stops function if scp and ssh arent found
-  cli_tools()
+  cli_tools(ip)
 
   # remove known_hosts key
   mssg(verbose, "Removing known host if already present")
@@ -127,7 +127,7 @@ scp_ssh <- function(file, ip, user='root'){
 }
 
 scp <- function(file, ip, user='root'){
-  scp_cmd <- sprintf('scp %s %s@%s:~/', file, user, ip)
+  scp_cmd <- sprintf('scp -o StrictHostKeyChecking=no %s %s@%s:~/', file, user, ip)
   system(scp_cmd)
 }
 

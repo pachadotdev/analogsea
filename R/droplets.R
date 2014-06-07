@@ -145,7 +145,9 @@ droplets_power_off <- function(droplet=NULL, what="parsed", ...)
 {
   id <- check_droplet(droplet)
   assert_that(!is.null(id))
-  do_GET(what, TRUE, sprintf('droplets/%s/power_off', id), ...)
+  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/power_off', id), ...)
+  droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
+  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id)
 }
 
 #' Power on a droplet.
@@ -174,7 +176,9 @@ droplets_power_on <- function(droplet=NULL, what="parsed", ...)
 {
   id <- check_droplet(droplet)
   assert_that(!is.null(id))
-  do_GET(what, TRUE, sprintf('droplets/%s/power_on', id), ...)
+  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/power_on', id), ...)
+  droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
+  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id)
 }
 
 check_droplet <- function(x){
