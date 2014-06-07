@@ -17,7 +17,7 @@ Get information on an event
 }
 \examples{
 \dontrun{
-events(x=25914777)
+events(x=26024501)
 gg <- droplets_get() \%>\% droplets_power_on
 events(x=gg)
 
