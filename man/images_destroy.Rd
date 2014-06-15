@@ -20,7 +20,7 @@ backed up.
 }
 \examples{
 \dontrun{
-images_get(image_id=4315195)
+images_destroy(image_id=4315195)
 }
 }
 

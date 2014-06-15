@@ -7,14 +7,14 @@
 #' @param filter Filter stuff, one of my_images or global
 #' @template params
 #' @examples \dontrun{
-#' head(images_get())
-#' images_get(filter='my_images')
-#' images_get(what='raw')
-#' images_get(image_id=3209452)
-#' images_get(image_id=4315195)
+#' head(images())
+#' images(filter='my_images')
+#' images(what='raw')
+#' images(image_id=3209452)
+#' images(image_id=4315195)
 #' }
 
-images_get <- function(image_id=NULL, image_slug=NULL, filter=NULL, what="parsed", ...)
+images <- function(image_id=NULL, image_slug=NULL, filter=NULL, what="parsed", ...)
 {
   if(!is.null(image_id) || !is.null(image_slug)){
     assert_that(xor(is.null(image_id), is.null(image_slug)))
@@ -57,7 +57,7 @@ parseres <- function(z){
 #' @param image_slug (character) This is the slug of the image to return
 #' @template params
 #' @examples \dontrun{
-#' images_get(image_id=4315195)
+#' images_destroy(image_id=4315195)
 #' }
 
 images_destroy <- function(image_id=NULL, image_slug=NULL, what="parsed", ...)
