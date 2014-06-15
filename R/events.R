@@ -5,10 +5,10 @@
 #' @template params
 #' @examples \dontrun{
 #' events(x=26024501)
-#' gg <- droplets_get() %>% droplets_power_on
+#' gg <- droplets() %>% droplets_power_on
 #' events(x=gg)
-#' 
-#' droplets_get() %>% droplets_power_off %>% events
+#'
+#' droplets() %>% droplets_power_off %>% events
 #' }
 
 events <- function(x=NULL, what="parsed", ...)
@@ -28,6 +28,6 @@ check_event <- function(x){
       x <- as.numeric(as.character(x))
       if(!is.numeric(x)) stop("Could not detect an event id")
     }
-    x 
+    x
   } else { NULL }
 }

@@ -6,7 +6,7 @@
 droplets_password_reset(droplet = NULL, what = "parsed", ...)
 }
 \arguments{
-\item{droplet}{A droplet number or the result from a call to \code{droplets_get()}}
+\item{droplet}{A droplet number or the result from a call to \code{droplets()}}
 
 \item{what}{(character) One of list or raw}
 
@@ -20,7 +20,7 @@ the droplet to allow resetting the password.
 \dontrun{
 droplets_password_reset(id=1707487)
 
-droplets_get() \%>\% droplets_password_reset \%>\% events
+droplets() \%>\% droplets_password_reset \%>\% events
 }
 }
 

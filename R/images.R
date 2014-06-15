@@ -1,5 +1,5 @@
 #' Get list of images and their metadata, or a single image
-#'  
+#'
 #' @importFrom plyr rbind.fill
 #' @export
 #' @param image_id (numeric) This is the id of the image to return
@@ -48,10 +48,10 @@ parseres <- function(z){
 }
 
 #' Destroy an image
-#' 
-#' There is no way to restore a deleted image so be careful and ensure your data is properly 
+#'
+#' There is no way to restore a deleted image so be careful and ensure your data is properly
 #' backed up.
-#'  
+#'
 #' @export
 #' @param image_id (numeric) This is the id of the image to return
 #' @param image_slug (character) This is the slug of the image to return
@@ -69,17 +69,17 @@ images_destroy <- function(image_id=NULL, image_slug=NULL, what="parsed", ...)
 }
 
 #' Transfer an image to a specified region.
-#'  
+#'
 #' @export
 #' @param image_id (numeric) This is the id of the image to return
 #' @param image_slug (character) This is the slug of the image to return
-#' @param region_id (numeric) Required. This is the id of the region to which you would like 
+#' @param region_id (numeric) Required. This is the id of the region to which you would like
 #' to transfer.
 #' @template params
 #' @examples \dontrun{
 #' id <- droplets_new(name="stuffstuff", size_id = 64, image_id = 3240036, region_slug = 'sfo1')
-#' droplets_get(id$droplet$id) %>% 
-#'  droplets_power_off %>% 
+#' droplets(id$droplet$id) %>%
+#'  droplets_power_off %>%
 #'  droplets_snapshot(name = "coolimage")
 #' images_transfer(image_id=4315784, region_id=4)
 #' }

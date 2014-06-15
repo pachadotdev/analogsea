@@ -6,7 +6,7 @@
 droplets_restore(droplet = NULL, image_id = NULL, what = "parsed", ...)
 }
 \arguments{
-\item{droplet}{A droplet number or the result from a call to \code{droplets_get()}}
+\item{droplet}{A droplet number or the result from a call to \code{droplets()}}
 
 \item{image_id}{The image id to use to rebuild the droplet.}
 
@@ -23,7 +23,7 @@ information prior to restore.
 \dontrun{
 droplets_restore(id=1707487, image_id=3240036)
 
-droplets_get() \%>\%
+droplets() \%>\%
  droplets_restore
 }
 }

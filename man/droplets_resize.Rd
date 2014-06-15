@@ -7,7 +7,7 @@ droplets_resize(droplet = NULL, size_id = NULL, size_slug = NULL,
   what = "parsed", ...)
 }
 \arguments{
-\item{droplet}{A droplet number or the result from a call to \code{droplets_get()}}
+\item{droplet}{A droplet number or the result from a call to \code{droplets()}}
 
 \item{size_id}{(numeric) Size id of the image size}
 
@@ -25,7 +25,7 @@ number of processors and memory allocated to the droplet.
 \dontrun{
 droplets_resize(id=1707487, size_id=63)
 
-droplets_get() \%>\%
+droplets() \%>\%
    droplets_power_off \%>\%
    droplets_resize(size_id = 62) \%>\%
    events

@@ -6,7 +6,7 @@
 droplets_snapshot(droplet = NULL, name = NULL, what = "parsed", ...)
 }
 \arguments{
-\item{droplet}{A droplet number or the result from a call to \code{droplets_get()}}
+\item{droplet}{A droplet number or the result from a call to \code{droplets()}}
 
 \item{name}{(character) Optional. Name of the new snapshot you want to create. If not set, the
 snapshot name will default to date/time}
@@ -24,7 +24,7 @@ cause a reboot.
 \dontrun{
 droplets_snapshot(id=1707487)
 
-droplets_get() \%>\%
+droplets() \%>\%
  droplets_snapshot \%>\%
  events
 }

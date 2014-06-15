@@ -33,7 +33,7 @@ __Get droplets__
 All droplets
 
 ```coffee
-droplets_get()
+droplets()
 ```
 
 ```coffee
@@ -83,10 +83,10 @@ $droplets[[2]]$id
 A single droplet. Pass in a list with details like above or a single droplet id.
 
 ```coffee
-droplets_get(1746449)
+droplets(1746449)
 # This does the same
-# drops <- droplets_get()
-# droplets_get(drops$droplets[[1]])
+# drops <- droplets()
+# droplets(drops$droplets[[1]])
 ```
 
 ```coffee

@@ -6,7 +6,7 @@
 droplets_power_cycle(droplet = NULL, what = "parsed", ...)
 }
 \arguments{
-\item{droplet}{A droplet number or the result from a call to \code{droplets_get()}}
+\item{droplet}{A droplet number or the result from a call to \code{droplets()}}
 
 \item{what}{(character) One of list or raw}
 
@@ -20,7 +20,7 @@ back on
 \dontrun{
 droplets_power_cycle(id=1739894)
 
-droplets_get() \%>\% droplets_power_cycle
+droplets() \%>\% droplets_power_cycle
 }
 }
 

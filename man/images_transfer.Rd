@@ -24,7 +24,7 @@ Transfer an image to a specified region.
 \examples{
 \dontrun{
 id <- droplets_new(name="stuffstuff", size_id = 64, image_id = 3240036, region_slug = 'sfo1')
-droplets_get(id$droplet$id) \%>\%
+droplets(id$droplet$id) \%>\%
  droplets_power_off \%>\%
  droplets_snapshot(name = "coolimage")
 images_transfer(image_id=4315784, region_id=4)

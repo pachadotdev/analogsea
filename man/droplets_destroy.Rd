@@ -6,7 +6,7 @@
 droplets_destroy(droplet = NULL, scrub_data = FALSE, what = "parsed", ...)
 }
 \arguments{
-\item{droplet}{A droplet number or the result from a call to \code{droplets_get()}}
+\item{droplet}{A droplet number or the result from a call to \code{droplets()}}
 
 \item{scrub_data}{(logical) To scrub data or not}
 
@@ -23,13 +23,13 @@ droplets_destroy(id=1707487)
 }
 \donttest{
 # Chain operations together - FUTURE, shut off multiple droplets
-drops <- droplets_get()
+drops <- droplets()
 drops$droplets \%>\% droplets_destroy
 
 # Pipe 'em - 1st, create a new droplet
 id <- droplets_new(name="newdrop", size_id = 64, image_id = 3240036, region_slug = 'sfo1')
 id <- droplet$id
-droplets_get(id) \%>\% droplets_destroy \%>\% events
+droplets(id) \%>\% droplets_destroy \%>\% events
 }
 }
 

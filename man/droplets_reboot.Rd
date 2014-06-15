@@ -6,7 +6,7 @@
 droplets_reboot(droplet = NULL, what = "parsed", ...)
 }
 \arguments{
-\item{droplet}{A droplet number or the result from a call to \code{droplets_get()}}
+\item{droplet}{A droplet number or the result from a call to \code{droplets()}}
 
 \item{what}{(character) One of list or raw}
 
@@ -20,8 +20,8 @@ not responding
 \dontrun{
 droplets_reboot(id=1739894)
 
-droplets_get() \%>\% droplets_reboot
-droplets_get() \%>\% droplets_reboot \%>\% events
+droplets() \%>\% droplets_reboot
+droplets() \%>\% droplets_reboot \%>\% events
 }
 }
 

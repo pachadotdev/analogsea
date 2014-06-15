@@ -6,7 +6,7 @@
 droplets_power_on(droplet = NULL, what = "parsed", ...)
 }
 \arguments{
-\item{droplet}{A droplet number or the result from a call to \code{droplets_get()}}
+\item{droplet}{A droplet number or the result from a call to \code{droplets()}}
 
 \item{what}{(character) One of list or raw}
 
@@ -20,15 +20,15 @@ This method allows you to poweron a powered off droplet.
 droplets_power_on(id=1739894)
 
 # many droplets
-out <- droplets_get()
+out <- droplets()
 droplets_power_on(droplet=out)
 
 # from retrieving info on a single droplet
-out <- droplets_get(1783835)
+out <- droplets(1783835)
 droplets_power_on(droplet=out)
 
 # pipe together operations
-droplets_get() \%>\% droplets_power_on
+droplets() \%>\% droplets_power_on
 }
 }
 

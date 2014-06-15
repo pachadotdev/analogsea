@@ -2,27 +2,27 @@
 #'
 #' @importFrom magrittr %>%
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
+#' @param droplet A droplet number or the result from a call to \code{droplets()}
 #' @template params
 #' @examples \dontrun{
-#' droplets_get()
-#' droplets_get(config=verbose())
-#' droplets_get(config=timeout(seconds = 0.3))
+#' droplets()
+#' droplets(config=verbose())
+#' droplets(config=timeout(seconds = 0.3))
 #'
 #' # raw output
-#' droplets_get(what="raw")
-#' res <- droplets_get(1746449, what="raw")
+#' droplets(what="raw")
+#' res <- droplets(1746449, what="raw")
 #' res$headers
 #'
 #' # Get info on a single droplet, passing in a list of droplet details
-#' drops <- droplets_get()
-#' droplets_get(droplet=drops$droplets[[1]])
+#' drops <- droplets()
+#' droplets(droplet=drops$droplets[[1]])
 #'
 #' # Get info on a single droplet, passing in a numeric droplet id
-#' droplets_get(droplet=1746449)
+#' droplets(droplet=1746449)
 #' }
 
-droplets_get <- function(droplet=NULL, what="parsed", ...)
+droplets <- function(droplet=NULL, what="parsed", ...)
 {
   if(!is.null(droplet)){
     if(is.list(droplet)){
@@ -82,13 +82,13 @@ droplets_new <- function(name=NULL, size_id=NULL, size_slug=NULL, image_id=NULL,
 #' not responding
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
+#' @param droplet A droplet number or the result from a call to \code{droplets()}
 #' @template params
 #' @examples \dontrun{
 #' droplets_reboot(id=1739894)
 #'
-#' droplets_get() %>% droplets_reboot
-#' droplets_get() %>% droplets_reboot %>% events
+#' droplets() %>% droplets_reboot
+#' droplets() %>% droplets_reboot %>% events
 #' }
 
 droplets_reboot <- function(droplet=NULL, what="parsed", ...)
@@ -108,12 +108,12 @@ droplets_reboot <- function(droplet=NULL, what="parsed", ...)
 #' back on
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
+#' @param droplet A droplet number or the result from a call to \code{droplets()}
 #' @template params
 #' @examples \dontrun{
 #' droplets_power_cycle(id=1739894)
 #'
-#' droplets_get() %>% droplets_power_cycle
+#' droplets() %>% droplets_power_cycle
 #' }
 
 droplets_power_cycle <- function(droplet=NULL, what="parsed", ...)
@@ -132,12 +132,12 @@ droplets_power_cycle <- function(droplet=NULL, what="parsed", ...)
 #' This method allows you to shutdown a running droplet. The droplet will remain in your account
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
+#' @param droplet A droplet number or the result from a call to \code{droplets()}
 #' @template params
 #' @examples \dontrun{
 #' droplets_shutdown(id=1707487)
 #'
-#' droplets_get() %>% droplets_shutdown
+#' droplets() %>% droplets_shutdown
 #' }
 
 droplets_shutdown <- function(droplet=NULL, what="parsed", ...)
@@ -156,13 +156,13 @@ droplets_shutdown <- function(droplet=NULL, what="parsed", ...)
 #' This method allows you to poweroff a running droplet. The droplet will remain in your account.
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
+#' @param droplet A droplet number or the result from a call to \code{droplets()}
 #' @template params
 #' @examples \dontrun{
 #' droplets_power_off(id=1739894)
 #'
 #' # pipe together operations
-#' droplets_get() %>% droplets_power_off %>% events
+#' droplets() %>% droplets_power_off %>% events
 #' }
 
 droplets_power_off <- function(droplet=NULL, what="parsed", ...)
@@ -181,21 +181,21 @@ droplets_power_off <- function(droplet=NULL, what="parsed", ...)
 #' This method allows you to poweron a powered off droplet.
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
+#' @param droplet A droplet number or the result from a call to \code{droplets()}
 #' @template params
 #' @examples \dontrun{
 #' droplets_power_on(id=1739894)
 #'
 #' # many droplets
-#' out <- droplets_get()
+#' out <- droplets()
 #' droplets_power_on(droplet=out)
 #'
 #' # from retrieving info on a single droplet
-#' out <- droplets_get(1783835)
+#' out <- droplets(1783835)
 #' droplets_power_on(droplet=out)
 #'
 #' # pipe together operations
-#' droplets_get() %>% droplets_power_on
+#' droplets() %>% droplets_power_on
 #' }
 
 droplets_power_on <- function(droplet=NULL, what="parsed", ...)
@@ -215,12 +215,12 @@ droplets_power_on <- function(droplet=NULL, what="parsed", ...)
 #' the droplet to allow resetting the password.
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
+#' @param droplet A droplet number or the result from a call to \code{droplets()}
 #' @template params
 #' @examples \dontrun{
 #' droplets_password_reset(id=1707487)
 #'
-#' droplets_get() %>% droplets_password_reset %>% events
+#' droplets() %>% droplets_password_reset %>% events
 #' }
 
 droplets_password_reset <- function(droplet=NULL, what="parsed", ...)
@@ -240,14 +240,14 @@ droplets_password_reset <- function(droplet=NULL, what="parsed", ...)
 #' number of processors and memory allocated to the droplet.
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
+#' @param droplet A droplet number or the result from a call to \code{droplets()}
 #' @param size_id (numeric) Size id of the image size
 #' @param size_slug (character) Size slug (name) of the image size
 #' @template params
 #' @examples \dontrun{
 #' droplets_resize(id=1707487, size_id=63)
 #'
-#' droplets_get() %>%
+#' droplets() %>%
 #'    droplets_power_off %>%
 #'    droplets_resize(size_id = 62) %>%
 #'    events
@@ -272,14 +272,14 @@ droplets_resize <- function(droplet=NULL, size_id=NULL, size_slug=NULL, what="pa
 #' cause a reboot.
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
+#' @param droplet A droplet number or the result from a call to \code{droplets()}
 #' @param name (character) Optional. Name of the new snapshot you want to create. If not set, the
 #' snapshot name will default to date/time
 #' @template params
 #' @examples \dontrun{
 #' droplets_snapshot(id=1707487)
 #'
-#' droplets_get() %>%
+#' droplets() %>%
 #'  droplets_snapshot %>%
 #'  events
 #' }
@@ -302,13 +302,13 @@ droplets_snapshot <- function(droplet=NULL, name=NULL, what="parsed", ...)
 #' information prior to restore.
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
+#' @param droplet A droplet number or the result from a call to \code{droplets()}
 #' @param image_id The image id to use to rebuild the droplet.
 #' @template params
 #' @examples \dontrun{
 #' droplets_restore(id=1707487, image_id=3240036)
 #'
-#' droplets_get() %>%
+#' droplets() %>%
 #'  droplets_restore
 #' }
 
@@ -329,13 +329,13 @@ droplets_restore <- function(droplet=NULL, image_id=NULL, what="parsed", ...)
 #' to start again but retain the same IP address for your droplet.
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
+#' @param droplet A droplet number or the result from a call to \code{droplets()}
 #' @param image_id The image id to use to rebuild the droplet.
 #' @template params
 #' @examples \dontrun{
 #' droplets_rebuild(id=1707487, image_id=3240036)
 #'
-#' droplets_get() %>%
+#' droplets() %>%
 #'  droplets_rebuild
 #' }
 
@@ -355,7 +355,7 @@ droplets_rebuild <- function(droplet=NULL, image_id=NULL, what="parsed", ...)
 #' This method destroys one of your droplets - this is irreversible
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
+#' @param droplet A droplet number or the result from a call to \code{droplets()}
 #' @param scrub_data (logical) To scrub data or not
 #' @template params
 #' @examples \dontrun{
@@ -363,13 +363,13 @@ droplets_rebuild <- function(droplet=NULL, image_id=NULL, what="parsed", ...)
 #' }
 #' \donttest{
 #' # Chain operations together - FUTURE, shut off multiple droplets
-#' drops <- droplets_get()
+#' drops <- droplets()
 #' drops$droplets %>% droplets_destroy
 #'
 #' # Pipe 'em - 1st, create a new droplet
 #' id <- droplets_new(name="newdrop", size_id = 64, image_id = 3240036, region_slug = 'sfo1')
 #' id <- droplet$id
-#' droplets_get(id) %>% droplets_destroy %>% events
+#' droplets(id) %>% droplets_destroy %>% events
 #' }
 
 droplets_destroy <- function(droplet=NULL, scrub_data=FALSE, what="parsed", ...)
@@ -388,15 +388,15 @@ droplets_destroy <- function(droplet=NULL, scrub_data=FALSE, what="parsed", ...)
 #' This method renames the droplet to the specified name.
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
+#' @param droplet A droplet number or the result from a call to \code{droplets()}
 #' @param name (character) Name of the droplet
 #' @template params
 #' @examples \dontrun{
 #' droplets_rename(id=1707487, name='wadup')
 #'
-#' droplets_get() %>%
+#' droplets() %>%
 #'  droplets_rename(name="dropmealine")
-#' droplets_get()  # name has changed
+#' droplets()  # name has changed
 #' }
 
 droplets_rename <- function(droplet=NULL, name=NULL, what="parsed", ...)

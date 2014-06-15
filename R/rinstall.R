@@ -37,11 +37,11 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=
   stat <- "new"
   while(stat == "new"){
     Sys.sleep(1)
-    out <- droplets_get(id)
+    out <- droplets(id)
     stat <- out$droplets$status
   }
   ip <- out$droplets$ip_address
-  
+
   # stops function if scp and ssh arent found
   cli_tools(ip)
 

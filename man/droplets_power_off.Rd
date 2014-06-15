@@ -6,7 +6,7 @@
 droplets_power_off(droplet = NULL, what = "parsed", ...)
 }
 \arguments{
-\item{droplet}{A droplet number or the result from a call to \code{droplets_get()}}
+\item{droplet}{A droplet number or the result from a call to \code{droplets()}}
 
 \item{what}{(character) One of list or raw}
 
@@ -20,7 +20,7 @@ This method allows you to poweroff a running droplet. The droplet will remain in
 droplets_power_off(id=1739894)
 
 # pipe together operations
-droplets_get() \%>\% droplets_power_off \%>\% events
+droplets() \%>\% droplets_power_off \%>\% events
 }
 }
 
