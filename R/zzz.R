@@ -66,3 +66,9 @@ check_droplet <- function(x){
     } else { NULL }
   }
 }
+
+match_droplet <- function(x){
+  if(length(x$droplet_ids) > 1){
+    x[vapply(x, "[[", 1, "id")==id]
+  } else { x }
+}
