@@ -3,12 +3,10 @@
 \alias{domains}
 \title{Get information on a single domain or all your domains.}
 \usage{
-domains(domain_id = NULL, record_id = NULL, what = "parsed", ...)
+domains(domain_id = NULL, what = "parsed", ...)
 }
 \arguments{
 \item{domain_id}{Domain ID}
-
-\item{record_id}{A domain record ID}
 
 \item{what}{(character) One of list or raw}
 

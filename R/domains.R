@@ -4,12 +4,12 @@
 #' @param domain_id Domain ID
 #' @template params
 #' @examples \dontrun{
-#' domains_get()
-#' domains_get(316128)
-#' domains_get(what="raw")
+#' domains()
+#' domains(316128)
+#' domains(what="raw")
 #' }
 
-domains_get <- function(domain_id=NULL, what="parsed", ...)
+domains <- function(domain_id=NULL, what="parsed", ...)
 {
   path <- if(is.null(domain_id)) 'domains' else sprintf('domains/%s', domain_id)
   do_GET(what, FALSE, path, ...)
