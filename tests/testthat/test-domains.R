@@ -1,0 +1,30 @@
+# tests for domains
+context("domains")
+
+a <- domains()
+b <- domains(what = 'raw')
+
+c <- domains_new(name = "asdfasd.info", ip_address = "123.456.789")
+d <- domains_destroy(domain_id='asdfasd.info')
+
+e <- domains_new(name = "testing1.info", ip_address = "123.456.123")
+f <- domains_new_record(domain_id='testing1.info', record_type="TXT", data="what what")
+g <- domains_edit_record(domain_id='testing1.info', record_id=f$record$id, record_type="TXT", data="edited text")
+h <- domains_destroy_record(domain_id='testing1.info', record_id=f$record$id)
+
+i <- domains_records(domain_id = "testing1.info")
+
+test_that("domains returns the correct class", {
+  expect_is(a, "list")
+  expect_is(b, "response")
+  expect_is(c, "list")
+  expect_is(d, "list")
+  expect_is(e, "list")
+  expect_is(f, "list")
+  expect_is(g, "list")
+  expect_is(h, "list")
+})
+
+test_that("incorrect input to what param returns NULL", {
+  expect_error(domains_records("asfasd"))
+})

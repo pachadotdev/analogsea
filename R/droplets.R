@@ -6,6 +6,7 @@
 #' @template params
 #' @examples \dontrun{
 #' droplets()
+#' library("httr")
 #' droplets(config=verbose())
 #' droplets(config=timeout(seconds = 0.3))
 #'
