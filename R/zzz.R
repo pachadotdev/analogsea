@@ -49,15 +49,20 @@ cli_tools <- function(ip){
 }
 
 check_droplet <- function(x){
-  if(!is.null(x)){
-    if(is.list(x)){
-      if(length(x$droplet_ids) > 1) message("More than 1 droplet, using first")
-      x <- x$droplet_ids[[1]]
-      if(!is.numeric(x)) stop("Could not detect a droplet id")
-    } else {
-      x <- as.numeric(as.character(x))
-      if(!is.numeric(x)) stop("Could not detect a droplet id")
-    }
-    x 
-  } else { NULL }
+  if(class(x) == "response"){
+    message("httr response object detected, passing")
+    NULL
+  } else {
+    if(!is.null(x)){
+      if(is.list(x)){
+        if(length(x$droplet_ids) > 1) message("More than 1 droplet, using first")
+        x <- x$droplet_ids[[1]]
+        if(!is.numeric(x)) stop("Could not detect a droplet id")
+      } else {
+        x <- as.numeric(as.character(x))
+        if(!is.numeric(x)) stop("Could not detect a droplet id")
+      }
+      x 
+    } else { NULL }
+  }
 }

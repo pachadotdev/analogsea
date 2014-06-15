@@ -34,11 +34,13 @@ droplets_get <- function(droplet=NULL, what="parsed", ...)
   } else { id <- NULL }
   path <- if(is.null(droplet)) 'droplets' else sprintf('droplets/%s', id)
   tmp <- do_GET(what, TRUE, path, ...)
-  if ("droplet" %in% names(tmp)){
-    names(tmp) <- "droplets"
-    ids <- tmp$droplets$id
-  } else { ids <- sapply(tmp$droplets, "[[", "id") }
-  list(droplet_ids = ids, droplets = tmp$droplets, event_id=NULL)
+  if(what == 'raw'){ tmp } else {
+    if ("droplet" %in% names(tmp)){
+      names(tmp) <- "droplets"
+      ids <- tmp$droplets$id
+    } else { ids <- sapply(tmp$droplets, "[[", "id") }
+    list(droplet_ids = ids, droplets = tmp$droplets, event_id=NULL)
+  }
 }
 
 #' Create a new droplet.
@@ -94,8 +96,10 @@ droplets_reboot <- function(droplet=NULL, what="parsed", ...)
   id <- check_droplet(droplet)
   assert_that(!is.null(id))
   tmp <- do_GET(what, TRUE, sprintf('droplets/%s/reboot', id), ...)
-  droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
-  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
+  if(what == 'raw'){ tmp } else {
+    droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
+    list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
+  }
 }
 
 #' Power cycle a droplet.
@@ -117,8 +121,10 @@ droplets_power_cycle <- function(droplet=NULL, what="parsed", ...)
   id <- check_droplet(droplet)
   assert_that(!is.null(id))
   tmp <- do_GET(what, TRUE, sprintf('droplets/%s/power_cycle', id), ...)
-  droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
-  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
+  if(what == 'raw'){ tmp } else {
+    droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
+    list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
+  }
 }
 
 #' Shutdown a droplet.
@@ -139,8 +145,10 @@ droplets_shutdown <- function(droplet=NULL, what="parsed", ...)
   id <- check_droplet(droplet)
   assert_that(!is.null(id))
   tmp <- do_GET(what, TRUE, sprintf('droplets/%s/shutdown', id), ...)
-  droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
-  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id)
+  if(what == 'raw'){ tmp } else {
+    droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
+    list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
+  }
 }
 
 #' Power off a droplet.
@@ -162,8 +170,10 @@ droplets_power_off <- function(droplet=NULL, what="parsed", ...)
   id <- check_droplet(droplet)
   assert_that(!is.null(id))
   tmp <- do_GET(what, TRUE, sprintf('droplets/%s/power_off', id), ...)
-  droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
-  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id)
+  if(what == 'raw'){ tmp } else {
+    droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
+    list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
+  }
 }
 
 #' Power on a droplet.
@@ -193,8 +203,10 @@ droplets_power_on <- function(droplet=NULL, what="parsed", ...)
   id <- check_droplet(droplet)
   assert_that(!is.null(id))
   tmp <- do_GET(what, TRUE, sprintf('droplets/%s/power_on', id), ...)
-  droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
-  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id)
+  if(what == 'raw'){ tmp } else {
+    droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
+    list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
+  }
 }
 
 #' Reset a password for a droplet.
@@ -216,8 +228,10 @@ droplets_password_reset <- function(droplet=NULL, what="parsed", ...)
   id <- check_droplet(droplet)
   assert_that(!is.null(id))
   tmp <- do_GET(what, TRUE, sprintf('droplets/%s/password_reset', id), ...)
-  droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
-  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
+  if(what == 'raw'){ tmp } else {
+    droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
+    list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
+  }
 }
 
 #' Resize a droplet.
@@ -245,8 +259,10 @@ droplets_resize <- function(droplet=NULL, size_id=NULL, size_slug=NULL, what="pa
   assert_that(!is.null(id))
   assert_that(xor(is.null(size_id), is.null(size_slug)))
   tmp <- do_GET(what, TRUE, sprintf('droplets/%s/resize', id), ct(size_id=size_id, size_slug=size_slug), ...)
-  droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
-  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
+  if(what == 'raw'){ tmp } else {
+    droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
+    list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
+  }
 }
 
 #' Take a snapshot of a droplet.
@@ -273,8 +289,10 @@ droplets_snapshot <- function(droplet=NULL, name=NULL, what="parsed", ...)
   id <- check_droplet(droplet)
   assert_that(!is.null(id))
   tmp <- do_GET(what, TRUE, sprintf('droplets/%s/snapshot', id), ct(name=name), ...)
-  droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
-  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id)
+  if(what == 'raw'){ tmp } else {
+    droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
+    list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
+  }
 }
 
 #' Restore a droplet.
@@ -299,8 +317,10 @@ droplets_restore <- function(droplet=NULL, image_id=NULL, what="parsed", ...)
   id <- check_droplet(droplet)
   assert_that(!is.null(id), !is.null(image_id))
   tmp <- do_GET(what, TRUE, sprintf('droplets/%s/restore', id), ct(image_id=image_id), ...)
-  droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
-  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
+  if(what == 'raw'){ tmp } else {
+    droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
+    list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
+  }
 }
 
 #' Rebuild a droplet.
@@ -324,8 +344,10 @@ droplets_rebuild <- function(droplet=NULL, image_id=NULL, what="parsed", ...)
   id <- check_droplet(droplet)
   assert_that(!is.null(id), !is.null(image_id))
   tmp <- do_GET(what, TRUE, sprintf('droplets/%s/rebuild', id), ct(image_id=image_id), ...)
-  droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
-  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
+  if(what == 'raw'){ tmp } else {
+    droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
+    list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
+  }
 }
 
 #' Destory a droplet.
@@ -355,8 +377,10 @@ droplets_destroy <- function(droplet=NULL, scrub_data=FALSE, what="parsed", ...)
   id <- check_droplet(droplet)
   assert_that(!is.null(id))
   tmp <- do_GET(what, TRUE, sprintf('droplets/%s/destroy', id), ct(scrub_data=scrub_data), ...)
-  droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
-  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id)
+  if(what == 'raw'){ tmp } else {
+    droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
+    list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
+  }
 }
 
 #' Rename a droplet.
@@ -380,6 +404,8 @@ droplets_rename <- function(droplet=NULL, name=NULL, what="parsed", ...)
   id <- check_droplet(droplet)
   assert_that(!is.null(id), !is.null(name))
   tmp <- do_GET(what, TRUE, sprintf('droplets/%s/rename', id), ct(name=name), ...)
-  droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
-  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id)
+  if(what == 'raw'){ tmp } else {
+    droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
+    list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
+  }
 }
