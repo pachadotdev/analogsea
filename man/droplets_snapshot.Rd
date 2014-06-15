@@ -3,10 +3,10 @@
 \alias{droplets_snapshot}
 \title{Take a snapshot of a droplet.}
 \usage{
-droplets_snapshot(id = NULL, name = NULL, what = "parsed", ...)
+droplets_snapshot(droplet = NULL, name = NULL, what = "parsed", ...)
 }
 \arguments{
-\item{id}{(numeric) A droplet id (optional)}
+\item{droplet}{A droplet number or the result from a call to \code{droplets_get()}}
 
 \item{name}{(character) Name of the droplet}
 
@@ -22,6 +22,10 @@ cause a reboot.
 \examples{
 \dontrun{
 droplets_snapshot(id=1707487)
+
+droplets_get() \%>\%
+ droplets_snapshot \%>\%
+ events
 }
 }
 

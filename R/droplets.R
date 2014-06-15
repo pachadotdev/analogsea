@@ -38,7 +38,7 @@ droplets_get <- function(droplet=NULL, what="parsed", ...)
     names(tmp) <- "droplets"
     ids <- tmp$droplets$id
   } else { ids <- sapply(tmp$droplets, "[[", "id") }
-  list(droplet_ids = ids, droplets = tmp$droplets)
+  list(droplet_ids = ids, droplets = tmp$droplets, event_id=NULL)
 }
 
 #' Create a new droplet.
@@ -80,16 +80,22 @@ droplets_new <- function(name=NULL, size_id=NULL, size_slug=NULL, image_id=NULL,
 #' not responding
 #'
 #' @export
-#' @template id
+#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
 #' @template params
 #' @examples \dontrun{
 #' droplets_reboot(id=1739894)
+#' 
+#' droplets_get() %>% droplets_reboot
+#' droplets_get() %>% droplets_reboot %>% events
 #' }
 
-droplets_reboot <- function(id=NULL, what="parsed", ...)
+droplets_reboot <- function(droplet=NULL, what="parsed", ...)
 {
+  id <- check_droplet(droplet)
   assert_that(!is.null(id))
-  do_GET(what, TRUE, sprintf('droplets/%s/reboot', id), ...)
+  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/reboot', id), ...)
+  droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
+  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
 }
 
 #' Power cycle a droplet.
@@ -98,16 +104,21 @@ droplets_reboot <- function(id=NULL, what="parsed", ...)
 #' back on
 #'
 #' @export
-#' @template id
+#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
 #' @template params
 #' @examples \dontrun{
 #' droplets_power_cycle(id=1739894)
+#' 
+#' droplets_get() %>% droplets_power_cycle
 #' }
 
-droplets_power_cycle <- function(id=NULL, what="parsed", ...)
+droplets_power_cycle <- function(droplet=NULL, what="parsed", ...)
 {
+  id <- check_droplet(droplet)
   assert_that(!is.null(id))
-  do_GET(what, TRUE, sprintf('droplets/%s/power_cycle', id), ...)
+  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/power_cycle', id), ...)
+  droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
+  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
 }
 
 #' Shutdown a droplet.
@@ -115,16 +126,21 @@ droplets_power_cycle <- function(id=NULL, what="parsed", ...)
 #' This method allows you to shutdown a running droplet. The droplet will remain in your account
 #'
 #' @export
-#' @template id
+#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
 #' @template params
 #' @examples \dontrun{
 #' droplets_shutdown(id=1707487)
+#' 
+#' droplets_get() %>% droplets_shutdown
 #' }
 
-droplets_shutdown <- function(id=NULL, what="parsed", ...)
+droplets_shutdown <- function(droplet=NULL, what="parsed", ...)
 {
+  id <- check_droplet(droplet)
   assert_that(!is.null(id))
-  do_GET(what, TRUE, sprintf('droplets/%s/shutdown', id), ...)
+  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/shutdown', id), ...)
+  droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
+  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id)
 }
 
 #' Power off a droplet.
@@ -187,16 +203,21 @@ droplets_power_on <- function(droplet=NULL, what="parsed", ...)
 #' the droplet to allow resetting the password.
 #'
 #' @export
-#' @template id
+#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
 #' @template params
 #' @examples \dontrun{
 #' droplets_password_reset(id=1707487)
+#' 
+#' droplets_get() %>% droplets_password_reset %>% events
 #' }
 
-droplets_password_reset <- function(id=NULL, what="parsed", ...)
+droplets_password_reset <- function(droplet=NULL, what="parsed", ...)
 {
+  id <- check_droplet(droplet)
   assert_that(!is.null(id))
-  do_GET(what, TRUE, sprintf('droplets/%s/password_reset', id), ...)
+  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/password_reset', id), ...)
+  droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
+  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
 }
 
 #' Resize a droplet.
@@ -205,26 +226,27 @@ droplets_password_reset <- function(id=NULL, what="parsed", ...)
 #' number of processors and memory allocated to the droplet.
 #'
 #' @export
-#' @template id
+#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
 #' @param size_id (numeric) Size id of the image size
 #' @param size_slug (character) Size slug (name) of the image size
 #' @template params
 #' @examples \dontrun{
 #' droplets_resize(id=1707487, size_id=63)
-#' }
-#' \donttest{
-#' # chain operations together - FUTURE workflow
-#' drops <- droplets_get()
-#' drops$droplets[[1]]$id %>%
+#' 
+#' droplets_get() %>%
 #'    droplets_power_off %>%
-#'    droplets_resize(size_id = 62)
+#'    droplets_resize(size_id = 62) %>% 
+#'    events
 #' }
 
-droplets_resize <- function(id=NULL, size_id=NULL, size_slug=NULL, what="parsed", ...)
+droplets_resize <- function(droplet=NULL, size_id=NULL, size_slug=NULL, what="parsed", ...)
 {
+  id <- check_droplet(droplet)
   assert_that(!is.null(id))
   assert_that(xor(is.null(size_id), is.null(size_slug)))
-  do_GET(what, TRUE, sprintf('droplets/%s/resize', id), ct(size_id=size_id, size_slug=size_slug), ...)
+  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/resize', id), ct(size_id=size_id, size_slug=size_slug), ...)
+  droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
+  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
 }
 
 #' Take a snapshot of a droplet.
@@ -234,56 +256,75 @@ droplets_resize <- function(id=NULL, size_id=NULL, size_slug=NULL, what="parsed"
 #' cause a reboot.
 #'
 #' @export
-#' @template id
+#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
 #' @param name (character) Name of the droplet
 #' @template params
 #' @examples \dontrun{
 #' droplets_snapshot(id=1707487)
+#' 
+#' droplets_get() %>% 
+#'  droplets_snapshot %>% 
+#'  events
 #' }
 
-droplets_snapshot <- function(id=NULL, name=NULL, what="parsed", ...)
+droplets_snapshot <- function(droplet=NULL, name=NULL, what="parsed", ...)
 {
+  id <- check_droplet(droplet)
   assert_that(!is.null(id))
-  do_GET(what, TRUE, sprintf('droplets/%s/snapshot', id), ct(name=name), ...)
+  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/snapshot', id), ct(name=name), ...)
+  droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
+  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
 }
 
 #' Restore a droplet.
 #'
-#' This method allows you to take a snapshot of the droplet once it has been powered off, which can
-#' later be restored or used to create a new droplet from the same image. Please be aware this may
-#' cause a reboot.
+#' This method allows you to restore a droplet with a previous image or snapshot. This will be a 
+#' mirror copy of the image or snapshot to your droplet. Be sure you have backed up any necessary
+#' information prior to restore.
 #'
 #' @export
-#' @template id
+#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
 #' @param image_id The image id to use to rebuild the droplet.
 #' @template params
 #' @examples \dontrun{
 #' droplets_restore(id=1707487, image_id=3240036)
+#' 
+#' droplets_get() %>% 
+#'  droplets_restore
 #' }
 
-droplets_restore <- function(id=NULL, image_id=NULL, what="parsed", ...)
+droplets_restore <- function(droplet=NULL, image_id=NULL, what="parsed", ...)
 {
+  id <- check_droplet(droplet)
   assert_that(!is.null(id), !is.null(image_id))
-  do_GET(what, TRUE, sprintf('droplets/%s/restore', id), ct(image_id=image_id), ...)
+  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/restore', id), ct(image_id=image_id), ...)
+  droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
+  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
 }
 
 #' Rebuild a droplet.
 #'
-#' This method allows you to reinstall a droplet with a default image. This is useful if you want to
-#' start again but retain the same IP address for your droplet.
+#' This method allows you to reinstall a droplet with a default image. This is useful if you want
+#' to start again but retain the same IP address for your droplet.
 #'
 #' @export
-#' @template id
+#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
 #' @param image_id The image id to use to rebuild the droplet.
 #' @template params
 #' @examples \dontrun{
 #' droplets_rebuild(id=1707487, image_id=3240036)
+#' 
+#' droplets_get() %>%
+#'  droplets_rebuild
 #' }
 
-droplets_rebuild <- function(id=NULL, image_id=NULL, what="parsed", ...)
+droplets_rebuild <- function(droplet=NULL, image_id=NULL, what="parsed", ...)
 {
+  id <- check_droplet(droplet)
   assert_that(!is.null(id), !is.null(image_id))
-  do_GET(what, TRUE, sprintf('droplets/%s/rebuild', id), ct(image_id=image_id), ...)
+  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/rebuild', id), ct(image_id=image_id), ...)
+  droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
+  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
 }
 
 #' Destory a droplet.
@@ -302,15 +343,19 @@ droplets_rebuild <- function(id=NULL, image_id=NULL, what="parsed", ...)
 #' drops <- droplets_get()
 #' drops$droplets %>% droplets_destroy
 #' 
-#' # Pipe 'em
-#' droplets_get(1790260) %>% droplets_destroy %>% events
+#' # Pipe 'em - 1st, create a new droplet
+#' id <- droplets_new(name="newdrop", size_id = 64, image_id = 3240036, region_slug = 'sfo1')
+#' id <- droplet$id
+#' droplets_get(id) %>% droplets_destroy %>% events
 #' }
 
 droplets_destroy <- function(droplet=NULL, scrub_data=FALSE, what="parsed", ...)
 {
   id <- check_droplet(droplet)
   assert_that(!is.null(id))
-  do_GET(what, TRUE, sprintf('droplets/%s/destroy', id), ct(scrub_data=scrub_data), ...)
+  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/destroy', id), ct(scrub_data=scrub_data), ...)
+  droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
+  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id)
 }
 
 #' Rename a droplet.
@@ -318,15 +363,22 @@ droplets_destroy <- function(droplet=NULL, scrub_data=FALSE, what="parsed", ...)
 #' This method renames the droplet to the specified name.
 #'
 #' @export
-#' @template id
+#' @param droplet A droplet number or the result from a call to \code{droplets_get()}
 #' @param name (character) Name of the droplet
 #' @template params
 #' @examples \dontrun{
 #' droplets_rename(id=1707487, name='wadup')
+#' 
+#' droplets_get() %>%
+#'  droplets_rename(name="dropmealine")
+#' droplets_get()  # name has changed
 #' }
 
-droplets_rename <- function(id=NULL, name=NULL, what="parsed", ...)
+droplets_rename <- function(droplet=NULL, name=NULL, what="parsed", ...)
 {
+  id <- check_droplet(droplet)
   assert_that(!is.null(id), !is.null(name))
-  do_GET(what, TRUE, sprintf('droplets/%s/rename', id), ct(name=name), ...)
+  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/rename', id), ct(name=name), ...)
+  droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
+  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id)
 }

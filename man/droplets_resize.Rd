@@ -3,11 +3,11 @@
 \alias{droplets_resize}
 \title{Resize a droplet.}
 \usage{
-droplets_resize(id = NULL, size_id = NULL, size_slug = NULL,
+droplets_resize(droplet = NULL, size_id = NULL, size_slug = NULL,
   what = "parsed", ...)
 }
 \arguments{
-\item{id}{(numeric) A droplet id (optional)}
+\item{droplet}{A droplet number or the result from a call to \code{droplets_get()}}
 
 \item{size_id}{(numeric) Size id of the image size}
 
@@ -24,13 +24,11 @@ number of processors and memory allocated to the droplet.
 \examples{
 \dontrun{
 droplets_resize(id=1707487, size_id=63)
-}
-\donttest{
-# chain operations together - FUTURE workflow
-drops <- droplets_get()
-drops$droplets[[1]]$id \%>\%
+
+droplets_get() \%>\%
    droplets_power_off \%>\%
-   droplets_resize(size_id = 62)
+   droplets_resize(size_id = 62) \%>\%
+   events
 }
 }
 

@@ -3,10 +3,10 @@
 \alias{droplets_shutdown}
 \title{Shutdown a droplet.}
 \usage{
-droplets_shutdown(id = NULL, what = "parsed", ...)
+droplets_shutdown(droplet = NULL, what = "parsed", ...)
 }
 \arguments{
-\item{id}{(numeric) A droplet id (optional)}
+\item{droplet}{A droplet number or the result from a call to \code{droplets_get()}}
 
 \item{what}{(character) One of list or raw}
 
@@ -18,6 +18,8 @@ This method allows you to shutdown a running droplet. The droplet will remain in
 \examples{
 \dontrun{
 droplets_shutdown(id=1707487)
+
+droplets_get() \%>\% droplets_shutdown
 }
 }
 

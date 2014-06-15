@@ -3,10 +3,10 @@
 \alias{droplets_reboot}
 \title{Reboot a droplet.}
 \usage{
-droplets_reboot(id = NULL, what = "parsed", ...)
+droplets_reboot(droplet = NULL, what = "parsed", ...)
 }
 \arguments{
-\item{id}{(numeric) A droplet id (optional)}
+\item{droplet}{A droplet number or the result from a call to \code{droplets_get()}}
 
 \item{what}{(character) One of list or raw}
 
@@ -19,6 +19,9 @@ not responding
 \examples{
 \dontrun{
 droplets_reboot(id=1739894)
+
+droplets_get() \%>\% droplets_reboot
+droplets_get() \%>\% droplets_reboot \%>\% events
 }
 }
 

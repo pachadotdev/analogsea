@@ -3,10 +3,10 @@
 \alias{droplets_rebuild}
 \title{Rebuild a droplet.}
 \usage{
-droplets_rebuild(id = NULL, image_id = NULL, what = "parsed", ...)
+droplets_rebuild(droplet = NULL, image_id = NULL, what = "parsed", ...)
 }
 \arguments{
-\item{id}{(numeric) A droplet id (optional)}
+\item{droplet}{A droplet number or the result from a call to \code{droplets_get()}}
 
 \item{image_id}{The image id to use to rebuild the droplet.}
 
@@ -15,12 +15,15 @@ droplets_rebuild(id = NULL, image_id = NULL, what = "parsed", ...)
 \item{...}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
-This method allows you to reinstall a droplet with a default image. This is useful if you want to
-start again but retain the same IP address for your droplet.
+This method allows you to reinstall a droplet with a default image. This is useful if you want
+to start again but retain the same IP address for your droplet.
 }
 \examples{
 \dontrun{
 droplets_rebuild(id=1707487, image_id=3240036)
+
+droplets_get() \%>\%
+ droplets_rebuild
 }
 }
 

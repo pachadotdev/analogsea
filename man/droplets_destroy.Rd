@@ -26,8 +26,10 @@ droplets_destroy(id=1707487)
 drops <- droplets_get()
 drops$droplets \%>\% droplets_destroy
 
-# Pipe 'em
-droplets_get(1790260) \%>\% droplets_destroy \%>\% events
+# Pipe 'em - 1st, create a new droplet
+id <- droplets_new(name="newdrop", size_id = 64, image_id = 3240036, region_slug = 'sfo1')
+id <- droplet$id
+droplets_get(id) \%>\% droplets_destroy \%>\% events
 }
 }
 

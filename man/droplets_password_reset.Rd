@@ -3,10 +3,10 @@
 \alias{droplets_password_reset}
 \title{Reset a password for a droplet.}
 \usage{
-droplets_password_reset(id = NULL, what = "parsed", ...)
+droplets_password_reset(droplet = NULL, what = "parsed", ...)
 }
 \arguments{
-\item{id}{(numeric) A droplet id (optional)}
+\item{droplet}{A droplet number or the result from a call to \code{droplets_get()}}
 
 \item{what}{(character) One of list or raw}
 
@@ -19,6 +19,8 @@ the droplet to allow resetting the password.
 \examples{
 \dontrun{
 droplets_password_reset(id=1707487)
+
+droplets_get() \%>\% droplets_password_reset \%>\% events
 }
 }
 

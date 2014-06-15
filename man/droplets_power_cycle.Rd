@@ -3,10 +3,10 @@
 \alias{droplets_power_cycle}
 \title{Power cycle a droplet.}
 \usage{
-droplets_power_cycle(id = NULL, what = "parsed", ...)
+droplets_power_cycle(droplet = NULL, what = "parsed", ...)
 }
 \arguments{
-\item{id}{(numeric) A droplet id (optional)}
+\item{droplet}{A droplet number or the result from a call to \code{droplets_get()}}
 
 \item{what}{(character) One of list or raw}
 
@@ -19,6 +19,8 @@ back on
 \examples{
 \dontrun{
 droplets_power_cycle(id=1739894)
+
+droplets_get() \%>\% droplets_power_cycle
 }
 }
 
