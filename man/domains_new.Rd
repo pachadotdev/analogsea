@@ -8,7 +8,7 @@ domains_new(name = NULL, ip_address = NULL, what = "parsed", ...)
 \arguments{
 \item{name}{Name of the domain (e.g., stuff.com)}
 
-\item{ip_address}{An IP address for the domain`s initial a record.}
+\item{ip_address}{An IP address for the domain`s initial A record.}
 
 \item{what}{(character) One of list or raw}
 
