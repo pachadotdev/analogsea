@@ -2,18 +2,17 @@
 #'
 #' @export
 #' @param domain_id Domain ID
-#' @param record_id A domain record ID
 #' @template params
 #' @examples \dontrun{
-#' domains()
-#' domains(316128)
-#' domains(what="raw")
+#' domains_get()
+#' domains_get(316128)
+#' domains_get(what="raw")
 #' }
 
-domains <- function(domain_id=NULL, record_id=NULL, what="parsed", ...)
+domains_get <- function(domain_id=NULL, what="parsed", ...)
 {
   path <- if(is.null(domain_id)) 'domains' else sprintf('domains/%s', domain_id)
-  do_GET(what, TRUE, path, ...)
+  do_GET(what, FALSE, path, ...)
 }
 
 #' Creates a new domain name with an A record for the specified ip_address.
@@ -31,7 +30,7 @@ domains_new <- function(name=NULL, ip_address=NULL, what="parsed", ...)
 {
   assert_that(!is.null(name))
   assert_that(!is.null(ip_address))
-  do_GET(what, TRUE, 'domains/new', ct(name=name, ip_address=ip_address), ...)
+  do_GET(what, FALSE, 'domains/new', ct(name=name, ip_address=ip_address), ...)
 }
 
 #' Delete a domain name
@@ -54,7 +53,7 @@ domains_destroy <- function(domain_id=NULL, what="parsed", ...)
 #' Create a new domain name with an A record for the specified ip_address.
 #'
 #' @export
-#' @param domain_id (required) Integer or Domain Name (e.g. domain.com), specifies the domain for 
+#' @param domain_id (required) Integer or Domain Name (e.g. domain.com), specifies the domain for
 #' which to create a record.
 #' @param record_type (required) String, the type of record you would like to create. 'A', 'CNAME',
 #' 'NS', 'TXT', 'MX' or 'SRV'
@@ -69,11 +68,11 @@ domains_destroy <- function(domain_id=NULL, what="parsed", ...)
 #' domains_destroy(domain_id='tablesandchairsbunnies.info')
 #' }
 
-domains_new_record <- function(domain_id=NULL, record_type=NULL, data=NULL, name=NULL, priority=NULL, 
+domains_new_record <- function(domain_id=NULL, record_type=NULL, data=NULL, name=NULL, priority=NULL,
   port=NULL, weight=NULL, what="parsed", ...)
 {
   assert_that(!is.null(domain_id))
   path <- sprintf('domains/%s/records/new', domain_id)
   args <- ct(record_type=record_type, data=data, name=name, priority=priority, port=port, weight=weight)
-  do_GET(what, TRUE, path, args, ...)
+  do_GET(what, FALSE, path, args, ...)
 }
