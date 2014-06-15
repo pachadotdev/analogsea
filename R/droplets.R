@@ -257,7 +257,8 @@ droplets_resize <- function(droplet=NULL, size_id=NULL, size_slug=NULL, what="pa
 #'
 #' @export
 #' @param droplet A droplet number or the result from a call to \code{droplets_get()}
-#' @param name (character) Name of the droplet
+#' @param name (character) Optional. Name of the new snapshot you want to create. If not set, the 
+#' snapshot name will default to date/time
 #' @template params
 #' @examples \dontrun{
 #' droplets_snapshot(id=1707487)
@@ -273,7 +274,7 @@ droplets_snapshot <- function(droplet=NULL, name=NULL, what="parsed", ...)
   assert_that(!is.null(id))
   tmp <- do_GET(what, TRUE, sprintf('droplets/%s/snapshot', id), ct(name=name), ...)
   droplet_match <- droplet$droplets[vapply(droplet$droplets, "[[", 1, "id")==id]
-  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id) 
+  list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id)
 }
 
 #' Restore a droplet.

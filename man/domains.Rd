@@ -8,6 +8,8 @@ domains(domain_id = NULL, record_id = NULL, what = "parsed", ...)
 \arguments{
 \item{domain_id}{Domain ID}
 
+\item{record_id}{A domain record ID}
+
 \item{what}{(character) One of list or raw}
 
 \item{...}{Options passed on to httr::GET. Must be named, see examples.}

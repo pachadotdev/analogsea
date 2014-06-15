@@ -2,6 +2,7 @@
 #'
 #' @export
 #' @param domain_id Domain ID
+#' @param record_id A domain record ID
 #' @template params
 #' @examples \dontrun{
 #' domains()

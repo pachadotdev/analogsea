@@ -8,7 +8,8 @@ droplets_snapshot(droplet = NULL, name = NULL, what = "parsed", ...)
 \arguments{
 \item{droplet}{A droplet number or the result from a call to \code{droplets_get()}}
 
-\item{name}{(character) Name of the droplet}
+\item{name}{(character) Optional. Name of the new snapshot you want to create. If not set, the
+snapshot name will default to date/time}
 
 \item{what}{(character) One of list or raw}
 
