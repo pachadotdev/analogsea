@@ -4,15 +4,17 @@ context("domains")
 a <- domains()
 b <- domains(what = 'raw')
 
-c <- domains_new(name = "asdfasd.info", ip_address = "123.456.789")
-d <- domains_destroy(domain_id='asdfasd.info')
+domnane <- paste0(paste(sample(letters, size = 15, replace = FALSE), collapse = ""), ".info")
+c <- domains_new(name = domnane, ip_address = "123.456.789")
+d <- domains_destroy(domain_id=domnane)
 
-e <- domains_new(name = "testing1.info", ip_address = "123.456.123")
-f <- domains_new_record(domain_id='testing1.info', record_type="TXT", data="what what")
-g <- domains_edit_record(domain_id='testing1.info', record_id=f$record$id, record_type="TXT", data="edited text")
-h <- domains_destroy_record(domain_id='testing1.info', record_id=f$record$id)
+domnane2 <- paste0(paste(sample(letters, size = 15, replace = FALSE), collapse = ""), ".info")
+e <- domains_new(name = domnane2, ip_address = "123.456.123")
+f <- domains_new_record(domain_id=domnane2, record_type="TXT", data="what what")
+g <- domains_edit_record(domain_id=domnane2, record_id=f$record$id, record_type="TXT", data="edited text")
+h <- domains_destroy_record(domain_id=domnane2, record_id=f$record$id)
 
-i <- domains_records(domain_id = "testing1.info")
+i <- domains_records(domain_id = domnane2)
 
 test_that("domains returns the correct class", {
   expect_is(a, "list")
