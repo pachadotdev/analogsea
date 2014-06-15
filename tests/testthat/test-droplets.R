@@ -1,6 +1,8 @@
 # tests for droplets
 context("droplets")
 
+source("keys.R")
+
 a <- droplets()
 b <- droplets(what = 'raw')
 

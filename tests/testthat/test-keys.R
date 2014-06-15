@@ -1,6 +1,8 @@
 # tests for keys
 context("keys")
 
+source("keys.R")
+
 a <- keys()
 b <- keys(what = 'raw')
 c <- keys(ssh_key_id=89103)
@@ -10,7 +12,7 @@ test_that("keys returns the correct dimensions", {
   expect_equal(names(a), 'ssh_keys')
 
   expect_equal(length(b), 8)
-  
+
   expect_equal(length(c), 1)
 })
 

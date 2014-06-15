@@ -1,13 +1,15 @@
 # tests for regions
 context("regions")
 
+source("keys.R")
+
 a <- regions()
 b <- regions('raw')
-  
+
 test_that("regions returns the correct dimensions", {
   expect_equal(NCOL(a), 3)
   expect_equal(names(a), c('id','name','slug'))
-  
+
   expect_equal(length(b), 8)
 })
 

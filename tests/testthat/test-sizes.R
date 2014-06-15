@@ -1,6 +1,8 @@
 # tests for sizes
 context("sizes")
 
+source("keys.R")
+
 a <- sizes()
 b <- sizes('raw')
 

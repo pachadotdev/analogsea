@@ -1,6 +1,8 @@
 # tests for domains
 context("domains")
 
+source("keys.R")
+
 a <- domains()
 b <- domains(what = 'raw')
 

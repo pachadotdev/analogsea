@@ -1,6 +1,8 @@
 # tests for events
 context("events")
 
+source("keys.R")
+
 newdrop <- droplets_new(name="newdrop", size_id = 66, image_id = 3240036, region_slug = 'sfo1')
 id <- newdrop$droplet$event_id
 a <- events(id)

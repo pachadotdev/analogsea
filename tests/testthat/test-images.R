@@ -1,6 +1,8 @@
 # tests for images
 context("images")
 
+source("keys.R")
+
 a <- head(images())
 b <- images(filter='my_images')
 c <- images(what='raw')
@@ -13,7 +15,7 @@ test_that("images returns the correct dimensions", {
   expect_equal(NCOL(b), 6)
 
   expect_equal(length(c), 8)
-  
+
   expect_equal(length(d), 7)
 })
 
