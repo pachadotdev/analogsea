@@ -7,7 +7,14 @@ A general purpose R interface to [Digital Ocean](https://www.digitalocean.com/)
 
 ### Digital Ocean info
 
-+ [API docs](https://developers.digitalocean.com/)
++ [API v1 docs](https://developers.digitalocean.com/)
++ [API v2 docs](https://developers.digitalocean.com/v2/)
+
+### v1 and v2
+
+The (soon to come) CRAN version and that on the `master` branch holds code that works with the Digital Ocean API v1.
+
+The `v2` branch holds code in development for Digital Ocean API v2.
 
 ### Quick start
 
@@ -27,6 +34,8 @@ do_auth()
 ```
 
 After you authenticate one during the session, you don't need to anymore - auth details are gathered automatically within each function.
+
+You can also run `do_auth()` after authenticating to print your auth details.
 
 __Get droplets__
 
