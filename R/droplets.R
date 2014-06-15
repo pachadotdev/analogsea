@@ -181,20 +181,6 @@ droplets_power_on <- function(droplet=NULL, what="parsed", ...)
   list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id)
 }
 
-check_droplet <- function(x){
-  if(!is.null(x)){
-    if(is.list(x)){
-      if(length(x$droplet_ids) > 1) message("More than 1 droplet, using first")
-      x <- x$droplet_ids[[1]]
-      if(!is.numeric(x)) stop("Could not detect a droplet id")
-    } else {
-      x <- as.numeric(as.character(x))
-      if(!is.numeric(x)) stop("Could not detect a droplet id")
-    }
-    x 
-  } else { NULL }
-}
-
 #' Reset a password for a droplet.
 #'
 #' This method will reset the root password for a droplet. Please be aware that this will reboot
