@@ -10,7 +10,7 @@
 #' @return Some combination of warnings and httr response object or list
 
 do_GET <- function(what, droplets=FALSE, path, query = NULL, ...) {
-  url <- file.path("https://api.digitalocean.com/v1", path)
+  url <- file.path("https://api.digitalocean.com/v2", path)
   au <- do_get_auth()
   args <- c(list(client_id = au$id, api_key = au$key), query)
 
