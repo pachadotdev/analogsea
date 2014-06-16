@@ -12,7 +12,7 @@ A general purpose R interface to [Digital Ocean](https://www.digitalocean.com/)
 
 ### v1 and v2
 
-The (soon to come) CRAN version and that on the `master` branch holds code that works with the Digital Ocean API v1.
+The version on the `master` branch holds code that works with the Digital Ocean API v1.
 
 The `v2` branch holds code in development for Digital Ocean API v2.
 
