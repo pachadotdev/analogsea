@@ -1,8 +1,8 @@
 Package: analogsea
 Title: R interface to Digital Ocean
 Description: This package provides a set of functions for interacting with
-    Digital Ocean, including creating images, destroying them, rebooting, etc.,
-    getting details on regions, etc.
+    the Digital Ocean API, including creating images, destroying them, rebooting,
+    getting details on regions, and available images.
 Version: 0.1.0
 Date: 2014-06-15
 Authors@R: person("Scott", "Chamberlain", role = c("aut", "cre"),
