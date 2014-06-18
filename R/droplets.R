@@ -177,6 +177,14 @@ droplets_power_off <- function(droplet=NULL, what="parsed", ...)
   }
 }
 
+# droptesting(droplets(1880805))
+# 
+# droptesting <- function(droplet=NULL, what="parsed", ...)
+# {
+#   id <- check_droplet(droplet)
+#   id
+# }
+
 #' Power on a droplet.
 #'
 #' This method allows you to poweron a powered off droplet.
