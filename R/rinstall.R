@@ -101,15 +101,15 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=
       shinyserverlink <- sprintf("http://%s:3838/", ip)
       if(browse) browseURL(shinyserverlink) else shinyserverlink
     }
-    
+
     if('opencpu' %in% what){
       r_installed(ip, r_string, verbose)
-      
+
       writefile("doinstall_opencpu.sh", opencpu_string)
-      
+
       mssg(verbose, "Installing OpenCPU...")
       scp_ssh('doinstall_opencpu.sh', ip)
-      
+
       opencpu_link <- sprintf("http://%s/ocpu/test", ip)
       if(browse) browseURL(opencpu_link) else opencpu_link
     }
@@ -158,7 +158,8 @@ sudo gdebi shiny-server-%s-amd64.deb --non-interactive'
 opencpu_string <-
 'sudo add-apt-repository ppa:opencpu/opencpu-1.4
 sudo apt-get update
-sudo apt-get install opencpu --yes --force-yes
+sudo apt-get -q -y install opencpu
+sudo service opencpu start
 '
 
 dep_string <- 'sudo apt-get install %s --yes --force-yes'
