@@ -7,7 +7,12 @@
 #' @param filter Filter stuff, one of my_images or global
 #' @template params
 #' @examples \dontrun{
-#' head(images())
+#' out <- images()
+#' out$data
+#' out$action_ids
+#' sapply(out$action_ids, names)
+#' 
+#' head(images()$data)
 #' images(filter='my_images')
 #' images(what='raw')
 #' images(image_id=3209452)
@@ -28,23 +33,23 @@ images <- function(image_id=NULL, image_slug=NULL, filter=NULL, what="parsed", .
     }
   } else { id <- NULL }
   path <- if(is.null(id)) 'images' else sprintf('images/%s', id)
-  res <- do_GET(what, FALSE, path = path, query = ct(filter=filter), ...)
+  res <- do_GET(what, FALSE, path = path, query = ct(filter=filter), parse=FALSE, ...)
   if(what == 'raw'){ res } else {
-    if(!is.null(id)){ res$image } else {
+    if(!is.null(id)){ res$images } else {
       dat <- lapply(res$images, parseres)
-      do.call(rbind.fill, dat)
+      df <- do.call(rbind.fill, lapply(dat, "[[", "data"))
+      list(data=df, action_ids=lapply(dat, "[[", "action_ids"))
     }
   }
 }
 
 parseres <- function(z){
   z[sapply(z, is.null)] <- NA
-  z <- z[ !names(z) %in% 'regions' ]
-  slugs <- unlist(z$region_slugs)
-  ones <- rep(1, length(slugs))
-  names(ones) <- slugs
-  z <- z[ !names(z) %in% 'region_slugs' ]
-  data.frame(c(z, ones), stringsAsFactors = FALSE)
+  z$regions <- paste(z$regions, collapse = ",")
+  z$action_ids <- paste(z$action_ids, collapse=",")
+  tmp <- c(z$action_ids)
+  names(tmp) <- z$id
+  list(data=data.frame(z[!names(z)%in%"action_ids"], stringsAsFactors = FALSE), action_ids=tmp)
 }
 
 #' Destroy an image

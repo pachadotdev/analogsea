@@ -22,7 +22,12 @@ Get list of images and their metadata, or a single image
 }
 \examples{
 \dontrun{
-head(images())
+out <- images()
+out$data
+out$action_ids
+sapply(out$action_ids, names)
+
+head(images()$data)
 images(filter='my_images')
 images(what='raw')
 images(image_id=3209452)

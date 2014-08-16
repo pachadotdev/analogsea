@@ -19,10 +19,10 @@ do_GET <- function(what, droplets=FALSE, path, query = NULL, parse=FALSE, ...) {
     if(tt$status_code > 202) stop(content(tt)$message)
     if(content(tt)$status == "ERROR") stop(content(tt)$message)
   }
-  res <- content(tt, as = "text")
   if(what=='parsed'){
-    tmp <- jsonlite::fromJSON(res, parse)
-    if(droplets) tmp[ !names(tmp) %in% 'status' ] else tmp
+    res <- content(tt, as = "text")
+    jsonlite::fromJSON(res, parse)
+#     if(droplets) tmp[ !names(tmp) %in% 'status' ] else tmp
   } else { tt }
 }
 
