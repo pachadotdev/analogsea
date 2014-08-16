@@ -3,7 +3,7 @@
 \alias{images_transfer}
 \title{Transfer an image to a specified region.}
 \usage{
-images_transfer(image_id = NULL, image_slug = NULL, region_id = NULL,
+images_transfer(image_id = NULL, image_slug = NULL, region_slug = NULL,
   what = "parsed", ...)
 }
 \arguments{
@@ -28,6 +28,8 @@ droplets(id$droplet$id) \%>\%
  droplets_power_off \%>\%
  droplets_snapshot(name = "coolimage")
 images_transfer(image_id=4315784, region_id=4)
+
+images_transfer(image_id=4546004, region_slug='nyc1')
 }
 }
 

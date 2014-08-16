@@ -52,25 +52,39 @@ parseres <- function(z){
   list(data=data.frame(z[!names(z)%in%"action_ids"], stringsAsFactors = FALSE), action_ids=tmp)
 }
 
-#' Destroy an image
+#' Delete an image
 #'
 #' There is no way to restore a deleted image so be careful and ensure your data is properly
-#' backed up.
+#' backed up before deleting it.
 #'
 #' @export
 #' @param image_id (numeric) This is the id of the image to return
-#' @param image_slug (character) This is the slug of the image to return
 #' @template params
 #' @examples \dontrun{
-#' images_destroy(image_id=4315195)
+#' images_delete(image_id=5620385)
 #' }
 
-images_destroy <- function(image_id=NULL, image_slug=NULL, what="parsed", ...)
+images_delete <- function(image_id=NULL, what="parsed", ...)
 {
-  assert_that(xor(is.null(image_id), is.null(image_slug)))
-  id <- ct(image_id=image_id, image_slug=image_slug)
-  path <- sprintf('images/%s/destroy', id)
-  do_GET(what, FALSE, path = path, ...)
+  assert_that(!is.null(image_id))
+  path <- sprintf('images/%s', image_id)
+  do_DELETE(what, path = path, ...)
+}
+
+do_DELETE <- function(what, path, parse=FALSE, ...) {
+  url <- file.path("https://api.digitalocean.com/v2", path)
+  au <- do_get_auth()
+  auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))
+  
+  tt <- DELETE(url, config = c(auth, ...))
+  if(tt$status_code > 204){
+    if(tt$status_code > 204) stop(content(tt)$message)
+    if(content(tt)$status == "ERROR") stop(content(tt)$message)
+  }
+  if(http_status(tt)$category=='success'){
+    message(http_status(tt)$message)
+    invisible(http_status(tt)$message)
+  } else { stop('Something went wrong') }
 }
 
 #' Transfer an image to a specified region.
@@ -87,13 +101,14 @@ images_destroy <- function(image_id=NULL, image_slug=NULL, what="parsed", ...)
 #'  droplets_power_off %>%
 #'  droplets_snapshot(name = "coolimage")
 #' images_transfer(image_id=4315784, region_id=4)
+#' 
+#' images_transfer(image_id=4546004, region_slug='nyc1')
 #' }
 
-images_transfer <- function(image_id=NULL, image_slug=NULL, region_id=NULL, what="parsed", ...)
+images_transfer <- function(image_id=NULL, image_slug=NULL, region_slug=NULL, what="parsed", ...)
 {
   assert_that(xor(is.null(image_id), is.null(image_slug)))
   id <- ct(image_id=image_id, image_slug=image_slug)
-  path <- sprintf('images/%s/transfer', id)
-  res <- do_GET(what, FALSE, path = path, query = ct(region_id=region_id), ...)
-  res[ !names(res) %in% "status" ]
+  path <- sprintf('images/%s/actions', id)
+  do_GET(what, FALSE, path = path, query = ct(region=region_slug, type='transfer'), parse=TRUE, ...)
 }
