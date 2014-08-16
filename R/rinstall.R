@@ -27,6 +27,7 @@
 #' do_install(id=res$droplet$id, what='r')
 #' do_install(res$droplet$id, what='rstudio', usr='jim', pwd='bob')
 #' do_install(res$droplet$id, what='shiny')
+#' do_install(id=1987605, what='opencpu')
 #' do_install(res$droplet$id, what='r', deps=c('xml','curl'))
 #' do_install(res$droplet$id, what='r', deps=c('xml','curl','gdal','rcpp'))
 #' }
@@ -49,7 +50,7 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=
   mssg(verbose, "Removing known host if already present")
   system(sprintf('ssh-keygen -R %s', ip))
 
-  what <- match.arg(what, c('nothing','r','rstudio_server','shiny_server'))
+  what <- match.arg(what, c('nothing','r','rstudio_server','shiny_server','opencpu'))
 
   if('nothing' %in% what){
     message("Nothing installed...stoppings")
@@ -61,12 +62,7 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=
     }
 
     if(!is.null(deps)){
-      chr <- tryCatch(system(sprintf('ssh root@%s "which R"', ip), intern=TRUE), warning=function(e) e)
-      if("warning" %in% class(chr)){
-        writefile("doinstallr.sh", r_string)
-        mssg(verbose, "Installing R...")
-        scp_ssh('doinstallr.sh', ip)
-      }
+      r_installed(ip, r_string, verbose)
 
       deps <- match.arg(deps, c("xml","curl","gdal","rcpp"), TRUE)
       depstomatch <- c("r-cran-xml","libcurl4-openssl-dev","gdal-bin libgdal-dev libproj-dev","r-cran-rcpp")
@@ -81,12 +77,7 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=
     }
 
     if('rstudio_server' %in% what){
-      chr <- tryCatch(system(sprintf('ssh root@%s "which R"', ip), intern=TRUE), warning=function(e) e)
-      if("warning" %in% class(chr)){
-        writefile("doinstallr.sh", r_string)
-        mssg(verbose, "Installing R...")
-        scp_ssh('doinstallr.sh', ip)
-      }
+      r_installed(ip, r_string, verbose)
 
       rstudio_string2 <- sprintf(rstudio_string, rstudio_server_ver, rstudio_server_ver, usr, usr, pwd)
       writefile("doinstall_rstudio.sh", rstudio_string2)
@@ -99,12 +90,7 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=
     }
 
     if('shiny_server' %in% what){
-      chr <- tryCatch(system(sprintf('ssh root@%s "which R"', ip), intern=TRUE), warning=function(e) e)
-      if("warning" %in% class(chr)){
-        writefile("doinstallr.sh", r_string)
-        mssg(verbose, "Installing R...")
-        scp_ssh('doinstallr.sh', ip)
-      }
+      r_installed(ip, r_string, verbose)
 
       shiny_string2 <- sprintf(shiny_string, shiny_ver, shiny_ver)
       writefile("doinstall_shiny.sh", shiny_string2)
@@ -114,6 +100,18 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=
 
       shinyserverlink <- sprintf("http://%s:3838/", ip)
       if(browse) browseURL(shinyserverlink) else shinyserverlink
+    }
+
+    if('opencpu' %in% what){
+      r_installed(ip, r_string, verbose)
+
+      writefile("doinstall_opencpu.sh", opencpu_string)
+
+      mssg(verbose, "Installing OpenCPU...")
+      scp_ssh('doinstall_opencpu.sh', ip)
+
+      opencpu_link <- sprintf("http://%s/ocpu/test", ip)
+      if(browse) browseURL(opencpu_link) else opencpu_link
     }
   }
 
@@ -156,4 +154,21 @@ sudo apt-get install gdebi-core --yes --force-yes
 wget http://download3.rstudio.org/ubuntu-12.04/x86_64/shiny-server-%s-amd64.deb
 sudo gdebi shiny-server-%s-amd64.deb --non-interactive'
 
+#requires ubuntu 14.04 (Trusty)
+opencpu_string <-
+'sudo add-apt-repository ppa:opencpu/opencpu-1.4
+sudo apt-get update
+sudo apt-get -q -y install opencpu
+sudo service opencpu start
+'
+
 dep_string <- 'sudo apt-get install %s --yes --force-yes'
+
+r_installed <- function(ip, r_string, verbose){
+  chr <- tryCatch(system(sprintf('ssh root@%s "which R"', ip), intern=TRUE), warning=function(e) e)
+  if("warning" %in% class(chr)){
+    writefile("doinstallr.sh", r_string)
+    mssg(verbose, "Installing R...")
+    scp_ssh('doinstallr.sh', ip)
+  }
+}

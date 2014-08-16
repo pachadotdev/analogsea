@@ -1,0 +1,4 @@
+image: drone/rlang
+script:
+  - sudo travis-tool.sh install_deps
+  - travis-tool.sh run_tests

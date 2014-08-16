@@ -53,6 +53,7 @@ check_droplet <- function(x){
     message("httr response object detected, passing")
     NULL
   } else {
+    evid <- x$event_id
     if(!is.null(x)){
       if(is.list(x)){
         if(length(x$droplet_ids) > 1) message("More than 1 droplet, using first")
@@ -62,7 +63,15 @@ check_droplet <- function(x){
         x <- as.numeric(as.character(x))
         if(!is.numeric(x)) stop("Could not detect a droplet id")
       }
-      x 
+      # check events, and wait if not 100% done yet
+      if(!is.null(evid)){
+        tocheck <- 0
+        while(tocheck != 100){
+          evcheck <- events(evid)
+          tocheck <- as.numeric(evcheck$event$percentage)
+        }
+        return( x )
+      } else { return( x ) }
     } else { NULL }
   }
 }
