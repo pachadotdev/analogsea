@@ -9,19 +9,19 @@
 #' @param ... Options passed on to httr::GET. Must be named, see examples.
 #' @return Some combination of warnings and httr response object or list
 
-do_GET <- function(what, droplets=FALSE, path, query = NULL, ...) {
+do_GET <- function(what, droplets=FALSE, path, query = NULL, parse=FALSE, ...) {
   url <- file.path("https://api.digitalocean.com/v2", path)
   au <- do_get_auth()
-  args <- c(list(client_id = au$id, api_key = au$key), query)
-
-  tt <- GET(url, query = args, ...)
-  if(tt$status_code > 202 || content(tt)$status == "ERROR"){
-    if(tt$status_code > 202) stop(tt$headers$statusmessage)
-    if(content(tt)$status == "ERROR") stop(content(tt)$error_message)
+  auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))
+  
+  tt <- GET(url, query = query, config = c(auth, ...))
+  if(tt$status_code > 202){
+    if(tt$status_code > 202) stop(content(tt)$message)
+    if(content(tt)$status == "ERROR") stop(content(tt)$message)
   }
   res <- content(tt, as = "text")
   if(what=='parsed'){
-    tmp <- fromJSON(res, FALSE)
+    tmp <- jsonlite::fromJSON(res, parse)
     if(droplets) tmp[ !names(tmp) %in% 'status' ] else tmp
   } else { tt }
 }
