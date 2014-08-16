@@ -12,8 +12,9 @@
 
 sizes <- function(what='parsed', ...)
 {
-  res <- do_GET(what, path='sizes', ...)
-  if(what == 'raw'){ res } else {
-    do.call(rbind, lapply(res$sizes, data.frame, stringsAsFactors = FALSE))
-  }
+  do_GET(what, path='sizes', parse=if(what=='parsed') TRUE else FALSE, ...)
+#   if(what == 'raw'){ res } else {
+#     meta <- res$meta
+#     do.call(rbind.fill, lapply(res$sizes, data.frame, stringsAsFactors = FALSE))
+#   }
 }
