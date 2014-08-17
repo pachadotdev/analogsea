@@ -3,7 +3,7 @@
 \alias{regions}
 \title{Get list of regions and their metadata}
 \usage{
-regions(what = "parsed", ...)
+regions(what = "parsed", page = 1, per_page = 25, ...)
 }
 \arguments{
 \item{what}{(character) One of list or raw}
@@ -20,6 +20,7 @@ Get list of regions and their metadata
 \examples{
 \dontrun{
 regions()
+regions(per_page=2)
 regions('raw')
 }
 }
