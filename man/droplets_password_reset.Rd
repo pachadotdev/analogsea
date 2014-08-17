@@ -11,6 +11,10 @@ droplets_password_reset(droplet = NULL, what = "parsed", ...)
 \item{what}{(character) One of list or raw}
 
 \item{...}{Options passed on to httr::GET. Must be named, see examples.}
+
+\item{page}{Page number (Default: 1)}
+
+\item{per_page}{Number of items per page (Default: 25)}
 }
 \description{
 This method will reset the root password for a droplet. Please be aware that this will reboot

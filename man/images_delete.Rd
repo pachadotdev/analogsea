@@ -11,6 +11,10 @@ images_delete(image_id = NULL, what = "parsed", ...)
 \item{what}{(character) One of list or raw}
 
 \item{...}{Options passed on to httr::GET. Must be named, see examples.}
+
+\item{page}{Page number (Default: 1)}
+
+\item{per_page}{Number of items per page (Default: 25)}
 }
 \description{
 There is no way to restore a deleted image so be careful and ensure your data is properly

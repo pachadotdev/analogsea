@@ -22,7 +22,6 @@ do_GET <- function(what, droplets=FALSE, path, query = NULL, parse=FALSE, ...) {
   if(what=='parsed'){
     res <- content(tt, as = "text")
     jsonlite::fromJSON(res, parse)
-#     if(droplets) tmp[ !names(tmp) %in% 'status' ] else tmp
   } else { tt }
 }
 

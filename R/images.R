@@ -19,7 +19,7 @@
 #' images(image_id=4315195)
 #' }
 
-images <- function(image_id=NULL, image_slug=NULL, filter=NULL, what="parsed", ...)
+images <- function(image_id=NULL, image_slug=NULL, filter=NULL, what="parsed", page=1, per_page=25, ...)
 {
   if(!is.null(image_id) || !is.null(image_slug)){
     assert_that(xor(is.null(image_id), is.null(image_slug)))
@@ -33,7 +33,7 @@ images <- function(image_id=NULL, image_slug=NULL, filter=NULL, what="parsed", .
     }
   } else { id <- NULL }
   path <- if(is.null(id)) 'images' else sprintf('images/%s', id)
-  res <- do_GET(what, FALSE, path = path, query = ct(filter=filter), parse=FALSE, ...)
+  res <- do_GET(what, FALSE, path = path, query = ct(filter=filter, page=page, per_page=per_page), parse=FALSE, ...)
   if(what == 'raw'){ res } else {
     if(!is.null(id)){ res$images } else {
       dat <- lapply(res$images, parseres)

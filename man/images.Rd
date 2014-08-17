@@ -4,7 +4,7 @@
 \title{Get list of images and their metadata, or a single image}
 \usage{
 images(image_id = NULL, image_slug = NULL, filter = NULL,
-  what = "parsed", ...)
+  what = "parsed", page = 1, per_page = 25, ...)
 }
 \arguments{
 \item{image_id}{(numeric) This is the id of the image to return}
@@ -16,6 +16,10 @@ images(image_id = NULL, image_slug = NULL, filter = NULL,
 \item{what}{(character) One of list or raw}
 
 \item{...}{Options passed on to httr::GET. Must be named, see examples.}
+
+\item{page}{Page number (Default: 1)}
+
+\item{per_page}{Number of items per page (Default: 25)}
 }
 \description{
 Get list of images and their metadata, or a single image

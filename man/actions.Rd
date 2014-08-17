@@ -3,7 +3,7 @@
 \alias{actions}
 \title{Get metadata on all your droplets, or droplets by id}
 \usage{
-actions(action_id = NULL, what = "parsed", ...)
+actions(action_id = NULL, what = "parsed", page = 1, per_page = 25, ...)
 }
 \arguments{
 \item{droplet}{A droplet number or the result from a call to \code{droplets()}}
@@ -11,6 +11,10 @@ actions(action_id = NULL, what = "parsed", ...)
 \item{what}{(character) One of list or raw}
 
 \item{...}{Options passed on to httr::GET. Must be named, see examples.}
+
+\item{page}{Page number (Default: 1)}
+
+\item{per_page}{Number of items per page (Default: 25)}
 }
 \description{
 Get metadata on all your droplets, or droplets by id
@@ -20,6 +24,8 @@ Get metadata on all your droplets, or droplets by id
 actions()
 actions(action_id='30841267')
 actions(action_id='30219078')
+actions(per_page=2)
+actions(per_page=2, page=2)
 }
 }
 
