@@ -4,7 +4,7 @@
 \title{Get list of images and their metadata, or a single image}
 \usage{
 images(image_id = NULL, image_slug = NULL, filter = NULL,
-  what = "parsed", page = 1, per_page = 25, ...)
+  what = "parsed", page = 1, per_page = 25, config = NULL)
 }
 \arguments{
 \item{image_id}{(numeric) This is the id of the image to return}

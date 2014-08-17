@@ -3,7 +3,7 @@
 \alias{regions}
 \title{Get list of regions and their metadata}
 \usage{
-regions(what = "parsed", page = 1, per_page = 25, ...)
+regions(what = "parsed", page = 1, per_page = 25, config = NULL)
 }
 \arguments{
 \item{what}{(character) One of list or raw}

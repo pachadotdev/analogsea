@@ -19,7 +19,7 @@
 #' images(image_id=4315195)
 #' }
 
-images <- function(image_id=NULL, image_slug=NULL, filter=NULL, what="parsed", page=1, per_page=25, ...)
+images <- function(image_id=NULL, image_slug=NULL, filter=NULL, what="parsed", page=1, per_page=25, config=NULL)
 {
   if(!is.null(image_id) || !is.null(image_slug)){
     assert_that(xor(is.null(image_id), is.null(image_slug)))
@@ -33,7 +33,7 @@ images <- function(image_id=NULL, image_slug=NULL, filter=NULL, what="parsed", p
     }
   } else { id <- NULL }
   path <- if(is.null(id)) 'images' else sprintf('images/%s', id)
-  res <- do_GET(what, FALSE, path = path, query = ct(filter=filter, page=page, per_page=per_page), parse=FALSE, ...)
+  res <- do_GET(what, FALSE, path = path, query = ct(filter=filter, page=page, per_page=per_page), parse=FALSE, config=config)
   if(what == 'raw'){ res } else {
     if(!is.null(id)){ res$images } else {
       dat <- lapply(res$images, parseres)
@@ -64,19 +64,19 @@ parseres <- function(z){
 #' images_delete(image_id=5620385)
 #' }
 
-images_delete <- function(image_id=NULL, what="parsed", ...)
+images_delete <- function(image_id=NULL, what="parsed", config=NULL)
 {
   assert_that(!is.null(image_id))
   path <- sprintf('images/%s', image_id)
-  do_DELETE(what, path = path, ...)
+  do_DELETE(what, path = path, config=config)
 }
 
-do_DELETE <- function(what, path, parse=FALSE, ...) {
+do_DELETE <- function(what, path, parse=FALSE, config=NULL) {
   url <- file.path("https://api.digitalocean.com/v2", path)
   au <- do_get_auth()
   auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))
   
-  tt <- DELETE(url, config = c(auth, ...))
+  tt <- DELETE(url, config = c(auth, config))
   if(tt$status_code > 204){
     if(tt$status_code > 204) stop(content(tt)$message)
     if(content(tt)$status == "ERROR") stop(content(tt)$message)
@@ -105,10 +105,10 @@ do_DELETE <- function(what, path, parse=FALSE, ...) {
 #' images_transfer(image_id=4546004, region_slug='nyc1')
 #' }
 
-images_transfer <- function(image_id=NULL, image_slug=NULL, region_slug=NULL, what="parsed", ...)
+images_transfer <- function(image_id=NULL, image_slug=NULL, region_slug=NULL, what="parsed", config=NULL)
 {
   assert_that(xor(is.null(image_id), is.null(image_slug)))
   id <- ct(image_id=image_id, image_slug=image_slug)
   path <- sprintf('images/%s/actions', id)
-  do_GET(what, FALSE, path = path, query = ct(region=region_slug, type='transfer'), parse=TRUE, ...)
+  do_GET(what, FALSE, path = path, query = ct(region=region_slug, type='transfer'), parse=TRUE, config=config)
 }

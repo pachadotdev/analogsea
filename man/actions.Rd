@@ -3,7 +3,8 @@
 \alias{actions}
 \title{Get metadata on all your droplets, or droplets by id}
 \usage{
-actions(action_id = NULL, what = "parsed", page = 1, per_page = 25, ...)
+actions(action_id = NULL, what = "parsed", page = 1, per_page = 25,
+  config = NULL)
 }
 \arguments{
 \item{droplet}{A droplet number or the result from a call to \code{droplets()}}

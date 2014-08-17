@@ -11,13 +11,9 @@
 #' res$headers
 #' }
 
-sizes <- function(what='parsed', page=1, per_page=25, ...)
+sizes <- function(what='parsed', page=1, per_page=25, config=NULL)
 {
   do_GET(what, path='sizes', 
          query = ct(page=page, per_page=per_page),
-         parse=if(what=='parsed') TRUE else FALSE, ...)
-#   if(what == 'raw'){ res } else {
-#     meta <- res$meta
-#     do.call(rbind.fill, lapply(res$sizes, data.frame, stringsAsFactors = FALSE))
-#   }
+         parse=if(what=='parsed') TRUE else FALSE, config=config)
 }

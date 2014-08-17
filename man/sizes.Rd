@@ -3,7 +3,7 @@
 \alias{sizes}
 \title{Get all the available sizes that can be used to create a droplet.}
 \usage{
-sizes(what = "parsed", page = 1, per_page = 25, ...)
+sizes(what = "parsed", page = 1, per_page = 25, config = NULL)
 }
 \arguments{
 \item{what}{(character) One of list or raw}

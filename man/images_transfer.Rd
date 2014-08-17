@@ -4,7 +4,7 @@
 \title{Transfer an image to a specified region.}
 \usage{
 images_transfer(image_id = NULL, image_slug = NULL, region_slug = NULL,
-  what = "parsed", ...)
+  what = "parsed", config = NULL)
 }
 \arguments{
 \item{image_id}{(numeric) This is the id of the image to return}
