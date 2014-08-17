@@ -6,15 +6,15 @@
 #' @param droplets (logical) If TRUE, selects droplets element and returns that
 #' @param path Path to append to the end of the base Digital Ocean API URL
 #' @param query Arguments to GET
-#' @param ... Options passed on to httr::GET. Must be named, see examples.
+#' @param config Options passed on to httr::GET. Must be named, see examples.
 #' @return Some combination of warnings and httr response object or list
 
-do_GET <- function(what, droplets=FALSE, path, query = NULL, parse=FALSE, ...) {
+do_GET <- function(what, droplets=FALSE, path, query = NULL, parse=FALSE, config=NULL) {
   url <- file.path("https://api.digitalocean.com/v2", path)
   au <- do_get_auth()
   auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))
   
-  tt <- GET(url, query = query, config = c(auth, ...))
+  tt <- GET(url, query = query, config = c(auth, config))
   if(tt$status_code > 202){
     if(tt$status_code > 202) stop(content(tt)$message)
     if(content(tt)$status == "ERROR") stop(content(tt)$message)

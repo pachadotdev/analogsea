@@ -3,7 +3,8 @@
 \alias{do_GET}
 \title{Get request and output result or errors}
 \usage{
-do_GET(what, droplets = FALSE, path, query = NULL, parse = FALSE, ...)
+do_GET(what, droplets = FALSE, path, query = NULL, parse = FALSE,
+  config = NULL)
 }
 \arguments{
 \item{what}{What to return, parsed or raw}
@@ -14,7 +15,7 @@ do_GET(what, droplets = FALSE, path, query = NULL, parse = FALSE, ...)
 
 \item{query}{Arguments to GET}
 
-\item{...}{Options passed on to httr::GET. Must be named, see examples.}
+\item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \value{
 Some combination of warnings and httr response object or list
