@@ -3,6 +3,7 @@
 #' This function sets options in your current R session, and passes on to each function call.
 #'
 #' @export
+#' @keywords internal
 #' @param token (character) Your Digital Ocean OAuth token. Default NULL
 #' @param force (logical) Force update
 #'
@@ -63,6 +64,7 @@ print.doauth <- function(x, ...){
 #' Get auth details and handle errors
 #'
 #' @export
+#' @keywords internal
 do_get_auth <- function(){
   token <- getOption("digocean_oauth_token")
   if(is.null(token)) do_auth()

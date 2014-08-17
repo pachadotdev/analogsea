@@ -8,4 +8,5 @@ do_get_auth()
 \description{
 Get auth details and handle errors
 }
+\keyword{internal}
 
