@@ -71,22 +71,6 @@ images_delete <- function(image_id=NULL, what="parsed", config=NULL)
   do_DELETE(what, path = path, config=config)
 }
 
-do_DELETE <- function(what, path, parse=FALSE, config=NULL) {
-  url <- file.path("https://api.digitalocean.com/v2", path)
-  au <- do_get_auth()
-  auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))
-  
-  tt <- DELETE(url, config = c(auth, config))
-  if(tt$status_code > 204){
-    if(tt$status_code > 204) stop(content(tt)$message)
-    if(content(tt)$status == "ERROR") stop(content(tt)$message)
-  }
-  if(http_status(tt)$category=='success'){
-    message(http_status(tt)$message)
-    invisible(http_status(tt)$message)
-  } else { stop('Something went wrong') }
-}
-
 #' Transfer an image to a specified region.
 #'
 #' @export

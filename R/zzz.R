@@ -2,14 +2,15 @@
 #'
 #' @import httr jsonlite assertthat XML
 #' @export
+#' @keywords internal
 #' @param what What to return, parsed or raw
-#' @param droplets (logical) If TRUE, selects droplets element and returns that
 #' @param path Path to append to the end of the base Digital Ocean API URL
 #' @param query Arguments to GET
+#' @param parse To parse result to data.frame or to list
 #' @param config Options passed on to httr::GET. Must be named, see examples.
-#' @return Some combination of warnings and httr response object or list
+#' @return Some combination of warnings and httr response object, data.frame, or list
 
-do_GET <- function(what, droplets=FALSE, path, query = NULL, parse=FALSE, config=NULL) {
+do_GET <- function(what, path, query = NULL, parse=FALSE, config=NULL) {
   url <- file.path("https://api.digitalocean.com/v2", path)
   au <- do_get_auth()
   auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))
@@ -23,6 +24,60 @@ do_GET <- function(what, droplets=FALSE, path, query = NULL, parse=FALSE, config
     res <- content(tt, as = "text")
     jsonlite::fromJSON(res, parse)
   } else { tt }
+}
+
+#' Digital Ocean post request handler
+#' 
+#' @export
+#' @keywords internal
+#' @param what What to return, parsed or raw
+#' @param path Path to append to the end of the base Digital Ocean API URL
+#' @param args Arguments to POST
+#' @param parse To parse result to data.frame or to list
+#' @param config Options passed on to httr::GET. Must be named, see examples.
+#' @return Some combination of warnings and httr response object, data.frame, or list
+
+do_POST <- function(what, path, args, parse=FALSE, config=config) {
+  url <- file.path("https://api.digitalocean.com/v2", path)
+  au <- do_get_auth()
+  auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))
+  
+  tt <- POST(url, config = c(auth, config=NULL), body=args)
+  if(tt$status_code > 202){
+    if(tt$status_code > 202) stop(content(tt)$message)
+    if(content(tt)$status == "ERROR") stop(content(tt)$message)
+  }
+  if(what=='parsed'){
+    res <- content(tt, as = "text")
+    jsonlite::fromJSON(res, parse)
+  } else { tt }
+}
+
+
+#' Digital Ocean delete request handler
+#' 
+#' @export
+#' @keywords internal
+#' @param what What to return, parsed or raw
+#' @param path Path to append to the end of the base Digital Ocean API URL
+#' @param parse To parse result to data.frame or to list
+#' @param config Options passed on to httr::GET. Must be named, see examples.
+#' @return Some combination of warnings and httr response object, data.frame, or list
+
+do_DELETE <- function(what, path, parse=FALSE, config=NULL) {
+  url <- file.path("https://api.digitalocean.com/v2", path)
+  au <- do_get_auth()
+  auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))
+  
+  tt <- DELETE(url, config = c(auth, config))
+  if(tt$status_code > 204){
+    if(tt$status_code > 204) stop(content(tt)$message)
+    if(content(tt)$status == "ERROR") stop(content(tt)$message)
+  }
+  if(http_status(tt)$category=='success'){
+    message(http_status(tt)$message)
+    invisible(http_status(tt)$message)
+  } else { stop('Something went wrong') }
 }
 
 #' Compact

@@ -84,22 +84,6 @@ droplets_new <- function(name=NULL, size=NULL, image=NULL, region=NULL, ssh_keys
   do_POST(what, path='droplets', args=args, parse=TRUE, config=config)
 }
 
-do_POST <- function(what, path, args, parse=FALSE, config=config) {
-  url <- file.path("https://api.digitalocean.com/v2", path)
-  au <- do_get_auth()
-  auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))
-
-  tt <- POST(url, config = c(auth, config=NULL), body=args)
-  if(tt$status_code > 202){
-    if(tt$status_code > 202) stop(content(tt)$message)
-    if(content(tt)$status == "ERROR") stop(content(tt)$message)
-  }
-  if(what=='parsed'){
-    res <- content(tt, as = "text")
-    jsonlite::fromJSON(res, parse)
-  } else { tt }
-}
-
 #' Reboot a droplet.
 #'
 #' This method allows you to reboot a droplet. This is the preferred method to use if a server is
