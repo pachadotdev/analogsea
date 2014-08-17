@@ -3,7 +3,7 @@
 \alias{actions}
 \title{Get metadata on all your droplets, or droplets by id}
 \usage{
-actions(id = NULL, what = "parsed", ...)
+actions(action_id = NULL, what = "parsed", ...)
 }
 \arguments{
 \item{droplet}{A droplet number or the result from a call to \code{droplets()}}
@@ -18,6 +18,8 @@ Get metadata on all your droplets, or droplets by id
 \examples{
 \dontrun{
 actions()
+actions(action_id='30841267')
+actions(action_id='30219078')
 }
 }
 
