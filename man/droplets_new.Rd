@@ -3,10 +3,9 @@
 \alias{droplets_new}
 \title{Create a new droplet.}
 \usage{
-droplets_new(name = NULL, size_id = NULL, size_slug = NULL,
-  image_id = NULL, image_slug = NULL, region_id = NULL,
-  region_slug = NULL, ssh_key_ids = NULL, private_networking = FALSE,
-  backups_enable = FALSE, what = "parsed", ...)
+droplets_new(name = NULL, size = NULL, image = NULL, region = NULL,
+  ssh_keys = NULL, backups = NULL, ipv6 = NULL,
+  private_networking = FALSE, what = "parsed", ...)
 }
 \arguments{
 \item{name}{(character) Name of the droplet}
@@ -31,7 +30,7 @@ droplets_new(name = NULL, size_id = NULL, size_slug = NULL,
 
 \item{what}{(character) One of list or raw}
 
-\item{...}{Options passed on to httr::GET. Must be named, see examples.}
+\item{config}{Options passed on to httr::GET. Must be named, see examples.}
 
 \item{page}{Page number (Default: 1)}
 
@@ -42,7 +41,7 @@ Create a new droplet.
 }
 \examples{
 \dontrun{
-droplets_new(name="newdrop", size_id = 64, image_id = 3240036, region_slug = 'sfo1')
+droplets_new(name="newdrop", size = '512mb', image = 'ubuntu-14-04-x64', region = 'sfo1')
 }
 }
 

@@ -8,6 +8,7 @@
 #' droplets()
 #' library("httr")
 #' droplets(config=verbose())
+#' droplets(config=timeout(seconds = 2))
 #' droplets(config=timeout(seconds = 0.3))
 #'
 #' # raw output
@@ -23,7 +24,7 @@
 #' droplets(droplet=1746449)
 #' }
 
-droplets <- function(droplet=NULL, what="parsed", ...)
+droplets <- function(droplet=NULL, what="parsed", page=1, per_page=25, config=NULL)
 {
   if(!is.null(droplet)){
     if(is.list(droplet)){
@@ -34,13 +35,25 @@ droplets <- function(droplet=NULL, what="parsed", ...)
     id <- if(is.numeric(droplet)) droplet else droplet$id
   } else { id <- NULL }
   path <- if(is.null(droplet)) 'droplets' else sprintf('droplets/%s', id)
-  tmp <- do_GET(what, TRUE, path, ...)
+  tmp <- do_GET(what, TRUE, path, query = ct(page=page, per_page=per_page), parse = FALSE, config = config)
   if(what == 'raw'){ tmp } else {
     if ("droplet" %in% names(tmp)){
       names(tmp) <- "droplets"
       ids <- tmp$droplets$id
-    } else { ids <- sapply(tmp$droplets, "[[", "id") }
-    list(droplet_ids = ids, droplets = tmp$droplets, event_id=NULL)
+    } else { ids <- tmp$droplets$id }
+    dat <- lapply(tmp$droplets, function(x){
+      data.frame(x[c('id','name','memory','vcpus','disk','locked','status','created_at')], 
+                 region=x$region$slug, region=x$image$name, stringsAsFactors = FALSE)
+    })
+    dropdf <- do.call(rbind.fill, dat)
+    details <- lapply(tmp$droplets, function(y){
+      tmp <- y[ !names(y) %in% c('id','name','memory','vcpus','disk','locked','status','created_at') ]
+      data.frame(slug=tmp$region$slug, name=tmp$region$name, available=tmp$region$available, 
+                 sizes=paste(tmp$region$sizes, collapse = ","), 
+                 features=paste(tmp$region$features, collapse = ","), stringsAsFactors = FALSE)
+    })
+    details <- do.call(rbind.fill, details)
+    list(meta=tmp$meta, droplet_ids = ids, droplets = list(data=dropdf, details=details))
   }
 }
 
@@ -59,22 +72,32 @@ droplets <- function(droplet=NULL, what="parsed", ...)
 #' @param backups_enable (logical) Enable backups
 #' @template params
 #' @examples \dontrun{
-#' droplets_new(name="newdrop", size_id = 64, image_id = 3240036, region_slug = 'sfo1')
+#' droplets_new(name="newdrop", size = '512mb', image = 'ubuntu-14-04-x64', region = 'sfo1')
 #' }
 
-droplets_new <- function(name=NULL, size_id=NULL, size_slug=NULL, image_id=NULL, image_slug=NULL,
-  region_id=NULL, region_slug=NULL, ssh_key_ids=NULL, private_networking=FALSE,
-  backups_enable=FALSE, what="parsed", ...)
+droplets_new <- function(name=NULL, size=NULL, image=NULL, region=NULL, ssh_keys=NULL, backups=NULL,
+  ipv6=NULL, private_networking=FALSE, what="parsed", ...)
 {
   assert_that(!is.null(name))
-  assert_that(xor(is.null(size_id), is.null(size_slug)))
-  assert_that(xor(is.null(image_id), is.null(image_slug)))
-  assert_that(xor(is.null(region_id), is.null(region_slug)))
-  args <- ct(name=name, size_id=size_id, size_slug=size_slug,
-    image_id=image_id,image_slug=image_slug, region_id=region_id,
-    region_slug=region_slug,ssh_key_ids=ssh_key_ids, private_networking=private_networking,
-    backups_enable=backups_enable)
-  do_GET(what, TRUE, 'droplets/new', args, ...)
+  args <- ct(name=name, size=size, image=image, region=region, ssh_keys=ssh_keys, 
+             backups=backups, ipv6=ipv6, private_networking=private_networking)
+  do_POST(what, path='droplets', args=args, parse=TRUE, ...)
+}
+
+do_POST <- function(what, path, args, parse=FALSE, ...) {
+  url <- file.path("https://api.digitalocean.com/v2", path)
+  au <- do_get_auth()
+  auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))
+  
+  tt <- POST(url, config = c(auth, ...), body=args)
+  if(tt$status_code > 202){
+    if(tt$status_code > 202) stop(content(tt)$message)
+    if(content(tt)$status == "ERROR") stop(content(tt)$message)
+  }
+  if(what=='parsed'){
+    res <- content(tt, as = "text")
+    jsonlite::fromJSON(res, parse)
+  } else { tt }
 }
 
 #' Reboot a droplet.
