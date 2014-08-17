@@ -3,7 +3,8 @@
 \alias{droplets_snapshot}
 \title{Take a snapshot of a droplet.}
 \usage{
-droplets_snapshot(droplet = NULL, name = NULL, what = "parsed", ...)
+droplets_snapshot(droplet = NULL, name = NULL, what = "parsed",
+  config = NULL)
 }
 \arguments{
 \item{droplet}{A droplet number or the result from a call to \code{droplets()}}

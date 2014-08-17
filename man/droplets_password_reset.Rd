@@ -3,7 +3,7 @@
 \alias{droplets_password_reset}
 \title{Reset a password for a droplet.}
 \usage{
-droplets_password_reset(droplet = NULL, what = "parsed", ...)
+droplets_password_reset(droplet = NULL, what = "parsed", config = NULL)
 }
 \arguments{
 \item{droplet}{A droplet number or the result from a call to \code{droplets()}}

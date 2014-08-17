@@ -4,7 +4,7 @@
 \title{Resize a droplet.}
 \usage{
 droplets_resize(droplet = NULL, size_id = NULL, size_slug = NULL,
-  what = "parsed", ...)
+  what = "parsed", config = NULL)
 }
 \arguments{
 \item{droplet}{A droplet number or the result from a call to \code{droplets()}}

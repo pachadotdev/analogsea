@@ -3,7 +3,7 @@
 \alias{droplets_power_off}
 \title{Power off a droplet.}
 \usage{
-droplets_power_off(droplet = NULL, what = "parsed", ...)
+droplets_power_off(droplet = NULL, what = "parsed", config = NULL)
 }
 \arguments{
 \item{droplet}{A droplet number or the result from a call to \code{droplets()}}

@@ -5,7 +5,7 @@
 \usage{
 droplets_new(name = NULL, size = NULL, image = NULL, region = NULL,
   ssh_keys = NULL, backups = NULL, ipv6 = NULL,
-  private_networking = FALSE, what = "parsed", ...)
+  private_networking = FALSE, what = "parsed", config = NULL)
 }
 \arguments{
 \item{name}{(character) Name of the droplet}

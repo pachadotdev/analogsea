@@ -3,7 +3,8 @@
 \alias{droplets_restore}
 \title{Restore a droplet.}
 \usage{
-droplets_restore(droplet = NULL, image_id = NULL, what = "parsed", ...)
+droplets_restore(droplet = NULL, image_id = NULL, what = "parsed",
+  config = NULL)
 }
 \arguments{
 \item{droplet}{A droplet number or the result from a call to \code{droplets()}}

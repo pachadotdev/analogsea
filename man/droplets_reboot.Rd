@@ -3,7 +3,7 @@
 \alias{droplets_reboot}
 \title{Reboot a droplet.}
 \usage{
-droplets_reboot(droplet = NULL, what = "parsed", ...)
+droplets_reboot(droplet = NULL, what = "parsed", config = NULL)
 }
 \arguments{
 \item{droplet}{A droplet number or the result from a call to \code{droplets()}}

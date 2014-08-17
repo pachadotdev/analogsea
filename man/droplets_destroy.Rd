@@ -3,7 +3,8 @@
 \alias{droplets_destroy}
 \title{Destory a droplet.}
 \usage{
-droplets_destroy(droplet = NULL, scrub_data = FALSE, what = "parsed", ...)
+droplets_destroy(droplet = NULL, scrub_data = FALSE, what = "parsed",
+  config = NULL)
 }
 \arguments{
 \item{droplet}{A droplet number or the result from a call to \code{droplets()}}

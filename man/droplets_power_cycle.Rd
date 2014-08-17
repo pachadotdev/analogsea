@@ -3,7 +3,7 @@
 \alias{droplets_power_cycle}
 \title{Power cycle a droplet.}
 \usage{
-droplets_power_cycle(droplet = NULL, what = "parsed", ...)
+droplets_power_cycle(droplet = NULL, what = "parsed", config = NULL)
 }
 \arguments{
 \item{droplet}{A droplet number or the result from a call to \code{droplets()}}

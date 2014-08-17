@@ -42,14 +42,14 @@ droplets <- function(droplet=NULL, what="parsed", page=1, per_page=25, config=NU
       ids <- tmp$droplets$id
     } else { ids <- tmp$droplets$id }
     dat <- lapply(tmp$droplets, function(x){
-      data.frame(x[c('id','name','memory','vcpus','disk','locked','status','created_at')], 
+      data.frame(x[c('id','name','memory','vcpus','disk','locked','status','created_at')],
                  region=x$region$slug, region=x$image$name, stringsAsFactors = FALSE)
     })
     dropdf <- do.call(rbind.fill, dat)
     details <- lapply(tmp$droplets, function(y){
       tmp <- y[ !names(y) %in% c('id','name','memory','vcpus','disk','locked','status','created_at') ]
-      data.frame(slug=tmp$region$slug, name=tmp$region$name, available=tmp$region$available, 
-                 sizes=paste(tmp$region$sizes, collapse = ","), 
+      data.frame(slug=tmp$region$slug, name=tmp$region$name, available=tmp$region$available,
+                 sizes=paste(tmp$region$sizes, collapse = ","),
                  features=paste(tmp$region$features, collapse = ","), stringsAsFactors = FALSE)
     })
     details <- do.call(rbind.fill, details)
@@ -76,20 +76,20 @@ droplets <- function(droplet=NULL, what="parsed", page=1, per_page=25, config=NU
 #' }
 
 droplets_new <- function(name=NULL, size=NULL, image=NULL, region=NULL, ssh_keys=NULL, backups=NULL,
-  ipv6=NULL, private_networking=FALSE, what="parsed", ...)
+  ipv6=NULL, private_networking=FALSE, what="parsed", config=NULL)
 {
   assert_that(!is.null(name))
-  args <- ct(name=name, size=size, image=image, region=region, ssh_keys=ssh_keys, 
+  args <- ct(name=name, size=size, image=image, region=region, ssh_keys=ssh_keys,
              backups=backups, ipv6=ipv6, private_networking=private_networking)
-  do_POST(what, path='droplets', args=args, parse=TRUE, ...)
+  do_POST(what, path='droplets', args=args, parse=TRUE, config=config)
 }
 
-do_POST <- function(what, path, args, parse=FALSE, ...) {
+do_POST <- function(what, path, args, parse=FALSE, config=config) {
   url <- file.path("https://api.digitalocean.com/v2", path)
   au <- do_get_auth()
   auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))
-  
-  tt <- POST(url, config = c(auth, ...), body=args)
+
+  tt <- POST(url, config = c(auth, config=NULL), body=args)
   if(tt$status_code > 202){
     if(tt$status_code > 202) stop(content(tt)$message)
     if(content(tt)$status == "ERROR") stop(content(tt)$message)
@@ -115,11 +115,11 @@ do_POST <- function(what, path, args, parse=FALSE, ...) {
 #' droplets() %>% droplets_reboot %>% events
 #' }
 
-droplets_reboot <- function(droplet=NULL, what="parsed", ...)
+droplets_reboot <- function(droplet=NULL, what="parsed", config=NULL)
 {
   id <- check_droplet(droplet)
   assert_that(!is.null(id))
-  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/reboot', id), ...)
+  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/reboot', id), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(droplet)
     list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id)
@@ -140,11 +140,11 @@ droplets_reboot <- function(droplet=NULL, what="parsed", ...)
 #' droplets() %>% droplets_power_cycle
 #' }
 
-droplets_power_cycle <- function(droplet=NULL, what="parsed", ...)
+droplets_power_cycle <- function(droplet=NULL, what="parsed", config=NULL)
 {
   id <- check_droplet(droplet)
   assert_that(!is.null(id))
-  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/power_cycle', id), ...)
+  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/power_cycle', id), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(droplet)
     list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id)
@@ -164,11 +164,11 @@ droplets_power_cycle <- function(droplet=NULL, what="parsed", ...)
 #' droplets() %>% droplets_shutdown
 #' }
 
-droplets_shutdown <- function(droplet=NULL, what="parsed", ...)
+droplets_shutdown <- function(droplet=NULL, what="parsed", config=config)
 {
   id <- check_droplet(droplet)
   assert_that(!is.null(id))
-  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/shutdown', id), ...)
+  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/shutdown', id), config=NULL)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(droplet)
     list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id)
@@ -189,11 +189,11 @@ droplets_shutdown <- function(droplet=NULL, what="parsed", ...)
 #' droplets() %>% droplets_power_off %>% events
 #' }
 
-droplets_power_off <- function(droplet=NULL, what="parsed", ...)
+droplets_power_off <- function(droplet=NULL, what="parsed", config=NULL)
 {
   id <- check_droplet(droplet)
   assert_that(!is.null(id))
-  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/power_off', id), ...)
+  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/power_off', id), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(droplet)
     list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id)
@@ -201,8 +201,8 @@ droplets_power_off <- function(droplet=NULL, what="parsed", ...)
 }
 
 # droptesting(droplets(1880805))
-# 
-# droptesting <- function(droplet=NULL, what="parsed", ...)
+#
+# droptesting <- function(droplet=NULL, what="parsed", config=NULL)
 # {
 #   id <- check_droplet(droplet)
 #   id
@@ -230,11 +230,11 @@ droplets_power_off <- function(droplet=NULL, what="parsed", ...)
 #' droplets() %>% droplets_power_on
 #' }
 
-droplets_power_on <- function(droplet=NULL, what="parsed", ...)
+droplets_power_on <- function(droplet=NULL, what="parsed", config=NULL)
 {
   id <- check_droplet(droplet)
   assert_that(!is.null(id))
-  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/power_on', id), ...)
+  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/power_on', id), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(droplet)
     list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id)
@@ -255,11 +255,11 @@ droplets_power_on <- function(droplet=NULL, what="parsed", ...)
 #' droplets() %>% droplets_password_reset %>% events
 #' }
 
-droplets_password_reset <- function(droplet=NULL, what="parsed", ...)
+droplets_password_reset <- function(droplet=NULL, what="parsed", config=NULL)
 {
   id <- check_droplet(droplet)
   assert_that(!is.null(id))
-  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/password_reset', id), ...)
+  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/password_reset', id), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(droplet)
     list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id)
@@ -285,12 +285,12 @@ droplets_password_reset <- function(droplet=NULL, what="parsed", ...)
 #'    events
 #' }
 
-droplets_resize <- function(droplet=NULL, size_id=NULL, size_slug=NULL, what="parsed", ...)
+droplets_resize <- function(droplet=NULL, size_id=NULL, size_slug=NULL, what="parsed", config=NULL)
 {
   id <- check_droplet(droplet)
   assert_that(!is.null(id))
   assert_that(xor(is.null(size_id), is.null(size_slug)))
-  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/resize', id), ct(size_id=size_id, size_slug=size_slug), ...)
+  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/resize', id), ct(size_id=size_id, size_slug=size_slug), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(droplet)
     list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id)
@@ -316,11 +316,11 @@ droplets_resize <- function(droplet=NULL, size_id=NULL, size_slug=NULL, what="pa
 #'  events
 #' }
 
-droplets_snapshot <- function(droplet=NULL, name=NULL, what="parsed", ...)
+droplets_snapshot <- function(droplet=NULL, name=NULL, what="parsed", config=NULL)
 {
   id <- check_droplet(droplet)
   assert_that(!is.null(id))
-  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/snapshot', id), ct(name=name), ...)
+  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/snapshot', id), ct(name=name), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(droplet)
     list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id)
@@ -344,11 +344,11 @@ droplets_snapshot <- function(droplet=NULL, name=NULL, what="parsed", ...)
 #'  droplets_restore
 #' }
 
-droplets_restore <- function(droplet=NULL, image_id=NULL, what="parsed", ...)
+droplets_restore <- function(droplet=NULL, image_id=NULL, what="parsed", config=NULL)
 {
   id <- check_droplet(droplet)
   assert_that(!is.null(id), !is.null(image_id))
-  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/restore', id), ct(image_id=image_id), ...)
+  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/restore', id), ct(image_id=image_id), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(droplet)
     list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id)
@@ -371,11 +371,11 @@ droplets_restore <- function(droplet=NULL, image_id=NULL, what="parsed", ...)
 #'  droplets_rebuild
 #' }
 
-droplets_rebuild <- function(droplet=NULL, image_id=NULL, what="parsed", ...)
+droplets_rebuild <- function(droplet=NULL, image_id=NULL, what="parsed", config=NULL)
 {
   id <- check_droplet(droplet)
   assert_that(!is.null(id), !is.null(image_id))
-  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/rebuild', id), ct(image_id=image_id), ...)
+  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/rebuild', id), ct(image_id=image_id), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(droplet)
     list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id)
@@ -404,11 +404,11 @@ droplets_rebuild <- function(droplet=NULL, image_id=NULL, what="parsed", ...)
 #' droplets(id) %>% droplets_destroy %>% events
 #' }
 
-droplets_destroy <- function(droplet=NULL, scrub_data=FALSE, what="parsed", ...)
+droplets_destroy <- function(droplet=NULL, scrub_data=FALSE, what="parsed", config=NULL)
 {
   id <- check_droplet(droplet)
   assert_that(!is.null(id))
-  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/destroy', id), ct(scrub_data=scrub_data), ...)
+  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/destroy', id), ct(scrub_data=scrub_data), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(droplet)
     list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id)
@@ -431,11 +431,11 @@ droplets_destroy <- function(droplet=NULL, scrub_data=FALSE, what="parsed", ...)
 #' droplets()  # name has changed
 #' }
 
-droplets_rename <- function(droplet=NULL, name=NULL, what="parsed", ...)
+droplets_rename <- function(droplet=NULL, name=NULL, what="parsed", config=NULL)
 {
   id <- check_droplet(droplet)
   assert_that(!is.null(id), !is.null(name))
-  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/rename', id), ct(name=name), ...)
+  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/rename', id), ct(name=name), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(droplet)
     list(droplet_ids=id, droplets=droplet_match, event_id=tmp$event_id)
