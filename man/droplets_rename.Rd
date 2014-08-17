@@ -12,7 +12,7 @@ droplets_rename(droplet = NULL, name = NULL, what = "parsed", ...)
 
 \item{what}{(character) One of list or raw}
 
-\item{...}{Options passed on to httr::GET. Must be named, see examples.}
+\item{config}{Options passed on to httr::GET. Must be named, see examples.}
 
 \item{page}{Page number (Default: 1)}
 
