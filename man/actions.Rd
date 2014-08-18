@@ -3,19 +3,20 @@
 \alias{actions}
 \title{Get metadata on all your droplets, or droplets by id}
 \usage{
-actions(action_id = NULL, what = "parsed", page = 1, per_page = 25,
+actions(x = NULL, what = "parsed", page = 1, per_page = 25,
   config = NULL)
 }
 \arguments{
-\item{droplet}{A droplet number or the result from a call to \code{droplets()}}
+\item{x}{An action id, a droplet with action ids, or nothing, in which case all action ids
+associated with your account are returned.}
 
-\item{what}{(character) One of list or raw}
-
-\item{config}{Options passed on to httr::GET. Must be named, see examples.}
+\item{what}{(character) One of 'parsed' or 'raw'.}
 
 \item{page}{Page number (Default: 1)}
 
 \item{per_page}{Number of items per page (Default: 25)}
+
+\item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 Get metadata on all your droplets, or droplets by id
@@ -23,10 +24,13 @@ Get metadata on all your droplets, or droplets by id
 \examples{
 \dontrun{
 actions()
-actions(action_id='30841267')
-actions(action_id='30219078')
-actions(per_page=2)
+actions(x=30841267)
+actions(30219078)
+actions(per_page=75)
 actions(per_page=2, page=2)
+
+droplets(2376676) \%>\% actions
+droplets() \%>\% actions
 }
 }
 

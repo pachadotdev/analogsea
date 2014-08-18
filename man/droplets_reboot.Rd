@@ -3,18 +3,18 @@
 \alias{droplets_reboot}
 \title{Reboot a droplet.}
 \usage{
-droplets_reboot(droplet = NULL, what = "parsed", config = NULL)
+droplets_reboot(x = NULL, what = "parsed", config = NULL)
 }
 \arguments{
 \item{droplet}{A droplet number or the result from a call to \code{droplets()}}
 
-\item{what}{(character) One of list or raw}
-
-\item{config}{Options passed on to httr::GET. Must be named, see examples.}
+\item{what}{(character) One of 'parsed' or 'raw'.}
 
 \item{page}{Page number (Default: 1)}
 
 \item{per_page}{Number of items per page (Default: 25)}
+
+\item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 This method allows you to reboot a droplet. This is the preferred method to use if a server is
@@ -22,10 +22,10 @@ not responding
 }
 \examples{
 \dontrun{
-droplets_reboot(id=1739894)
+droplets_reboot(x=2376676)
 
 droplets() \%>\% droplets_reboot
-droplets() \%>\% droplets_reboot \%>\% events
+droplets() \%>\% droplets_reboot \%>\% actions
 }
 }
 

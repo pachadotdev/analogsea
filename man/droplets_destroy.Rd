@@ -11,13 +11,13 @@ droplets_destroy(droplet = NULL, scrub_data = FALSE, what = "parsed",
 
 \item{scrub_data}{(logical) To scrub data or not}
 
-\item{what}{(character) One of list or raw}
-
-\item{config}{Options passed on to httr::GET. Must be named, see examples.}
+\item{what}{(character) One of 'parsed' or 'raw'.}
 
 \item{page}{Page number (Default: 1)}
 
 \item{per_page}{Number of items per page (Default: 25)}
+
+\item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 This method destroys one of your droplets - this is irreversible

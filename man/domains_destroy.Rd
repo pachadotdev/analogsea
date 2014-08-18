@@ -8,13 +8,13 @@ domains_destroy(domain_id = NULL, what = "parsed", ...)
 \arguments{
 \item{domain_id}{Integer or Domain Name (e.g. domain.com), specifies the domain to destroy.}
 
-\item{what}{(character) One of list or raw}
-
-\item{config}{Options passed on to httr::GET. Must be named, see examples.}
+\item{what}{(character) One of 'parsed' or 'raw'.}
 
 \item{page}{Page number (Default: 1)}
 
 \item{per_page}{Number of items per page (Default: 25)}
+
+\item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 Delete a domain name

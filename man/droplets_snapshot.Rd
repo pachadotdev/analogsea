@@ -12,13 +12,13 @@ droplets_snapshot(droplet = NULL, name = NULL, what = "parsed",
 \item{name}{(character) Optional. Name of the new snapshot you want to create. If not set, the
 snapshot name will default to date/time}
 
-\item{what}{(character) One of list or raw}
-
-\item{config}{Options passed on to httr::GET. Must be named, see examples.}
+\item{what}{(character) One of 'parsed' or 'raw'.}
 
 \item{page}{Page number (Default: 1)}
 
 \item{per_page}{Number of items per page (Default: 25)}
+
+\item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 This method allows you to take a snapshot of the droplet once it has been powered off, which can

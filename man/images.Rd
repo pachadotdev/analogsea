@@ -13,13 +13,13 @@ images(image_id = NULL, image_slug = NULL, filter = NULL,
 
 \item{filter}{Filter stuff, one of my_images or global}
 
-\item{what}{(character) One of list or raw}
-
-\item{config}{Options passed on to httr::GET. Must be named, see examples.}
+\item{what}{(character) One of 'parsed' or 'raw'.}
 
 \item{page}{Page number (Default: 1)}
 
 \item{per_page}{Number of items per page (Default: 25)}
+
+\item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 Get list of images and their metadata, or a single image

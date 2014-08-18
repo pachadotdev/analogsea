@@ -107,31 +107,53 @@ check_droplet <- function(x){
     message("httr response object detected, passing")
     NULL
   } else {
-    evid <- x$event_id
     if(!is.null(x)){
+    
       if(is.list(x)){
         if(length(x$droplet_ids) > 1) message("More than 1 droplet, using first")
-        x <- x$droplet_ids[[1]]
-        if(!is.numeric(x)) stop("Could not detect a droplet id")
+        retid <- x$droplet_ids[[1]]
       } else {
-        x <- as.numeric(as.character(x))
-        if(!is.numeric(x)) stop("Could not detect a droplet id")
+        retid <- as.numeric(as.character(x))
       }
-      # check events, and wait if not 100% done yet
-      if(!is.null(evid)){
-        tocheck <- 0
-        while(tocheck != 100){
-          evcheck <- events(evid)
-          tocheck <- as.numeric(evcheck$event$percentage)
+      if(!is.numeric(retid)) stop("Could not detect a droplet id")
+      
+      # check actions, and wait if not 'completed' or 'errored' status
+      if(!x$droplets$data$status == 'active'){
+        actiondat <- x['actions']
+        if(is.na(actiondat)){ return( retid ) } else {
+          if(!is.null(actiondat)){
+            actionid <- actiondat$actions$id
+            if(length(actionid) > 1) actionid <- actionid[1]
+            tocheck <- 0
+            while(tocheck != 1){
+              actioncheck <- actions(x = actionid)
+              tocheck <- if(actioncheck$action$status %in% c('completed','errored')) 1 else 0 
+            }
+            return( retid )
+          } else { return( retid ) }
         }
-        return( x )
-      } else { return( x ) }
+      } else { return( retid) }
     } else { NULL }
   }
 }
 
 match_droplet <- function(x){
   if(length(x$droplet_ids) > 1){
-    x[vapply(x, "[[", 1, "id")==id]
-  } else { x }
+    ret <- x[vapply(x, "[[", 1, "id")==id]
+  } else { 
+    ret <- x
+  }
+  ret[ !names(ret) %in% c('meta','actions') ]
+}
+
+actions_to_df <- function(tmp){
+  if(length(tmp) == 1){ 
+    tmp[[1]][vapply(tmp[[1]], is.null, logical(1))] <- NA
+    data.frame(tmp[[1]], stringsAsFactors = FALSE) 
+  } else {
+    do.call(rbind.fill, lapply(tmp[[1]], function(z){
+      z[vapply(z, is.null, logical(1))] <- NA
+      data.frame(z, stringsAsFactors = FALSE)
+    }))
+  }
 }

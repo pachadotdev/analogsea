@@ -3,26 +3,26 @@
 \alias{droplets_power_cycle}
 \title{Power cycle a droplet.}
 \usage{
-droplets_power_cycle(droplet = NULL, what = "parsed", config = NULL)
+droplets_power_cycle(x = NULL, what = "parsed", config = NULL)
 }
 \arguments{
 \item{droplet}{A droplet number or the result from a call to \code{droplets()}}
 
-\item{what}{(character) One of list or raw}
-
-\item{config}{Options passed on to httr::GET. Must be named, see examples.}
+\item{what}{(character) One of 'parsed' or 'raw'.}
 
 \item{page}{Page number (Default: 1)}
 
 \item{per_page}{Number of items per page (Default: 25)}
+
+\item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 This method allows you to power cycle a droplet. This will turn off the droplet and then turn it
-back on
+back on.
 }
 \examples{
 \dontrun{
-droplets_power_cycle(id=1739894)
+droplets_power_cycle(x=2376676)
 
 droplets() \%>\% droplets_power_cycle
 }

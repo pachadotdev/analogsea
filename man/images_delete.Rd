@@ -8,13 +8,13 @@ images_delete(image_id = NULL, what = "parsed", config = NULL)
 \arguments{
 \item{image_id}{(numeric) This is the id of the image to return}
 
-\item{what}{(character) One of list or raw}
-
-\item{config}{Options passed on to httr::GET. Must be named, see examples.}
+\item{what}{(character) One of 'parsed' or 'raw'.}
 
 \item{page}{Page number (Default: 1)}
 
 \item{per_page}{Number of items per page (Default: 25)}
+
+\item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 There is no way to restore a deleted image so be careful and ensure your data is properly

@@ -24,13 +24,13 @@ which to create a record.}
 
 \item{weight}{(Optional) Integer, required for 'SRV' records}
 
-\item{what}{(character) One of list or raw}
-
-\item{config}{Options passed on to httr::GET. Must be named, see examples.}
+\item{what}{(character) One of 'parsed' or 'raw'.}
 
 \item{page}{Page number (Default: 1)}
 
 \item{per_page}{Number of items per page (Default: 25)}
+
+\item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 Create a new domain name with an A record for the specified ip_address.

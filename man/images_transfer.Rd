@@ -14,13 +14,13 @@ images_transfer(image_id = NULL, image_slug = NULL, region_slug = NULL,
 \item{region_id}{(numeric) Required. This is the id of the region to which you would like
 to transfer.}
 
-\item{what}{(character) One of list or raw}
-
-\item{config}{Options passed on to httr::GET. Must be named, see examples.}
+\item{what}{(character) One of 'parsed' or 'raw'.}
 
 \item{page}{Page number (Default: 1)}
 
 \item{per_page}{Number of items per page (Default: 25)}
+
+\item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 Transfer an image to a specified region.

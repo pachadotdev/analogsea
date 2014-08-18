@@ -13,13 +13,13 @@ droplets_resize(droplet = NULL, size_id = NULL, size_slug = NULL,
 
 \item{size_slug}{(character) Size slug (name) of the image size}
 
-\item{what}{(character) One of list or raw}
-
-\item{config}{Options passed on to httr::GET. Must be named, see examples.}
+\item{what}{(character) One of 'parsed' or 'raw'.}
 
 \item{page}{Page number (Default: 1)}
 
 \item{per_page}{Number of items per page (Default: 25)}
+
+\item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 This method allows you to resize a specific droplet to a different size. This will affect the

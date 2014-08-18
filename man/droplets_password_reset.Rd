@@ -8,13 +8,13 @@ droplets_password_reset(droplet = NULL, what = "parsed", config = NULL)
 \arguments{
 \item{droplet}{A droplet number or the result from a call to \code{droplets()}}
 
-\item{what}{(character) One of list or raw}
-
-\item{config}{Options passed on to httr::GET. Must be named, see examples.}
+\item{what}{(character) One of 'parsed' or 'raw'.}
 
 \item{page}{Page number (Default: 1)}
 
 \item{per_page}{Number of items per page (Default: 25)}
+
+\item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 This method will reset the root password for a droplet. Please be aware that this will reboot
@@ -22,7 +22,7 @@ the droplet to allow resetting the password.
 }
 \examples{
 \dontrun{
-droplets_password_reset(id=1707487)
+droplets_password_reset(id=2376676)
 
 droplets() \%>\% droplets_password_reset \%>\% events
 }
