@@ -2,28 +2,82 @@
 #'
 #' @import httr jsonlite assertthat XML
 #' @export
+#' @keywords internal
 #' @param what What to return, parsed or raw
-#' @param droplets (logical) If TRUE, selects droplets element and returns that
 #' @param path Path to append to the end of the base Digital Ocean API URL
 #' @param query Arguments to GET
-#' @param ... Options passed on to httr::GET. Must be named, see examples.
-#' @return Some combination of warnings and httr response object or list
+#' @param parse To parse result to data.frame or to list
+#' @param config Options passed on to httr::GET. Must be named, see examples.
+#' @return Some combination of warnings and httr response object, data.frame, or list
 
-do_GET <- function(what, droplets=FALSE, path, query = NULL, ...) {
-  url <- file.path("https://api.digitalocean.com/v1", path)
+do_GET <- function(what, path, query = NULL, parse=FALSE, config=NULL) {
+  url <- file.path("https://api.digitalocean.com/v2", path)
   au <- do_get_auth()
-  args <- c(list(client_id = au$id, api_key = au$key), query)
-
-  tt <- GET(url, query = args, ...)
-  if(tt$status_code > 202 || content(tt)$status == "ERROR"){
-    if(tt$status_code > 202) stop(tt$headers$statusmessage)
-    if(content(tt)$status == "ERROR") stop(content(tt)$error_message)
+  auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))
+  
+  tt <- GET(url, query = query, config = c(auth, config))
+  if(tt$status_code > 202){
+    if(tt$status_code > 202) stop(content(tt)$message)
+    if(content(tt)$status == "ERROR") stop(content(tt)$message)
   }
-  res <- content(tt, as = "text")
   if(what=='parsed'){
-    tmp <- fromJSON(res, FALSE)
-    if(droplets) tmp[ !names(tmp) %in% 'status' ] else tmp
+    res <- content(tt, as = "text")
+    jsonlite::fromJSON(res, parse)
   } else { tt }
+}
+
+#' Digital Ocean post request handler
+#' 
+#' @export
+#' @keywords internal
+#' @param what What to return, parsed or raw
+#' @param path Path to append to the end of the base Digital Ocean API URL
+#' @param args Arguments to POST
+#' @param parse To parse result to data.frame or to list
+#' @param config Options passed on to httr::GET. Must be named, see examples.
+#' @return Some combination of warnings and httr response object, data.frame, or list
+
+do_POST <- function(what, path, args, parse=FALSE, config=config) {
+  url <- file.path("https://api.digitalocean.com/v2", path)
+  au <- do_get_auth()
+  auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))
+  
+  tt <- POST(url, config = c(auth, config=NULL), body=args)
+  if(tt$status_code > 202){
+    if(tt$status_code > 202) stop(content(tt)$message)
+    if(content(tt)$status == "ERROR") stop(content(tt)$message)
+  }
+  if(what=='parsed'){
+    res <- content(tt, as = "text")
+    jsonlite::fromJSON(res, parse)
+  } else { tt }
+}
+
+
+#' Digital Ocean delete request handler
+#' 
+#' @export
+#' @keywords internal
+#' @param what What to return, parsed or raw
+#' @param path Path to append to the end of the base Digital Ocean API URL
+#' @param parse To parse result to data.frame or to list
+#' @param config Options passed on to httr::GET. Must be named, see examples.
+#' @return Some combination of warnings and httr response object, data.frame, or list
+
+do_DELETE <- function(what, path, parse=FALSE, config=NULL) {
+  url <- file.path("https://api.digitalocean.com/v2", path)
+  au <- do_get_auth()
+  auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))
+  
+  tt <- DELETE(url, config = c(auth, config))
+  if(tt$status_code > 204){
+    if(tt$status_code > 204) stop(content(tt)$message)
+    if(content(tt)$status == "ERROR") stop(content(tt)$message)
+  }
+  if(http_status(tt)$category=='success'){
+    message(http_status(tt)$message)
+    invisible(http_status(tt)$message)
+  } else { stop('Something went wrong') }
 }
 
 #' Compact
@@ -53,31 +107,53 @@ check_droplet <- function(x){
     message("httr response object detected, passing")
     NULL
   } else {
-    evid <- x$event_id
     if(!is.null(x)){
+    
       if(is.list(x)){
         if(length(x$droplet_ids) > 1) message("More than 1 droplet, using first")
-        x <- x$droplet_ids[[1]]
-        if(!is.numeric(x)) stop("Could not detect a droplet id")
+        retid <- x$droplet_ids[[1]]
       } else {
-        x <- as.numeric(as.character(x))
-        if(!is.numeric(x)) stop("Could not detect a droplet id")
+        retid <- as.numeric(as.character(x))
       }
-      # check events, and wait if not 100% done yet
-      if(!is.null(evid)){
-        tocheck <- 0
-        while(tocheck != 100){
-          evcheck <- events(evid)
-          tocheck <- as.numeric(evcheck$event$percentage)
+      if(!is.numeric(retid)) stop("Could not detect a droplet id")
+      
+      # check actions, and wait if not 'completed' or 'errored' status
+      if(!x$droplets$data$status == 'active'){
+        actiondat <- x['actions']
+        if(is.na(actiondat)){ return( retid ) } else {
+          if(!is.null(actiondat)){
+            actionid <- actiondat$actions$id
+            if(length(actionid) > 1) actionid <- actionid[1]
+            tocheck <- 0
+            while(tocheck != 1){
+              actioncheck <- actions(x = actionid)
+              tocheck <- if(actioncheck$action$status %in% c('completed','errored')) 1 else 0 
+            }
+            return( retid )
+          } else { return( retid ) }
         }
-        return( x )
-      } else { return( x ) }
+      } else { return( retid) }
     } else { NULL }
   }
 }
 
 match_droplet <- function(x){
   if(length(x$droplet_ids) > 1){
-    x[vapply(x, "[[", 1, "id")==id]
-  } else { x }
+    ret <- x[vapply(x, "[[", 1, "id")==id]
+  } else { 
+    ret <- x
+  }
+  ret[ !names(ret) %in% c('meta','actions') ]
+}
+
+actions_to_df <- function(tmp){
+  if(length(tmp) == 1){ 
+    tmp[[1]][vapply(tmp[[1]], is.null, logical(1))] <- NA
+    data.frame(tmp[[1]], stringsAsFactors = FALSE) 
+  } else {
+    do.call(rbind.fill, lapply(tmp[[1]], function(z){
+      z[vapply(z, is.null, logical(1))] <- NA
+      data.frame(z, stringsAsFactors = FALSE)
+    }))
+  }
 }

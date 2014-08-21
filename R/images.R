@@ -7,14 +7,19 @@
 #' @param filter Filter stuff, one of my_images or global
 #' @template params
 #' @examples \dontrun{
-#' head(images())
+#' out <- images()
+#' out$data
+#' out$action_ids
+#' sapply(out$action_ids, names)
+#' 
+#' head(images()$data)
 #' images(filter='my_images')
 #' images(what='raw')
 #' images(image_id=3209452)
 #' images(image_id=4315195)
 #' }
 
-images <- function(image_id=NULL, image_slug=NULL, filter=NULL, what="parsed", ...)
+images <- function(image_id=NULL, image_slug=NULL, filter=NULL, what="parsed", page=1, per_page=25, config=NULL)
 {
   if(!is.null(image_id) || !is.null(image_slug)){
     assert_that(xor(is.null(image_id), is.null(image_slug)))
@@ -28,44 +33,42 @@ images <- function(image_id=NULL, image_slug=NULL, filter=NULL, what="parsed", .
     }
   } else { id <- NULL }
   path <- if(is.null(id)) 'images' else sprintf('images/%s', id)
-  res <- do_GET(what, FALSE, path = path, query = ct(filter=filter), ...)
+  res <- do_GET(what, FALSE, path = path, query = ct(filter=filter, page=page, per_page=per_page), parse=FALSE, config=config)
   if(what == 'raw'){ res } else {
-    if(!is.null(id)){ res$image } else {
+    if(!is.null(id)){ res$images } else {
       dat <- lapply(res$images, parseres)
-      do.call(rbind.fill, dat)
+      df <- do.call(rbind.fill, lapply(dat, "[[", "data"))
+      list(data=df, action_ids=lapply(dat, "[[", "action_ids"))
     }
   }
 }
 
 parseres <- function(z){
   z[sapply(z, is.null)] <- NA
-  z <- z[ !names(z) %in% 'regions' ]
-  slugs <- unlist(z$region_slugs)
-  ones <- rep(1, length(slugs))
-  names(ones) <- slugs
-  z <- z[ !names(z) %in% 'region_slugs' ]
-  data.frame(c(z, ones), stringsAsFactors = FALSE)
+  z$regions <- paste(z$regions, collapse = ",")
+  z$action_ids <- paste(z$action_ids, collapse=",")
+  tmp <- c(z$action_ids)
+  names(tmp) <- z$id
+  list(data=data.frame(z[!names(z)%in%"action_ids"], stringsAsFactors = FALSE), action_ids=tmp)
 }
 
-#' Destroy an image
+#' Delete an image
 #'
 #' There is no way to restore a deleted image so be careful and ensure your data is properly
-#' backed up.
+#' backed up before deleting it.
 #'
 #' @export
 #' @param image_id (numeric) This is the id of the image to return
-#' @param image_slug (character) This is the slug of the image to return
 #' @template params
 #' @examples \dontrun{
-#' images_destroy(image_id=4315195)
+#' images_delete(image_id=5620385)
 #' }
 
-images_destroy <- function(image_id=NULL, image_slug=NULL, what="parsed", ...)
+images_delete <- function(image_id=NULL, what="parsed", config=NULL)
 {
-  assert_that(xor(is.null(image_id), is.null(image_slug)))
-  id <- ct(image_id=image_id, image_slug=image_slug)
-  path <- sprintf('images/%s/destroy', id)
-  do_GET(what, FALSE, path = path, ...)
+  assert_that(!is.null(image_id))
+  path <- sprintf('images/%s', image_id)
+  do_DELETE(what, path = path, config=config)
 }
 
 #' Transfer an image to a specified region.
@@ -82,13 +85,14 @@ images_destroy <- function(image_id=NULL, image_slug=NULL, what="parsed", ...)
 #'  droplets_power_off %>%
 #'  droplets_snapshot(name = "coolimage")
 #' images_transfer(image_id=4315784, region_id=4)
+#' 
+#' images_transfer(image_id=4546004, region_slug='nyc1')
 #' }
 
-images_transfer <- function(image_id=NULL, image_slug=NULL, region_id=NULL, what="parsed", ...)
+images_transfer <- function(image_id=NULL, image_slug=NULL, region_slug=NULL, what="parsed", config=NULL)
 {
   assert_that(xor(is.null(image_id), is.null(image_slug)))
   id <- ct(image_id=image_id, image_slug=image_slug)
-  path <- sprintf('images/%s/transfer', id)
-  res <- do_GET(what, FALSE, path = path, query = ct(region_id=region_id), ...)
-  res[ !names(res) %in% "status" ]
+  path <- sprintf('images/%s/actions', id)
+  do_GET(what, FALSE, path = path, query = ct(region=region_slug, type='transfer'), parse=TRUE, config=config)
 }
