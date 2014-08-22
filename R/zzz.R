@@ -142,7 +142,7 @@ match_droplet <- function(x, id){
     x$droplets$data <- x$droplets$data[ x$droplets$data$id %in% id, ]
     x$droplets$details <- x$droplets$details[ x$droplets$details$id %in% id, ]
   }
-  ret[ !names(ret) %in% c('meta','actions') ]
+  x[ !names(x) %in% c('meta','actions') ]
 }
 
 actions_to_df <- function(tmp){

@@ -45,41 +45,13 @@ droplets <- function(droplet=NULL, what="parsed", page=1, per_page=25, config=NU
       type <- 'many'
       ids <- vapply(tmp$droplets, function(x) x$id, numeric(1)) 
     }
-    
-    makedata <- function(x){
-      data.frame(x[c('id','name','memory','vcpus','disk','locked','status','created_at')],
-                 region=x$region$slug, image=x$image$name, stringsAsFactors = FALSE)
-    }
-    makedeets <- function(y){
-      tmp <- y[ !names(y) %in% c('id','name','memory','vcpus','disk','locked','status','created_at') ]
-      ntwks <- ldply(y$networks, function(z){ do.call(cbind, lapply(z, data.frame)) })
-      names(ntwks) <- paste("networks_", names(ntwks), sep="")
-      kernel <- data.frame(y$kernel, stringsAsFactors = FALSE)
-      names(kernel) <- paste("kernel_", names(kernel), sep = "")
-      backupids <- if(length(y$backup_ids)==0) NA else paste(y$backup_ids, collapse=',')
-      snapshotids <- if(length(y$snapshot_ids)==0) NA else paste(y$snapshot_ids, collapse=',')
-      actionids <- if(length(y$action_ids)==0) NA else paste(y$action_ids, collapse=',')
-      data.frame(region_slug=y$region$slug, 
-                 region_name=y$region$name, 
-                 region_available=y$region$available,
-                 region_sizes=paste(y$region$sizes, collapse = ","),
-                 region_features=paste(y$region$features, collapse = ","),
-                 image_id=y$image$id,
-                 image_distribution=y$image$distribution,
-                 image_slug=y$image$slug,
-                 image_public=y$image$public,
-                 image_regions=paste(y$image$regions, collapse=','),
-                 image_created_at=y$image$created_at,
-                 image_action_ids=paste(y$image$action_ids, collapse=','),
-                 size_slug=y$size$slug,
-                 size_transfer=y$size$transfer,
-                 size_price_monthly=y$size$price_monthly,
-                 size_price_hourly=y$size$price_hourly, 
-                 ntwks, kernel, backup_ids=backupids, snapshot_ids=snapshotids, action_ids=actionids,
-                 stringsAsFactors = FALSE)
-    }
-    dat <- switch(type, single = makedata(tmp$droplets), many = do.call(rbind.fill, lapply(tmp$droplets, makedata)))
-    details <- switch(type, single = makedeets(tmp$droplets), many = do.call(rbind.fill, lapply(tmp$droplets, makedeets)))
+
+    dat <- switch(type, 
+                  single = makedata(tmp$droplets), 
+                  many = do.call(rbind.fill, lapply(tmp$droplets, makedata)))
+    details <- switch(type, 
+                      single = makedeets(tmp$droplets), 
+                      many = do.call(rbind.fill, lapply(tmp$droplets, makedeets)))
     list(meta=tmp$meta, 
          droplet_ids = ids, 
          droplets = list(data=dat, details=details),
@@ -87,6 +59,40 @@ droplets <- function(droplet=NULL, what="parsed", page=1, per_page=25, config=NU
          links = tmp$links
     )
   }
+}
+
+makedata <- function(x){
+  data.frame(x[c('id','name','memory','vcpus','disk','locked','status','created_at')],
+             region=x$region$slug, image=x$image$name, stringsAsFactors = FALSE)
+}
+makedeets <- function(y){
+  tmp <- y[ !names(y) %in% c('id','name','memory','vcpus','disk','locked','status','created_at') ]
+  ntwks <- ldply(y$networks, function(z){ do.call(cbind, lapply(z, data.frame)) })
+  names(ntwks) <- paste("networks_", names(ntwks), sep="")
+  kernel <- data.frame(y$kernel, stringsAsFactors = FALSE)
+  names(kernel) <- paste("kernel_", names(kernel), sep = "")
+  backupids <- if(length(y$backup_ids)==0) NA else paste(y$backup_ids, collapse=',')
+  snapshotids <- if(length(y$snapshot_ids)==0) NA else paste(y$snapshot_ids, collapse=',')
+  actionids <- if(length(y$action_ids)==0) NA else paste(y$action_ids, collapse=',')
+  data.frame(id=y$id,
+             region_slug=y$region$slug, 
+             region_name=y$region$name, 
+             region_available=y$region$available,
+             region_sizes=paste(y$region$sizes, collapse = ","),
+             region_features=paste(y$region$features, collapse = ","),
+             image_id=y$image$id,
+             image_distribution=y$image$distribution,
+             image_slug=y$image$slug,
+             image_public=y$image$public,
+             image_regions=paste(y$image$regions, collapse=','),
+             image_created_at=y$image$created_at,
+             image_action_ids=paste(y$image$action_ids, collapse=','),
+             size_slug=y$size$slug,
+             size_transfer=y$size$transfer,
+             size_price_monthly=y$size$price_monthly,
+             size_price_hourly=y$size$price_hourly, 
+             ntwks, kernel, backup_ids=backupids, snapshot_ids=snapshotids, action_ids=actionids,
+             stringsAsFactors = FALSE)
 }
 
 #' Create a new droplet.
@@ -229,7 +235,7 @@ droplets_power_off <- function(x=NULL, what="parsed", config=NULL)
   assert_that(!is.null(id))
   tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args = ct(type='power_off'), config=config)
   if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(x)
+    droplet_match <- match_droplet(x, id)
     list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
   }
 }
@@ -340,7 +346,7 @@ droplets_resize <- function(x=NULL, size=NULL, what="parsed", config=NULL)
 #'
 #' droplets() %>%
 #'  droplets_snapshot %>%
-#'  events
+#'  actions
 #' }
 
 droplets_snapshot <- function(x=NULL, name=NULL, what="parsed", config=NULL)
@@ -348,9 +354,9 @@ droplets_snapshot <- function(x=NULL, name=NULL, what="parsed", config=NULL)
   if(is.numeric(x)) x <- droplets(x)
   id <- check_droplet(x)
   assert_that(!is.null(id))
-  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/snapshot', id), ct(name=name), config=config)
+  tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='snapshot', name=name), config=config)
   if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(x)
+    droplet_match <- match_droplet(x, id)
     list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
   }
 }

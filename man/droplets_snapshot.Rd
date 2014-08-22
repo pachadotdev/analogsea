@@ -30,7 +30,7 @@ droplets_snapshot(1707487)
 
 droplets() \%>\%
  droplets_snapshot \%>\%
- events
+ actions
 }
 }
 
