@@ -8,39 +8,38 @@ droplets_new(name = NULL, size = "512mb", image = "ubuntu-14-04-x64",
   private_networking = FALSE, what = "parsed", config = NULL)
 }
 \arguments{
-\item{name}{(character) Name of the droplet}
+\item{name}{(character) Name of the droplet. Default: picks a random name if none supplied.}
 
-\item{size_id}{(logical) Size id. Use one of size_id or size_slug, not both}
+\item{size}{(character) Size slug identifier. See \code{sizes}. Default: 512mb, the smallest}
 
-\item{size_slug}{(character) Size slug}
+\item{image}{(character/numeric) The image ID of a public or private image, or the unique slug
+identifier for a public image. This image will be the base image for your Droplet.
+Default: ubuntu-14-04-x64}
 
-\item{image_id}{(logical) Image id. Use one of image_id or image_slug, not both}
+\item{region}{(character) The unique slug identifier for the region that you wish to deploy in.
+Default: sfo1}
 
-\item{image_slug}{(character) Image slug}
+\item{ssh_keys}{(character) A vector with IDs or fingerprints of the SSH keys that you wish to
+embed in the Droplet's root account upon creation.}
 
-\item{region_id}{(logical) Region id. Use one of region_id or region_slug, not both}
+\item{private_networking}{(logical) Use private networking. Private networking is currently
+only available in certain regions. Default: FALSE}
 
-\item{region_slug}{(character) Region slug.}
-
-\item{ssh_key_ids}{(logical) Vector of ssh keys.}
-
-\item{private_networking}{(logical) Use private networking, default FALSE.}
-
-\item{backups_enable}{(logical) Enable backups}
+\item{backups}{(logical) Enable backups. A boolean indicating whether automated backups should
+be enabled for the Droplet. Automated backups can only be enabled when the Droplet is created.
+Default: FALSE}
 
 \item{what}{(character) One of 'parsed' or 'raw'.}
-
-\item{page}{Page number (Default: 1)}
-
-\item{per_page}{Number of items per page (Default: 25)}
 
 \item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
-Create a new droplet.
+There are defaults for each of size, image, and region so that a quick one-liner with one
+parameter is possible: simply specify the name of the droplet and your'e up and running.
 }
 \examples{
 \dontrun{
+droplets_new()
 droplets_new('droppinit')
 droplets_new(name="newdrop", size = '512mb', image = 'ubuntu-14-04-x64', region = 'sfo1')
 }

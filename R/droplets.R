@@ -90,20 +90,28 @@ droplets <- function(droplet=NULL, what="parsed", page=1, per_page=25, config=NU
 }
 
 #' Create a new droplet.
+#' 
+#' There are defaults for each of size, image, and region so that a quick one-liner with one 
+#' parameter is possible: simply specify the name of the droplet and your'e up and running.
 #'
 #' @export
-#' @param name (character) Name of the droplet
-#' @param size_id (logical) Size id. Use one of size_id or size_slug, not both
-#' @param size_slug (character) Size slug
-#' @param image_id (logical) Image id. Use one of image_id or image_slug, not both
-#' @param image_slug (character) Image slug
-#' @param region_id (logical) Region id. Use one of region_id or region_slug, not both
-#' @param region_slug (character) Region slug.
-#' @param ssh_key_ids (logical) Vector of ssh keys.
-#' @param private_networking (logical) Use private networking, default FALSE.
-#' @param backups_enable (logical) Enable backups
-#' @template params
+#' @param name (character) Name of the droplet. Default: picks a random name if none supplied.
+#' @param size (character) Size slug identifier. See \code{sizes}. Default: 512mb, the smallest
+#' @param image (character/numeric) The image ID of a public or private image, or the unique slug 
+#' identifier for a public image. This image will be the base image for your Droplet. 
+#' Default: ubuntu-14-04-x64
+#' @param region (character) The unique slug identifier for the region that you wish to deploy in.
+#' Default: sfo1
+#' @param ssh_keys (character) A vector with IDs or fingerprints of the SSH keys that you wish to 
+#' embed in the Droplet's root account upon creation.
+#' @param private_networking (logical) Use private networking. Private networking is currently 
+#' only available in certain regions. Default: FALSE
+#' @param backups (logical) Enable backups. A boolean indicating whether automated backups should 
+#' be enabled for the Droplet. Automated backups can only be enabled when the Droplet is created.
+#' Default: FALSE
+#' @template whatconfig
 #' @examples \dontrun{
+#' droplets_new()
 #' droplets_new('droppinit')
 #' droplets_new(name="newdrop", size = '512mb', image = 'ubuntu-14-04-x64', region = 'sfo1')
 #' }
@@ -115,6 +123,10 @@ droplets_new <- function(name=NULL, size='512mb', image='ubuntu-14-04-x64', regi
   args <- ct(name=name, size=size, image=image, region=region, ssh_keys=ssh_keys,
              backups=backups, ipv6=ipv6, private_networking=private_networking)
   do_POST(what, path='droplets', args=args, parse=TRUE, config=config)
+}
+
+random_name <- function(x){
+  
 }
 
 #' Reboot a droplet.
