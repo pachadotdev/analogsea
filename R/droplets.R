@@ -119,14 +119,15 @@ droplets <- function(droplet=NULL, what="parsed", page=1, per_page=25, config=NU
 droplets_new <- function(name=NULL, size='512mb', image='ubuntu-14-04-x64', region='sfo1', 
   ssh_keys=NULL, backups=NULL, ipv6=NULL, private_networking=FALSE, what="parsed", config=NULL)
 {
+  name <- if(is.null(name)) random_name() else name
   assert_that(!is.null(name))
   args <- ct(name=name, size=size, image=image, region=region, ssh_keys=ssh_keys,
              backups=backups, ipv6=ipv6, private_networking=private_networking)
   do_POST(what, path='droplets', args=args, parse=TRUE, config=config)
 }
 
-random_name <- function(x){
-  
+random_name <- function(){
+  sample(analogsea::words, size = 1)
 }
 
 #' Reboot a droplet.
@@ -299,11 +300,11 @@ droplets_password_reset <- function(droplet=NULL, what="parsed", config=NULL)
 #' number of processors and memory allocated to the droplet.
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets}
+#' @param x A droplet number or the result from a call to \code{droplets}
 #' @param size (character) Size slug (name) of the image size. See \code{sizes}
 #' @template whatconfig
 #' @examples \dontrun{
-#' droplets_resize(id=1707487, size='1gb')
+#' droplets_resize(2427664, size='1gb')
 #'
 #' droplets() %>%
 #'    droplets_power_off %>%
@@ -311,13 +312,14 @@ droplets_password_reset <- function(droplet=NULL, what="parsed", config=NULL)
 #'    events
 #' }
 
-droplets_resize <- function(droplet=NULL, size=NULL, what="parsed", config=NULL)
+droplets_resize <- function(x=NULL, size=NULL, what="parsed", config=NULL)
 {
-  id <- check_droplet(droplet)
+  if(is.numeric(x)) x <- droplets(x)
+  id <- check_droplet(x)
   assert_that(!is.null(id))
-  tmp <- do_GET(what, sprintf('droplets/%s/actions', id), args=ct(type='resize', size=size), config=config)
+  tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='resize', size=size), config=config)
   if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(droplet)
+    droplet_match <- match_droplet(x)
     list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
   }
 }

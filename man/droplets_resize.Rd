@@ -3,11 +3,10 @@
 \alias{droplets_resize}
 \title{Resize a droplet.}
 \usage{
-droplets_resize(droplet = NULL, size = NULL, what = "parsed",
-  config = NULL)
+droplets_resize(x = NULL, size = NULL, what = "parsed", config = NULL)
 }
 \arguments{
-\item{droplet}{A droplet number or the result from a call to \code{droplets}}
+\item{x}{A droplet number or the result from a call to \code{droplets}}
 
 \item{size}{(character) Size slug (name) of the image size. See \code{sizes}}
 
@@ -21,7 +20,7 @@ number of processors and memory allocated to the droplet.
 }
 \examples{
 \dontrun{
-droplets_resize(id=1707487, size='1gb')
+droplets_resize(2427664, size='1gb')
 
 droplets() \%>\%
    droplets_power_off \%>\%
