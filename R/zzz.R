@@ -143,7 +143,7 @@ match_droplet <- function(x, id){
   x[ !names(x) %in% c('meta','actions') ]
 }
 
-actions_to_df <- function(tmp){
+parse_to_df <- function(tmp){
   if(length(tmp) == 1){ 
     tmp[[1]][vapply(tmp[[1]], is.null, logical(1))] <- NA
     data.frame(tmp[[1]], stringsAsFactors = FALSE) 

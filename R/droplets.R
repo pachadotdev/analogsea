@@ -361,6 +361,33 @@ droplets_snapshot <- function(x=NULL, name=NULL, what="parsed", config=NULL)
   }
 }
 
+#' Take a snapshot of a droplet.
+#'
+#' This method allows you to take a snapshot of the droplet once it has been powered off, which can
+#' later be restored or used to create a new droplet from the same image. Please be aware this may
+#' cause a reboot.
+#'
+#' @export
+#' @param x A droplet number or the result from a call to \code{droplets()}
+#' @param name (character) Optional. Name of the new snapshot you want to create. If not set, the
+#' snapshot name will default to date/time
+#' @template params
+#' @examples \dontrun{
+#' droplets_snapshots_list(1707487)
+#'
+#' droplets() %>%
+#'  droplets_snapshots_list
+#' }
+
+droplets_snapshots_list <- function(x=NULL, what="parsed", config=NULL)
+{
+  if(is.numeric(x)) x <- droplets(x)
+  id <- check_droplet(x)
+  assert_that(!is.null(id))
+  tmp <- do_GET(what, sprintf('droplets/%s/snapshots', id), config=config)
+  if(what == 'raw') tmp else parse_to_df(tmp)
+}
+
 #' Restore a droplet.
 #'
 #' This method allows you to restore a droplet with a previous image or snapshot. This will be a
@@ -507,6 +534,26 @@ droplets_change_kernel <- function(x=NULL, kernel=NULL, what="parsed", config=NU
   }
 }
 
+#' List all available kernels for a droplet.
+#'
+#' @export
+#' @param x A droplet number or the result from a call to \code{droplets()}
+#' @template params
+#' @examples \dontrun{
+#' droplets_kernels_list(2428384)
+#'
+#' droplets() %>%
+#'  droplets_kernels_list
+#' }
+
+droplets_kernels_list <- function(x=NULL, what="parsed", config=NULL)
+{
+  if(is.numeric(x)) x <- droplets(x)
+  id <- check_droplet(x)
+  assert_that(!is.null(id))
+  tmp <- do_GET(what, sprintf('droplets/%s/kernels', id), config=config)
+  if(what == 'raw') tmp else parse_to_df(tmp)
+}
 
 #' Disable backups for a droplet.
 #'
@@ -516,13 +563,13 @@ droplets_change_kernel <- function(x=NULL, kernel=NULL, what="parsed", config=NU
 #' @param x A droplet number or the result from a call to \code{droplets()}
 #' @template params
 #' @examples \dontrun{
-#' droplets_disable_backups(1707487)
+#' droplets_backups_disable(1707487)
 #'
 #' droplets() %>%
-#'  droplets_disable_backups
+#'  droplets_backups_disable
 #' }
 
-droplets_disable_backups <- function(x=NULL, what="parsed", config=NULL)
+droplets_backups_disable <- function(x=NULL, what="parsed", config=NULL)
 {
   if(is.numeric(x)) x <- droplets(x)
   id <- check_droplet(x)
@@ -532,6 +579,27 @@ droplets_disable_backups <- function(x=NULL, what="parsed", config=NULL)
     droplet_match <- match_droplet(x, id)
     list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
   }
+}
+
+#' List all available backups for a droplet.
+#'
+#' @export
+#' @param x A droplet number or the result from a call to \code{droplets()}
+#' @template params
+#' @examples \dontrun{
+#' droplets_backups_list(2428384)
+#'
+#' droplets() %>%
+#'  droplets_backups_list
+#' }
+
+droplets_backups_list <- function(x=NULL, what="parsed", config=NULL)
+{
+  if(is.numeric(x)) x <- droplets(x)
+  id <- check_droplet(x)
+  assert_that(!is.null(id))
+  tmp <- do_GET(what, sprintf('droplets/%s/backups', id), config=config)
+  if(what == 'raw') tmp else parse_to_df(tmp)
 }
 
 
@@ -585,12 +653,13 @@ droplets_enable_private_networking <- function(x=NULL, what="parsed", config=NUL
 }
 
 
-#' Retrieve a droplet action.
+#' Retrieve a droplet action or list all actions associatd with a droplet.
 #'
 #' @export
 #' @param x A droplet number or the result from a call to \code{droplets()}
 #' @template params
 #' @examples \dontrun{
+#' droplets_actions(2428384)
 #' droplets_actions(2428384, actionid=31223385)
 #'
 #' droplets() %>%
@@ -601,10 +670,8 @@ droplets_actions <- function(x=NULL, actionid=NULL, what="parsed", config=NULL)
 {
   if(is.numeric(x)) x <- droplets(x)
   id <- check_droplet(x)
-  assert_that(!is.null(id), !is.null(actionid))
-  tmp <- do_GET(what, sprintf('droplets/%s/actions/%s', id, actionid), config=config)
-  if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
-  }
+  assert_that(!is.null(id))
+  path <- if(is.null(actionid)) sprintf('droplets/%s/actions', id) else sprintf('droplets/%s/actions/%s', id, actionid)
+  tmp <- do_GET(what, path = path, config=config)
+  if(what == 'raw') tmp else parse_to_df(tmp)
 }
