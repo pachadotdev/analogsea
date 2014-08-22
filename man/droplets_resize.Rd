@@ -3,21 +3,15 @@
 \alias{droplets_resize}
 \title{Resize a droplet.}
 \usage{
-droplets_resize(droplet = NULL, size_id = NULL, size_slug = NULL,
-  what = "parsed", config = NULL)
+droplets_resize(droplet = NULL, size = NULL, what = "parsed",
+  config = NULL)
 }
 \arguments{
-\item{droplet}{A droplet number or the result from a call to \code{droplets()}}
+\item{droplet}{A droplet number or the result from a call to \code{droplets}}
 
-\item{size_id}{(numeric) Size id of the image size}
-
-\item{size_slug}{(character) Size slug (name) of the image size}
+\item{size}{(character) Size slug (name) of the image size. See \code{sizes}}
 
 \item{what}{(character) One of 'parsed' or 'raw'.}
-
-\item{page}{Page number (Default: 1)}
-
-\item{per_page}{Number of items per page (Default: 25)}
 
 \item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
@@ -27,11 +21,11 @@ number of processors and memory allocated to the droplet.
 }
 \examples{
 \dontrun{
-droplets_resize(id=1707487, size_id=63)
+droplets_resize(id=1707487, size='1gb')
 
 droplets() \%>\%
    droplets_power_off \%>\%
-   droplets_resize(size_id = 62) \%>\%
+   droplets_resize(size = '1gb') \%>\%
    events
 }
 }

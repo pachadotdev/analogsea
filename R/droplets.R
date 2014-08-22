@@ -104,11 +104,12 @@ droplets <- function(droplet=NULL, what="parsed", page=1, per_page=25, config=NU
 #' @param backups_enable (logical) Enable backups
 #' @template params
 #' @examples \dontrun{
+#' droplets_new('droppinit')
 #' droplets_new(name="newdrop", size = '512mb', image = 'ubuntu-14-04-x64', region = 'sfo1')
 #' }
 
-droplets_new <- function(name=NULL, size=NULL, image=NULL, region=NULL, ssh_keys=NULL, backups=NULL,
-  ipv6=NULL, private_networking=FALSE, what="parsed", config=NULL)
+droplets_new <- function(name=NULL, size='512mb', image='ubuntu-14-04-x64', region='sfo1', 
+  ssh_keys=NULL, backups=NULL, ipv6=NULL, private_networking=FALSE, what="parsed", config=NULL)
 {
   assert_that(!is.null(name))
   args <- ct(name=name, size=size, image=image, region=region, ssh_keys=ssh_keys,
@@ -286,25 +287,23 @@ droplets_password_reset <- function(droplet=NULL, what="parsed", config=NULL)
 #' number of processors and memory allocated to the droplet.
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets()}
-#' @param size_id (numeric) Size id of the image size
-#' @param size_slug (character) Size slug (name) of the image size
-#' @template params
+#' @param droplet A droplet number or the result from a call to \code{droplets}
+#' @param size (character) Size slug (name) of the image size. See \code{sizes}
+#' @template whatconfig
 #' @examples \dontrun{
-#' droplets_resize(id=1707487, size_id=63)
+#' droplets_resize(id=1707487, size='1gb')
 #'
 #' droplets() %>%
 #'    droplets_power_off %>%
-#'    droplets_resize(size_id = 62) %>%
+#'    droplets_resize(size = '1gb') %>%
 #'    events
 #' }
 
-droplets_resize <- function(droplet=NULL, size_id=NULL, size_slug=NULL, what="parsed", config=NULL)
+droplets_resize <- function(droplet=NULL, size=NULL, what="parsed", config=NULL)
 {
   id <- check_droplet(droplet)
   assert_that(!is.null(id))
-  assert_that(xor(is.null(size_id), is.null(size_slug)))
-  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/resize', id), ct(size_id=size_id, size_slug=size_slug), config=config)
+  tmp <- do_GET(what, sprintf('droplets/%s/actions', id), args=ct(type='resize', size=size), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(droplet)
     list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))

@@ -3,8 +3,8 @@
 \alias{droplets_new}
 \title{Create a new droplet.}
 \usage{
-droplets_new(name = NULL, size = NULL, image = NULL, region = NULL,
-  ssh_keys = NULL, backups = NULL, ipv6 = NULL,
+droplets_new(name = NULL, size = "512mb", image = "ubuntu-14-04-x64",
+  region = "sfo1", ssh_keys = NULL, backups = NULL, ipv6 = NULL,
   private_networking = FALSE, what = "parsed", config = NULL)
 }
 \arguments{
@@ -41,6 +41,7 @@ Create a new droplet.
 }
 \examples{
 \dontrun{
+droplets_new('droppinit')
 droplets_new(name="newdrop", size = '512mb', image = 'ubuntu-14-04-x64', region = 'sfo1')
 }
 }
