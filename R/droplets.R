@@ -477,3 +477,134 @@ droplets_rename <- function(x=NULL, name=NULL, what="parsed", config=NULL)
     list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
   }
 }
+
+
+#' Change the kernel of a droplet.
+#'
+#' This method changes the kernel of a droplet to a new kernel ID.
+#'
+#' @export
+#' @param x A droplet number or the result from a call to \code{droplets()}
+#' @param kernel (numeric) The ID of the new kernel.
+#' @template params
+#' @examples \dontrun{
+#' droplets_change_kernel(1707487, kernel=61833229)
+#'
+#' droplets() %>%
+#'  droplets_change_kernel(kernel=61833229)
+#' droplets()  # kernel has changed
+#' }
+
+droplets_change_kernel <- function(x=NULL, kernel=NULL, what="parsed", config=NULL)
+{
+  if(is.numeric(x)) x <- droplets(x)
+  id <- check_droplet(x)
+  assert_that(!is.null(id), !is.null(kernel))
+  tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='change_kernel', kernel=kernel), config=config)
+  if(what == 'raw'){ tmp } else {
+    droplet_match <- match_droplet(x, id)
+    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
+  }
+}
+
+
+#' Disable backups for a droplet.
+#'
+#' This method disables backups for a droplet.
+#'
+#' @export
+#' @param x A droplet number or the result from a call to \code{droplets()}
+#' @template params
+#' @examples \dontrun{
+#' droplets_disable_backups(1707487)
+#'
+#' droplets() %>%
+#'  droplets_disable_backups
+#' }
+
+droplets_disable_backups <- function(x=NULL, what="parsed", config=NULL)
+{
+  if(is.numeric(x)) x <- droplets(x)
+  id <- check_droplet(x)
+  assert_that(!is.null(id))
+  tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='disable_backups'), config=config)
+  if(what == 'raw'){ tmp } else {
+    droplet_match <- match_droplet(x, id)
+    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
+  }
+}
+
+
+#' Enable IPv6 networking on an existing droplet (within a region that has IPv6 available).
+#'
+#' @export
+#' @param x A droplet number or the result from a call to \code{droplets()}
+#' @template params
+#' @examples \dontrun{
+#' droplets_enable_ipv6(1707487)
+#'
+#' droplets() %>%
+#'  droplets_enable_ipv6
+#' }
+
+droplets_enable_ipv6 <- function(x=NULL, what="parsed", config=NULL)
+{
+  if(is.numeric(x)) x <- droplets(x)
+  id <- check_droplet(x)
+  assert_that(!is.null(id))
+  tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='enable_ipv6'), config=config)
+  if(what == 'raw'){ tmp } else {
+    droplet_match <- match_droplet(x, id)
+    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
+  }
+}
+
+#' Enable private networking on an existing droplet (within a region that has private 
+#' networking available).
+#'
+#' @export
+#' @param x A droplet number or the result from a call to \code{droplets()}
+#' @template params
+#' @examples \dontrun{
+#' droplets_enable_private_networking(1707487)
+#'
+#' droplets() %>%
+#'  droplets_enable_private_networking
+#' }
+
+droplets_enable_private_networking <- function(x=NULL, what="parsed", config=NULL)
+{
+  if(is.numeric(x)) x <- droplets(x)
+  id <- check_droplet(x)
+  assert_that(!is.null(id))
+  tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='enable_private_networking'), config=config)
+  if(what == 'raw'){ tmp } else {
+    droplet_match <- match_droplet(x, id)
+    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
+  }
+}
+
+
+#' Retrieve a droplet action.
+#'
+#' @export
+#' @param x A droplet number or the result from a call to \code{droplets()}
+#' @template params
+#' @examples \dontrun{
+#' droplets_actions(2428384, actionid=31223385)
+#'
+#' droplets() %>%
+#'  droplets_actions
+#' }
+
+droplets_actions <- function(x=NULL, actionid=NULL, what="parsed", config=NULL)
+{
+  if(is.numeric(x)) x <- droplets(x)
+  id <- check_droplet(x)
+  assert_that(!is.null(id), !is.null(actionid))
+  tmp <- do_GET(what, sprintf('droplets/%s/actions/%s', id, actionid), config=config)
+  if(what == 'raw'){ tmp } else {
+    droplet_match <- match_droplet(x, id)
+    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
+  }
+}
