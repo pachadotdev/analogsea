@@ -2,6 +2,7 @@ analogsea
 =======
 
 [![Build Status](https://api.travis-ci.org/sckott/analogsea.png)](https://travis-ci.org/sckott/analogsea)
+[![Build status](https://ci.appveyor.com/api/projects/status/ll9lcqafuw338q0h/branch/master)](https://ci.appveyor.com/project/sckott/analogsea/branch/master)
 
 A general purpose R interface to [Digital Ocean](https://www.digitalocean.com/)
 
