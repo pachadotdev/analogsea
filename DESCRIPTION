@@ -10,6 +10,8 @@ Authors@R: person("Scott", "Chamberlain", role = c("aut", "cre"),
 License: MIT + file LICENSE
 URL: https://github.com/sckott/analogsea
 BugReports: http://www.github.com/sckott/analogsea/issues
+LazyLoad: yes
+LazyData: yes
 Depends:
     magrittr
 Imports:
