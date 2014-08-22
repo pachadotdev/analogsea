@@ -142,7 +142,7 @@ random_name <- function(){
 #' not responding
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets()}
+#' @param x A droplet number or the result from a call to \code{droplets()}
 #' @template params
 #' @examples \dontrun{
 #' droplets_reboot(x=2376676)
@@ -158,7 +158,7 @@ droplets_reboot <- function(x=NULL, what="parsed", config=NULL)
   assert_that(!is.null(id))
   tmp <- do_POST(what, path = sprintf('droplets/%s/actions', id), args = ct(type='reboot'), config=config)
   if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(x)
+    droplet_match <- match_droplet(x, id)
     list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
   }
 }
@@ -169,7 +169,7 @@ droplets_reboot <- function(x=NULL, what="parsed", config=NULL)
 #' back on.
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets()}
+#' @param x A droplet number or the result from a call to \code{droplets()}
 #' @template params
 #' @examples \dontrun{
 #' droplets_power_cycle(x=2376676)
@@ -184,7 +184,7 @@ droplets_power_cycle <- function(x=NULL, what="parsed", config=NULL)
   assert_that(!is.null(id))
   tmp <- do_POST(what, path = sprintf('droplets/%s/actions', id), args=ct(type='power_cycle'), config=config)
   if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(x)
+    droplet_match <- match_droplet(x, id)
     list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
   }
 }
@@ -194,7 +194,7 @@ droplets_power_cycle <- function(x=NULL, what="parsed", config=NULL)
 #' This method allows you to shutdown a running droplet. The droplet will remain in your account
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets()}
+#' @param x A droplet number or the result from a call to \code{droplets()}
 #' @template params
 #' @examples \dontrun{
 #' droplets_shutdown(x=2376676)
@@ -209,7 +209,7 @@ droplets_shutdown <- function(x=NULL, what="parsed", config=NULL)
   assert_that(!is.null(id))
   tmp <- do_POST(what, path = sprintf('droplets/%s/actions', id), args=ct(type='shutdown'), config=config)
   if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(x)
+    droplet_match <- match_droplet(x, id)
     list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
   }
 }
@@ -219,7 +219,7 @@ droplets_shutdown <- function(x=NULL, what="parsed", config=NULL)
 #' This method allows you to poweroff a running droplet. The droplet will remain in your account.
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets()}
+#' @param x A droplet number or the result from a call to \code{droplets()}
 #' @template params
 #' @examples \dontrun{
 #' droplets_power_off(x=2376676)
@@ -245,7 +245,7 @@ droplets_power_off <- function(x=NULL, what="parsed", config=NULL)
 #' This method allows you to poweron a powered off droplet.
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets()}
+#' @param x A droplet number or the result from a call to \code{droplets()}
 #' @template params
 #' @examples \dontrun{
 #' droplets_power_on(x=2376676)
@@ -280,22 +280,22 @@ droplets_power_on <- function(x=NULL, what="parsed", config=NULL)
 #' the droplet to allow resetting the password.
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets()}
+#' @param x A droplet number or the result from a call to \code{droplets()}
 #' @template params
 #' @examples \dontrun{
-#' droplets_password_reset(id=2376676)
+#' droplets_password_reset(2376676)
 #'
 #' droplets() %>% droplets_password_reset %>% events
 #' }
 
-droplets_password_reset <- function(droplet=NULL, what="parsed", config=NULL)
+droplets_password_reset <- function(x=NULL, what="parsed", config=NULL)
 {
   if(is.numeric(x)) x <- droplets(x)
   id <- check_droplet(x)
   assert_that(!is.null(id))
   tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args = ct(type='password_reset'), config=config)
   if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(x)
+    droplet_match <- match_droplet(x, id)
     list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
   }
 }
@@ -325,7 +325,7 @@ droplets_resize <- function(x=NULL, size=NULL, what="parsed", config=NULL)
   assert_that(!is.null(id))
   tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='resize', size=size), config=config)
   if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(x)
+    droplet_match <- match_droplet(x, id)
     list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
   }
 }
@@ -455,24 +455,25 @@ droplets_delete <- function(x=NULL, config=NULL)
 #' This method renames the droplet to the specified name.
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets()}
-#' @param name (character) Name of the droplet
+#' @param x A droplet number or the result from a call to \code{droplets()}
+#' @param name (character) The new name for the droplet
 #' @template params
 #' @examples \dontrun{
-#' droplets_rename(id=1707487, name='wadup')
+#' droplets_rename(1707487, name='wadup')
 #'
 #' droplets() %>%
 #'  droplets_rename(name="dropmealine")
 #' droplets()  # name has changed
 #' }
 
-droplets_rename <- function(droplet=NULL, name=NULL, what="parsed", config=NULL)
+droplets_rename <- function(x=NULL, name=NULL, what="parsed", config=NULL)
 {
-  id <- check_droplet(droplet)
+  if(is.numeric(x)) x <- droplets(x)
+  id <- check_droplet(x)
   assert_that(!is.null(id), !is.null(name))
-  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/rename', id), ct(name=name), config=config)
+  tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='rename', name=name), config=config)
   if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(droplet)
+    droplet_match <- match_droplet(x, id)
     list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
   }
 }

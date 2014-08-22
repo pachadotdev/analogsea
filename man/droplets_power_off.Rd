@@ -6,7 +6,7 @@
 droplets_power_off(x = NULL, what = "parsed", config = NULL)
 }
 \arguments{
-\item{droplet}{A droplet number or the result from a call to \code{droplets()}}
+\item{x}{A droplet number or the result from a call to \code{droplets()}}
 
 \item{what}{(character) One of 'parsed' or 'raw'.}
 

@@ -3,13 +3,12 @@
 \alias{droplets_rename}
 \title{Rename a droplet.}
 \usage{
-droplets_rename(droplet = NULL, name = NULL, what = "parsed",
-  config = NULL)
+droplets_rename(x = NULL, name = NULL, what = "parsed", config = NULL)
 }
 \arguments{
-\item{droplet}{A droplet number or the result from a call to \code{droplets()}}
+\item{x}{A droplet number or the result from a call to \code{droplets()}}
 
-\item{name}{(character) Name of the droplet}
+\item{name}{(character) The new name for the droplet}
 
 \item{what}{(character) One of 'parsed' or 'raw'.}
 
@@ -24,7 +23,7 @@ This method renames the droplet to the specified name.
 }
 \examples{
 \dontrun{
-droplets_rename(id=1707487, name='wadup')
+droplets_rename(1707487, name='wadup')
 
 droplets() \%>\%
  droplets_rename(name="dropmealine")
