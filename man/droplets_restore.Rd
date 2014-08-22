@@ -3,13 +3,12 @@
 \alias{droplets_restore}
 \title{Restore a droplet.}
 \usage{
-droplets_restore(droplet = NULL, image_id = NULL, what = "parsed",
-  config = NULL)
+droplets_restore(x = NULL, image = NULL, what = "parsed", config = NULL)
 }
 \arguments{
-\item{droplet}{A droplet number or the result from a call to \code{droplets()}}
+\item{x}{A droplet number or the result from a call to \code{droplets()}}
 
-\item{image_id}{The image id to use to rebuild the droplet.}
+\item{image}{(numeric) The image ID of the backup image that you would like to restore.}
 
 \item{what}{(character) One of 'parsed' or 'raw'.}
 
@@ -26,7 +25,7 @@ information prior to restore.
 }
 \examples{
 \dontrun{
-droplets_restore(id=1707487, image_id=3240036)
+droplets_restore(1707487, image=3240036)
 
 droplets() \%>\%
  droplets_restore

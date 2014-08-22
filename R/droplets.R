@@ -368,23 +368,24 @@ droplets_snapshot <- function(x=NULL, name=NULL, what="parsed", config=NULL)
 #' information prior to restore.
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets()}
-#' @param image_id The image id to use to rebuild the droplet.
+#' @param x A droplet number or the result from a call to \code{droplets()}
+#' @param image (numeric) The image ID of the backup image that you would like to restore.
 #' @template params
 #' @examples \dontrun{
-#' droplets_restore(id=1707487, image_id=3240036)
+#' droplets_restore(1707487, image=3240036)
 #'
 #' droplets() %>%
 #'  droplets_restore
 #' }
 
-droplets_restore <- function(droplet=NULL, image_id=NULL, what="parsed", config=NULL)
+droplets_restore <- function(x=NULL, image=NULL, what="parsed", config=NULL)
 {
-  id <- check_droplet(droplet)
-  assert_that(!is.null(id), !is.null(image_id))
-  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/restore', id), ct(image_id=image_id), config=config)
+  if(is.numeric(x)) x <- droplets(x)
+  id <- check_droplet(x)
+  assert_that(!is.null(id), !is.null(image))
+  tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='restore', image=image), config=config)
   if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(droplet)
+    droplet_match <- match_droplet(x, id)
     list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
   }
 }
@@ -395,58 +396,58 @@ droplets_restore <- function(droplet=NULL, image_id=NULL, what="parsed", config=
 #' to start again but retain the same IP address for your droplet.
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets()}
-#' @param image_id The image id to use to rebuild the droplet.
+#' @param x A droplet number or the result from a call to \code{droplets()}
+#' @param image An image slug or ID. This represents the image that the Droplet will use as a base.
 #' @template params
 #' @examples \dontrun{
-#' droplets_rebuild(id=1707487, image_id=3240036)
+#' droplets_rebuild(1707487, image=3240036)
 #'
 #' droplets() %>%
 #'  droplets_rebuild
 #' }
 
-droplets_rebuild <- function(droplet=NULL, image_id=NULL, what="parsed", config=NULL)
+droplets_rebuild <- function(x=NULL, image=NULL, what="parsed", config=NULL)
 {
-  id <- check_droplet(droplet)
+  if(is.numeric(x)) x <- droplets(x)
+  id <- check_droplet(x)
   assert_that(!is.null(id), !is.null(image_id))
-  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/rebuild', id), ct(image_id=image_id), config=config)
+  tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='rebuild', image=image), config=config)
   if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(droplet)
+    droplet_match <- match_droplet(x, id)
     list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
   }
 }
 
-#' Destory a droplet.
+#' Delete a droplet.
 #'
-#' This method destroys one of your droplets - this is irreversible
+#' This method deletes one of your droplets - this is irreversible
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets()}
-#' @param scrub_data (logical) To scrub data or not
-#' @template params
+#' @param x A droplet number or the result from a call to \code{droplets()}
+#' @param config Options passed on to httr::GET. Must be named, see examples.
 #' @examples \dontrun{
-#' droplets_destroy(id=1707487)
+#' droplets_delete(1707487)
 #' }
 #' \donttest{
-#' # Chain operations together - FUTURE, shut off multiple droplets
+#' # Chain operations together
 #' drops <- droplets()
-#' drops$droplets %>% droplets_destroy
+#' drops$droplets %>% 
+#'   droplets_delete
 #'
 #' # Pipe 'em - 1st, create a new droplet
 #' id <- droplets_new(name="newdrop", size_id = 64, image_id = 3240036, region_slug = 'sfo1')
 #' id <- droplet$id
-#' droplets(id) %>% droplets_destroy %>% events
+#' droplets(id) %>% 
+#'   droplets_delete %>% 
+#'   actions
 #' }
 
-droplets_destroy <- function(droplet=NULL, scrub_data=FALSE, what="parsed", config=NULL)
+droplets_delete <- function(x=NULL, config=NULL)
 {
-  id <- check_droplet(droplet)
+  if(is.numeric(x)) x <- droplets(x)
+  id <- check_droplet(x)
   assert_that(!is.null(id))
-  tmp <- do_GET(what, TRUE, sprintf('droplets/%s/destroy', id), ct(scrub_data=scrub_data), config=config)
-  if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(droplet)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
-  }
+  do_DELETE(path=sprintf('droplets/%s', id), config=config)
 }
 
 #' Rename a droplet.

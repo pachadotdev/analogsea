@@ -58,13 +58,11 @@ do_POST <- function(what, path, args, parse=FALSE, config=config) {
 #' 
 #' @export
 #' @keywords internal
-#' @param what What to return, parsed or raw
 #' @param path Path to append to the end of the base Digital Ocean API URL
-#' @param parse To parse result to data.frame or to list
 #' @param config Options passed on to httr::GET. Must be named, see examples.
 #' @return Some combination of warnings and httr response object, data.frame, or list
 
-do_DELETE <- function(what, path, parse=FALSE, config=NULL) {
+do_DELETE <- function(path, config=NULL) {
   url <- file.path("https://api.digitalocean.com/v2", path)
   au <- do_get_auth()
   auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))

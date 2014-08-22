@@ -3,13 +3,12 @@
 \alias{droplets_rebuild}
 \title{Rebuild a droplet.}
 \usage{
-droplets_rebuild(droplet = NULL, image_id = NULL, what = "parsed",
-  config = NULL)
+droplets_rebuild(x = NULL, image = NULL, what = "parsed", config = NULL)
 }
 \arguments{
-\item{droplet}{A droplet number or the result from a call to \code{droplets()}}
+\item{x}{A droplet number or the result from a call to \code{droplets()}}
 
-\item{image_id}{The image id to use to rebuild the droplet.}
+\item{image}{An image slug or ID. This represents the image that the Droplet will use as a base.}
 
 \item{what}{(character) One of 'parsed' or 'raw'.}
 
@@ -25,7 +24,7 @@ to start again but retain the same IP address for your droplet.
 }
 \examples{
 \dontrun{
-droplets_rebuild(id=1707487, image_id=3240036)
+droplets_rebuild(1707487, image=3240036)
 
 droplets() \%>\%
  droplets_rebuild

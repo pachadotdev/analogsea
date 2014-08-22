@@ -3,14 +3,10 @@
 \alias{do_DELETE}
 \title{Digital Ocean delete request handler}
 \usage{
-do_DELETE(what, path, parse = FALSE, config = NULL)
+do_DELETE(path, config = NULL)
 }
 \arguments{
-\item{what}{What to return, parsed or raw}
-
 \item{path}{Path to append to the end of the base Digital Ocean API URL}
-
-\item{parse}{To parse result to data.frame or to list}
 
 \item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
