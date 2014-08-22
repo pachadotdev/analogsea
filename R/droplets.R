@@ -1,5 +1,6 @@
 #' Get metadata on all your droplets, or droplets by id
 #'
+#' @importFrom plyr ldply
 #' @importFrom magrittr %>%
 #' @export
 #' @param droplet A droplet number or the result from a call to \code{droplets()}
@@ -41,19 +42,19 @@ droplets <- function(droplet=NULL, what="parsed", page=1, per_page=25, config=NU
       type <- 'single'
       names(tmp) <- "droplets"
       ids <- tmp$droplets$id
-    } else { 
+    } else {
       type <- 'many'
-      ids <- vapply(tmp$droplets, function(x) x$id, numeric(1)) 
+      ids <- vapply(tmp$droplets, function(x) x$id, numeric(1))
     }
 
-    dat <- switch(type, 
-                  single = makedata(tmp$droplets), 
+    dat <- switch(type,
+                  single = makedata(tmp$droplets),
                   many = do.call(rbind.fill, lapply(tmp$droplets, makedata)))
-    details <- switch(type, 
-                      single = makedeets(tmp$droplets), 
+    details <- switch(type,
+                      single = makedeets(tmp$droplets),
                       many = do.call(rbind.fill, lapply(tmp$droplets, makedeets)))
-    list(meta=tmp$meta, 
-         droplet_ids = ids, 
+    list(meta=tmp$meta,
+         droplet_ids = ids,
          droplets = list(data=dat, details=details),
          actions = list(id = switch(type, single=unlist(tmp$droplets$action_ids), many=NULL)),
          links = tmp$links
@@ -75,8 +76,8 @@ makedeets <- function(y){
   snapshotids <- if(length(y$snapshot_ids)==0) NA else paste(y$snapshot_ids, collapse=',')
   actionids <- if(length(y$action_ids)==0) NA else paste(y$action_ids, collapse=',')
   data.frame(id=y$id,
-             region_slug=y$region$slug, 
-             region_name=y$region$name, 
+             region_slug=y$region$slug,
+             region_name=y$region$name,
              region_available=y$region$available,
              region_sizes=paste(y$region$sizes, collapse = ","),
              region_features=paste(y$region$features, collapse = ","),
@@ -90,29 +91,29 @@ makedeets <- function(y){
              size_slug=y$size$slug,
              size_transfer=y$size$transfer,
              size_price_monthly=y$size$price_monthly,
-             size_price_hourly=y$size$price_hourly, 
+             size_price_hourly=y$size$price_hourly,
              ntwks, kernel, backup_ids=backupids, snapshot_ids=snapshotids, action_ids=actionids,
              stringsAsFactors = FALSE)
 }
 
 #' Create a new droplet.
-#' 
-#' There are defaults for each of size, image, and region so that a quick one-liner with one 
+#'
+#' There are defaults for each of size, image, and region so that a quick one-liner with one
 #' parameter is possible: simply specify the name of the droplet and your'e up and running.
 #'
 #' @export
 #' @param name (character) Name of the droplet. Default: picks a random name if none supplied.
 #' @param size (character) Size slug identifier. See \code{sizes}. Default: 512mb, the smallest
-#' @param image (character/numeric) The image ID of a public or private image, or the unique slug 
-#' identifier for a public image. This image will be the base image for your Droplet. 
+#' @param image (character/numeric) The image ID of a public or private image, or the unique slug
+#' identifier for a public image. This image will be the base image for your Droplet.
 #' Default: ubuntu-14-04-x64
 #' @param region (character) The unique slug identifier for the region that you wish to deploy in.
 #' Default: sfo1
-#' @param ssh_keys (character) A vector with IDs or fingerprints of the SSH keys that you wish to 
+#' @param ssh_keys (character) A vector with IDs or fingerprints of the SSH keys that you wish to
 #' embed in the Droplet's root account upon creation.
-#' @param private_networking (logical) Use private networking. Private networking is currently 
+#' @param private_networking (logical) Use private networking. Private networking is currently
 #' only available in certain regions. Default: FALSE
-#' @param backups (logical) Enable backups. A boolean indicating whether automated backups should 
+#' @param backups (logical) Enable backups. A boolean indicating whether automated backups should
 #' be enabled for the Droplet. Automated backups can only be enabled when the Droplet is created.
 #' Default: FALSE
 #' @template whatconfig
@@ -122,7 +123,7 @@ makedeets <- function(y){
 #' droplets_new(name="newdrop", size = '512mb', image = 'ubuntu-14-04-x64', region = 'sfo1')
 #' }
 
-droplets_new <- function(name=NULL, size='512mb', image='ubuntu-14-04-x64', region='sfo1', 
+droplets_new <- function(name=NULL, size='512mb', image='ubuntu-14-04-x64', region='sfo1',
   ssh_keys=NULL, backups=NULL, ipv6=NULL, private_networking=FALSE, what="parsed", config=NULL)
 {
   name <- if(is.null(name)) random_name() else name
@@ -458,14 +459,14 @@ droplets_rebuild <- function(x=NULL, image=NULL, what="parsed", config=NULL)
 #' \donttest{
 #' # Chain operations together
 #' drops <- droplets()
-#' drops$droplets %>% 
+#' drops$droplets %>%
 #'   droplets_delete
 #'
 #' # Pipe 'em - 1st, create a new droplet
 #' id <- droplets_new(name="newdrop", size_id = 64, image_id = 3240036, region_slug = 'sfo1')
 #' id <- droplet$id
-#' droplets(id) %>% 
-#'   droplets_delete %>% 
+#' droplets(id) %>%
+#'   droplets_delete %>%
 #'   actions
 #' }
 
@@ -627,7 +628,7 @@ droplets_enable_ipv6 <- function(x=NULL, what="parsed", config=NULL)
   }
 }
 
-#' Enable private networking on an existing droplet (within a region that has private 
+#' Enable private networking on an existing droplet (within a region that has private
 #' networking available).
 #'
 #' @export
