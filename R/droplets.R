@@ -263,7 +263,7 @@ droplets_power_on <- function(x=NULL, what="parsed", config=NULL)
   assert_that(!is.null(id))
   tmp <- do_POST(what, path = sprintf('droplets/%s/actions', id), args = ct(type='power_on'), config=config)
   if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(x)
+    droplet_match <- match_droplet(x, id)
     list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
   }
 }
@@ -331,25 +331,26 @@ droplets_resize <- function(x=NULL, size=NULL, what="parsed", config=NULL)
 #' cause a reboot.
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets()}
+#' @param x A droplet number or the result from a call to \code{droplets()}
 #' @param name (character) Optional. Name of the new snapshot you want to create. If not set, the
 #' snapshot name will default to date/time
 #' @template params
 #' @examples \dontrun{
-#' droplets_snapshot(id=1707487)
+#' droplets_snapshot(1707487)
 #'
 #' droplets() %>%
 #'  droplets_snapshot %>%
 #'  events
 #' }
 
-droplets_snapshot <- function(droplet=NULL, name=NULL, what="parsed", config=NULL)
+droplets_snapshot <- function(x=NULL, name=NULL, what="parsed", config=NULL)
 {
-  id <- check_droplet(droplet)
+  if(is.numeric(x)) x <- droplets(x)
+  id <- check_droplet(x)
   assert_that(!is.null(id))
   tmp <- do_GET(what, TRUE, sprintf('droplets/%s/snapshot', id), ct(name=name), config=config)
   if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(droplet)
+    droplet_match <- match_droplet(x)
     list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
   }
 }

@@ -3,11 +3,10 @@
 \alias{droplets_snapshot}
 \title{Take a snapshot of a droplet.}
 \usage{
-droplets_snapshot(droplet = NULL, name = NULL, what = "parsed",
-  config = NULL)
+droplets_snapshot(x = NULL, name = NULL, what = "parsed", config = NULL)
 }
 \arguments{
-\item{droplet}{A droplet number or the result from a call to \code{droplets()}}
+\item{x}{A droplet number or the result from a call to \code{droplets()}}
 
 \item{name}{(character) Optional. Name of the new snapshot you want to create. If not set, the
 snapshot name will default to date/time}
@@ -27,7 +26,7 @@ cause a reboot.
 }
 \examples{
 \dontrun{
-droplets_snapshot(id=1707487)
+droplets_snapshot(1707487)
 
 droplets() \%>\%
  droplets_snapshot \%>\%

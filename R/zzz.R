@@ -118,10 +118,10 @@ check_droplet <- function(x){
       if(!is.numeric(retid)) stop("Could not detect a droplet id")
       
       # check actions, and wait if not 'completed' or 'errored' status
-      if(!x$droplets$data$status == 'active'){
+      if(!x$droplets$data$status[1] == 'active'){
         actiondat <- x['actions']
         if(is.na(actiondat)){ return( retid ) } else {
-          if(!is.null(actiondat)){
+          if(!is.null(actiondat$actions$id)){
             actionid <- actiondat$actions$id
             if(length(actionid) > 1) actionid <- actionid[1]
             tocheck <- 0
@@ -137,11 +137,10 @@ check_droplet <- function(x){
   }
 }
 
-match_droplet <- function(x){
+match_droplet <- function(x, id){
   if(length(x$droplet_ids) > 1){
-    ret <- x[vapply(x, "[[", 1, "id")==id]
-  } else { 
-    ret <- x
+    x$droplets$data <- x$droplets$data[ x$droplets$data$id %in% id, ]
+    x$droplets$details <- x$droplets$details[ x$droplets$details$id %in% id, ]
   }
   ret[ !names(ret) %in% c('meta','actions') ]
 }
