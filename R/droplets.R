@@ -160,7 +160,7 @@ droplets_reboot <- function(x=NULL, what="parsed", config=NULL)
   tmp <- do_POST(what, path = sprintf('droplets/%s/actions', id), args = ct(type='reboot'), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
+    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
   }
 }
 
@@ -186,7 +186,7 @@ droplets_power_cycle <- function(x=NULL, what="parsed", config=NULL)
   tmp <- do_POST(what, path = sprintf('droplets/%s/actions', id), args=ct(type='power_cycle'), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
+    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
   }
 }
 
@@ -211,7 +211,7 @@ droplets_shutdown <- function(x=NULL, what="parsed", config=NULL)
   tmp <- do_POST(what, path = sprintf('droplets/%s/actions', id), args=ct(type='shutdown'), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
+    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
   }
 }
 
@@ -237,7 +237,7 @@ droplets_power_off <- function(x=NULL, what="parsed", config=NULL)
   tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args = ct(type='power_off'), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
+    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
   }
 }
 
@@ -271,7 +271,7 @@ droplets_power_on <- function(x=NULL, what="parsed", config=NULL)
   tmp <- do_POST(what, path = sprintf('droplets/%s/actions', id), args = ct(type='power_on'), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
+    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
   }
 }
 
@@ -297,7 +297,7 @@ droplets_password_reset <- function(x=NULL, what="parsed", config=NULL)
   tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args = ct(type='password_reset'), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
+    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
   }
 }
 
@@ -327,7 +327,7 @@ droplets_resize <- function(x=NULL, size=NULL, what="parsed", config=NULL)
   tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='resize', size=size), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
+    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
   }
 }
 
@@ -358,7 +358,7 @@ droplets_snapshot <- function(x=NULL, name=NULL, what="parsed", config=NULL)
   tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='snapshot', name=name), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
+    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
   }
 }
 
@@ -414,7 +414,7 @@ droplets_restore <- function(x=NULL, image=NULL, what="parsed", config=NULL)
   tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='restore', image=image), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
+    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
   }
 }
 
@@ -442,7 +442,7 @@ droplets_rebuild <- function(x=NULL, image=NULL, what="parsed", config=NULL)
   tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='rebuild', image=image), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
+    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
   }
 }
 
@@ -502,7 +502,7 @@ droplets_rename <- function(x=NULL, name=NULL, what="parsed", config=NULL)
   tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='rename', name=name), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
+    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
   }
 }
 
@@ -531,7 +531,7 @@ droplets_change_kernel <- function(x=NULL, kernel=NULL, what="parsed", config=NU
   tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='change_kernel', kernel=kernel), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
+    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
   }
 }
 
@@ -578,7 +578,7 @@ droplets_backups_disable <- function(x=NULL, what="parsed", config=NULL)
   tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='disable_backups'), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
+    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
   }
 }
 
@@ -624,7 +624,7 @@ droplets_enable_ipv6 <- function(x=NULL, what="parsed", config=NULL)
   tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='enable_ipv6'), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
+    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
   }
 }
 
@@ -649,7 +649,7 @@ droplets_enable_private_networking <- function(x=NULL, what="parsed", config=NUL
   tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='enable_private_networking'), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=actions_to_df(tmp))
+    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
   }
 }
 
