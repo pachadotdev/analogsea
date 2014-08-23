@@ -181,3 +181,28 @@ parse_to_df <- function(tmp){
     }))
   }
 }
+
+#' Rate limit information for the authenticated user.
+#' 
+#' @export
+do_rate_limit <- function(){
+  url <- "https://api.digitalocean.com/v2/sizes"
+  au <- do_get_auth()
+  auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))
+  tt <- HEAD(url, config = auth)
+  tmp <- as.numeric(tt$headers[c('ratelimit-limit','ratelimit-remaining','ratelimit-reset')])
+  reset <- as.POSIXct(tmp[3], origin="1970-01-01")
+  dat <- list(limit=tmp[1], remaining=tmp[2], reset=reset)
+  class(dat) <- "do_rate"
+  dat
+}
+
+#' @method print do_rate
+#' @export
+#' @rdname do_rate_limit
+print.do_rate <- function(x){
+  cat("Rate limit:", x$limit, '\n')
+  cat("Limit remaining:", x$remaining, '\n')
+  cat("Reset time:", '\n')
+  print(x$reset)
+}
