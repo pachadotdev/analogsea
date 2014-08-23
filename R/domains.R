@@ -1,52 +1,52 @@
 #' Get information on a single domain or all your domains.
 #'
 #' @export
-#' @param domain_id Domain ID
+#' @param domain (character) Required. Domain name
 #' @template params
 #' @examples \dontrun{
 #' domains()
-#' domains(316128)
-#' domains(what="raw")
+#' domains('sckottdrop.info')
 #' }
 
-domains <- function(domain_id=NULL, what="parsed", ...)
+domains <- function(domain=NULL, what="parsed", page=1, per_page=25, config=NULL)
 {
-  path <- if(is.null(domain_id)) 'domains' else sprintf('domains/%s', domain_id)
-  do_GET(what, FALSE, path, ...)
+  path <- if(is.null(domain)) 'domains' else sprintf('domains/%s', domain)
+  do_GET(what, path = path, query = ct(page=page, per_page=per_page), parse=TRUE, config=config)
 }
 
 #' Creates a new domain name with an A record for the specified ip_address.
 #'
 #' @export
-#' @param name Name of the domain (e.g., stuff.com)
-#' @param ip_address An IP address for the domain`s initial A record.
-#' @template params
+#' @param name (character) Required. The domain name to add to the DigitalOcean DNS management 
+#' interface. The name must be unique in DigitalOcean's DNS system. The request will fail if 
+#' the name has already been taken.
+#' @param ip_address (character) Required. An IP address for the domain`s initial A record.
+#' @template whatconfig
 #' @examples \dontrun{
 #' domains_new(name='tablesandchairsbunnies.info', ip_address='107.170.220.59')
-#' domains_new(what="raw")
 #' }
 
-domains_new <- function(name=NULL, ip_address=NULL, what="parsed", ...)
+domains_new <- function(name=NULL, ip_address=NULL, what="parsed", config=NULL)
 {
-  assert_that(!is.null(name))
-  assert_that(!is.null(ip_address))
-  do_GET(what, FALSE, 'domains/new', ct(name=name, ip_address=ip_address), ...)
+  assert_that(!is.null(name), !is.null(ip_address))
+  do_POST(what, path = 'domains', args = ct(name=name, ip_address=ip_address), parse = TRUE, config = config)
 }
 
-#' Delete a domain name
+#' Delete a domain name.
 #'
 #' @export
-#' @param domain_id Integer or Domain Name (e.g. domain.com), specifies the domain to destroy.
-#' @template params
+#' @param domain (character) Required. Domain Name (e.g. domain.com), specifies the domain 
+#' to destroy.
+#' @template whatconfig
 #' @examples \dontrun{
-#' domains_destroy(domain_id=316384)
-#' domains_destroy(domain_id='tablesandchairsbunnies.info')
+#' domains_new(name='rforcats.cat', ip_address='107.170.221.51')
+#' domains_delete(domain='rforcats.cat')
 #' }
 
-domains_destroy <- function(domain_id=NULL, what="parsed", ...)
+domains_delete <- function(domain=NULL, config=NULL)
 {
-  assert_that(!is.null(domain_id))
-  do_GET(what, FALSE, sprintf('domains/%s/destroy', domain_id), ...)
+  assert_that(!is.null(domain))
+  do_DELETE(path = sprintf('domains/%s', domain), config = config)
 }
 
 ############# Domain records

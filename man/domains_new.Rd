@@ -3,18 +3,17 @@
 \alias{domains_new}
 \title{Creates a new domain name with an A record for the specified ip_address.}
 \usage{
-domains_new(name = NULL, ip_address = NULL, what = "parsed", ...)
+domains_new(name = NULL, ip_address = NULL, what = "parsed",
+  config = NULL)
 }
 \arguments{
-\item{name}{Name of the domain (e.g., stuff.com)}
+\item{name}{(character) Required. The domain name to add to the DigitalOcean DNS management
+interface. The name must be unique in DigitalOcean's DNS system. The request will fail if
+the name has already been taken.}
 
-\item{ip_address}{An IP address for the domain`s initial A record.}
+\item{ip_address}{(character) Required. An IP address for the domain`s initial A record.}
 
 \item{what}{(character) One of 'parsed' or 'raw'.}
-
-\item{page}{Page number (Default: 1)}
-
-\item{per_page}{Number of items per page (Default: 25)}
 
 \item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
@@ -24,7 +23,6 @@ Creates a new domain name with an A record for the specified ip_address.
 \examples{
 \dontrun{
 domains_new(name='tablesandchairsbunnies.info', ip_address='107.170.220.59')
-domains_new(what="raw")
 }
 }
 

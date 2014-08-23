@@ -3,10 +3,11 @@
 \alias{domains}
 \title{Get information on a single domain or all your domains.}
 \usage{
-domains(domain_id = NULL, what = "parsed", ...)
+domains(domain = NULL, what = "parsed", page = 1, per_page = 25,
+  config = NULL)
 }
 \arguments{
-\item{domain_id}{Domain ID}
+\item{domain}{(character) Required. Domain name}
 
 \item{what}{(character) One of 'parsed' or 'raw'.}
 
@@ -22,8 +23,7 @@ Get information on a single domain or all your domains.
 \examples{
 \dontrun{
 domains()
-domains(316128)
-domains(what="raw")
+domains('sckottdrop.info')
 }
 }
 
