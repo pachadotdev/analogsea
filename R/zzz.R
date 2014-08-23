@@ -14,7 +14,7 @@ do_GET <- function(what, path, query = NULL, parse=FALSE, config=NULL) {
   url <- file.path("https://api.digitalocean.com/v2", path)
   au <- do_get_auth()
   auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))
-  
+
   tt <- GET(url, query = query, config = c(auth, config))
   if(tt$status_code > 202){
     if(tt$status_code > 202) stop(content(tt)$message)
@@ -27,7 +27,7 @@ do_GET <- function(what, path, query = NULL, parse=FALSE, config=NULL) {
 }
 
 #' Digital Ocean POST request handler
-#' 
+#'
 #' @export
 #' @keywords internal
 #' @param what What to return, parsed or raw
@@ -41,7 +41,7 @@ do_POST <- function(what, path, args, parse=FALSE, config=config) {
   url <- file.path("https://api.digitalocean.com/v2", path)
   au <- do_get_auth()
   auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))
-  
+
   tt <- POST(url, config = c(auth, config=NULL), body=args)
   if(tt$status_code > 202){
     if(tt$status_code > 202) stop(content(tt)$message)
@@ -54,7 +54,7 @@ do_POST <- function(what, path, args, parse=FALSE, config=config) {
 }
 
 #' Digital Ocean PUT request handler
-#' 
+#'
 #' @export
 #' @keywords internal
 #' @param what What to return, parsed or raw
@@ -68,7 +68,7 @@ do_PUT <- function(what, path, args, parse=FALSE, config=config) {
   url <- file.path("https://api.digitalocean.com/v2", path)
   au <- do_get_auth()
   auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))
-  
+
   tt <- PUT(url, config = c(auth, config=NULL), body=args)
   if(tt$status_code > 202){
     if(tt$status_code > 202) stop(content(tt)$message)
@@ -82,7 +82,7 @@ do_PUT <- function(what, path, args, parse=FALSE, config=config) {
 
 
 #' Digital Ocean DELETE request handler
-#' 
+#'
 #' @export
 #' @keywords internal
 #' @param path Path to append to the end of the base Digital Ocean API URL
@@ -93,7 +93,7 @@ do_DELETE <- function(path, config=NULL) {
   url <- file.path("https://api.digitalocean.com/v2", path)
   au <- do_get_auth()
   auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))
-  
+
   tt <- DELETE(url, config = c(auth, config))
   if(tt$status_code > 204){
     if(tt$status_code > 204) stop(content(tt)$message)
@@ -133,7 +133,7 @@ check_droplet <- function(x){
     NULL
   } else {
     if(!is.null(x)){
-    
+
       if(is.list(x)){
         if(length(x$droplet_ids) > 1) message("More than 1 droplet, using first")
         retid <- x$droplet_ids[[1]]
@@ -141,7 +141,7 @@ check_droplet <- function(x){
         retid <- as.numeric(as.character(x))
       }
       if(!is.numeric(retid)) stop("Could not detect a droplet id")
-      
+
       # check actions, and wait if not 'completed' or 'errored' status
       if(!x$droplets$data$status[1] == 'active'){
         actiondat <- x['actions']
@@ -152,7 +152,7 @@ check_droplet <- function(x){
             tocheck <- 0
             while(tocheck != 1){
               actioncheck <- actions(x = actionid)
-              tocheck <- if(actioncheck$action$status %in% c('completed','errored')) 1 else 0 
+              tocheck <- if(actioncheck$action$status %in% c('completed','errored')) 1 else 0
             }
             return( retid )
           } else { return( retid ) }
@@ -171,9 +171,9 @@ match_droplet <- function(x, id){
 }
 
 parse_to_df <- function(tmp){
-  if(length(tmp) == 1){ 
+  if(length(tmp) == 1){
     tmp[[1]][vapply(tmp[[1]], is.null, logical(1))] <- NA
-    data.frame(tmp[[1]], stringsAsFactors = FALSE) 
+    data.frame(tmp[[1]], stringsAsFactors = FALSE)
   } else {
     do.call(rbind.fill, lapply(tmp[[1]], function(z){
       z[vapply(z, is.null, logical(1))] <- NA
@@ -183,8 +183,11 @@ parse_to_df <- function(tmp){
 }
 
 #' Rate limit information for the authenticated user.
-#' 
+#'
 #' @export
+#' @param x input to print, a do_rate S3 object
+#' @param ... Not used
+
 do_rate_limit <- function(){
   url <- "https://api.digitalocean.com/v2/sizes"
   au <- do_get_auth()
@@ -200,7 +203,7 @@ do_rate_limit <- function(){
 #' @method print do_rate
 #' @export
 #' @rdname do_rate_limit
-print.do_rate <- function(x){
+print.do_rate <- function(x, ...){
   cat("Rate limit:", x$limit, '\n')
   cat("Limit remaining:", x$remaining, '\n')
   cat("Reset time:", '\n')

@@ -6,7 +6,12 @@
 \usage{
 do_rate_limit()
 
-\method{print}{do_rate}(x)
+\method{print}{do_rate}(x, ...)
+}
+\arguments{
+\item{x}{input to print, a do_rate S3 object}
+
+\item{...}{Not used}
 }
 \description{
 Rate limit information for the authenticated user.
