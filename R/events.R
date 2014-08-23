@@ -13,9 +13,10 @@
 
 events <- function(x=NULL, what="parsed", ...)
 {
-  id <- check_event(x)
-  assert_that(!is.null(id))
-  do_GET(what, TRUE, sprintf('events/%s', id), ...)
+  .Defunct("actions", package = "analogsea", "events() is deprecated, see actions()")
+#   id <- check_event(x)
+#   assert_that(!is.null(id))
+#   do_GET(what, TRUE, sprintf('events/%s', id), ...)
 }
 
 check_event <- function(x){
