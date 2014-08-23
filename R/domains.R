@@ -37,7 +37,7 @@ domains_new <- function(name=NULL, ip_address=NULL, what="parsed", config=NULL)
 #' @export
 #' @param domain (character) Required. Domain Name (e.g. domain.com), specifies the domain 
 #' to destroy.
-#' @template whatconfig
+#' @param config Options passed on to httr::GET. Must be named, see examples.
 #' @examples \dontrun{
 #' domains_new(name='rforcats.cat', ip_address='107.170.221.51')
 #' domains_delete(domain='rforcats.cat')

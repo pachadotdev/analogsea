@@ -144,7 +144,7 @@ random_name <- function(){
 #'
 #' @export
 #' @param x A droplet number or the result from a call to \code{droplets()}
-#' @template params
+#' @template whatconfig
 #' @examples \dontrun{
 #' droplets_reboot(x=2376676)
 #'
@@ -171,7 +171,7 @@ droplets_reboot <- function(x=NULL, what="parsed", config=NULL)
 #'
 #' @export
 #' @param x A droplet number or the result from a call to \code{droplets()}
-#' @template params
+#' @template whatconfig
 #' @examples \dontrun{
 #' droplets_power_cycle(x=2376676)
 #'
@@ -196,7 +196,7 @@ droplets_power_cycle <- function(x=NULL, what="parsed", config=NULL)
 #'
 #' @export
 #' @param x A droplet number or the result from a call to \code{droplets()}
-#' @template params
+#' @template whatconfig
 #' @examples \dontrun{
 #' droplets_shutdown(x=2376676)
 #'
@@ -221,7 +221,7 @@ droplets_shutdown <- function(x=NULL, what="parsed", config=NULL)
 #'
 #' @export
 #' @param x A droplet number or the result from a call to \code{droplets()}
-#' @template params
+#' @template whatconfig
 #' @examples \dontrun{
 #' droplets_power_off(x=2376676)
 #'
@@ -247,7 +247,7 @@ droplets_power_off <- function(x=NULL, what="parsed", config=NULL)
 #'
 #' @export
 #' @param x A droplet number or the result from a call to \code{droplets()}
-#' @template params
+#' @template whatconfig
 #' @examples \dontrun{
 #' droplets_power_on(x=2376676)
 #'
@@ -282,7 +282,7 @@ droplets_power_on <- function(x=NULL, what="parsed", config=NULL)
 #'
 #' @export
 #' @param x A droplet number or the result from a call to \code{droplets()}
-#' @template params
+#' @template whatconfig
 #' @examples \dontrun{
 #' droplets_password_reset(2376676)
 #'
@@ -341,7 +341,7 @@ droplets_resize <- function(x=NULL, size=NULL, what="parsed", config=NULL)
 #' @param x A droplet number or the result from a call to \code{droplets()}
 #' @param name (character) Optional. Name of the new snapshot you want to create. If not set, the
 #' snapshot name will default to date/time
-#' @template params
+#' @template whatconfig
 #' @examples \dontrun{
 #' droplets_snapshot(1707487)
 #'
@@ -372,7 +372,7 @@ droplets_snapshot <- function(x=NULL, name=NULL, what="parsed", config=NULL)
 #' @param x A droplet number or the result from a call to \code{droplets()}
 #' @param name (character) Optional. Name of the new snapshot you want to create. If not set, the
 #' snapshot name will default to date/time
-#' @template params
+#' @template whatconfig
 #' @examples \dontrun{
 #' droplets_snapshots_list(1707487)
 #'
@@ -398,7 +398,7 @@ droplets_snapshots_list <- function(x=NULL, what="parsed", config=NULL)
 #' @export
 #' @param x A droplet number or the result from a call to \code{droplets()}
 #' @param image (numeric) The image ID of the backup image that you would like to restore.
-#' @template params
+#' @template whatconfig
 #' @examples \dontrun{
 #' droplets_restore(1707487, image=3240036)
 #'
@@ -426,7 +426,7 @@ droplets_restore <- function(x=NULL, image=NULL, what="parsed", config=NULL)
 #' @export
 #' @param x A droplet number or the result from a call to \code{droplets()}
 #' @param image An image slug or ID. This represents the image that the Droplet will use as a base.
-#' @template params
+#' @template whatconfig
 #' @examples \dontrun{
 #' droplets_rebuild(1707487, image=3240036)
 #'
@@ -438,7 +438,7 @@ droplets_rebuild <- function(x=NULL, image=NULL, what="parsed", config=NULL)
 {
   if(is.numeric(x)) x <- droplets(x)
   id <- check_droplet(x)
-  assert_that(!is.null(id), !is.null(image_id))
+  assert_that(!is.null(id), !is.null(image))
   tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='rebuild', image=image), config=config)
   if(what == 'raw'){ tmp } else {
     droplet_match <- match_droplet(x, id)
@@ -485,7 +485,7 @@ droplets_delete <- function(x=NULL, config=NULL)
 #' @export
 #' @param x A droplet number or the result from a call to \code{droplets()}
 #' @param name (character) The new name for the droplet
-#' @template params
+#' @template whatconfig
 #' @examples \dontrun{
 #' droplets_rename(1707487, name='wadup')
 #'
@@ -514,7 +514,7 @@ droplets_rename <- function(x=NULL, name=NULL, what="parsed", config=NULL)
 #' @export
 #' @param x A droplet number or the result from a call to \code{droplets()}
 #' @param kernel (numeric) The ID of the new kernel.
-#' @template params
+#' @template whatconfig
 #' @examples \dontrun{
 #' droplets_change_kernel(1707487, kernel=61833229)
 #'
@@ -539,7 +539,7 @@ droplets_change_kernel <- function(x=NULL, kernel=NULL, what="parsed", config=NU
 #'
 #' @export
 #' @param x A droplet number or the result from a call to \code{droplets()}
-#' @template params
+#' @template whatconfig
 #' @examples \dontrun{
 #' droplets_kernels_list(2428384)
 #'
@@ -562,7 +562,7 @@ droplets_kernels_list <- function(x=NULL, what="parsed", config=NULL)
 #'
 #' @export
 #' @param x A droplet number or the result from a call to \code{droplets()}
-#' @template params
+#' @template whatconfig
 #' @examples \dontrun{
 #' droplets_backups_disable(1707487)
 #'
@@ -586,7 +586,7 @@ droplets_backups_disable <- function(x=NULL, what="parsed", config=NULL)
 #'
 #' @export
 #' @param x A droplet number or the result from a call to \code{droplets()}
-#' @template params
+#' @template whatconfig
 #' @examples \dontrun{
 #' droplets_backups_list(2428384)
 #'
@@ -608,7 +608,7 @@ droplets_backups_list <- function(x=NULL, what="parsed", config=NULL)
 #'
 #' @export
 #' @param x A droplet number or the result from a call to \code{droplets()}
-#' @template params
+#' @template whatconfig
 #' @examples \dontrun{
 #' droplets_enable_ipv6(1707487)
 #'
@@ -633,7 +633,7 @@ droplets_enable_ipv6 <- function(x=NULL, what="parsed", config=NULL)
 #'
 #' @export
 #' @param x A droplet number or the result from a call to \code{droplets()}
-#' @template params
+#' @template whatconfig
 #' @examples \dontrun{
 #' droplets_enable_private_networking(1707487)
 #'
@@ -658,7 +658,8 @@ droplets_enable_private_networking <- function(x=NULL, what="parsed", config=NUL
 #'
 #' @export
 #' @param x A droplet number or the result from a call to \code{droplets()}
-#' @template params
+#' @param actionid (integer) Optional. An action id.
+#' @template whatconfig
 #' @examples \dontrun{
 #' droplets_actions(2428384)
 #' droplets_actions(2428384, actionid=31223385)

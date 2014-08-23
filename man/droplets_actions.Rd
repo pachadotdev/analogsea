@@ -9,11 +9,9 @@ droplets_actions(x = NULL, actionid = NULL, what = "parsed",
 \arguments{
 \item{x}{A droplet number or the result from a call to \code{droplets()}}
 
+\item{actionid}{(integer) Optional. An action id.}
+
 \item{what}{(character) One of 'parsed' or 'raw'.}
-
-\item{page}{Page number (Default: 1)}
-
-\item{per_page}{Number of items per page (Default: 25)}
 
 \item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }

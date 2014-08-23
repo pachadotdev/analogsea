@@ -9,8 +9,6 @@ domains_delete(domain = NULL, config = NULL)
 \item{domain}{(character) Required. Domain Name (e.g. domain.com), specifies the domain
 to destroy.}
 
-\item{what}{(character) One of 'parsed' or 'raw'.}
-
 \item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
