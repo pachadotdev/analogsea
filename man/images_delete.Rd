@@ -10,10 +10,6 @@ images_delete(image_id = NULL, what = "parsed", config = NULL)
 
 \item{what}{(character) One of 'parsed' or 'raw'.}
 
-\item{page}{Page number (Default: 1)}
-
-\item{per_page}{Number of items per page (Default: 25)}
-
 \item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{

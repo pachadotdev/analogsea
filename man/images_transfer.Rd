@@ -3,22 +3,15 @@
 \alias{images_transfer}
 \title{Transfer an image to a specified region.}
 \usage{
-images_transfer(image_id = NULL, image_slug = NULL, region_slug = NULL,
-  what = "parsed", config = NULL)
+images_transfer(image_id = NULL, region = NULL, what = "parsed",
+  config = NULL)
 }
 \arguments{
-\item{image_id}{(numeric) This is the id of the image to return}
+\item{image_id}{(numeric) Required. The image id.}
 
-\item{image_slug}{(character) This is the slug of the image to return}
-
-\item{region_id}{(numeric) Required. This is the id of the region to which you would like
-to transfer.}
+\item{region}{(numeric) Required. The region slug that represents the region target.}
 
 \item{what}{(character) One of 'parsed' or 'raw'.}
-
-\item{page}{Page number (Default: 1)}
-
-\item{per_page}{Number of items per page (Default: 25)}
 
 \item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
@@ -27,13 +20,8 @@ Transfer an image to a specified region.
 }
 \examples{
 \dontrun{
-id <- droplets_new(name="stuffstuff", size_id = 64, image_id = 3240036, region_slug = 'sfo1')
-droplets(id$droplet$id) \%>\%
- droplets_power_off \%>\%
- droplets_snapshot(name = "coolimage")
-images_transfer(image_id=4315784, region_id=4)
-
-images_transfer(image_id=4546004, region_slug='nyc1')
+images_transfer(image_id=5710271, region='nyc2')
+images_transfer(image_id=4546004, region='nyc1')
 }
 }
 

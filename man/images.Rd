@@ -3,15 +3,11 @@
 \alias{images}
 \title{Get list of images and their metadata, or a single image}
 \usage{
-images(image_id = NULL, image_slug = NULL, filter = NULL,
-  what = "parsed", page = 1, per_page = 25, config = NULL)
+images(image = NULL, what = "parsed", page = 1, per_page = 25,
+  config = NULL)
 }
 \arguments{
-\item{image_id}{(numeric) This is the id of the image to return}
-
-\item{image_slug}{(character) This is the slug of the image to return}
-
-\item{filter}{Filter stuff, one of my_images or global}
+\item{image}{(numeric) This is the id of the image to return}
 
 \item{what}{(character) One of 'parsed' or 'raw'.}
 
@@ -32,10 +28,10 @@ out$action_ids
 sapply(out$action_ids, names)
 
 head(images()$data)
-images(filter='my_images')
 images(what='raw')
-images(image_id=3209452)
-images(image_id=4315195)
+images(image=5710271)
+images(image='ubuntu1404')
+images(per_page=2)
 }
 }
 

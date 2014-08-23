@@ -20,7 +20,8 @@ actions <- function(x=NULL, what="parsed", page=1, per_page=25, config=NULL)
 {
   action_id <- check_action(x)
   path <- if(is.null(action_id)) 'actions' else sprintf('actions/%s', action_id)
-  do_GET(what, path, ct(page=page, per_page=per_page), TRUE, config)
+  res <- do_GET(what, path, ct(page=page, per_page=per_page), TRUE, config)
+  parse_action(res$action)
 }
 
 check_action <- function(x){
@@ -35,4 +36,9 @@ check_action <- function(x){
     }
     x
   } else { NULL }
+}
+
+parse_action <- function(x){
+  x[sapply(x, is.null)] <- NA
+  data.frame(x, stringsAsFactors = FALSE)
 }
