@@ -46,15 +46,15 @@ parse_img <- function(x){
 #'
 #' @export
 #' @param image_id (numeric) This is the id of the image to return
-#' @template whatconfig
+#' @param config Options passed on to httr::GET. Must be named, see examples.
 #' @examples \dontrun{
 #' images_delete(image_id=5620385)
 #' }
 
-images_delete <- function(image_id=NULL, what="parsed", config=NULL)
+images_delete <- function(image_id=NULL, config=NULL)
 {
   assert_that(!is.null(image_id))
-  do_DELETE(what, path = sprintf('images/%s', image_id), config=config)
+  do_DELETE(sprintf('images/%s', image_id), config)
 }
 
 #' Transfer an image to a specified region.

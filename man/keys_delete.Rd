@@ -10,8 +10,6 @@ keys_delete(key = NULL, config = NULL)
 (e.g., c8:6f:72:7e:2f:5b:21:38:2d:9a:0b:ef:0f:75:c8:2d). If none given,
 all your keys are listed. (optional)}
 
-\item{what}{(character) One of 'parsed' or 'raw'.}
-
 \item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{

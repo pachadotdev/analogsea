@@ -58,13 +58,13 @@ keys_rename <- function(name=NULL, key=NULL, what="parsed", config=NULL)
 #' @param key (numeric/character) An ssh key id (e.g., 3), or key fingerprint 
 #' (e.g., c8:6f:72:7e:2f:5b:21:38:2d:9a:0b:ef:0f:75:c8:2d). If none given, 
 #' all your keys are listed. (optional)
-#' @template whatconfig
+#' @param config Options passed on to httr::GET. Must be named, see examples.
 #' @examples \donttest{
 #' keys_delete(key=999999)
 #' }
 
 keys_delete <- function(key=NULL, config=NULL)
 {
-  assert_that(!is.null(name), !is.null(key))
+  assert_that(!is.null(key))
   do_DELETE(path=sprintf('account/keys/%s', key), config=config)
 }

@@ -8,9 +8,6 @@ droplets_snapshots_list(x = NULL, what = "parsed", config = NULL)
 \arguments{
 \item{x}{A droplet number or the result from a call to \code{droplets()}}
 
-\item{name}{(character) Optional. Name of the new snapshot you want to create. If not set, the
-snapshot name will default to date/time}
-
 \item{what}{(character) One of 'parsed' or 'raw'.}
 
 \item{config}{Options passed on to httr::GET. Must be named, see examples.}

@@ -2,7 +2,8 @@
 #'
 #' @export
 #' @param x Event ID or a droplet object.
-#' @template params
+#' @param what (character) One of 'parsed' or 'raw'.
+#' @param ... Not used.
 #' @examples \dontrun{
 #' events(x=26024501)
 #' gg <- droplets() %>% droplets_power_on

@@ -29,6 +29,8 @@ only available in certain regions. Default: FALSE}
 be enabled for the Droplet. Automated backups can only be enabled when the Droplet is created.
 Default: FALSE}
 
+\item{ipv6}{(logical) A boolean indicating whether IPv6 is enabled on the Droplet.}
+
 \item{what}{(character) One of 'parsed' or 'raw'.}
 
 \item{config}{Options passed on to httr::GET. Must be named, see examples.}

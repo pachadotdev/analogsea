@@ -116,6 +116,7 @@ makedeets <- function(y){
 #' @param backups (logical) Enable backups. A boolean indicating whether automated backups should
 #' be enabled for the Droplet. Automated backups can only be enabled when the Droplet is created.
 #' Default: FALSE
+#' @param ipv6 (logical) A boolean indicating whether IPv6 is enabled on the Droplet.
 #' @template whatconfig
 #' @examples \dontrun{
 #' droplets_new()
@@ -370,8 +371,6 @@ droplets_snapshot <- function(x=NULL, name=NULL, what="parsed", config=NULL)
 #'
 #' @export
 #' @param x A droplet number or the result from a call to \code{droplets()}
-#' @param name (character) Optional. Name of the new snapshot you want to create. If not set, the
-#' snapshot name will default to date/time
 #' @template whatconfig
 #' @examples \dontrun{
 #' droplets_snapshots_list(1707487)
