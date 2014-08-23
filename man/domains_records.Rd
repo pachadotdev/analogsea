@@ -3,13 +3,14 @@
 \alias{domains_records}
 \title{Get information on records for a single domain.}
 \usage{
-domains_records(domain_id = NULL, record_id = NULL, what = "parsed", ...)
+domains_records(domain = NULL, record = NULL, what = "parsed", page = 1,
+  per_page = 25, config = NULL)
 }
 \arguments{
-\item{domain_id}{Required. Integer or Domain Name (e.g. domain.com), specifies the domain for
+\item{domain}{(character) Required. Domain Name (e.g. domain.com), specifies the domain for
 which to retrieve records.}
 
-\item{record_id}{(Integer) Specifies the record_id to retrieve}
+\item{record}{(integer) Optional. Specifies the domain record id to retrieve.}
 
 \item{what}{(character) One of 'parsed' or 'raw'.}
 
@@ -24,9 +25,9 @@ Get information on records for a single domain.
 }
 \examples{
 \dontrun{
-domains_records(domain_id=316128)
-domains_records(domain_id=316128, record_id=2192413)
-domains_records(what="raw")
+domains_records(domain='sckottdrop.info')
+domains_records(domain='sckottdrop.info', record=2194418)
+domains_records(domain='sckottdrop.info', what="raw")
 }
 }
 
