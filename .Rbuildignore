@@ -7,3 +7,4 @@ Makefile
 inst/stuff/
 tests/test-all.R
 drone.yml
+appveyor.yml
