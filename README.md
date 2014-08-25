@@ -265,15 +265,38 @@ $meta$total
 
 Most of the `droplets_*` functions are meant to be chained together using the `%>%` operator.
 
-For example, you can list your droplets, then 
+For example, you can spin up a new droplet, then list your droplets, then
 
 ```r
-
+droplets_new()
+# output not shown
 ```
 
 ```r
-xxx
+droplets() %>%
+  droplets_rename(name='mycoolnewname')
+# output not shown
 ```
+
+List the actions taken on a particular droplet
+
+```r
+droplets() %>%
+  droplets_actions
+```
+
+```r
+       id    status   type           started_at         completed_at resource_id resource_type region
+1 31398316 completed rename 2014-08-25T21:35:26Z 2014-08-25T21:35:36Z     2451351       droplet   sfo1
+2 31398261 completed create 2014-08-25T21:33:41Z 2014-08-25T21:34:31Z     2451351       droplet   sfo1
+```
+
+Notice that right now chaining only takes the first droplet from the `droplets()` function. So if you have 10 droplets, if you run `droplets()`, the first one will be passed to the next method if chained.
+
+Let me know if you have a better idea for how to handle this.
+
+Instead of chaining for `droplets_*` functions you can pass a droplet id itself as the first argument to another `droplets()` function, so you can easily loop across a bunch of droplet ids if needed. 
+
 
 ### Install RStudio Server
 
