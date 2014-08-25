@@ -49,5 +49,4 @@ There are three ways you can use this function.
 do_auth()
 }
 }
-\keyword{internal}
 

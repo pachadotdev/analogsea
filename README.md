@@ -7,9 +7,16 @@ master branch: [![Build Status](https://api.travis-ci.org/sckott/analogsea.png?b
 v2 branch: [![Build Status](https://api.travis-ci.org/sckott/analogsea.png?branch=v2)](https://travis-ci.org/sckott/analogsea)
 [![Build status](https://ci.appveyor.com/api/projects/status/ll9lcqafuw338q0h/branch/v2)](https://ci.appveyor.com/project/sckott/analogsea/branch/v2)
 
-A general purpose R interface to [Digital Ocean](https://www.digitalocean.com/)
+`analogsea` is a general purpose R interface to the [Digital Ocean](https://www.digitalocean.com/) API, AND includes scripts to install various R things:
 
-### Digital Ocean info
+* R
+* RStudio Server
+* RStudio Shiny Server
+* OpenCPU
+
+The Digital Ocean v2 API is fully implemented, but we're still working on the installation scripts...
+
+## Digital Ocean API
 
 + [API v1 docs](https://developers.digitalocean.com/)
 + [API v2 docs](https://developers.digitalocean.com/v2/)
@@ -20,16 +27,16 @@ The version on the `master` branch holds code that works with the Digital Ocean 
 
 The `v2` branch holds code in development for Digital Ocean API v2.
 
-### Quick start
+## Quick start
 
-#### Install
+### Install
 
 ```coffee
 devtools::install_github("sckott/analogsea", ref="v2")
 library("analogsea")
 ```
 
-#### Authenticate
+### Authenticate
 
 DigitalOcean uses OAuth, but we don't do the song and dance you may be used to. We send a bearer authorization header with each request to the DO API. This is a preferred method of authenticating because it completes the authorization request in the header portion, away from the actual request.
 
@@ -45,7 +52,7 @@ After you authenticate one during the session, you don't need to anymore - auth 
 
 You can also run `do_auth()` after authenticating to print your auth details.
 
-#### Get droplets
+### Get droplets
 
 All droplets
 
@@ -141,7 +148,7 @@ $links
 NULL
 ```
 
-#### Spin up a new droplet
+### Spin up a new droplet
 
 To make this as dead simple as possible, you just use one function, without any parameters.
 
@@ -230,7 +237,7 @@ $meta$total
 [1] 8
 ```
 
-#### RAM and disk sizes, and their details
+### RAM and disk sizes, and their details
 
 ```coffee
 sizes()
@@ -254,7 +261,21 @@ $meta$total
 [1] 9
 ```
 
-#### Install RStudio Server
+### Chaining
+
+Most of the `droplets_*` functions are meant to be chained together using the `%>%` operator.
+
+For example, you can list your droplets, then 
+
+```r
+
+```
+
+```r
+xxx
+```
+
+### Install RStudio Server
 
 
 __BEWARE:__ I'm working on updating these scripts so that it all actually works...hold on a bit...

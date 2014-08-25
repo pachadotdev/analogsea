@@ -3,7 +3,6 @@
 #' This function sets options in your current R session, and passes on to each function call.
 #'
 #' @export
-#' @keywords internal
 #' @param token (character) Your Digital Ocean OAuth token. Default NULL
 #' @param force (logical) Force update
 #'
@@ -18,10 +17,10 @@
 #'  the function asks you to enter it. You can set force=TRUE to force the function to ask
 #'  you for new token.
 #'  \item Set your options using the function \code{options}. See examples.
-#'  \item Set your options in your .Rprofile file with the entry  
-#'  \code{options(digocean_oauth_token = '<oauth token>')}. Remember to restart your R session 
-#'  after you do this so that R knows about them. If you do this option, you don't have to use 
-#'  this auth function at all - the various functions in the package will read your client id and 
+#'  \item Set your options in your .Rprofile file with the entry
+#'  \code{options(digocean_oauth_token = '<oauth token>')}. Remember to restart your R session
+#'  after you do this so that R knows about them. If you do this option, you don't have to use
+#'  this auth function at all - the various functions in the package will read your client id and
 #'  api key from your .Rprofile file.
 #' }
 #'
@@ -46,7 +45,7 @@ do_auth <- function(token=NULL, force = FALSE) {
     message("Updating digocean_oauth_token option var\n")
     options(digocean_oauth_token = oauthtoken)
   } else { oauthtoken <- token }
-  
+
   res <- list(oauthtoken = oauthtoken)
   class(res) <- 'doauth'
   res
