@@ -18,27 +18,40 @@ do_oauth(appname = getOption("do_appname"),
 Authorize with Digital Ocean.
 }
 \details{
-Instructions for use:
+After you first authorize via this function, this function will be called within other
+functions to check if you're already authorized, and if not do the authorization.
 
-1. Login to your Digital Ocean account. Go to "Apps & API" page.
-2. In the "Developer Applications" part of the page, press button for
+Instructions for use:
+\enumerate{
+ \item Login to your Digital Ocean account. Go to "Apps & API" page.
+ \item In the "Developer Applications" part of the page, press button for
 "Register new application".
-3. Enter app details:
-* Application name: anything is fine
-* Application homepage: anything is fine, this more used for web oauth flows.
-* Application description: give a note to yourself what this app is.
-* Application callback URL: http://localhost:1410
-4. Once the app is registered, you can enter your appname, client id, and
+ \item Enter app details:
+ \itemize{
+  \item Application name: anything is fine
+  \item Application homepage: anything is fine, this more used for web oauth flows.
+  \item Application description: give a note to yourself what this app is.
+  \item Application callback URL: http://localhost:1410
+ }
+ \item Once the app is registered, you can enter your appname, client id, and
 client secret as parameters to this function, or store them in your .Rprofile
 file as \code{do_appname}, \code{do_client_id}, and \code{do_client_secret},
 respectively.
+}
 
 If function runs succesfully, your token object is returned and saved as an
 option named "do_token", which will be called in other functions in this package.
 }
 \examples{
 \dontrun{
+# If passing in auth details in the function call
+do_oauth(appname="<app name>", client_id="<client id>", client_secret="<client secret>")
+
+# If details stored in your .Rprofile file
 do_oauth()
+
+# Pass in options, e.g. scope here set to read only
+do_oauth(scope='read')
 }
 }
 
