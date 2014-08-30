@@ -6,6 +6,8 @@
 #' @param appname Your Digital Ocean registered application name
 #' @param client_id Your Digital Ocean registered application client id
 #' @param client_secret Your Digital Ocean registered application name
+#' @param ... Further args passed on to \code{oauth2.0_token}. See that function for options, 
+#' and examples below.
 #' 
 #' @details 
 #' After you first authorize via this function, this function will be called within other 
@@ -43,15 +45,14 @@
 #' do_oauth(scope='read')
 #' }
 
-do_oauth <- function(appname = getOption("do_appname"), 
-                     client_id = getOption("do_client_id"), 
-                     client_secret = getOption("do_client_secret")) 
+do_oauth <- function(appname = getOption("do_appname"), client_id = getOption("do_client_id"), 
+  client_secret = getOption("do_client_secret"), scope=NULL) 
 {
   assert_that(!is.null(appname), !is.null(client_id), !is.null(client_secret))
   endpt <- oauth_endpoint(NULL, "authorize", "token", 
                           base_url = "https://cloud.digitalocean.com/v1/oauth")
   myapp <- oauth_app(appname, client_id, client_secret)
-  token <- oauth2.0_token(endpt, myapp)
+  token <- oauth2.0_token(endpt, myapp, scope = scope)
   options(do_token = token)
   return(token)
 }
