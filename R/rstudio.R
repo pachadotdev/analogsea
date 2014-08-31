@@ -15,10 +15,11 @@ rstudio <- function(id=NULL, usr='rstudio', pwd='rstudio', email='rstudio@exampl
                        img='cboettig/rstudio', port='8787', browse=TRUE, verbose=TRUE)
 {
 
-  docker <- sprintf('docker run -d -p %s:8787 -e USER=%s -e PASSWORD=%s -e EMAIL=%s %s', 
+  launch_docker <- sprintf('sudo docker run -d -p %s:8787 -e USER=%s -e PASSWORD=%s -e EMAIL=%s %s', 
                   port, usr, pwd, email, img)
 
-  install_string <- sprintf('curl -sSL https://get.docker.io/ubuntu/ | sudo sh\n %s\n', docker)
+
+  install_string <- sprintf('%s\n%s\n%s\n', install_docker, set_swap, launch_docker)
 
   stat <- "new"
   while(stat == "new"){
@@ -44,5 +45,11 @@ rstudio <- function(id=NULL, usr='rstudio', pwd='rstudio', email='rstudio@exampl
 
 }
 
+set_swap <- '
+sudo fallocate -l 4G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+'
 
-
+install_docker <- 'curl -sSL https://get.docker.io/ubuntu/ | sudo sh'
