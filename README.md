@@ -20,8 +20,10 @@ The `v2` branch holds code in development for Digital Ocean API v2.
 
 __Install__
 
+Install from branch `v2` as that is the most up to date code
+
 ```coffee
-devtools::install_github("sckott/analogsea")
+devtools::install_github("sckott/analogsea", ref="v2")
 library("analogsea")
 ```
 
