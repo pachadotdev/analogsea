@@ -42,8 +42,8 @@ file as \code{do_appname}, \code{do_client_id}, and \code{do_client_secret},
 respectively.
 }
 
-If function runs succesfully, your token object is returned and saved as an
-option named "do_token", which will be called in other functions in this package.
+If function runs succesfully, your token object is returned and cached, which will be
+called in other functions in this package.
 }
 \examples{
 \dontrun{
