@@ -38,19 +38,17 @@ library("analogsea")
 
 ### Authenticate
 
-DigitalOcean uses OAuth, but we don't do the song and dance you may be used to. We send a bearer authorization header with each request to the DO API. This is a preferred method of authenticating because it completes the authorization request in the header portion, away from the actual request.
+DigitalOcean uses OAuth 2. So we do the typical song and dance you may be used to on the web. Here's how to do it:
 
-You can generate an OAuth token by visiting the [Apps & API](https://cloud.digitalocean.com/settings/applications) section of the DigitalOcean control panel for your account.
+* Login to your Digital Ocean account. Go to _Apps & API_ page.
+* In the _Developer Applications_ part of the page, press button for _Register new application_. Then enter app details:
+  * _Application name:_ anything is fine
+  * _Application homepage:_ anything is fine, this more used for web oauth flows.
+  * _Application description:_ give a note to yourself what this app is.
+  * _Application callback URL:_ use http://localhost:1410
+* Once the app is registered, you can enter your appname, client id, and client secret as parameters to `do_oauth()`, or store them in your `.Rprofile` file as `do_appname`, `do_client_id`, and `do_client_secret`, respectively.
 
-Which if you haven't authenticated yet will look for your OAuth token in your `.Rprofile` file, or in options for the current R session, and if not found, will ask you for the token, which will only be saved for the current R session. Ideally you put your OAuth token in your `.Rprofile` file, which makes sure it's not shared with others, and so that you don't have to enter any auth details every time you use this package.
-
-```coffee
-do_auth()
-```
-
-After you authenticate one during the session, you don't need to anymore - auth details are gathered automatically within each function.
-
-You can also run `do_auth()` after authenticating to print your auth details.
+If `do_oauth()` runs succesfully, your token object is returned and cached, which will be called in other functions in this package.
 
 ### Get droplets
 
@@ -295,7 +293,7 @@ Notice that right now chaining only takes the first droplet from the `droplets()
 
 Let me know if you have a better idea for how to handle this.
 
-Instead of chaining for `droplets_*` functions you can pass a droplet id itself as the first argument to another `droplets()` function, so you can easily loop across a bunch of droplet ids if needed. 
+Instead of chaining for `droplets_*` functions you can pass a droplet id itself as the first argument to another `droplets()` function, so you can easily loop across a bunch of droplet ids if needed.
 
 
 ### Install RStudio Server
