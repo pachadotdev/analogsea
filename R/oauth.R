@@ -6,8 +6,8 @@
 #' @param appname Your Digital Ocean registered application name
 #' @param client_id Your Digital Ocean registered application client id
 #' @param client_secret Your Digital Ocean registered application name
-#' @param ... Further args passed on to \code{oauth2.0_token}. See that function for options, 
-#' and examples below.
+#' @param scope A character vector of scopes to request. One of 'read', 'write', or both. 
+#' Default: \code{c('read','write')}. 
 #' 
 #' @details 
 #' After you first authorize via this function, this function will be called within other 
@@ -46,7 +46,7 @@
 #' }
 
 do_oauth <- function(appname = getOption("do_appname"), client_id = getOption("do_client_id"), 
-  client_secret = getOption("do_client_secret"), scope=NULL) 
+  client_secret = getOption("do_client_secret"), scope=c('read','write'))
 {
   assert_that(!is.null(appname), !is.null(client_id), !is.null(client_secret))
   endpt <- oauth_endpoint(NULL, "authorize", "token", 

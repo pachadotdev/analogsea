@@ -5,7 +5,7 @@
 \usage{
 do_oauth(appname = getOption("do_appname"),
   client_id = getOption("do_client_id"),
-  client_secret = getOption("do_client_secret"), scope = NULL)
+  client_secret = getOption("do_client_secret"), scope = c("read", "write"))
 }
 \arguments{
 \item{appname}{Your Digital Ocean registered application name}
@@ -14,8 +14,8 @@ do_oauth(appname = getOption("do_appname"),
 
 \item{client_secret}{Your Digital Ocean registered application name}
 
-\item{...}{Further args passed on to \code{oauth2.0_token}. See that function for options,
-and examples below.}
+\item{scope}{A character vector of scopes to request. One of 'read', 'write', or both.
+Default: \code{c('read','write')}.}
 }
 \description{
 Authorize with Digital Ocean.
