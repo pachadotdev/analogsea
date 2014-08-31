@@ -12,10 +12,8 @@
 
 do_GET <- function(what, path, query = NULL, parse=FALSE, config=NULL) {
   url <- file.path("https://api.digitalocean.com/v2", path)
-  au <- do_get_auth()
-  auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))
-
-  tt <- GET(url, query = query, config = c(auth, config))
+  auth <- do_oauth()
+  tt <- GET(url, query = query, config = c(token = auth, config))
   if(tt$status_code > 202){
     if(tt$status_code > 202) stop(content(tt)$message)
     if(content(tt)$status == "ERROR") stop(content(tt)$message)
@@ -24,6 +22,7 @@ do_GET <- function(what, path, query = NULL, parse=FALSE, config=NULL) {
     res <- content(tt, as = "text")
     jsonlite::fromJSON(res, parse)
   } else { tt }
+#   auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))
 }
 
 #' Digital Ocean POST request handler
@@ -39,10 +38,8 @@ do_GET <- function(what, path, query = NULL, parse=FALSE, config=NULL) {
 
 do_POST <- function(what, path, args, parse=FALSE, config=config) {
   url <- file.path("https://api.digitalocean.com/v2", path)
-  au <- do_get_auth()
-  auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))
-
-  tt <- POST(url, config = c(auth, config=NULL), body=args)
+  auth <- do_oauth()
+  tt <- POST(url, config = c(token = auth, config), body=args)
   if(tt$status_code > 202){
     if(tt$status_code > 202) stop(content(tt)$message)
     if(content(tt)$status == "ERROR") stop(content(tt)$message)
@@ -66,10 +63,8 @@ do_POST <- function(what, path, args, parse=FALSE, config=config) {
 
 do_PUT <- function(what, path, args, parse=FALSE, config=config) {
   url <- file.path("https://api.digitalocean.com/v2", path)
-  au <- do_get_auth()
-  auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))
-
-  tt <- PUT(url, config = c(auth, config=NULL), body=args)
+  auth <- do_oauth()
+  tt <- PUT(url, config = c(token = auth, config), body=args)
   if(tt$status_code > 202){
     if(tt$status_code > 202) stop(content(tt)$message)
     if(content(tt)$status == "ERROR") stop(content(tt)$message)
@@ -91,10 +86,8 @@ do_PUT <- function(what, path, args, parse=FALSE, config=config) {
 
 do_DELETE <- function(path, config=NULL) {
   url <- file.path("https://api.digitalocean.com/v2", path)
-  au <- do_get_auth()
-  auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))
-
-  tt <- DELETE(url, config = c(auth, config))
+  auth <- do_oauth()
+  tt <- DELETE(url, config = c(token = auth, config))
   if(tt$status_code > 204){
     if(tt$status_code > 204) stop(content(tt)$message)
     if(content(tt)$status == "ERROR") stop(content(tt)$message)
@@ -190,9 +183,8 @@ parse_to_df <- function(tmp){
 
 do_rate_limit <- function(){
   url <- "https://api.digitalocean.com/v2/sizes"
-  au <- do_get_auth()
-  auth <- add_headers(Authorization = sprintf('Bearer %s', au$token))
-  tt <- HEAD(url, config = auth)
+  auth <- do_oauth()
+  tt <- HEAD(url, config = list(token = auth))
   tmp <- as.numeric(tt$headers[c('ratelimit-limit','ratelimit-remaining','ratelimit-reset')])
   reset <- as.POSIXct(tmp[3], origin="1970-01-01")
   dat <- list(limit=tmp[1], remaining=tmp[2], reset=reset)
