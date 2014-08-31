@@ -45,8 +45,10 @@
 #' do_oauth(scope='read')
 #' }
 
-do_oauth <- function(appname = getOption("do_appname"), client_id = getOption("do_client_id"),
-  client_secret = getOption("do_client_secret"), scope=c('read','write'))
+do_oauth <- function(appname = 'rdigocean', 
+  client_id = "9039627f86f984a13f4736b94458154bdeba668537d50c6394172f6185b14063",
+  client_secret = "ffaa1c6775656d3e2aee0d079768bc4b444832164c8953ec1129cf8b41007928", 
+  scope=c('read','write'))
 {
   assert_that(!is.null(appname), !is.null(client_id), !is.null(client_secret))
   endpt <- oauth_endpoint(NULL, "authorize", "token",
