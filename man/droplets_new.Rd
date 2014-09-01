@@ -44,6 +44,7 @@ parameter is possible: simply specify the name of the droplet and your'e up and 
 droplets_new()
 droplets_new('droppinit')
 droplets_new(name="newdrop", size = '512mb', image = 'ubuntu-14-04-x64', region = 'sfo1')
+droplets_new(ssh_keys=89103)
 }
 }
 

@@ -3,7 +3,8 @@
 \alias{do_POST}
 \title{Digital Ocean POST request handler}
 \usage{
-do_POST(what, path, args, parse = FALSE, config = config)
+do_POST(what, path, args, parse = FALSE, config = config,
+  encodejson = FALSE)
 }
 \arguments{
 \item{what}{What to return, parsed or raw}
@@ -15,6 +16,8 @@ do_POST(what, path, args, parse = FALSE, config = config)
 \item{parse}{To parse result to data.frame or to list}
 
 \item{config}{Options passed on to httr::GET. Must be named, see examples.}
+
+\item{encodejson}{(logical) Whether to set \code{encode='json'} in \code{httr::POST} call.}
 }
 \value{
 Some combination of warnings and httr response object, data.frame, or list

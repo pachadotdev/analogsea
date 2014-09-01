@@ -15,8 +15,8 @@ do_GET <- function(what, path, query = NULL, parse=FALSE, config=NULL) {
   auth <- do_oauth()
   tt <- GET(url, query = query, config = c(token = auth, config))
   if(tt$status_code > 202){
-    if(tt$status_code > 202) stop(content(tt)$message)
-    if(content(tt)$status == "ERROR") stop(content(tt)$message)
+    if(tt$status_code > 202) stop(content(tt)$message, call. = FALSE)
+    if(content(tt)$status == "ERROR") stop(content(tt)$message, call. = FALSE)
   }
   if(what=='parsed'){
     res <- content(tt, as = "text")
@@ -34,15 +34,19 @@ do_GET <- function(what, path, query = NULL, parse=FALSE, config=NULL) {
 #' @param args Arguments to POST
 #' @param parse To parse result to data.frame or to list
 #' @param config Options passed on to httr::GET. Must be named, see examples.
+#' @param encodejson (logical) Whether to set \code{encode='json'} in \code{httr::POST} call.
 #' @return Some combination of warnings and httr response object, data.frame, or list
 
-do_POST <- function(what, path, args, parse=FALSE, config=config) {
+do_POST <- function(what, path, args, parse=FALSE, config=config, encodejson=FALSE) {
   url <- file.path("https://api.digitalocean.com/v2", path)
   auth <- do_oauth()
-  tt <- POST(url, config = c(token = auth, config), body=args)
+  if(encodejson)
+    tt <- POST(url, config = c(token = auth, config), body=args, encode="json")
+  else 
+    tt <- POST(url, config = c(token = auth, config), body=args)
   if(tt$status_code > 202){
-    if(tt$status_code > 202) stop(content(tt)$message)
-    if(content(tt)$status == "ERROR") stop(content(tt)$message)
+    if(tt$status_code > 202) stop(content(tt)$message, call. = FALSE)
+    if(content(tt)$status == "ERROR") stop(content(tt)$message, call. = FALSE)
   }
   if(what=='parsed'){
     res <- content(tt, as = "text")

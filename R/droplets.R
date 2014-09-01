@@ -122,6 +122,7 @@ makedeets <- function(y){
 #' droplets_new()
 #' droplets_new('droppinit')
 #' droplets_new(name="newdrop", size = '512mb', image = 'ubuntu-14-04-x64', region = 'sfo1')
+#' droplets_new(ssh_keys=89103)
 #' }
 
 droplets_new <- function(name=NULL, size='512mb', image='ubuntu-14-04-x64', region='sfo1',
@@ -129,14 +130,15 @@ droplets_new <- function(name=NULL, size='512mb', image='ubuntu-14-04-x64', regi
 {
   name <- if(is.null(name)) random_name() else name
   assert_that(!is.null(name))
-  args <- ct(name=name, size=size, image=image, region=region, ssh_keys=ssh_keys,
-             backups=backups, ipv6=ipv6, private_networking=private_networking)
-  do_POST(what, path='droplets', args=args, parse=TRUE, config=config)
+  args <- ct(name=nn(name), size=nn(size), image=nn(image), region=nn(region), 
+             ssh_keys=ssh_keys, backups=nn(backups), ipv6=nn(ipv6), 
+             private_networking=nn(private_networking))
+  do_POST(what, path='droplets', args=args, parse=TRUE, config=config, encodejson=TRUE)
 }
 
-random_name <- function(){
-  sample(analogsea::words, size = 1)
-}
+nn <- function(x) if(is.null(x)) x else unbox(x)
+
+random_name <- function() sample(analogsea::words, size = 1)
 
 #' Reboot a droplet.
 #'
