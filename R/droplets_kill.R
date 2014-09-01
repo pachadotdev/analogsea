@@ -2,6 +2,8 @@
 #'
 #' @export
 #' @param x A droplet number or the result from a call to \code{droplets()}
+#' @param ask (logical) When more than 1 droplet is passed to be killed, function asks to make 
+#' sure you want to kill all droplets. You can set this to FALSE to not ask.
 #' @return A message that the droplet(s) has/have been killed.
 #' @examples \dontrun{
 #' droplets_kill() # kill all droplets

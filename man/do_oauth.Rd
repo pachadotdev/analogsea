@@ -17,6 +17,10 @@ do_oauth(appname = "rdigocean",
 
 \item{scope}{A character vector of scopes to request. One of 'read', 'write', or both.
 Default: \code{c('read','write')}.}
+
+\item{reauth}{(logical) Whether to force re-authorization. Auth details are cached locally
+on your machine in a secrure hidden file, so you don't have to re-authorize very often.
+When your auth details are expired you will be forced to re-authorize anyway.}
 }
 \description{
 Authorize with Digital Ocean.

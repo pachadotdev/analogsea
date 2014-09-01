@@ -8,6 +8,9 @@
 #' @param client_secret Your Digital Ocean registered application name
 #' @param scope A character vector of scopes to request. One of 'read', 'write', or both.
 #' Default: \code{c('read','write')}.
+#' @param reauth (logical) Whether to force re-authorization. Auth details are cached locally
+#' on your machine in a secrure hidden file, so you don't have to re-authorize very often. 
+#' When your auth details are expired you will be forced to re-authorize anyway.
 #'
 #' @details
 #' After you first authorize via this function, this function will be called within other

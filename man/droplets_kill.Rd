@@ -7,6 +7,9 @@ droplets_kill(x = NULL, ask = TRUE)
 }
 \arguments{
 \item{x}{A droplet number or the result from a call to \code{droplets()}}
+
+\item{ask}{(logical) When more than 1 droplet is passed to be killed, function asks to make
+sure you want to kill all droplets. You can set this to FALSE to not ask.}
 }
 \value{
 A message that the droplet(s) has/have been killed.
