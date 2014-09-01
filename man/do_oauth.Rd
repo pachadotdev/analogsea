@@ -6,7 +6,7 @@
 do_oauth(appname = "rdigocean",
   client_id = "9039627f86f984a13f4736b94458154bdeba668537d50c6394172f6185b14063",
   client_secret = "ffaa1c6775656d3e2aee0d079768bc4b444832164c8953ec1129cf8b41007928",
-  scope = c("read", "write"))
+  scope = c("read", "write"), reauth = FALSE)
 }
 \arguments{
 \item{appname}{Your Digital Ocean registered application name}

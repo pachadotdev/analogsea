@@ -48,12 +48,12 @@
 do_oauth <- function(appname = 'rdigocean', 
   client_id = "9039627f86f984a13f4736b94458154bdeba668537d50c6394172f6185b14063",
   client_secret = "ffaa1c6775656d3e2aee0d079768bc4b444832164c8953ec1129cf8b41007928", 
-  scope=c('read','write'))
+  scope=c('read','write'), reauth=FALSE)
 {
   assert_that(!is.null(appname), !is.null(client_id), !is.null(client_secret))
   endpt <- oauth_endpoint(NULL, "authorize", "token",
                           base_url = "https://cloud.digitalocean.com/v1/oauth")
   myapp <- oauth_app(appname, client_id, client_secret)
-  token <- oauth2.0_token(endpt, myapp, scope = scope)
+  token <- oauth2.0_token(endpt, myapp, scope = scope, cache = !reauth)
   return(token)
 }
