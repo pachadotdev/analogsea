@@ -25,9 +25,9 @@ rstudio <- function(id=NULL, usr='rstudio', pwd='rstudio', email='rstudio@exampl
   while(stat == "new"){
     Sys.sleep(1)
     out <- droplets(id)
-    stat <- out$droplets$status
+    stat <- out$droplets$data$status
   }
-  ip <- out$droplets$ip_address
+  ip <- out$droplets$details[["networks_ip_address"]]
 
   # stops function if scp and ssh arent found
   cli_tools(ip)
