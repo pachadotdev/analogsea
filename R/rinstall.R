@@ -12,16 +12,16 @@
 #' @param verbose Print messages (default TRUE)
 #' @param rstudio_server_ver RStudio server version number.
 #' @param shiny_ver RStudio Shiny version number.
-#' @param swap (logical) Set swap on DO machine - allows enough memory to install things. 
+#' @param swap (logical) Set swap on DO machine - allows enough memory to install things.
 #' Default: TRUE
 #'
 #' @details
-#' Installs one or more of R, RStudio Server, Rstudio Shiny Server, OpenCPU. This is all Ubuntu 
-#' based for now. If you install RStudio Server or Shiny Server, then R is installed too. By 
+#' Installs one or more of R, RStudio Server, Rstudio Shiny Server, OpenCPU. This is all Ubuntu
+#' based for now. If you install RStudio Server or Shiny Server, then R is installed too. By
 #' default, we set swap memory so that you have enough memory on the DO machine to install things.
 #'
 #' Note that Shiny installs but isn't working right. RStudio Server installs and works.
-#' 
+#'
 #' OpenCPU doesn't work yet either.
 #'
 #' @examples \dontrun{
@@ -66,7 +66,7 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=
     }
 
     if(!is.null(deps)){
-      set_swap(swap, ip, swap_string, verbose)
+      do_swap(swap, ip, swap_string, verbose)
       r_installed(ip, r_string, verbose)
 
       deps <- match.arg(deps, c("xml","curl","gdal","rcpp"), TRUE)
@@ -82,7 +82,7 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=
     }
 
     if('rstudio_server' %in% what){
-      set_swap(swap, ip, swap_string, verbose)
+      do_swap(swap, ip, swap_string, verbose)
       r_installed(ip, r_string, verbose)
 
       rstudio_string2 <- sprintf(rstudio_string, rstudio_server_ver, rstudio_server_ver, usr, usr, pwd)
@@ -96,7 +96,7 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=
     }
 
     if('shiny_server' %in% what){
-      set_swap(swap, ip, swap_string, verbose)
+      do_swap(swap, ip, swap_string, verbose)
       r_installed(ip, r_string, verbose)
 
       shiny_string2 <- sprintf(shiny_string, shiny_ver, shiny_ver)
@@ -110,7 +110,7 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=
     }
 
     if('opencpu' %in% what){
-      set_swap(swap, ip, swap_string, verbose)
+      do_swap(swap, ip, swap_string, verbose)
       r_installed(ip, r_string, verbose)
 
       writefile("doinstall_opencpu.sh", opencpu_string)
@@ -188,7 +188,7 @@ r_installed <- function(ip, r_string, verbose){
   }
 }
 
-set_swap <- function(swap, ip, swap_string, verbose){
+do_swap <- function(swap, ip, swap_string, verbose){
   if(swap){
     writefile("setswap.sh", swap_string)
     mssg(verbose, "Setting swap...")
