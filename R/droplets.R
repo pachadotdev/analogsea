@@ -129,7 +129,7 @@ droplets_new <- function(name=NULL, size='512mb', image='ubuntu-14-04-x64', regi
 {
   name <- if(is.null(name)) random_name() else name
   assert_that(!is.null(name))
-  args <- ct(name=name, size=size, image=image, region=region, ssh_key_ids=ssh_keys,
+  args <- ct(name=name, size=size, image=image, region=region, ssh_keys=ssh_keys,
              backups=backups, ipv6=ipv6, private_networking=private_networking)
   do_POST(what, path='droplets', args=args, parse=TRUE, config=config)
 }
