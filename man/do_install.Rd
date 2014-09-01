@@ -5,7 +5,7 @@
 \usage{
 do_install(id = NULL, what = "r", deps = NULL, usr = NULL, pwd = NULL,
   browse = TRUE, verbose = TRUE, rstudio_server_ver = "0.98.507",
-  shiny_ver = "1.1.0.10000")
+  shiny_ver = "1.1.0.10000", swap = TRUE)
 }
 \arguments{
 \item{id}{A Digital Ocean droplet ID}
@@ -27,16 +27,21 @@ you often have to drop down into the terminal and ssh into the machine to instal
 \item{rstudio_server_ver}{RStudio server version number.}
 
 \item{shiny_ver}{RStudio Shiny version number.}
+
+\item{swap}{(logical) Set swap on DO machine - allows enough memory to install things.
+Default: TRUE}
 }
 \description{
 Install stuff on a Digital Ocean droplet
 }
 \details{
-Creates a new Digital Ocean Droplet, then installs one or more of R, RStudio Server, Rstudio
-Shiny Server. This is all Ubuntu based for now. If you install RStudio Server or Shiny Server,
-then R is installed too.
+Installs one or more of R, RStudio Server, Rstudio Shiny Server, OpenCPU. This is all Ubuntu
+based for now. If you install RStudio Server or Shiny Server, then R is installed too. By
+default, we set swap memory so that you have enough memory on the DO machine to install things.
 
 Note that Shiny installs but isn't working right. RStudio Server installs and works.
+
+OpenCPU doesn't work yet either.
 }
 \examples{
 \dontrun{
