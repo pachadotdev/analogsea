@@ -3,9 +3,10 @@
 \alias{do_oauth}
 \title{Authorize with Digital Ocean.}
 \usage{
-do_oauth(appname = getOption("do_appname"),
-  client_id = getOption("do_client_id"),
-  client_secret = getOption("do_client_secret"), scope = c("read", "write"))
+do_oauth(appname = "rdigocean",
+  client_id = "9039627f86f984a13f4736b94458154bdeba668537d50c6394172f6185b14063",
+  client_secret = "ffaa1c6775656d3e2aee0d079768bc4b444832164c8953ec1129cf8b41007928",
+  scope = c("read", "write"))
 }
 \arguments{
 \item{appname}{Your Digital Ocean registered application name}

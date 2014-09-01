@@ -18,7 +18,7 @@ The Digital Ocean v2 API is fully implemented, but we're still working on the in
 
 ## Digital Ocean API
 
-+ [API v1 docs](https://developers.digitalocean.com/)
++ [API v1 docs](https://developers.digitalocean.com/v1/)
 + [API v2 docs](https://developers.digitalocean.com/v2/)
 
 ### v1 and v2
