@@ -14,16 +14,10 @@ droplets_kill <- function(x=NULL, ask=TRUE){
     ids <- droplets()
     ids$droplets$data$id
   }
-  if(is.null(ids)) stop("No droplets found :/", call. = FALSE)
-  if(ask){
+  if(is.null(ids)) stop("No droplets found :/ Spin up a new droplet with droplets_new()", call. = FALSE)
+  if(ask && !is.numeric(x)){
     message("Are you sure you want to delete all your droplets? (y/n)")
     resp <- readline(": ")
   } else { resp <- 'y' }
   if(resp %in% c('y','yes','Yes','YES')) invisible(lapply(ids, droplets_delete)) else stop("okay, no worries", call. = FALSE)
 }
-
-# droplets_kill()
-# droplets_kill <- function(x=NULL){
-#   message("Are you sure you want to delete all your droplets? (y/n)")
-#   readline(": ")
-# }
