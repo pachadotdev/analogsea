@@ -272,3 +272,21 @@ do_options <- function(size=NULL, image=NULL, region=NULL, ssh_keys=NULL, privat
 }
 
 gopt <- function(x, y='not set') getOption(x, y)
+gopt2 <- function(c, a, b) if(!is.null(c)) eval(c) else getOption(a, b)
+
+nn <- function(x, unbox=TRUE){
+  z <- switch(deparse(substitute(x)), 
+         size = gopt2(x, 'do_size', '512mb'),
+         image = gopt2(x, 'do_image', 'ubuntu-14-04-x64'),
+         region = gopt2(x, 'do_region', 'sfo1'),
+         ssh_keys = gopt2(x, 'do_ssh_keys', NULL),
+         private_networking = gopt2(x, 'do_private_networking', NULL),
+         backups = gopt2(x, 'do_backups', NULL),
+         ipv6 = gopt2(x, 'do_ipv6', NULL)
+  )
+  if(is.null(z)) z else if(unbox) unbox(z) else z
+}
+
+foo <- function(x){
+  deparse(substitute(x))
+}

@@ -125,18 +125,16 @@ makedeets <- function(y){
 #' droplets_new(ssh_keys=89103)
 #' }
 
-droplets_new <- function(name=NULL, size='512mb', image='ubuntu-14-04-x64', region='sfo1',
-  ssh_keys=NULL, backups=NULL, ipv6=NULL, private_networking=FALSE, what="parsed", config=NULL)
+droplets_new <- function(name=NULL, size=NULL, image=NULL, region=NULL, ssh_keys=NULL, 
+  backups=NULL, ipv6=NULL, private_networking=FALSE, what="parsed", config=NULL)
 {
   name <- if(is.null(name)) random_name() else name
   assert_that(!is.null(name))
   args <- ct(name=nn(name), size=nn(size), image=nn(image), region=nn(region), 
-             ssh_keys=ssh_keys, backups=nn(backups), ipv6=nn(ipv6), 
+             ssh_keys=nn(ssh_keys, FALSE), backups=nn(backups), ipv6=nn(ipv6), 
              private_networking=nn(private_networking))
   do_POST(what, path='droplets', args=args, parse=TRUE, config=config, encodejson=TRUE)
 }
-
-nn <- function(x) if(is.null(x)) x else unbox(x)
 
 random_name <- function() sample(analogsea::words, size = 1)
 
