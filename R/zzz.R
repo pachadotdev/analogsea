@@ -236,9 +236,10 @@ print.do_rate <- function(x, ...){
 #' Keep in mind that there are defaults set for size, image, and region in \code{droplets_new}.
 #'
 #' @examples \dontrun{
-#' do_options(ssh_keys=109789)
+#' do_options()
+#' do_options(ssh_keys=89103)
 #' getOption('do_ssh_keys')
-#' do_options(size="1gb")
+#' do_options(size="8gb")
 #' do_options(size="1gb", image='ubuntu-14-04-x64', region='nyc1')
 #' getOption('do_size')
 #' getOption('do_image')
@@ -260,6 +261,7 @@ do_options <- function(size=NULL, image=NULL, region=NULL, ssh_keys=NULL, privat
     options(do_ssh_keys = NULL); options(do_private_networking = NULL)
     options(do_backups = NULL); options(do_ipv6 = NULL)
   }
+  
 
   cat("Your analogsea default options for spinning up a new droplet:", "\n")
   cat("[size]", gopt('do_size', 'not set (Defaults to: 512mb)'), "\n")

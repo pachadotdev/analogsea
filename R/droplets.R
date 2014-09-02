@@ -133,7 +133,13 @@ droplets_new <- function(name=NULL, size=NULL, image=NULL, region=NULL, ssh_keys
   args <- ct(name=nn(name), size=nn(size), image=nn(image), region=nn(region), 
              ssh_keys=nn(ssh_keys, FALSE), backups=nn(backups), ipv6=nn(ipv6), 
              private_networking=nn(private_networking))
-  do_POST(what, path='droplets', args=args, parse=TRUE, config=config, encodejson=TRUE)
+  tmp <- do_POST(what, path='droplets', args=args, parse=TRUE, config=config, encodejson=TRUE)
+message(sprintf("Your Digital Ocean Droplet is almost ready...
+You're being charged %s cents per hour, or $%s per month
+You can delete your droplet with droplets_delete()
+or turn it off, etc., see droplets_*() functions", 
+                tmp$droplet$size$price_hourly, tmp$droplet$size$price_monthly))
+  return(list(data=makedata(tmp$droplet), actions=tmp$links$actions))
 }
 
 random_name <- function() sample(words, size = 1)

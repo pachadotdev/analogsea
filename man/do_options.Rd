@@ -43,9 +43,10 @@ Keep in mind that there are defaults set for size, image, and region in \code{dr
 }
 \examples{
 \dontrun{
-do_options(ssh_keys=109789)
+do_options()
+do_options(ssh_keys=89103)
 getOption('do_ssh_keys')
-do_options(size="1gb")
+do_options(size="8gb")
 do_options(size="1gb", image='ubuntu-14-04-x64', region='nyc1')
 getOption('do_size')
 getOption('do_image')
