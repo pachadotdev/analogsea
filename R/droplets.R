@@ -136,7 +136,7 @@ droplets_new <- function(name=NULL, size=NULL, image=NULL, region=NULL, ssh_keys
   do_POST(what, path='droplets', args=args, parse=TRUE, config=config, encodejson=TRUE)
 }
 
-random_name <- function() sample(analogsea::words, size = 1)
+random_name <- function() sample(words, size = 1)
 
 #' Reboot a droplet.
 #'

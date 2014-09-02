@@ -276,6 +276,7 @@ gopt2 <- function(c, a, b) if(!is.null(c)) eval(c) else getOption(a, b)
 
 nn <- function(x, unbox=TRUE){
   z <- switch(deparse(substitute(x)), 
+         name = eval(x),
          size = gopt2(x, 'do_size', '512mb'),
          image = gopt2(x, 'do_image', 'ubuntu-14-04-x64'),
          region = gopt2(x, 'do_region', 'sfo1'),
