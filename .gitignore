@@ -2,3 +2,4 @@
 tests/testthat/keys.R
 .Rproj.user
 .httr-oauth
+.Rhistory
