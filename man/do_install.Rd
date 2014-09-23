@@ -3,9 +3,10 @@
 \alias{do_install}
 \title{Install stuff on a Digital Ocean droplet}
 \usage{
-do_install(id = NULL, what = "r", deps = NULL, usr = NULL, pwd = NULL,
-  browse = TRUE, verbose = TRUE, rstudio_server_ver = "0.98.507",
-  shiny_ver = "1.1.0.10000", swap = TRUE)
+do_install(id = NULL, what = "r", deps = NULL, usr = "rstudio",
+  pwd = "rstudio", browse = TRUE, verbose = TRUE,
+  rstudio_server_ver = "0.98.1062", shiny_ver = "1.2.1.362", swap = TRUE,
+  mirror = "http://cran.rstudio.com/")
 }
 \arguments{
 \item{id}{A Digital Ocean droplet ID}
@@ -30,6 +31,9 @@ you often have to drop down into the terminal and ssh into the machine to instal
 
 \item{swap}{(logical) Set swap on DO machine - allows enough memory to install things.
 Default: TRUE}
+
+\item{mirror}{The mirror to set from which to install R packages. Default:
+'http://cran.rstudio.com/'}
 }
 \description{
 Install stuff on a Digital Ocean droplet
@@ -54,6 +58,23 @@ do_install(res$droplet$id, what='shiny')
 do_install(id=1987605, what='opencpu')
 do_install(res$droplet$id, what='r', deps=c('xml','curl'))
 do_install(res$droplet$id, what='r', deps=c('xml','curl','gdal','rcpp'))
+
+
+id <- droplets()$droplets$data$id
+do_install(id=id, what='r')
+
+droplets_new(ssh_keys = 89103)
+droplets()
+id <- droplets()$droplet_ids
+do_install(id=id, what='r')
+do_install(id=id, deps=c('xml','curl'))
+do_install(id=id, what='rstudio_server')
+do_install(id=id, what='shiny_server')
+
+droplets_new(ssh_keys = 89103)
+droplets()
+id <- droplets()$droplet_ids[2]
+do_install(id=id, what='shiny_server')
 }
 }
 
