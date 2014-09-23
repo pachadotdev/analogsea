@@ -1,11 +1,8 @@
 analogsea
 =======
 
-master branch: [![Build Status](https://api.travis-ci.org/sckott/analogsea.png?branch=master)](https://travis-ci.org/sckott/analogsea)
+[![Build Status](https://api.travis-ci.org/sckott/analogsea.png?branch=master)](https://travis-ci.org/sckott/analogsea)
 [![Build status](https://ci.appveyor.com/api/projects/status/ll9lcqafuw338q0h/branch/master)](https://ci.appveyor.com/project/sckott/analogsea/branch/master)
-
-v2 branch: [![Build Status](https://api.travis-ci.org/sckott/analogsea.png?branch=v2)](https://travis-ci.org/sckott/analogsea)
-[![Build status](https://ci.appveyor.com/api/projects/status/ll9lcqafuw338q0h/branch/v2)](https://ci.appveyor.com/project/sckott/analogsea/branch/v2)
 
 `analogsea` is a general purpose R interface to the [Digital Ocean](https://www.digitalocean.com/) API, AND includes scripts to install various R things:
 
@@ -14,18 +11,14 @@ v2 branch: [![Build Status](https://api.travis-ci.org/sckott/analogsea.png?branc
 * RStudio Shiny Server
 * OpenCPU
 
-The Digital Ocean v2 API is fully implemented, but we're still working on the installation scripts...
+The Digital Ocean v2 API is fully implemented in the `master` branch, but we're still working on the installation scripts...
 
 ## Digital Ocean API
 
 + [API v1 docs](https://developers.digitalocean.com/v1/)
 + [API v2 docs](https://developers.digitalocean.com/v2/)
 
-### v1 and v2
-
-The version on the `master` branch holds code that works with the Digital Ocean API v1.
-
-The `v2` branch holds code in development for Digital Ocean API v2.
+The `master` branch of `analogsea` now works with the DO `v2` API.
 
 ## Quick start
 
@@ -34,14 +27,15 @@ The `v2` branch holds code in development for Digital Ocean API v2.
 Install from branch `v2` as that is the most up to date code
 
 ```coffee
-devtools::install_github("sckott/analogsea", ref="v2")
+devtools::install_github("sckott/analogsea")
 library("analogsea")
 ```
 
 ### Authenticate
 
-DigitalOcean uses OAuth 2. So we do the typical song and dance you may be used to on the web. Here's how to do it:
+DigitalOcean uses OAuth 2. So we do the typical song and dance you may be used to on the web. If `do_oauth()` runs succesfully, your token object is returned and cached, which will be called in other functions in this package.
 
+<!--
 * Login to your Digital Ocean account. Go to _Apps & API_ page.
 * In the _Developer Applications_ part of the page, press button for _Register new application_. Then enter app details:
   * _Application name:_ anything is fine
@@ -49,8 +43,7 @@ DigitalOcean uses OAuth 2. So we do the typical song and dance you may be used t
   * _Application description:_ give a note to yourself what this app is.
   * _Application callback URL:_ use http://localhost:1410
 * Once the app is registered, you can enter your appname, client id, and client secret as parameters to `do_oauth()`, or store them in your `.Rprofile` file as `do_appname`, `do_client_id`, and `do_client_secret`, respectively.
-
-If `do_oauth()` runs succesfully, your token object is returned and cached, which will be called in other functions in this package.
+-->
 
 ### Get droplets
 
@@ -298,15 +291,21 @@ Let me know if you have a better idea for how to handle this.
 Instead of chaining for `droplets_*` functions you can pass a droplet id itself as the first argument to another `droplets()` function, so you can easily loop across a bunch of droplet ids if needed.
 
 
+## R
+
 ### Install RStudio Server
-
-
-__BEWARE:__ I'm working on updating these scripts so that it all actually works...hold on a bit...
 
 You of course have to have an active droplet to do this. Once you have one, pass in a droplet id.
 
 ```coffee
-do_install(1746479, what='rstudio', usr='hey', pwd='there')
+do_install(1746479, what='rstudio_server')
 ```
 
-This will install R, RStudio Server and it's dependencies. It will automatically pop open the RStudio server instance in your default browser.
+This will install R, RStudio Server and it's dependencies. It will automatically pop open the RStudio server instance in your default browser, with default `username/password` of `rstudio/rstudio`.
+
+Other options include:
+
+* Install R using `what='r'`
+* Install RStudio Shiny Server using `what='shiny_server'`
+* Install common dependencies, e.g. `deps=c('curl','xml')`
+* Install OpenCPU using `what='opencpu'` __not working yet__
