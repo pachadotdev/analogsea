@@ -10,3 +10,4 @@ drone.yml
 appveyor.yml
 ^.*\.Rproj$
 ^\.Rproj\.user$
+.httr-oauth

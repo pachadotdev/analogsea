@@ -58,13 +58,8 @@
 do_install <- function(id=NULL, what='r', deps=NULL, usr='rstudio', pwd='rstudio', browse=TRUE, verbose=TRUE,
   rstudio_server_ver='0.98.1062', shiny_ver='1.2.1.362', swap=TRUE, mirror='http://cran.rstudio.com/')
 {
-  stat <- "new"
-  while(stat == "new"){
-    Sys.sleep(1)
-    out <- droplets(id)
-    stat <- out$droplets$data$status
-  }
-  ip <- out$droplets$details$networks_ip_address
+  # Get ip addrres, waiting until status='active'
+  ip <- get_ip(id)
 
   # stops function if scp and ssh arent found
   cli_tools(ip)
@@ -84,7 +79,7 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr='rstudio', pwd='rstudio
     if('r' %in% what){
       writefile("doinstallr.sh", r_string)
       mssg(verbose, "Installing R...")
-      scp_ssh('doinstallr.sh', ip)
+      scp_ssh('doinstallr.sh', ip, verbose = verbose)
       do_swap(swap, ip, swap_string, verbose)
     }
 
@@ -101,7 +96,7 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr='rstudio', pwd='rstudio
       writefile("doinstall_deps.sh", deps_string2)
 
       mssg(verbose, "Installing dependencies...")
-      scp_ssh('doinstall_deps.sh', ip)
+      scp_ssh('doinstall_deps.sh', ip, verbose = verbose)
     }
 
     if('rstudio_server' %in% what){
@@ -112,7 +107,7 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr='rstudio', pwd='rstudio
       writefile("doinstall_rstudio.sh", rstudio_string2)
 
       mssg(verbose, "Installing RStudio Server...")
-      scp_ssh('doinstall_rstudio.sh', ip)
+      scp_ssh('doinstall_rstudio.sh', ip, verbose = verbose)
 
       rstudiolink <- sprintf("http://%s:8787/", ip)
       if(browse) browseURL(rstudiolink) else rstudiolink
@@ -126,7 +121,7 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr='rstudio', pwd='rstudio
       writefile("doinstall_shiny.sh", shiny_string2)
 
       mssg(verbose, "Installing RStudio Shiny Server...")
-      scp_ssh('doinstall_shiny.sh', ip)
+      scp_ssh('doinstall_shiny.sh', ip, verbose = verbose)
 
       shinyserverlink <- sprintf("http://%s:3838/", ip)
       if(browse) browseURL(shinyserverlink) else shinyserverlink
@@ -139,7 +134,7 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr='rstudio', pwd='rstudio
       writefile("doinstall_opencpu.sh", opencpu_string)
 
       mssg(verbose, "Installing OpenCPU...")
-      scp_ssh('doinstall_opencpu.sh', ip)
+      scp_ssh('doinstall_opencpu.sh', ip, verbose = verbose)
 
       opencpu_link <- sprintf("http://%s/ocpu/test", ip)
       if(browse) browseURL(opencpu_link) else opencpu_link
@@ -150,7 +145,7 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr='rstudio', pwd='rstudio
   sprintf("ssh root@%s", ip)
 }
 
-scp_ssh <- function(file, ip, user='root'){
+scp_ssh <- function(file, ip, user='root', verbose){
   # remove known_hosts key
   mssg(verbose, "Removing known host if already present")
   system(sprintf('ssh-keygen -R %s', ip))
