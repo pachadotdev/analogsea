@@ -3,8 +3,8 @@ Title: R interface to Digital Ocean
 Description: This package provides a set of functions for interacting with the
     Digital Ocean API, including creating images, destroying them, rebooting,
     getting details on regions, and available images.
-Version: 0.1.8.99
-Date: 2014-08-30
+Version: 0.1.8.999
+Date: 2014-09-22
 Authors@R: person("Scott", "Chamberlain", role = c("aut", "cre"),
     email = "myrmecocystus@gmail.com")
 License: MIT + file LICENSE
