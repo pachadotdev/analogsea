@@ -12,13 +12,19 @@
 #' @param verbose Print messages (default TRUE)
 #' @param rstudio_server_ver RStudio server version number.
 #' @param shiny_ver RStudio Shiny version number.
+#' @param swap (logical) Set swap on DO machine - allows enough memory to install things.
+#' Default: TRUE
+#' @param mirror The mirror to set from which to install R packages. Default: 
+#' 'http://cran.rstudio.com/'
 #'
 #' @details
-#' Creates a new Digital Ocean Droplet, then installs one or more of R, RStudio Server, Rstudio
-#' Shiny Server. This is all Ubuntu based for now. If you install RStudio Server or Shiny Server,
-#' then R is installed too.
+#' Installs one or more of R, RStudio Server, Rstudio Shiny Server, OpenCPU. This is all Ubuntu
+#' based for now. If you install RStudio Server or Shiny Server, then R is installed too. By
+#' default, we set swap memory so that you have enough memory on the DO machine to install things.
 #'
 #' Note that Shiny installs but isn't working right. RStudio Server installs and works.
+#'
+#' OpenCPU doesn't work yet either.
 #'
 #' @examples \dontrun{
 #' # Image slug 'ubuntu-14-04-x64' is an Unbuntu 14.04 x64 box with 512 mb given by size_slug param
@@ -30,38 +36,60 @@
 #' do_install(id=1987605, what='opencpu')
 #' do_install(res$droplet$id, what='r', deps=c('xml','curl'))
 #' do_install(res$droplet$id, what='r', deps=c('xml','curl','gdal','rcpp'))
+#' 
+#' 
+#' id <- droplets()$droplets$data$id
+#' do_install(id=id, what='r')
+#' 
+#' droplets_new(ssh_keys = 89103)
+#' droplets()
+#' id <- droplets()$droplet_ids
+#' do_install(id=id, what='r')
+#' do_install(id=id, deps=c('xml','curl'))
+#' do_install(id=id, what='rstudio_server')
+#' do_install(id=id, what='shiny_server')
+#' 
+#' droplets_new(ssh_keys = 89103)
+#' droplets()
+#' id <- droplets()$droplet_ids[2]
+#' do_install(id=id, what='shiny_server')
 #' }
 
-do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=TRUE, verbose=TRUE,
-  rstudio_server_ver='0.98.507', shiny_ver='1.1.0.10000')
+do_install <- function(id=NULL, what='r', deps=NULL, usr='rstudio', pwd='rstudio', browse=TRUE, verbose=TRUE,
+  rstudio_server_ver='0.98.1062', shiny_ver='1.2.1.362', swap=TRUE, mirror='http://cran.rstudio.com/')
 {
   stat <- "new"
   while(stat == "new"){
     Sys.sleep(1)
     out <- droplets(id)
-    stat <- out$droplets$status
+    stat <- out$droplets$data$status
   }
-  ip <- out$droplets$ip_address
+  ip <- out$droplets$details$networks_ip_address
 
   # stops function if scp and ssh arent found
   cli_tools(ip)
+  
+  # stop if mirror is not found
+  check_mirror(mirror)
 
   # remove known_hosts key
-  mssg(verbose, "Removing known host if already present")
-  system(sprintf('ssh-keygen -R %s', ip))
+#   mssg(verbose, "Removing known host if already present")
+#   system(sprintf('ssh-keygen -R %s', ip))
 
   what <- match.arg(what, c('nothing','r','rstudio_server','shiny_server','opencpu'))
 
   if('nothing' %in% what){
-    message("Nothing installed...stoppings")
+    message("Nothing installed...stopping")
   } else {
     if('r' %in% what){
       writefile("doinstallr.sh", r_string)
       mssg(verbose, "Installing R...")
       scp_ssh('doinstallr.sh', ip)
+      do_swap(swap, ip, swap_string, verbose)
     }
 
     if(!is.null(deps)){
+      do_swap(swap, ip, swap_string, verbose)
       r_installed(ip, r_string, verbose)
 
       deps <- match.arg(deps, c("xml","curl","gdal","rcpp"), TRUE)
@@ -77,6 +105,7 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=
     }
 
     if('rstudio_server' %in% what){
+      do_swap(swap, ip, swap_string, verbose)
       r_installed(ip, r_string, verbose)
 
       rstudio_string2 <- sprintf(rstudio_string, rstudio_server_ver, rstudio_server_ver, usr, usr, pwd)
@@ -90,6 +119,7 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=
     }
 
     if('shiny_server' %in% what){
+      do_swap(swap, ip, swap_string, verbose)
       r_installed(ip, r_string, verbose)
 
       shiny_string2 <- sprintf(shiny_string, shiny_ver, shiny_ver)
@@ -103,6 +133,7 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=
     }
 
     if('opencpu' %in% what){
+      do_swap(swap, ip, swap_string, verbose)
       r_installed(ip, r_string, verbose)
 
       writefile("doinstall_opencpu.sh", opencpu_string)
@@ -120,6 +151,9 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr=NULL, pwd=NULL, browse=
 }
 
 scp_ssh <- function(file, ip, user='root'){
+  # remove known_hosts key
+  mssg(verbose, "Removing known host if already present")
+  system(sprintf('ssh-keygen -R %s', ip))
   scp(file, ip, user)
   ssh(file, ip, user)
 }
@@ -138,7 +172,8 @@ r_string <-
 'sudo echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 sudo apt-get update --yes --force-yes
-sudo apt-get install r-base-core r-base-dev --yes --force-yes'
+sudo apt-get install r-base-core r-base-dev --yes --force-yes
+echo "options(repos=c(\'http://cran.rstudio.com/\'))" > .Rprofile'
 
 rstudio_string <-
 'sudo apt-get install gdebi-core --yes --force-yes
@@ -149,7 +184,12 @@ adduser %s --disabled-password --gecos ""
 echo "%s:%s"|chpasswd'
 
 shiny_string <-
-'apt-get install r-cran-shiny
+# apt-get install r-cran-shiny
+'
+sudo su - \\\
+-c "R -e \\\"install.packages(\'shiny\', repos=\'http://cran.rstudio.com/\')\\\""
+sudo su - \\\
+-c "R -e \\\"install.packages(\'rmarkdown\', repos=\'http://cran.rstudio.com/\')\\\""
 sudo apt-get install gdebi-core --yes --force-yes
 wget http://download3.rstudio.org/ubuntu-12.04/x86_64/shiny-server-%s-amd64.deb
 sudo gdebi shiny-server-%s-amd64.deb --non-interactive'
@@ -159,10 +199,15 @@ opencpu_string <-
 'sudo add-apt-repository ppa:opencpu/opencpu-1.4
 sudo apt-get update
 sudo apt-get -q -y install opencpu
-sudo service opencpu start
-'
+sudo service opencpu start'
 
 dep_string <- 'sudo apt-get install %s --yes --force-yes'
+
+swap_string <- 
+'sudo fallocate -l 4G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile'
 
 r_installed <- function(ip, r_string, verbose){
   chr <- tryCatch(system(sprintf('ssh root@%s "which R"', ip), intern=TRUE), warning=function(e) e)
@@ -171,4 +216,25 @@ r_installed <- function(ip, r_string, verbose){
     mssg(verbose, "Installing R...")
     scp_ssh('doinstallr.sh', ip)
   }
+}
+
+do_swap <- function(swap, ip, swap_string, verbose){
+  if(is_swap_not_set(ip)){
+    if(swap){
+      writefile("setswap.sh", swap_string)
+      mssg(verbose, "Setting swap...")
+      scp_ssh('setswap.sh', ip)
+    }
+  }
+}
+
+is_swap_not_set <- function(ip){
+  chr <- tryCatch(system(sprintf('ssh root@%s "ls | grep setswap.sh"', ip), intern=TRUE), warning=function(e) e)
+  if("warning" %in% class(chr)) TRUE else FALSE
+}
+
+check_mirror <- function(x){
+  mirrors <- getCRANmirrors()
+  match <- grepl(x, mirrors$URL)
+  if(!any(match)) stop(sprintf("%s is not in the list of R mirrors at http://cran.r-project.org/CRAN_mirrors.csv", x))
 }

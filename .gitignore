@@ -1,2 +1,4 @@
 .DS_Store
 tests/testthat/keys.R
+.Rproj.user
+httr-oauth

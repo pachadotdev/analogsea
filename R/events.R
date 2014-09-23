@@ -2,7 +2,8 @@
 #'
 #' @export
 #' @param x Event ID or a droplet object.
-#' @template params
+#' @param what (character) One of 'parsed' or 'raw'.
+#' @param ... Not used.
 #' @examples \dontrun{
 #' events(x=26024501)
 #' gg <- droplets() %>% droplets_power_on
@@ -13,9 +14,10 @@
 
 events <- function(x=NULL, what="parsed", ...)
 {
-  id <- check_event(x)
-  assert_that(!is.null(id))
-  do_GET(what, TRUE, sprintf('events/%s', id), ...)
+  .Defunct("actions", package = "analogsea", "events() is deprecated, see actions()")
+#   id <- check_event(x)
+#   assert_that(!is.null(id))
+#   do_GET(what, TRUE, sprintf('events/%s', id), ...)
 }
 
 check_event <- function(x){
