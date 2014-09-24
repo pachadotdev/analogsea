@@ -142,6 +142,7 @@ random_name <- function() sample(words, size = 1)
 #' @export
 #' @param droplet A droplet, or something that can be coerced to a droplet by
 #'   \code{\link{as.droplet}}.
+#' @param ... Additional options passed down to low-level API method.
 #' @param config Options passed on to httr::GET. Must be named, see examples.
 #' @examples
 #' \dontrun{
@@ -166,13 +167,27 @@ do_droplet_delete <- function(id, config = NULL) {
 
 #' Perform various actions on a droplet.
 #'
+#' These droplet actions have no further arguments.
+#'
 #' \describe{
-#' \item{droplet_reboot}{This method allows you to reboot a droplet. This is 
+#' \item{reboot}{This method allows you to reboot a droplet. This is 
 #'   the preferred method to use if a server is not responding}
-#' \item{droplet_powercycle}{This method allows you to power cycle a droplet.
+#' \item{powercycle}{This method allows you to power cycle a droplet.
 #'    This will turn off the droplet and then turn it back on.}
+#' \item{shutdown}{Shutdown a running droplet. The droplet will remain in 
+#'   your account and you will continue to be charged for it.}
+#' \item{power_off}{Shutdown a running droplet. The droplet will remain in 
+#'   your account and you will continue to be charged for it.}
+#' \item{reset_password}{This method will reset the root password for a 
+#'   droplet. Please be aware that this will reboot the droplet to allow 
+#'   resetting the password.}
+#' \item{enable_ipv6}{Enable IPv6 networking on an existing droplet (within 
+#'   a region that has IPv6 available).}
+#' \item{enable_private_networking}{Enable private networking on an existing  
+#'   droplet (within a region that has private networking available)}
 #' } 
-#' @param x A droplet number or the result from a call to \code{droplets()}
+#' \item{power_on}{Turn on a droplet that's turned off.}
+#' @inheritParams droplet_delete
 #' @examples \dontrun{
 #' d <- droplets()
 #' d[[1]] %>% droplet_reboot()
@@ -184,19 +199,57 @@ NULL
 #' @export
 #' @rdname droplet_action
 droplet_reboot <- function(droplet, ...) {
-  droplet <- as.droplet(droplet)
-  do_action(droplet$id, "reboot", ...)
-  droplet
+  droplet_action("reboot", droplet, ...)
 }
 
 #' @export
 #' @rdname droplet_action
 droplet_power_cycle <- function(droplet, ...) {
-  droplet <- as.droplet(droplet)
-  do_action(droplet$id, "power_cycle", ...)
-  droplet
+  droplet_action("power_cycle", droplet, ...)
 }
 
+#' @export
+#' @rdname droplet_action
+droplet_shutdown <- function(droplet, ...) {
+  droplet_action("shutdown", droplet, ...)
+}
+
+#' @export
+#' @rdname droplet_action
+droplet_power_off <- function(droplet, ...) {
+  droplet_action("power_off", droplet, ...)
+}
+
+#' @export
+#' @rdname droplet_action
+droplet_power_on <- function(droplet, ...) {
+  droplet_action("power_on", droplet, ...)
+}
+
+#' @export
+#' @rdname droplet_action
+droplet_reset_password <- function(droplet, ...) {
+  droplet_action("reset_password", droplet, ...)
+}
+
+#' @export
+#' @rdname droplet_action
+droplet_enable_ipv6 <- function(droplet, ...) {
+  droplet_action("enable_ipv6", droplet, ...)
+}
+
+#' @export
+#' @rdname droplet_action
+droplet_enable_private_networking <- function(droplet, ...) {
+  droplet_action("enable_private_networking", droplet, ...)
+}
+
+
+droplet_action <- function(action, droplet, ...) {
+  droplet <- as.droplet(droplet)
+  do_action(droplet$id, "action", ...)
+  droplet
+}
 #' @export
 #' @rdname droplet_action
 do_action <- function(id, action, config = NULL) {
@@ -208,117 +261,6 @@ do_action <- function(id, action, config = NULL) {
   )
 }
 
-
-#' Shutdown a droplet.
-#'
-#' This method allows you to shutdown a running droplet. The droplet will remain in your account
-#'
-#' @export
-#' @param x A droplet number or the result from a call to \code{droplets()}
-#' @template whatconfig
-#' @examples \dontrun{
-#' droplets_shutdown(x=2376676)
-#'
-#' droplets() %>% droplets_shutdown
-#' }
-
-droplets_shutdown <- function(x=NULL, what="parsed", config=NULL)
-{
-  if(is.numeric(x)) x <- droplets(x)
-  id <- check_droplet(x)
-  assert_that(!is.null(id))
-  tmp <- do_POST(what, path = sprintf('droplets/%s/actions', id), args=ct(type='shutdown'), config=config)
-  if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
-  }
-}
-
-#' Power off a droplet.
-#'
-#' This method allows you to poweroff a running droplet. The droplet will remain in your account.
-#'
-#' @export
-#' @param x A droplet number or the result from a call to \code{droplets()}
-#' @template whatconfig
-#' @examples \dontrun{
-#' droplets_power_off(x=2376676)
-#'
-#' # pipe together operations
-#' droplets() %>% droplets_power_off %>% events
-#' }
-
-droplets_power_off <- function(x=NULL, what="parsed", config=NULL)
-{
-  if(is.numeric(x)) x <- droplets(x)
-  id <- check_droplet(x)
-  assert_that(!is.null(id))
-  tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args = ct(type='power_off'), config=config)
-  if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
-  }
-}
-
-#' Power on a droplet.
-#'
-#' This method allows you to poweron a powered off droplet.
-#'
-#' @export
-#' @param x A droplet number or the result from a call to \code{droplets()}
-#' @template whatconfig
-#' @examples \dontrun{
-#' droplets_power_on(x=2376676)
-#'
-#' # many droplets
-#' out <- droplets()
-#' droplets_power_on(droplet=out)
-#'
-#' # from retrieving info on a single droplet
-#' out <- droplets(1783835)
-#' droplets_power_on(droplet=out)
-#'
-#' # pipe together operations
-#' droplets() %>% droplets_power_on
-#' }
-
-droplets_power_on <- function(x=NULL, what="parsed", config=NULL)
-{
-  if(is.numeric(x)) x <- droplets(x)
-  id <- check_droplet(x)
-  assert_that(!is.null(id))
-  tmp <- do_POST(what, path = sprintf('droplets/%s/actions', id), args = ct(type='power_on'), config=config)
-  if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
-  }
-}
-
-#' Reset a password for a droplet.
-#'
-#' This method will reset the root password for a droplet. Please be aware that this will reboot
-#' the droplet to allow resetting the password.
-#'
-#' @export
-#' @param x A droplet number or the result from a call to \code{droplets()}
-#' @template whatconfig
-#' @examples \dontrun{
-#' droplets_password_reset(2376676)
-#'
-#' droplets() %>% droplets_password_reset %>% events
-#' }
-
-droplets_password_reset <- function(x=NULL, what="parsed", config=NULL)
-{
-  if(is.numeric(x)) x <- droplets(x)
-  id <- check_droplet(x)
-  assert_that(!is.null(id))
-  tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args = ct(type='password_reset'), config=config)
-  if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
-  }
-}
 
 #' Resize a droplet.
 #'
@@ -588,55 +530,6 @@ droplets_backups_list <- function(x=NULL, what="parsed", config=NULL)
   if(what == 'raw') tmp else parse_to_df(tmp)
 }
 
-
-#' Enable IPv6 networking on an existing droplet (within a region that has IPv6 available).
-#'
-#' @export
-#' @param x A droplet number or the result from a call to \code{droplets()}
-#' @template whatconfig
-#' @examples \dontrun{
-#' droplets_enable_ipv6(1707487)
-#'
-#' droplets() %>%
-#'  droplets_enable_ipv6
-#' }
-
-droplets_enable_ipv6 <- function(x=NULL, what="parsed", config=NULL)
-{
-  if(is.numeric(x)) x <- droplets(x)
-  id <- check_droplet(x)
-  assert_that(!is.null(id))
-  tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='enable_ipv6'), config=config)
-  if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
-  }
-}
-
-#' Enable private networking on an existing droplet (within a region that has private
-#' networking available).
-#'
-#' @export
-#' @param x A droplet number or the result from a call to \code{droplets()}
-#' @template whatconfig
-#' @examples \dontrun{
-#' droplets_enable_private_networking(1707487)
-#'
-#' droplets() %>%
-#'  droplets_enable_private_networking
-#' }
-
-droplets_enable_private_networking <- function(x=NULL, what="parsed", config=NULL)
-{
-  if(is.numeric(x)) x <- droplets(x)
-  id <- check_droplet(x)
-  assert_that(!is.null(id))
-  tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='enable_private_networking'), config=config)
-  if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
-  }
-}
 
 
 #' Retrieve a droplet action or list all actions associatd with a droplet.

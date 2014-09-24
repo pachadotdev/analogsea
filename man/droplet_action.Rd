@@ -2,26 +2,64 @@
 \name{droplet_action}
 \alias{do_action}
 \alias{droplet_action}
+\alias{droplet_enable_ipv6}
+\alias{droplet_enable_private_networking}
 \alias{droplet_power_cycle}
+\alias{droplet_power_off}
+\alias{droplet_power_on}
 \alias{droplet_reboot}
+\alias{droplet_reset_password}
+\alias{droplet_shutdown}
 \title{Perform various actions on a droplet.}
 \usage{
 droplet_reboot(droplet, ...)
 
 droplet_power_cycle(droplet, ...)
 
+droplet_shutdown(droplet, ...)
+
+droplet_power_off(droplet, ...)
+
+droplet_power_on(droplet, ...)
+
+droplet_reset_password(droplet, ...)
+
+droplet_enable_ipv6(droplet, ...)
+
+droplet_enable_private_networking(droplet, ...)
+
 do_action(id, action, config = NULL)
 }
 \arguments{
-\item{x}{A droplet number or the result from a call to \code{droplets()}}
+\item{droplet}{A droplet, or something that can be coerced to a droplet by
+\code{\link{as.droplet}}.}
+
+\item{...}{Additional options passed down to low-level API method.}
+
+\item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
-\describe{
-\item{droplet_reboot}{This method allows you to reboot a droplet. This is
-  the preferred method to use if a server is not responding}
-\item{droplet_powercycle}{This method allows you to power cycle a droplet.
-   This will turn off the droplet and then turn it back on.}
+These droplet actions have no further arguments.
 }
+\details{
+\describe{
+\item{reboot}{This method allows you to reboot a droplet. This is
+  the preferred method to use if a server is not responding}
+\item{powercycle}{This method allows you to power cycle a droplet.
+   This will turn off the droplet and then turn it back on.}
+\item{shutdown}{Shutdown a running droplet. The droplet will remain in
+  your account and you will continue to be charged for it.}
+\item{power_off}{Shutdown a running droplet. The droplet will remain in
+  your account and you will continue to be charged for it.}
+\item{reset_password}{This method will reset the root password for a
+  droplet. Please be aware that this will reboot the droplet to allow
+  resetting the password.}
+\item{enable_ipv6}{Enable IPv6 networking on an existing droplet (within
+  a region that has IPv6 available).}
+\item{enable_private_networking}{Enable private networking on an existing
+  droplet (within a region that has private networking available)}
+}
+\item{power_on}{Turn on a droplet that's turned off.}
 }
 \examples{
 \dontrun{

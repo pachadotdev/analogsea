@@ -12,6 +12,8 @@ do_droplet_delete(id, config = NULL)
 \item{droplet}{A droplet, or something that can be coerced to a droplet by
 \code{\link{as.droplet}}.}
 
+\item{...}{Additional options passed down to low-level API method.}
+
 \item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
