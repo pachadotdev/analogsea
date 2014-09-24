@@ -5,7 +5,6 @@ travis-tool.sh
 vignettes/margins.sty
 Makefile
 inst/stuff/
-tests/test-all.R
 drone.yml
 appveyor.yml
 ^.*\.Rproj$
