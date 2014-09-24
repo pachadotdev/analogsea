@@ -37,6 +37,9 @@ do_GET <- function(what, path, query = NULL, parse=FALSE, config=NULL) {
 #' @return Some combination of warnings and httr response object, data.frame, or list
 
 do_POST <- function(what, path, args, parse=FALSE, config=config, encodejson=FALSE) {
+  
+  args <- compact(args)
+  
   url <- file.path("https://api.digitalocean.com/v2", path)
   if(encodejson)
     tt <- POST(url, config = c(do_oauth(), config), body=args, encode="json")
@@ -286,3 +289,5 @@ nn <- function(x, unbox=TRUE){
 foo <- function(x){
   deparse(substitute(x))
 }
+
+compact <- function(x) Filter(Negate(is.null), x)

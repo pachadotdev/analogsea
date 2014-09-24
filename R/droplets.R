@@ -185,6 +185,7 @@ do_droplet_delete <- function(id, config = NULL) {
 #'   a region that has IPv6 available).}
 #' \item{enable_private_networking}{Enable private networking on an existing  
 #'   droplet (within a region that has private networking available)}
+#' \item{disable_backups}{Disables backups for a droplet.}
 #' } 
 #' \item{power_on}{Turn on a droplet that's turned off.}
 #' @inheritParams droplet_delete
@@ -244,32 +245,44 @@ droplet_enable_private_networking <- function(droplet, ...) {
   droplet_action("enable_private_networking", droplet, ...)
 }
 
+#' @export
+#' @rdname droplet_action
+droplet_disable_backups <- function(droplet, ...) {
+  droplet_action("disable_backups", droplet, ...)
+}
 
 droplet_action <- function(action, droplet, ...) {
   droplet <- as.droplet(droplet)
-  do_action(droplet$id, "action", ...)
+  do_action(droplet$id, type = jsonlite::unbox(action), ...)
   droplet
 }
 
-do_action <- function(id, type, ..., config = NULL) {
+do_action <- function(id, ..., config = NULL) {
   stopifnot(is.numeric(id), length(id) == 1)
   do_POST("raw", 
     path = sprintf('droplets/%s/actions', id), 
-    args = list(type = type, ...), 
-    config = config
+    args = list(...), 
+    config = config,
+    encodejson = TRUE
   )
 }
 
 
-#' Resize a droplet.
-#'
-#' This method allows you to resize a specific droplet to a different size. This will affect the
-#' number of processors and memory allocated to the droplet.
-#'
-#' @export
+#' Modify a droplet.
+#' 
+#' These methods allow you to modify existing droplets.
+#' 
+#' \describe{
+#' \item{resize}{Resize a specific droplet to a different size. This will 
+#'   affect the number of processors and memory allocated to the droplet.}
+#' \item{rebuild}{Reinstall a droplet with a default image. This is useful if you want
+#'   to start again but retain the same IP address for your droplet.}
+#' \item{rename}{Change the droplet name}
+#' \item{change_kernel}{Change kernel ID.}
+#' }
+#' 
 #' @param x A droplet number or the result from a call to \code{droplets}
 #' @param size (character) Size slug (name) of the image size. See \code{sizes}
-#' @template whatconfig
 #' @examples \dontrun{
 #' droplets_resize(2427664, size='1gb')
 #'
@@ -278,188 +291,91 @@ do_action <- function(id, type, ..., config = NULL) {
 #'    droplets_resize(size = '1gb') %>%
 #'    events
 #' }
+#' @name droplet_modify
+NULL
 
-droplets_resize <- function(x=NULL, size=NULL, what="parsed", config=NULL)
-{
-  if(is.numeric(x)) x <- droplets(x)
-  id <- check_droplet(x)
-  assert_that(!is.null(id))
-  tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='resize', size=size), config=config)
-  if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
-  }
+#' @export
+#' @rdname droplet_modify
+droplet_resize <- function(droplet, size, ...) {
+  droplet_action("resize", droplet, size = jsonlite::unbox(size), ...)
 }
 
-#' Take a snapshot of a droplet.
-#'
-#' This method allows you to take a snapshot of the droplet once it has been powered off, which can
-#' later be restored or used to create a new droplet from the same image. Please be aware this may
-#' cause a reboot.
-#'
 #' @export
-#' @param x A droplet number or the result from a call to \code{droplets()}
-#' @param name (character) Optional. Name of the new snapshot you want to create. If not set, the
-#' snapshot name will default to date/time
-#' @template whatconfig
-#' @examples \dontrun{
-#' droplets_snapshot(1707487)
-#'
-#' droplets() %>%
-#'  droplets_snapshot %>%
-#'  actions
-#' }
-
-droplets_snapshot <- function(x=NULL, name=NULL, what="parsed", config=NULL)
-{
-  if(is.numeric(x)) x <- droplets(x)
-  id <- check_droplet(x)
-  assert_that(!is.null(id))
-  tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='snapshot', name=name), config=config)
-  if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
-  }
+#' @rdname droplet_modify
+droplet_rebuild <- function(droplet, image) {
+  droplet_action("rebuild", droplet, image = jsonlite::unbox(image), ...)
 }
 
-#' Take a snapshot of a droplet.
-#'
-#' This method allows you to take a snapshot of the droplet once it has been powered off, which can
-#' later be restored or used to create a new droplet from the same image. Please be aware this may
-#' cause a reboot.
-#'
 #' @export
-#' @param x A droplet number or the result from a call to \code{droplets()}
-#' @template whatconfig
-#' @examples \dontrun{
-#' droplets_snapshots_list(1707487)
-#'
-#' droplets() %>%
-#'  droplets_snapshots_list
-#' }
-
-droplets_snapshots_list <- function(x=NULL, what="parsed", config=NULL)
-{
-  if(is.numeric(x)) x <- droplets(x)
-  id <- check_droplet(x)
-  assert_that(!is.null(id))
-  tmp <- do_GET(what, sprintf('droplets/%s/snapshots', id), config=config)
-  if(what == 'raw') tmp else parse_to_df(tmp)
-}
-
-#' Restore a droplet.
-#'
-#' This method allows you to restore a droplet with a previous image or snapshot. This will be a
-#' mirror copy of the image or snapshot to your droplet. Be sure you have backed up any necessary
-#' information prior to restore.
-#'
-#' @export
-#' @param x A droplet number or the result from a call to \code{droplets()}
-#' @param image (numeric) The image ID of the backup image that you would like to restore.
-#' @template whatconfig
-#' @examples \dontrun{
-#' droplets_restore(1707487, image=3240036)
-#'
-#' droplets() %>%
-#'  droplets_restore
-#' }
-
-droplets_restore <- function(x=NULL, image=NULL, what="parsed", config=NULL)
-{
-  if(is.numeric(x)) x <- droplets(x)
-  id <- check_droplet(x)
-  assert_that(!is.null(id), !is.null(image))
-  tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='restore', image=image), config=config)
-  if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
-  }
-}
-
-#' Rebuild a droplet.
-#'
-#' This method allows you to reinstall a droplet with a default image. This is useful if you want
-#' to start again but retain the same IP address for your droplet.
-#'
-#' @export
-#' @param x A droplet number or the result from a call to \code{droplets()}
-#' @param image An image slug or ID. This represents the image that the Droplet will use as a base.
-#' @template whatconfig
-#' @examples \dontrun{
-#' droplets_rebuild(1707487, image=3240036)
-#'
-#' droplets() %>%
-#'  droplets_rebuild
-#' }
-
-droplets_rebuild <- function(x=NULL, image=NULL, what="parsed", config=NULL)
-{
-  if(is.numeric(x)) x <- droplets(x)
-  id <- check_droplet(x)
-  assert_that(!is.null(id), !is.null(image))
-  tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='rebuild', image=image), config=config)
-  if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
-  }
-}
-
-#' Rename a droplet.
-#'
-#' This method renames the droplet to the specified name.
-#'
-#' @export
-#' @param x A droplet number or the result from a call to \code{droplets()}
+#' @rdname droplet_modify
 #' @param name (character) The new name for the droplet
-#' @template whatconfig
-#' @examples \dontrun{
-#' droplets_rename(1707487, name='wadup')
-#'
-#' droplets() %>%
-#'  droplets_rename(name="dropmealine")
-#' droplets()  # name has changed
-#' }
-
-droplets_rename <- function(x=NULL, name=NULL, what="parsed", config=NULL)
-{
-  if(is.numeric(x)) x <- droplets(x)
-  id <- check_droplet(x)
-  assert_that(!is.null(id), !is.null(name))
-  tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='rename', name=name), config=config)
-  if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
-  }
+droplet_rename <- function(droplet, name) {
+  droplet_action("rename", droplet, name = jsonlite::unbox(name), ...)
 }
 
-
-#' Change the kernel of a droplet.
-#'
-#' This method changes the kernel of a droplet to a new kernel ID.
-#'
 #' @export
-#' @param x A droplet number or the result from a call to \code{droplets()}
+#' @rdname droplet_modify
 #' @param kernel (numeric) The ID of the new kernel.
+droplet_change_kernel <- function(droplet, kernel) {
+  droplet_action("change_kernel", droplet, kernel = jsonlite::unbox(kernel), 
+    ...)
+}
+
+#' Take and restore snapshots.
+#' 
+#' \describe{
+#' \item{snapshot}{Take a snapshot of the droplet once it has been powered 
+#'   off, which can later be restored or used to create a new droplet from 
+#'   the same image. Please be aware this may cause a reboot.}
+#' \item{snapshots_list}{List available snapshots}
+#' \item{backups_list}{List available snapshots}
+#' \item{restore}{Restore a droplet with a previous image or snapshot. 
+#'   This will be a mirror copy of the image or snapshot to your droplet. Be 
+#'   sure you have backed up any necessary information prior to restore.}
+#' }
+#'
+#' @param x A droplet number or the result from a call to \code{droplets()}
+#' @param name (character) Optional. Name of the new snapshot you want to 
+#'   create. If not set, the  snapshot name will default to the current date/time
 #' @template whatconfig
 #' @examples \dontrun{
-#' droplets_change_kernel(1707487, kernel=61833229)
-#'
-#' droplets() %>%
-#'  droplets_change_kernel(kernel=61833229)
-#' droplets()  # kernel has changed
+#' d <- droplet_new()
+#' d %>% droplet_snapshots_list()
+#' d %>% droplet_backups_list()
+#' 
+#' d %>% 
+#'   droplet_snapshot() %>%
+#'   droplet_snapshots_list()
 #' }
-
-droplets_change_kernel <- function(x=NULL, kernel=NULL, what="parsed", config=NULL)
-{
-  if(is.numeric(x)) x <- droplets(x)
-  id <- check_droplet(x)
-  assert_that(!is.null(id), !is.null(kernel))
-  tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='change_kernel', kernel=kernel), config=config)
-  if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
-  }
+#' @export
+droplet_snapshot <- function(droplet, image = NULL, ...) {
+  droplet_action("snapshot", droplet, name = jsonlite::unbox(image), ...)
 }
+
+#' @export
+#' @rdname droplet_snapshot
+droplet_snapshots_list <- function(droplet, ...) {
+  droplet <- as.droplet(droplet)
+
+  res <- do_GET("parsed", sprintf('droplets/%s/snapshots', droplet$id), ...)
+  res$snapshots
+}
+
+#' @export
+#' @rdname droplet_snapshot
+droplet_restore <- function(droplet, image) {
+  droplet_action("restore", droplet, image = jsonlite::unbox(image), ...)
+}
+
+#' @export
+#' @rdname droplet_snapshot
+droplet_backups_list <- function(droplet, ...) {
+  droplet <- as.droplet(droplet)
+  
+  res <- do_GET("parsed", sprintf('droplets/%s/backups', droplet$id), ...)
+  res$backups
+}
+
 
 #' List all available kernels for a droplet.
 #'
@@ -472,60 +388,12 @@ droplets_change_kernel <- function(x=NULL, kernel=NULL, what="parsed", config=NU
 #' droplets() %>%
 #'  droplets_kernels_list
 #' }
-
 droplets_kernels_list <- function(x=NULL, what="parsed", config=NULL)
 {
   if(is.numeric(x)) x <- droplets(x)
   id <- check_droplet(x)
   assert_that(!is.null(id))
   tmp <- do_GET(what, sprintf('droplets/%s/kernels', id), config=config)
-  if(what == 'raw') tmp else parse_to_df(tmp)
-}
-
-#' Disable backups for a droplet.
-#'
-#' This method disables backups for a droplet.
-#'
-#' @export
-#' @param x A droplet number or the result from a call to \code{droplets()}
-#' @template whatconfig
-#' @examples \dontrun{
-#' droplets_backups_disable(1707487)
-#'
-#' droplets() %>%
-#'  droplets_backups_disable
-#' }
-
-droplets_backups_disable <- function(x=NULL, what="parsed", config=NULL)
-{
-  if(is.numeric(x)) x <- droplets(x)
-  id <- check_droplet(x)
-  assert_that(!is.null(id))
-  tmp <- do_POST(what, sprintf('droplets/%s/actions', id), args=ct(type='disable_backups'), config=config)
-  if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
-  }
-}
-
-#' List all available backups for a droplet.
-#'
-#' @export
-#' @param x A droplet number or the result from a call to \code{droplets()}
-#' @template whatconfig
-#' @examples \dontrun{
-#' droplets_backups_list(2428384)
-#'
-#' droplets() %>%
-#'  droplets_backups_list
-#' }
-
-droplets_backups_list <- function(x=NULL, what="parsed", config=NULL)
-{
-  if(is.numeric(x)) x <- droplets(x)
-  id <- check_droplet(x)
-  assert_that(!is.null(id))
-  tmp <- do_GET(what, sprintf('droplets/%s/backups', id), config=config)
   if(what == 'raw') tmp else parse_to_df(tmp)
 }
 
