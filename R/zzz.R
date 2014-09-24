@@ -92,10 +92,8 @@ do_DELETE <- function(path, config=NULL) {
     if(tt$status_code > 204) stop(content(tt)$message)
     if(content(tt)$status == "ERROR") stop(content(tt)$message)
   }
-  if(http_status(tt)$category=='success'){
-    message(http_status(tt)$message)
-    invisible(http_status(tt)$message)
-  } else { stop('Something went wrong') }
+  
+  invisible(TRUE)
 }
 
 #' Compact

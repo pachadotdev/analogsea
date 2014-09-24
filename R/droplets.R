@@ -79,11 +79,9 @@ do_droplet <- function(id, config = NULL) {
 #' droplet_new(name="newdrop", size = '512mb', image = 'ubuntu-14-04-x64', region = 'sfo1')
 #' droplet_new(ssh_keys=89103)
 #' }
-droplet_new <- function(name=NULL, size=NULL, image=NULL, region=NULL, 
-                        ssh_keys=NULL, backups=NULL, ipv6=NULL, 
-                        private_networking=FALSE, what="parsed", config=NULL) {
-  name <- if(is.null(name)) random_name() else name
-  assert_that(!is.null(name))
+droplet_new <- function(name = NULL, size = NULL, image = NULL, region = NULL, 
+                        ssh_keys = NULL, backups = NULL, ipv6 = NULL, 
+                        private_networking = FALSE, ...) {
   
   if (is.null(ssh_keys)) {
     all_keys <- keys()
@@ -93,23 +91,60 @@ droplet_new <- function(name=NULL, size=NULL, image=NULL, region=NULL,
     }
   }
 
-  args <- ct(name=nn(name), size=nn(size), image=nn(image), region=nn(region), 
-    ssh_keys=nn(ssh_keys, FALSE), backups=nn(backups), ipv6=nn(ipv6), 
-    private_networking=nn(private_networking))
-  tmp <- do_POST(what, path='droplets', args=args, parse=TRUE, config=config, 
-    encodejson=TRUE)
-  
-  droplet <- structure(tmp$droplet, class = "droplet")
-  message(sprintf("Your Digital Ocean Droplet is almost ready...
-  You're being charged %s cents per hour, or $%s per month
-  You can delete your droplet with droplets_delete()
-  or turn it off, etc., see droplets_*() functions", 
-  droplet$size$price_hourly, droplet$size$price_monthly))
-  
+  res <- do_droplet_new(name = name, size = size, image = image, 
+    region = region, ssh_keys = ssh_keys, backups = backups, ipv6 = ipv6,
+    private_networking = private_networking, ...)
+  droplet <- structure(res$droplet, class = "droplet")
+
+  message("NB: This costs $", droplet$size$price_hourly, " / hour ", 
+    " until you droplete_delete() it")
   droplet
 }
 
+#' @export
+#' @rdname droplet_new
+do_droplet_new <- function(name=NULL, size=NULL, image=NULL, region=NULL, 
+                              ssh_keys=NULL, backups=NULL, ipv6=NULL, 
+                              private_networking=FALSE, config = NULL) {
+  name <- if(is.null(name)) random_name() else name
+  assert_that(!is.null(name))
+
+  args <- ct(name=nn(name), size=nn(size), image=nn(image), region=nn(region), 
+    ssh_keys=nn(ssh_keys, FALSE), backups=nn(backups), ipv6=nn(ipv6), 
+    private_networking=nn(private_networking))
+  do_POST("parsed", 'droplets', 
+    args = args, 
+    parse = FALSE, 
+    config = config, 
+    encodejson = TRUE
+  )
+}
+
 random_name <- function() sample(words, size = 1)
+
+#' Delete a droplet.
+#'
+#' This method deletes one of your droplets - this is irreversible.
+#'
+#' @export
+#' @param droplet A droplet number or the result from a call to \code{droplets()}
+#' @param config Options passed on to httr::GET. Must be named, see examples.
+#' @examples
+#' \dontrun{
+#' drops <- droplets()
+#' drops[[1]] %>% droplet_delete()
+#' drops[[2]] %>% droplet_delete()
+#' droplet_new() %>% droplet_delete()
+#' }
+droplet_delete <- function(droplet, ...) {
+  do_droplet_delete(droplet$id, ...)
+}
+
+#' @export
+#' @rdname droplet_delete
+do_droplet_delete <- function(id, config = NULL) {
+  do_DELETE(sprintf('droplets/%s', id), config = config)
+}
 
 #' Reboot a droplet.
 #'
@@ -416,38 +451,6 @@ droplets_rebuild <- function(x=NULL, image=NULL, what="parsed", config=NULL)
     droplet_match <- match_droplet(x, id)
     list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
   }
-}
-
-#' Delete a droplet.
-#'
-#' This method deletes one of your droplets - this is irreversible
-#'
-#' @export
-#' @param x A droplet number or the result from a call to \code{droplets()}
-#' @param config Options passed on to httr::GET. Must be named, see examples.
-#' @examples \dontrun{
-#' droplets_delete(1707487)
-#' }
-#' \donttest{
-#' # Chain operations together
-#' drops <- droplets()
-#' drops$droplets %>%
-#'   droplets_delete
-#'
-#' # Pipe 'em - 1st, create a new droplet
-#' id <- droplets_new(name="newdrop", size_id = 64, image_id = 3240036, region_slug = 'sfo1')
-#' id <- droplet$id
-#' droplets(id) %>%
-#'   droplets_delete %>%
-#'   actions
-#' }
-
-droplets_delete <- function(x=NULL, config=NULL)
-{
-  if(is.numeric(x)) x <- droplets(x)
-  id <- check_droplet(x)
-  assert_that(!is.null(id))
-  do_DELETE(path=sprintf('droplets/%s', id), config=config)
 }
 
 #' Rename a droplet.
