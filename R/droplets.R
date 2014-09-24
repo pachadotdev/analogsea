@@ -1,16 +1,13 @@
-#' List all droplets, or retrieve single droplet.
+#' List all available droplets.
 #'
 #' @export
-#' @param id A droplet id.
+#' @param ... Additional arguments passed down to low-level API function 
+#'   (\code{do_*})
+#' @param page Page to return
+#' @param per_page Number of results per page
+#' @param config Additional httr config options.
 #' @examples \dontrun{
 #' droplets()
-#'
-#' # Get info on a single droplet, passing in a list of droplet details
-#' drops <- droplets()
-#' drops[[1]]
-#'
-#' # Get info on a single droplet, passing in a numeric droplet id
-#' droplets(droplet=1746449)
 #' }
 droplets <- function(...) {
   res <- do_droplets(...)
@@ -20,7 +17,7 @@ droplets <- function(...) {
 }
 
 #' @export
-#' @rdname droplets_list
+#' @rdname droplets
 do_droplets <- function(page = 1, per_page = 25, config = NULL) {
   do_GET("parsed", "droplets", 
     query = list(page = page, per_page = per_page), 
@@ -28,25 +25,29 @@ do_droplets <- function(page = 1, per_page = 25, config = NULL) {
   )
 }
 
+#' Retrieve a single droplet.
+#' 
+#' @param id (integer) Droplet id.
+#' @param x Object to coerce. Can be an integer (droplet id), string 
+#'   (droplet name), a droplet (duh), or an action (which waits until 
+#'   complete then returns the droplet)
+#' @inheritParams droplets
 #' @export
-#' @rdname droplets_list
+#' @examples
+#' \dontrun{
+#' droplet(1234)
+#' 
+#' as.droplet("my-favourite-droplet")
+#' as.droplet(10)
+#' as.droplet(droplets()[[1]])
+#' }
 droplet <- function(id, ...) {
   x <- do_droplet(id, ...)$droplet
   structure(x, class = "droplet")
 }
-#' @export
-#' @rdname droplets_list
-do_droplet <- function(id, config = NULL) {
-  do_GET("parsed", sprintf("droplets/%s", id), 
-    config = config, parse = FALSE
-  )
-}
 
-#' Coerce input to a droplet
-#' 
-#' @param x Object to coerce
 #' @export
-#' @keywords internal
+#' @rdname droplet
 as.droplet <- function(x) UseMethod("as.droplet")
 #' @export
 as.droplet.numeric <- function(x) droplets(x)
@@ -63,6 +64,13 @@ as.droplet.action <- function(x) {
   action_wait(x)
 }
 
+#' @export
+#' @rdname droplet
+do_droplet <- function(id, config = NULL) {
+  do_GET("parsed", sprintf("droplets/%s", id), 
+    config = config, parse = FALSE
+  )
+}
 
 #' @export
 print.droplet <- function(x, ...) {
@@ -409,8 +417,6 @@ droplet_kernels_list <- function(droplet, ...) {
   res <- do_GET("parsed", sprintf('droplets/%s/kernels', droplet$id), ...)
   res$kernels
 }
-
-
 
 #' Retrieve a droplet action or list all actions associatd with a droplet.
 #'
