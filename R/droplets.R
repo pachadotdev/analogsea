@@ -250,13 +250,12 @@ droplet_action <- function(action, droplet, ...) {
   do_action(droplet$id, "action", ...)
   droplet
 }
-#' @export
-#' @rdname droplet_action
-do_action <- function(id, action, config = NULL) {
+
+do_action <- function(id, type, ..., config = NULL) {
   stopifnot(is.numeric(id), length(id) == 1)
   do_POST("raw", 
     path = sprintf('droplets/%s/actions', id), 
-    args = list(type = action), 
+    args = list(type = type, ...), 
     config = config
   )
 }
