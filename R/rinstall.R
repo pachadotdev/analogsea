@@ -209,7 +209,7 @@ r_installed <- function(ip, r_string, verbose){
   if("warning" %in% class(chr)){
     writefile("doinstallr.sh", r_string)
     mssg(verbose, "Installing R...")
-    scp_ssh('doinstallr.sh', ip)
+    scp_ssh('doinstallr.sh', ip, verbose = verbose)
   }
 }
 
@@ -218,7 +218,7 @@ do_swap <- function(swap, ip, swap_string, verbose){
     if(swap){
       writefile("setswap.sh", swap_string)
       mssg(verbose, "Setting swap...")
-      scp_ssh('setswap.sh', ip)
+      scp_ssh('setswap.sh', ip, verbose = verbose)
     }
   }
 }
