@@ -401,18 +401,13 @@ droplet_backups_list <- function(droplet, ...) {
 #' @param x A droplet number or the result from a call to \code{droplets()}
 #' @template whatconfig
 #' @examples \dontrun{
-#' droplets_kernels_list(2428384)
-#'
-#' droplets() %>%
-#'  droplets_kernels_list
+#' droplets()[[1]] %>% droplet_kernels_list
 #' }
-droplets_kernels_list <- function(x=NULL, what="parsed", config=NULL)
-{
-  if(is.numeric(x)) x <- droplets(x)
-  id <- check_droplet(x)
-  assert_that(!is.null(id))
-  tmp <- do_GET(what, sprintf('droplets/%s/kernels', id), config=config)
-  if(what == 'raw') tmp else parse_to_df(tmp)
+droplet_kernels_list <- function(droplet, ...) {
+  droplet <- as.droplet(droplet)
+
+  res <- do_GET("parsed", sprintf('droplets/%s/kernels', droplet$id), ...)
+  res$kernels
 }
 
 
