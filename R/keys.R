@@ -10,11 +10,13 @@
 #' keys(89103)
 #' keys("6b:2e:f6:be:e7:b4:58:0e:2a:a0:23:7e:16:ac:fc:17")
 #' }
+keys <- function(key=NULL, ...) {
+  do_keys(key, ...)$ssh_keys
+}
 
-keys <- function(key=NULL, what="parsed", page=1, per_page=25, config=NULL)
-{
+do_keys <- function(key = NULL, page=1, per_page=25, config=NULL) {
   path <- if(is.null(key)) 'account/keys' else sprintf('account/keys/%s', key)
-  do_GET(what, path=path, parse=FALSE, query = ct(page=page, per_page=per_page), config=config)
+  do_GET("parsed", path=path, parse=FALSE, query = ct(page=page, per_page=per_page), config=config)
 }
 
 #' Create a new ssh key.

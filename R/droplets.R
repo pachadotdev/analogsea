@@ -74,17 +74,24 @@ do_droplet <- function(id, config = NULL) {
 #' @param ipv6 (logical) A boolean indicating whether IPv6 is enabled on the Droplet.
 #' @template whatconfig
 #' @examples \dontrun{
-#' droplets_new()
-#' droplets_new('droppinit')
-#' droplets_new(name="newdrop", size = '512mb', image = 'ubuntu-14-04-x64', region = 'sfo1')
-#' droplets_new(ssh_keys=89103)
+#' droplet_new()
+#' droplet_new('droppinit')
+#' droplet_new(name="newdrop", size = '512mb', image = 'ubuntu-14-04-x64', region = 'sfo1')
+#' droplet_new(ssh_keys=89103)
 #' }
-
-droplets_new <- function(name=NULL, size=NULL, image=NULL, region=NULL, 
+droplet_new <- function(name=NULL, size=NULL, image=NULL, region=NULL, 
                         ssh_keys=NULL, backups=NULL, ipv6=NULL, 
                         private_networking=FALSE, what="parsed", config=NULL) {
   name <- if(is.null(name)) random_name() else name
   assert_that(!is.null(name))
+  
+  if (is.null(ssh_keys)) {
+    all_keys <- keys()
+    if (length(all_keys) >= 1) {
+      message("Using default ssh key: ", all_keys[[1]]$name)
+      ssh_keys <- all_keys[[1]]$id
+    }
+  }
 
   args <- ct(name=nn(name), size=nn(size), image=nn(image), region=nn(region), 
     ssh_keys=nn(ssh_keys, FALSE), backups=nn(backups), ipv6=nn(ipv6), 

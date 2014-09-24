@@ -3,8 +3,7 @@
 \alias{keys}
 \title{List your ssh keys, or get a single key}
 \usage{
-keys(key = NULL, what = "parsed", page = 1, per_page = 25,
-  config = NULL)
+keys(key = NULL, ...)
 }
 \arguments{
 \item{key}{(numeric/character) An ssh key id (e.g., 3), or key fingerprint
