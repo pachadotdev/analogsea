@@ -24,21 +24,47 @@ actions <- function(x=NULL, what="parsed", page=1, per_page=25, config=NULL)
   parse_action(res$action)
 }
 
-check_action <- function(x){
-  if(!is.null(x)){
-    if(is.list(x)){
-      if(is.null(x$actions$id)) stop("No action id found", call. = FALSE)
-      x <- x$actions$id
-      if(!is.numeric(x)) stop("Could not detect a action id", call. = FALSE)
-    } else {
-      x <- as.numeric(as.character(x))
-      if(!is.numeric(x)) stop("Could not detect an action id", call. = FALSE)
-    }
-    x
-  } else { NULL }
+as.action <- function(x) UseMethod("as.action")
+
+#' @export
+as.action.list <- function(x) {
+  if (is.null(x$id)) stop("No action id found", call. = FALSE)
+  
+  structure(x, class = "action")
+}
+#' @export
+as.action.action <- function(x) x
+
+action_update <- function(action) {
+  action <- as.action(action)
+  
+  path <- sprintf('droplets/%s/actions/%s', action$resource_id, action$id)
+  res <- do_GET("parsed", path)
+  as.action(res$action)
 }
 
-parse_action <- function(x){
-  x[sapply(x, is.null)] <- NA
-  data.frame(x, stringsAsFactors = FALSE)
+#' @export
+print.action <- function(x, ...) {
+  cat("<action> ", x$type, " (", x$id, ")\n", sep = "")
+  cat("  Status: ", x$status, "\n", sep = "")
+  cat("  Resource: ", x$resource_type, " ", x$resource_id, "\n", sep = "")  
+}
+
+is_complete <- function(x) {
+  !is.null(x$completed_at)
+}
+
+#' @export
+action_wait <- function(x) {
+  if (is_complete(x)) return(droplet(x$resource_id))
+  
+  cat("Waiting for ", x$type, sep = "")
+  while(!is_complete(x)) {
+    x <- action_update(x)
+    Sys.sleep(1)
+    cat('.')
+  }
+  cat("\n")
+  
+  droplet(x$resource_id)
 }

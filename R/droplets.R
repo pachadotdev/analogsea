@@ -54,6 +54,15 @@ as.droplet.numeric <- function(x) droplets(x)
 as.droplet.character <- function(x) droplets()[[x]]
 #' @export
 as.droplet.droplet <- function(x) x
+#' @export
+as.droplet.action <- function(x) {
+  if (x$resource_type != "droplet") {
+    stop("Resource type: ", x$resource_type, call. = FALSE)
+  }
+  
+  action_wait(x)
+}
+
 
 #' @export
 print.droplet <- function(x, ...) {
@@ -253,13 +262,13 @@ droplet_disable_backups <- function(droplet, ...) {
 
 droplet_action <- function(action, droplet, ...) {
   droplet <- as.droplet(droplet)
-  do_action(droplet$id, type = jsonlite::unbox(action), ...)
-  droplet
+  res <- do_action(droplet$id, type = jsonlite::unbox(action), ...)
+  as.action(res$action)
 }
 
 do_action <- function(id, ..., config = NULL) {
   stopifnot(is.numeric(id), length(id) == 1)
-  do_POST("raw", 
+  do_POST("parsed", 
     path = sprintf('droplets/%s/actions', id), 
     args = list(...), 
     config = config,
@@ -344,12 +353,21 @@ droplet_change_kernel <- function(droplet, kernel) {
 #' d %>% droplet_backups_list()
 #' 
 #' d %>% 
+#'   droplet_power_off() %>%
 #'   droplet_snapshot() %>%
+#'   droplet_power_on() %>%
 #'   droplet_snapshots_list()
+#'   
+#' # To delete safely
+#' d %>% 
+#'   droplet_power_off() %>%
+#'   droplet_snapshot() %>%
+#'   droplet_delete() %>% 
+#'   action_wait()
 #' }
 #' @export
 droplet_snapshot <- function(droplet, image = NULL, ...) {
-  droplet_action("snapshot", droplet, name = jsonlite::unbox(image), ...)
+  droplet_action("snapshot", droplet, name = image, ...)
 }
 
 #' @export
@@ -408,17 +426,10 @@ droplets_kernels_list <- function(x=NULL, what="parsed", config=NULL)
 #' @examples \dontrun{
 #' droplets_actions(2428384)
 #' droplets_actions(2428384, actionid=31223385)
-#'
-#' droplets() %>%
-#'  droplets_actions
 #' }
-
-droplets_actions <- function(x=NULL, actionid=NULL, what="parsed", config=NULL)
-{
-  if(is.numeric(x)) x <- droplets(x)
-  id <- check_droplet(x)
-  assert_that(!is.null(id))
-  path <- if(is.null(actionid)) sprintf('droplets/%s/actions', id) else sprintf('droplets/%s/actions/%s', id, actionid)
-  tmp <- do_GET(what, path = path, config=config)
-  if(what == 'raw') tmp else parse_to_df(tmp)
+droplet_actions <- function(droplet) {
+  droplet <- as.droplet(droplet)
+  
+  res <- do_GET("parsed", sprintf('droplets/%s/actions', droplet$id))
+  lapply(res$actions, as.action)
 }

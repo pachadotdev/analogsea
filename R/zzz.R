@@ -291,3 +291,13 @@ foo <- function(x){
 }
 
 compact <- function(x) Filter(Negate(is.null), x)
+
+pluck <- function(x, name, type) {
+  if (missing(type)) {
+    lapply(x, "[[", name)
+  } else {
+    vapply(x, "[[", name, FUN.VALUE = type)
+  }
+}
+
+`%||%` <- function(a, b) if (is.null(a)) b else a

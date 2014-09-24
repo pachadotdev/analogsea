@@ -30,7 +30,8 @@ create. If not set, the  snapshot name will default to the current date/time}
   off, which can later be restored or used to create a new droplet from
   the same image. Please be aware this may cause a reboot.}
 \item{snapshots_list}{List available snapshots}
-\item{snapshot_restore}{Restore a droplet with a previous image or snapshot.
+\item{backups_list}{List available snapshots}
+\item{restore}{Restore a droplet with a previous image or snapshot.
   This will be a mirror copy of the image or snapshot to your droplet. Be
   sure you have backed up any necessary information prior to restore.}
 }
@@ -42,8 +43,17 @@ d \%>\% droplet_snapshots_list()
 d \%>\% droplet_backups_list()
 
 d \%>\%
+  droplet_power_off() \%>\%
   droplet_snapshot() \%>\%
+  droplet_power_on() \%>\%
   droplet_snapshots_list()
+
+# To delete safely
+d \%>\%
+  droplet_power_off() \%>\%
+  droplet_snapshot() \%>\%
+  droplet_delete() \%>\%
+  action_wait()
 }
 }
 
