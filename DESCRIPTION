@@ -4,8 +4,11 @@ Description: This package provides a set of functions for interacting with the
     Digital Ocean API, including creating images, destroying them, rebooting,
     getting details on regions, and available images.
 Version: 0.1.8.9999
-Authors@R: person("Scott", "Chamberlain", role = c("aut", "cre"),
-    email = "myrmecocystus@gmail.com")
+Authors@R: as.person(c(
+    "Scott Chamberlain <myrmecocystus@gmail.com> [aut,cre]",
+    "Hadley Wickham <hadley@rstudio.com> [aut]",
+    "RStudio [cph]"
+  ))
 License: MIT + file LICENSE
 URL: https://github.com/sckott/analogsea
 BugReports: http://www.github.com/sckott/analogsea/issues
