@@ -1,99 +1,54 @@
-#' Get metadata on all your droplets, or droplets by id
+#' List all droplets, or retrieve single droplet.
 #'
-#' @importFrom plyr ldply
-#' @importFrom magrittr %>%
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets()}
-#' @template params
+#' @param id A droplet id.
 #' @examples \dontrun{
 #' droplets()
-#' library("httr")
-#' droplets(config=verbose())
-#' droplets(config=timeout(seconds = 2))
-#' droplets(config=timeout(seconds = 0.3))
-#'
-#' # raw output
-#' droplets(what="raw")
-#' res <- droplets(1746449, what="raw")
-#' res$headers
 #'
 #' # Get info on a single droplet, passing in a list of droplet details
 #' drops <- droplets()
-#' droplets(droplet=drops$droplets[[1]])
+#' drops[[1]]
 #'
 #' # Get info on a single droplet, passing in a numeric droplet id
 #' droplets(droplet=1746449)
 #' }
-
-droplets <- function(droplet=NULL, what="parsed", page=1, per_page=25, config=NULL)
-{
-  if(!is.null(droplet)){
-    if(is.list(droplet)){
-      if(!is.numeric(droplet$id)) stop("Could not detect a droplet id")
-    } else {
-      if(!is.numeric(as.numeric(as.character(droplet)))) stop("Could not detect a droplet id")
-    }
-    id <- if(is.numeric(droplet)) droplet else droplet$id
-  } else { id <- NULL }
-  path <- if(is.null(droplet)) 'droplets' else sprintf('droplets/%s', id)
-  tmp <- do_GET(what, path, query = ct(page=page, per_page=per_page), parse = FALSE, config = config)
-  if(what == 'raw'){ tmp } else {
-    if("droplet" %in% names(tmp)){
-      type <- 'single'
-      names(tmp) <- "droplets"
-      ids <- tmp$droplets$id
-    } else {
-      type <- 'many'
-      ids <- vapply(tmp$droplets, function(x) x$id, numeric(1))
-    }
-
-    dat <- switch(type,
-                  single = makedata(tmp$droplets),
-                  many = do.call(rbind.fill, lapply(tmp$droplets, makedata)))
-    details <- switch(type,
-                      single = makedeets(tmp$droplets),
-                      many = do.call(rbind.fill, lapply(tmp$droplets, makedeets)))
-    list(meta=tmp$meta,
-         droplet_ids = ids,
-         droplets = list(data=dat, details=details),
-         actions = list(id = switch(type, single=unlist(tmp$droplets$action_ids), many=NULL)),
-         links = tmp$links
-    )
-  }
+droplets <- function(...) {
+  res <- do_droplets(...)
+  droplets <- lapply(res$droplets, structure, class = "droplet")
+  names(droplets) <- vapply(res$droplets, function(x) x$name, character(1))
+  droplets
 }
 
-makedata <- function(x){
-  data.frame(x[c('id','name','memory','vcpus','disk','locked','status','created_at')],
-             region=x$region$slug, image=x$image$name, stringsAsFactors = FALSE)
+#' @export
+#' @rdname droplets_list
+do_droplets <- function(page = 1, per_page = 25, config = NULL) {
+  do_GET("parsed", "droplets", 
+    query = list(page = page, per_page = per_page), 
+    config = config, parse = FALSE
+  )
 }
-makedeets <- function(y){
-  tmp <- y[ !names(y) %in% c('id','name','memory','vcpus','disk','locked','status','created_at') ]
-  ntwks <- ldply(y$networks, function(z){ do.call(cbind, lapply(z, data.frame)) })
-  names(ntwks) <- paste("networks_", names(ntwks), sep="")
-  kernel <- data.frame(y$kernel, stringsAsFactors = FALSE)
-  names(kernel) <- paste("kernel_", names(kernel), sep = "")
-  backupids <- if(length(y$backup_ids)==0) NA else paste(y$backup_ids, collapse=',')
-  snapshotids <- if(length(y$snapshot_ids)==0) NA else paste(y$snapshot_ids, collapse=',')
-  actionids <- if(length(y$action_ids)==0) NA else paste(y$action_ids, collapse=',')
-  data.frame(id=y$id,
-             region_slug=y$region$slug,
-             region_name=y$region$name,
-             region_available=y$region$available,
-             region_sizes=paste(y$region$sizes, collapse = ","),
-             region_features=paste(y$region$features, collapse = ","),
-             image_id=y$image$id,
-             image_distribution=y$image$distribution,
-             image_slug=y$image$slug,
-             image_public=y$image$public,
-             image_regions=paste(y$image$regions, collapse=','),
-             image_created_at=y$image$created_at,
-             image_action_ids=paste(y$image$action_ids, collapse=','),
-             size_slug=y$size$slug,
-             size_transfer=y$size$transfer,
-             size_price_monthly=y$size$price_monthly,
-             size_price_hourly=y$size$price_hourly,
-             ntwks, kernel, backup_ids=backupids, snapshot_ids=snapshotids, action_ids=actionids,
-             stringsAsFactors = FALSE)
+
+#' @export
+#' @rdname droplets_list
+droplet <- function(id, ...) {
+  x <- do_droplet(id, ...)$droplet
+  structure(x, class = "droplet")
+}
+
+#' @export
+print.droplet <- function(x, ...) {
+  cat("<droplet>", x$name, " (", x$id, ")\n", sep = "")
+  cat("  Region: ", x$region$name, "\n", sep = "")
+  cat("  Image: ", x$image$name, "\n", sep = "")
+  cat("  Size: ", x$size$slug, " ($", x$size$price_hourly, " / hr)" ,"\n", sep = "") 
+}
+
+#' @export
+#' @rdname droplets_list
+do_droplet <- function(id, config = NULL) {
+  do_GET("parsed", sprintf("droplets/%s", id), 
+    config = config, parse = FALSE
+  )
 }
 
 #' Create a new droplet.
@@ -125,21 +80,26 @@ makedeets <- function(y){
 #' droplets_new(ssh_keys=89103)
 #' }
 
-droplets_new <- function(name=NULL, size=NULL, image=NULL, region=NULL, ssh_keys=NULL, 
-  backups=NULL, ipv6=NULL, private_networking=FALSE, what="parsed", config=NULL)
-{
+droplets_new <- function(name=NULL, size=NULL, image=NULL, region=NULL, 
+                        ssh_keys=NULL, backups=NULL, ipv6=NULL, 
+                        private_networking=FALSE, what="parsed", config=NULL) {
   name <- if(is.null(name)) random_name() else name
   assert_that(!is.null(name))
+
   args <- ct(name=nn(name), size=nn(size), image=nn(image), region=nn(region), 
-             ssh_keys=nn(ssh_keys, FALSE), backups=nn(backups), ipv6=nn(ipv6), 
-             private_networking=nn(private_networking))
-  tmp <- do_POST(what, path='droplets', args=args, parse=TRUE, config=config, encodejson=TRUE)
-message(sprintf("Your Digital Ocean Droplet is almost ready...
-You're being charged %s cents per hour, or $%s per month
-You can delete your droplet with droplets_delete()
-or turn it off, etc., see droplets_*() functions", 
-                tmp$droplet$size$price_hourly, tmp$droplet$size$price_monthly))
-  return(list(data=makedata(tmp$droplet), actions=tmp$links$actions))
+    ssh_keys=nn(ssh_keys, FALSE), backups=nn(backups), ipv6=nn(ipv6), 
+    private_networking=nn(private_networking))
+  tmp <- do_POST(what, path='droplets', args=args, parse=TRUE, config=config, 
+    encodejson=TRUE)
+  
+  droplet <- structure(tmp$droplet, class = "droplet")
+  message(sprintf("Your Digital Ocean Droplet is almost ready...
+  You're being charged %s cents per hour, or $%s per month
+  You can delete your droplet with droplets_delete()
+  or turn it off, etc., see droplets_*() functions", 
+  droplet$size$price_hourly, droplet$size$price_monthly))
+  
+  droplet
 }
 
 random_name <- function() sample(words, size = 1)
