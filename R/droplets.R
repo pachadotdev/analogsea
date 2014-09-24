@@ -58,6 +58,7 @@ as.droplet.droplet <- function(x) x
 #' @export
 print.droplet <- function(x, ...) {
   cat("<droplet>", x$name, " (", x$id, ")\n", sep = "")
+  cat("  Status: ", x$status, "\n", sep = "")
   cat("  Region: ", x$region$name, "\n", sep = "")
   cat("  Image: ", x$image$name, "\n", sep = "")
   cat("  Size: ", x$size$slug, " ($", x$size$price_hourly, " / hr)" ,"\n", sep = "") 
@@ -163,58 +164,50 @@ do_droplet_delete <- function(id, config = NULL) {
   do_DELETE(sprintf('droplets/%s', id), config = config)
 }
 
-#' Reboot a droplet.
+#' Perform various actions on a droplet.
 #'
-#' This method allows you to reboot a droplet. This is the preferred method to use if a server is
-#' not responding
-#'
-#' @export
+#' \describe{
+#' \item{droplet_reboot}{This method allows you to reboot a droplet. This is 
+#'   the preferred method to use if a server is not responding}
+#' \item{droplet_powercycle}{This method allows you to power cycle a droplet.
+#'    This will turn off the droplet and then turn it back on.}
+#' } 
 #' @param x A droplet number or the result from a call to \code{droplets()}
-#' @template whatconfig
 #' @examples \dontrun{
-#' droplets_reboot(x=2376676)
-#'
-#' droplets() %>% droplets_reboot
-#' droplets() %>% droplets_reboot %>% actions
+#' d <- droplets()
+#' d[[1]] %>% droplet_reboot()
+#' d[[2]] %>% droplet_power_cycle()
 #' }
+#' @name droplet_action
+NULL
 
-droplets_reboot <- function(x=NULL, what="parsed", config=NULL)
-{
-  if(is.numeric(x)) x <- droplets(x)
-  id <- check_droplet(x)
-  assert_that(!is.null(id))
-  tmp <- do_POST(what, path = sprintf('droplets/%s/actions', id), args = ct(type='reboot'), config=config)
-  if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
-  }
+#' @export
+#' @rdname droplet_action
+droplet_reboot <- function(droplet, ...) {
+  droplet <- as.droplet(droplet)
+  do_action(droplet$id, "reboot", ...)
+  droplet
 }
 
-#' Power cycle a droplet.
-#'
-#' This method allows you to power cycle a droplet. This will turn off the droplet and then turn it
-#' back on.
-#'
 #' @export
-#' @param x A droplet number or the result from a call to \code{droplets()}
-#' @template whatconfig
-#' @examples \dontrun{
-#' droplets_power_cycle(x=2376676)
-#'
-#' droplets() %>% droplets_power_cycle
-#' }
-
-droplets_power_cycle <- function(x=NULL, what="parsed", config=NULL)
-{
-  if(is.numeric(x)) x <- droplets(x)
-  id <- check_droplet(x)
-  assert_that(!is.null(id))
-  tmp <- do_POST(what, path = sprintf('droplets/%s/actions', id), args=ct(type='power_cycle'), config=config)
-  if(what == 'raw'){ tmp } else {
-    droplet_match <- match_droplet(x, id)
-    list(meta=tmp$meta, droplet_ids=id, droplets=droplet_match, actions=parse_to_df(tmp))
-  }
+#' @rdname droplet_action
+droplet_power_cycle <- function(droplet, ...) {
+  droplet <- as.droplet(droplet)
+  do_action(droplet$id, "power_cycle", ...)
+  droplet
 }
+
+#' @export
+#' @rdname droplet_action
+do_action <- function(id, action, config = NULL) {
+  stopifnot(is.numeric(id), length(id) == 1)
+  do_POST("raw", 
+    path = sprintf('droplets/%s/actions', id), 
+    args = list(type = action), 
+    config = config
+  )
+}
+
 
 #' Shutdown a droplet.
 #'
