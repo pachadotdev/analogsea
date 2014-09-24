@@ -2,6 +2,7 @@
 
 S3method(print,do_rate)
 S3method(print,doauth)
+export("%>%")
 export(actions)
 export(do_DELETE)
 export(do_GET)
