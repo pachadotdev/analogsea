@@ -1,27 +1,35 @@
-#' Get metadata on all your droplets, or droplets by id
+#' List actions across all droplets.
 #'
-#' @importFrom magrittr %>%
+#' "Actions are records of events that have occurred on the resources in your 
+#' account. These can be things like rebooting a Droplet, or transferring an 
+#' image to a new region."
+#' 
+#' "An action object is created every time one of these actions is initiated. 
+#' The action object contains information about the current status of the 
+#' action, start and complete timestamps, and the associated resource type and 
+#' ID."
+#'
+#' "Every action that creates an action object is available through this 
+#' endpoint. Completed actions are not removed from this list and are always 
+#' available for querying."
+#'
 #' @export
-#' @param x An action id, a droplet with action ids, or nothing, in which case all action ids 
-#' associated with your account are returned.
-#' @template params
+#' @inheritParams droplets
 #' @examples \dontrun{
 #' actions()
-#' actions(x=30841267)
-#' actions(30219078)
-#' actions(per_page=75)
-#' actions(per_page=2, page=2)
-#' 
-#' droplets(2376676) %>% actions
-#' droplets() %>% actions
 #' }
+actions <- function(...) {
+  res <- do_actions(...) 
+  lapply(res$actions, as.action)
+}
 
-actions <- function(x=NULL, what="parsed", page=1, per_page=25, config=NULL)
-{
-  action_id <- check_action(x)
-  path <- if(is.null(action_id)) 'actions' else sprintf('actions/%s', action_id)
-  res <- do_GET(what, path, ct(page=page, per_page=per_page), TRUE, config)
-  parse_action(res$action)
+#' @export
+#' @rdname actions
+do_actions <- function(page = 1, per_page = 25, config = NULL) {
+  do_GET("parsed", "actions", 
+    list(page = page, per_page = per_page),
+    config = config
+  )
 }
 
 as.action <- function(x) UseMethod("as.action")
