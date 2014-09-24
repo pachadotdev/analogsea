@@ -34,6 +34,26 @@ droplet <- function(id, ...) {
   x <- do_droplet(id, ...)$droplet
   structure(x, class = "droplet")
 }
+#' @export
+#' @rdname droplets_list
+do_droplet <- function(id, config = NULL) {
+  do_GET("parsed", sprintf("droplets/%s", id), 
+    config = config, parse = FALSE
+  )
+}
+
+#' Coerce input to a droplet
+#' 
+#' @param x Object to coerce
+#' @export
+#' @keywords internal
+as.droplet <- function(x) UseMethod("as.droplet")
+#' @export
+as.droplet.numeric <- function(x) droplets(x)
+#' @export
+as.droplet.character <- function(x) droplets()[[x]]
+#' @export
+as.droplet.droplet <- function(x) x
 
 #' @export
 print.droplet <- function(x, ...) {
@@ -41,14 +61,6 @@ print.droplet <- function(x, ...) {
   cat("  Region: ", x$region$name, "\n", sep = "")
   cat("  Image: ", x$image$name, "\n", sep = "")
   cat("  Size: ", x$size$slug, " ($", x$size$price_hourly, " / hr)" ,"\n", sep = "") 
-}
-
-#' @export
-#' @rdname droplets_list
-do_droplet <- function(id, config = NULL) {
-  do_GET("parsed", sprintf("droplets/%s", id), 
-    config = config, parse = FALSE
-  )
 }
 
 #' Create a new droplet.
@@ -127,7 +139,8 @@ random_name <- function() sample(words, size = 1)
 #' This method deletes one of your droplets - this is irreversible.
 #'
 #' @export
-#' @param droplet A droplet number or the result from a call to \code{droplets()}
+#' @param droplet A droplet, or something that can be coerced to a droplet by
+#'   \code{\link{as.droplet}}.
 #' @param config Options passed on to httr::GET. Must be named, see examples.
 #' @examples
 #' \dontrun{
@@ -135,8 +148,12 @@ random_name <- function() sample(words, size = 1)
 #' drops[[1]] %>% droplet_delete()
 #' drops[[2]] %>% droplet_delete()
 #' droplet_new() %>% droplet_delete()
+#' 
+#' droplet_delete("lombard")
+#' droplet_delete(12345)
 #' }
 droplet_delete <- function(droplet, ...) {
+  droplet <- as.droplet(droplet)
   do_droplet_delete(droplet$id, ...)
 }
 

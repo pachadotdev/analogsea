@@ -9,7 +9,8 @@ droplet_delete(droplet, ...)
 do_droplet_delete(id, config = NULL)
 }
 \arguments{
-\item{droplet}{A droplet number or the result from a call to \code{droplets()}}
+\item{droplet}{A droplet, or something that can be coerced to a droplet by
+\code{\link{as.droplet}}.}
 
 \item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
@@ -22,6 +23,9 @@ drops <- droplets()
 drops[[1]] \%>\% droplet_delete()
 drops[[2]] \%>\% droplet_delete()
 droplet_new() \%>\% droplet_delete()
+
+droplet_delete("lombard")
+droplet_delete(12345)
 }
 }
 
