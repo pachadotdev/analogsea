@@ -3,7 +3,7 @@
 \alias{keys}
 \title{List your ssh keys, or get a single key}
 \usage{
-keys(key = NULL, ...)
+keys(...)
 }
 \arguments{
 \item{key}{(numeric/character) An ssh key id (e.g., 3), or key fingerprint
@@ -24,8 +24,8 @@ List your ssh keys, or get a single key
 \examples{
 \dontrun{
 keys()
-keys(89103)
-keys("6b:2e:f6:be:e7:b4:58:0e:2a:a0:23:7e:16:ac:fc:17")
+as.key(89103)
+as.key("mykey")
 }
 }
 

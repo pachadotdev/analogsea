@@ -7,16 +7,45 @@
 #' @template params
 #' @examples \dontrun{
 #' keys()
-#' keys(89103)
-#' keys("6b:2e:f6:be:e7:b4:58:0e:2a:a0:23:7e:16:ac:fc:17")
+#' as.key(89103)
+#' as.key("mykey")
 #' }
-keys <- function(key=NULL, ...) {
-  do_keys(key, ...)$ssh_keys
+keys <- function(...) {
+  res <- do_keys(key, ...)
+  names(res$ssh_keys) <- pluck(res$ssh_keys, "name", character(1))
+  lapply(res$ssh_keys, as.key)
 }
 
 do_keys <- function(key = NULL, page=1, per_page=25, config=NULL) {
-  path <- if(is.null(key)) 'account/keys' else sprintf('account/keys/%s', key)
-  do_GET("parsed", path=path, parse=FALSE, query = ct(page=page, per_page=per_page), config=config)
+  do_GET("parsed", "account/keys", 
+    query = list(page = page, per_page = per_page), 
+    config = config
+  )
+}
+
+key <- function(id) {
+  res <- do_key(id)
+  as.key(res$id)
+}
+
+do_key <- function(id, config = NULL) {
+  do_GET("parsed", sprintf('account/keys/%s', key), config = config)
+}
+
+as.key <- function(x) UseMethod("as.key")
+#' @export
+as.key.list <- function(x) structure(x, class = "key")
+#' @export 
+as.key.numeric <- function(x) key(x)
+#' @export
+as.key.character <- function(x) keys()[[x]]
+#' @export
+as.key.key <- function(x) x
+
+#' @export
+print.key <- function(x, ...) {
+  cat("<key> ", x$name, " (", x$id, ")", "\n", sep = "")
+  cat("  Fingerprint: ", x$fingerprint, "\n", sep = "")
 }
 
 #' Create a new ssh key.
@@ -28,7 +57,6 @@ do_keys <- function(key = NULL, page=1, per_page=25, config=NULL) {
 #' @examples \donttest{
 #' keys_create(name="newkey", "ssh-rsa AB34....")
 #' }
-
 keys_create <- function(name=NULL, public_key=NULL, what="parsed", config=NULL)
 {
   assert_that(!is.null(name), !is.null(public_key))
