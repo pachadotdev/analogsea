@@ -13,6 +13,10 @@ analogsea
 
 The Digital Ocean v2 API is fully implemented in the `master` branch, but we're still working on the installation scripts...
 
+## Don't have a Digital Ocean account yet?
+
+If you don't mind, sign up for an account by clicking on this link -> [https://www.digitalocean.com/?refcode=0740f5169634](https://www.digitalocean.com/?refcode=0740f5169634) - and we can get some DO credits to offset our costs for testing the package. Thanks :)
+
 ## Digital Ocean API
 
 + [API v1 docs](https://developers.digitalocean.com/v1/)
@@ -23,6 +27,8 @@ The `master` branch of `analogsea` now works with the DO `v2` API.
 ## Quick start
 
 ### Install
+
+> <2014-09-24> Beware: we're in the middle of a redo of the package...
 
 Install from branch `v2` as that is the most up to date code
 
