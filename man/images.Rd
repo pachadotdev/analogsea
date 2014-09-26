@@ -3,17 +3,16 @@
 \alias{images}
 \title{Get list of images and their metadata, or a single image}
 \usage{
-images(image = NULL, what = "parsed", page = 1, per_page = 25,
-  config = NULL)
+images(image = NULL, page = 1, per_page = 25)
 }
 \arguments{
 \item{image}{(numeric) This is the id of the image to return}
 
-\item{what}{(character) One of 'parsed' or 'raw'.}
-
 \item{page}{Page number (Default: 1)}
 
 \item{per_page}{Number of items per page (Default: 25)}
+
+\item{what}{(character) One of 'parsed' or 'raw'.}
 
 \item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }

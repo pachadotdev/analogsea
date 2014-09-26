@@ -15,8 +15,8 @@
 #' as.droplet(droplets()[[1]])
 #' }
 droplet <- function(id, ...) {
-  x <- do_droplet(id, ...)$droplet
-  structure(x, class = "droplet")
+  x <- do_GET(sprintf("droplets/%s", id), ...)
+  structure(x$droplet, class = "droplet")
 }
 
 #' @export
@@ -35,14 +35,6 @@ as.droplet.action <- function(x) {
   }
   
   action_wait(x)
-}
-
-#' @export
-#' @rdname droplet
-do_droplet <- function(id, config = NULL) {
-  do_GET("parsed", sprintf("droplets/%s", id), 
-    config = config, parse = FALSE
-  )
 }
 
 #' @export

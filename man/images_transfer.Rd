@@ -3,8 +3,7 @@
 \alias{images_transfer}
 \title{Transfer an image to a specified region.}
 \usage{
-images_transfer(image_id = NULL, region = NULL, what = "parsed",
-  config = NULL)
+images_transfer(image_id = NULL, region = NULL)
 }
 \arguments{
 \item{image_id}{(numeric) Required. The image id.}

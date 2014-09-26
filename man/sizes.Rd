@@ -3,14 +3,14 @@
 \alias{sizes}
 \title{Get all the available sizes that can be used to create a droplet.}
 \usage{
-sizes(what = "parsed", page = 1, per_page = 25, config = NULL)
+sizes(page = 1, per_page = 25)
 }
 \arguments{
-\item{what}{(character) One of 'parsed' or 'raw'.}
-
 \item{page}{Page number (Default: 1)}
 
 \item{per_page}{Number of items per page (Default: 25)}
+
+\item{what}{(character) One of 'parsed' or 'raw'.}
 
 \item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }

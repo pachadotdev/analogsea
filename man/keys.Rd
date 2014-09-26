@@ -2,18 +2,15 @@
 \name{keys}
 \alias{as.key}
 \alias{do_key}
-\alias{do_keys}
 \alias{key}
 \alias{keys}
 \title{List your ssh keys, or get a single key}
 \usage{
-keys(...)
+keys(..., page = 1, per_page = 25)
 
 key(x)
 
 as.key(x)
-
-do_keys(page = 1, per_page = 25, config = NULL)
 
 do_key(key, config = NULL)
 }
@@ -21,12 +18,12 @@ do_key(key, config = NULL)
 \item{...}{Additional arguments passed down to low-level API function
 (\code{do_*})}
 
-\item{x}{For \code{key} the numeric id. For \code{as.key}, a number (the id),
-a string (the name), or a key.}
-
 \item{page}{Page to return}
 
 \item{per_page}{Number of results per page}
+
+\item{x}{For \code{key} the numeric id. For \code{as.key}, a number (the id),
+a string (the name), or a key.}
 
 \item{config}{Additional httr config options.}
 }

@@ -32,7 +32,7 @@ as.url.action <- function(x, ...) action_url(x$id)
 #' actions()
 #' }
 actions <- function(...) {
-  as.action(do_GET("parsed", action_url(), ...))
+  as.action(do_GET(action_url(), ...))
 }
 
 #' @export

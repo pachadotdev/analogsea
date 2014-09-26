@@ -3,8 +3,7 @@
 \alias{images_rename}
 \title{Rename an image.}
 \usage{
-images_rename(image_id = NULL, name = NULL, what = "parsed",
-  config = NULL)
+images_rename(image_id = NULL, name = NULL, ...)
 }
 \arguments{
 \item{image_id}{(numeric) This is the id of the image to return}

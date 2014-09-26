@@ -3,8 +3,7 @@
 \alias{images_actions}
 \title{Retrieve an action associated with a particular image id.}
 \usage{
-images_actions(image_id = NULL, action_id = NULL, what = "parsed",
-  config = NULL)
+images_actions(image_id = NULL, action_id = NULL, ...)
 }
 \arguments{
 \item{image_id}{An image id.}

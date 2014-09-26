@@ -27,9 +27,9 @@
 #' droplet_new(name="newdrop", size = '512mb', image = 'ubuntu-14-04-x64', region = 'sfo1')
 #' droplet_new(ssh_keys=89103)
 #' }
-droplet_new <- function(name = NULL, size = NULL, image = NULL, region = NULL, 
-  ssh_keys = NULL, backups = NULL, ipv6 = NULL, 
-  private_networking = FALSE, ...) {
+droplet_new <- function(name = random_name(), size = NULL, image = NULL, 
+                        region = NULL,  ssh_keys = NULL, backups = NULL, 
+                        ipv6 = NULL, private_networking = FALSE, ...) {
   
   if (is.null(ssh_keys)) {
     all_keys <- keys()
@@ -39,33 +39,23 @@ droplet_new <- function(name = NULL, size = NULL, image = NULL, region = NULL,
     }
   }
   
-  res <- do_droplet_new(name = name, size = size, image = image, 
-    region = region, ssh_keys = ssh_keys, backups = backups, ipv6 = ipv6,
-    private_networking = private_networking, ...)
+  res <- do_POST('droplets', 
+    body = list(
+      name = nn(name), 
+      size = nn(size), 
+      image = nn(image), 
+      region = nn(region), 
+      ssh_keys = nn(ssh_keys, FALSE), 
+      backups = nn(backups), 
+      ipv6 = nn(ipv6), 
+      private_networking = nn(private_networking)
+    ), ...
+  )
   droplet <- structure(res$droplet, class = "droplet")
   
   message("NB: This costs $", droplet$size$price_hourly, " / hour ", 
     " until you droplete_delete() it")
   droplet
-}
-
-#' @export
-#' @rdname droplet_new
-do_droplet_new <- function(name=NULL, size=NULL, image=NULL, region=NULL, 
-  ssh_keys=NULL, backups=NULL, ipv6=NULL, 
-  private_networking=FALSE, config = NULL) {
-  name <- if(is.null(name)) random_name() else name
-  assert_that(!is.null(name))
-  
-  args <- ct(name=nn(name), size=nn(size), image=nn(image), region=nn(region), 
-    ssh_keys=nn(ssh_keys, FALSE), backups=nn(backups), ipv6=nn(ipv6), 
-    private_networking=nn(private_networking))
-  do_POST("parsed", 'droplets', 
-    args = args, 
-    parse = FALSE, 
-    config = config, 
-    encodejson = TRUE
-  )
 }
 
 random_name <- function() sample(words, size = 1)
@@ -91,14 +81,9 @@ random_name <- function() sample(words, size = 1)
 #' }
 droplet_delete <- function(droplet, ...) {
   droplet <- as.droplet(droplet)
-  do_droplet_delete(droplet$id, ...)
+  do_DELETE(sprintf('droplets/%s', id), ...)
 }
 
-#' @export
-#' @rdname droplet_delete
-do_droplet_delete <- function(id, config = NULL) {
-  do_DELETE(sprintf('droplets/%s', id), config = config)
-}
 
 #' Perform various actions on a droplet.
 #'
@@ -188,18 +173,12 @@ droplet_disable_backups <- function(droplet, ...) {
 
 droplet_action <- function(action, droplet, ...) {
   droplet <- as.droplet(droplet)
-  res <- do_action(droplet$id, type = jsonlite::unbox(action), ...)
-  as.action(res$action)
-}
-
-do_action <- function(id, ..., config = NULL) {
-  stopifnot(is.numeric(id), length(id) == 1)
-  do_POST("parsed", 
-    path = sprintf('droplets/%s/actions', id), 
-    args = list(...), 
-    config = config,
-    encodejson = TRUE
+  
+  res <- do_POST(sprintf('droplets/%s/actions', droplet$id), query = list(
+    type = jsonlite::unbox(action),
+    ...)
   )
+  as.action(res)
 }
 
 
@@ -301,7 +280,7 @@ droplet_snapshot <- function(droplet, image = NULL, ...) {
 droplet_snapshots_list <- function(droplet, ...) {
   droplet <- as.droplet(droplet)
   
-  res <- do_GET("parsed", sprintf('droplets/%s/snapshots', droplet$id), ...)
+  res <- do_GET(sprintf('droplets/%s/snapshots', droplet$id), ...)
   res$snapshots
 }
 
@@ -316,7 +295,7 @@ droplet_restore <- function(droplet, image) {
 droplet_backups_list <- function(droplet, ...) {
   droplet <- as.droplet(droplet)
   
-  res <- do_GET("parsed", sprintf('droplets/%s/backups', droplet$id), ...)
+  res <- do_GET(sprintf('droplets/%s/backups', droplet$id), ...)
   res$backups
 }
 
@@ -332,7 +311,7 @@ droplet_backups_list <- function(droplet, ...) {
 droplet_kernels_list <- function(droplet, ...) {
   droplet <- as.droplet(droplet)
   
-  res <- do_GET("parsed", sprintf('droplets/%s/kernels', droplet$id), ...)
+  res <- do_GET(sprintf('droplets/%s/kernels', droplet$id), ...)
   res$kernels
 }
 
@@ -349,6 +328,6 @@ droplet_kernels_list <- function(droplet, ...) {
 droplet_actions <- function(droplet) {
   droplet <- as.droplet(droplet)
   
-  res <- do_GET("parsed", sprintf('droplets/%s/actions', droplet$id))
+  res <- do_GET(sprintf('droplets/%s/actions', droplet$id))
   lapply(res$actions, as.action)
 }

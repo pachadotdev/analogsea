@@ -9,8 +9,9 @@
 #' as.key(328037)
 #' as.key("hadley")
 #' }
-keys <- function(...) {
-  as.key(do_keys(...))
+keys <- function(..., page = 1, per_page = 25) {
+  res <- do_GET("account/keys", query = list(page = page, per_page = per_page), ...)
+  as.key(res)
 }
 
 #' @rdname keys
@@ -55,15 +56,6 @@ print.key <- function(x, ...) {
 
 #' @export
 #' @rdname keys
-do_keys <- function(page=1, per_page=25, config=NULL) {
-  do_GET("parsed", "account/keys", 
-    query = list(page = page, per_page = per_page), 
-    config = config
-  )
-}
-
-#' @export
-#' @rdname keys
 do_key <- function(key, config = NULL) {
   do_GET("parsed", key, config = config)
 }
@@ -85,8 +77,10 @@ NULL
 #' @rdname key-crud
 #' @export
 key_create <- function(name, public_key, ...) {
-  res <- do_POST("parsed", path = 'account/keys', 
-    args = list(name = name, public_key = public_key), ...)
+  res <- do_POST('account/keys', query = list(
+    name = name, 
+    public_key = public_key
+  ), ...)
   as.key(res)
 }
 
@@ -94,16 +88,12 @@ key_create <- function(name, public_key, ...) {
 #' @export
 key_rename <- function(key, name, ...) {
   key <- as.key(key)
-  
-  res <- do_PUT("parsed", key, args = list(name = name), ...)
-  as.key(res)
+  as.key(do_PUT(key, query = list(name = name), ...))
 }
 
 #' @rdname key-crud
 #' @export
 key_delete <- function(key, ...) {
   key <- as.key(key)
-
-  res <- do_DELETE(key, ...)
-  invisible(TRUE)
+  do_DELETE(key, ...)
 }

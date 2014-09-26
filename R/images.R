@@ -17,26 +17,10 @@
 #' images(per_page=2)
 #' }
 
-images <- function(image=NULL, what="parsed", page=1, per_page=25, config=NULL)
-{
+images <- function(image=NULL, page=1, per_page=25) {
   path <- if(is.null(image)) 'images' else sprintf('images/%s', image)
-  res <- do_GET(what, path = path, query = ct(page=page, per_page=per_page), parse=TRUE, config=config)
-  if(what == 'raw'){ res } else {
-    if(!is.null(image)){ 
-      parse_img(res$image)
-    } else {
-      dat <- res$images[ , !names(res$images) %in% 'action_ids' ]
-      actionids <- res$images$action_ids
-      names(actionids) <- res$images$id
-      list(data=dat, action_ids=actionids)
-    }
-  }
-}
-
-parse_img <- function(x){
-  x[sapply(x, is.null)] <- NA
-  list(data=data.frame(x[!names(x)=="action_ids"], stringsAsFactors = FALSE),
-       action_ids=x[["action_ids"]])
+  
+  do_GET(path, query = list(page=page, per_page=per_page))
 }
 
 #' Delete an image
@@ -51,10 +35,10 @@ parse_img <- function(x){
 #' images_delete(image_id=5620385)
 #' }
 
-images_delete <- function(image_id=NULL, config=NULL)
+images_delete <- function(image_id=NULL, ...)
 {
   assert_that(!is.null(image_id))
-  do_DELETE(sprintf('images/%s', image_id), config)
+  do_DELETE(sprintf('images/%s', image_id), ...)
 }
 
 #' Transfer an image to a specified region.
@@ -68,11 +52,11 @@ images_delete <- function(image_id=NULL, config=NULL)
 #' images_transfer(image_id=4546004, region='nyc1')
 #' }
 
-images_transfer <- function(image_id=NULL, region=NULL, what="parsed", config=NULL)
-{
+images_transfer <- function(image_id=NULL, region=NULL) {
   assert_that(!is.null(image_id), !is.null(region))
-  res <- do_POST(what, path = sprintf('images/%s/actions', image_id), args = ct(type='transfer', region=region), parse=TRUE, config=config)
-  parse_action(res$action)
+  res <- do_POST(sprintf('images/%s/actions', image_id), 
+    body = list(type='transfer', region=region))
+  as.action(res)
 }
 
 #' Rename an image.
@@ -87,10 +71,8 @@ images_transfer <- function(image_id=NULL, region=NULL, what="parsed", config=NU
 #' images_rename(image_id=5710271, name='mirror_image2')
 #' }
 
-images_rename <- function(image_id=NULL, name=NULL, what="parsed", config=NULL)
-{
-  assert_that(!is.null(image_id), !is.null(name))
-  res <- do_PUT(what, path = sprintf('images/%s', image_id), args = ct(name=name), parse=TRUE, config=config)
+images_rename <- function(image_id=NULL, name=NULL, ...) {
+  res <- do_PUT(sprintf('images/%s', image_id), query = list(name=name), ...)
   parse_img(res$image)
 }
 
@@ -104,9 +86,8 @@ images_rename <- function(image_id=NULL, name=NULL, what="parsed", config=NULL)
 #' images_actions(5710271, 31221438)
 #' }
 
-images_actions <- function(image_id=NULL, action_id=NULL, what="parsed", config=NULL)
+images_actions <- function(image_id=NULL, action_id=NULL, ...)
 {
-  assert_that(!is.null(image_id), !is.null(action_id))
-  res <- do_GET(what, path = sprintf('images/%s/actions/%s', image_id, action_id), parse=TRUE, config=config)
+  res <- do_GET(sprintf('images/%s/actions/%s', image_id, action_id), ...)
   parse_action(res$action)
 }

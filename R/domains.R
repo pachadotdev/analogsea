@@ -7,7 +7,7 @@
 #' domains()
 #' }
 domains <- function(...) {
-  as.domain(do_GET("parsed", domain_url(), ...))
+  as.domain(do_GET(domain_url(), ...))
 }
 
 #' @rdname domains
@@ -23,7 +23,7 @@ as.domain.domain <- function(x) x
 #' @rdname domains
 #' @export
 domain <- function(x, ...) {
-  as.domain(do_GET("parsed", domain_url(x), ...))
+  as.domain(do_GET(domain_url(x), ...))
 }
 
 #' @export
@@ -51,8 +51,8 @@ print.domain <- function(x, ...) {
 #' domain_delete(d)
 #' }
 domain_create <- function(name, ip_address, ...) {
-  as.domain(do_POST("parsed", domain_url(), 
-    args = list(name = name, ip_address = ip_address), 
+  as.domain(do_POST(domain_url(), 
+    body = list(name = name, ip_address = ip_address), 
     ...
   ))
 }

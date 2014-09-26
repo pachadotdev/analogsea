@@ -3,7 +3,7 @@
 \alias{images_delete}
 \title{Delete an image}
 \usage{
-images_delete(image_id = NULL, config = NULL)
+images_delete(image_id = NULL, ...)
 }
 \arguments{
 \item{image_id}{(numeric) This is the id of the image to return}

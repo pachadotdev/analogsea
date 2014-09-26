@@ -55,7 +55,7 @@ as.url.domain_record <- function(x, ...) {
 #' }
 domain_records <- function(domain, ...) {
   domain <- as.domain(domain)
-  as.domain_record(do_GET("parsed", domain_record_url(domain$name)))
+  as.domain_record(do_GET(domain_record_url(domain$name)))
 }
 
 #' @export
@@ -65,8 +65,8 @@ domain_record_create <- function(domain, type, name = NULL, data = NULL,
                                   ...) {
   domain <- as.domain(domain)
   
-  res <- do_POST("parsed", domain_record_url(domain$name),
-    args = list(type = type, data = data, name = name, priority = priority, 
+  res <- do_POST(domain_record_url(domain$name),
+    body = list(type = type, data = data, name = name, priority = priority, 
       port = port, weight = weight),
     ...)
   as.domain_record(res, domain = domain)
