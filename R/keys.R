@@ -10,23 +10,31 @@
 #' as.key("hadley")
 #' }
 keys <- function(...) {
-  res <- do_keys(key, ...)
-  names(res$ssh_keys) <- pluck(res$ssh_keys, "name", character(1))
-  lapply(res$ssh_keys, as.key)
+  as.key(do_keys(key, ...))
 }
 
 #' @rdname keys
 #' @export
 key <- function(x) {
   res <- do_key(x)
-  as.key(res$ssh_key)
+  as.key(res)
 }
 
 #' @rdname keys
 #' @export
 as.key <- function(x) UseMethod("as.key")
 #' @export
-as.key.list <- function(x) structure(x, class = "key")
+as.key.list <- function(x) {
+  if (!is.null(x$ssh_keys)) {
+    keys <- lapply(x$ssh_keys, structure, class = "key")
+    names(keys) <- pluck(x$ssh_keys, "name", character(1))
+    keys
+  } else if (!is.null(x$ssh_key)) {
+    structure(x$ssh_key, class = "key")  
+  } else {
+    stop("Don't know how to coerce this list to a key", call. = FALSE) 
+  }
+}
 #' @export 
 as.key.numeric <- function(x) key(x)
 #' @export
@@ -74,7 +82,7 @@ NULL
 key_create <- function(name, public_key, ...) {
   res <- do_POST("parsed", path = 'account/keys', 
     args = list(name = name, public_key = public_key), ...)
-  as.key(res$ssh_key)
+  as.key(res)
 }
 
 #' @rdname key-crud
@@ -84,7 +92,7 @@ key_rename <- function(key, name, ...) {
   
   res <- do_PUT("parsed", path = sprintf('account/keys/%s', key$id), 
     args = list(name = name), ...)
-  as.key(res$ssh_key)
+  as.key(res)
 }
 
 #' @rdname key-crud
