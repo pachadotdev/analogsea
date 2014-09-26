@@ -3,7 +3,7 @@
 \alias{do_PUT}
 \title{Digital Ocean PUT request handler}
 \usage{
-do_PUT(what, path, args, parse = FALSE, config = config)
+do_PUT(what, path, args, parse = FALSE, config = NULL)
 }
 \arguments{
 \item{what}{What to return, parsed or raw}

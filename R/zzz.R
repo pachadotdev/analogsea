@@ -68,7 +68,7 @@ do_POST <- function(what, path, args, parse=FALSE, config = NULL, encodejson=FAL
 
 do_PUT <- function(what, path, args, parse=FALSE, config=NULL) {
   url <- file.path("https://api.digitalocean.com/v2", path)
-  tt <- PUT(url, config = c(token = do_oauth(), config), body=args)
+  tt <- PUT(url, config = c(do_oauth(), config), body=args)
   if(tt$status_code > 202){
     if(tt$status_code > 202) stop(content(tt)$message)
     if(content(tt)$status == "ERROR") stop(content(tt)$message)
@@ -88,7 +88,7 @@ do_PUT <- function(what, path, args, parse=FALSE, config=NULL) {
 #' @param config Options passed on to httr::GET. Must be named, see examples.
 #' @return Some combination of warnings and httr response object, data.frame, or list
 
-do_DELETE <- function(path, config=NULL) {
+do_DELETE <- function(path, config = NULL) {
   url <- file.path("https://api.digitalocean.com/v2", path)
   tt <- DELETE(url, config = c(do_oauth(), config))
   if(tt$status_code > 204){

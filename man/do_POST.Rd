@@ -3,7 +3,7 @@
 \alias{do_POST}
 \title{Digital Ocean POST request handler}
 \usage{
-do_POST(what, path, args, parse = FALSE, config = config,
+do_POST(what, path, args, parse = FALSE, config = NULL,
   encodejson = FALSE)
 }
 \arguments{
