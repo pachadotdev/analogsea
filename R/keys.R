@@ -10,7 +10,7 @@
 #' as.key("hadley")
 #' }
 keys <- function(...) {
-  as.key(do_keys(key, ...))
+  as.key(do_keys(...))
 }
 
 #' @rdname keys
@@ -43,6 +43,11 @@ as.key.character <- function(x) keys()[[x]]
 as.key.key <- function(x) x
 
 #' @export
+as.url.key <- function(x, ...) {
+  sprintf('%s/account/keys/%s', do_base, x$id)
+}
+
+#' @export
 print.key <- function(x, ...) {
   cat("<key> ", x$name, " (", x$id, ")", "\n", sep = "")
   cat("  Fingerprint: ", x$fingerprint, "\n", sep = "")
@@ -50,7 +55,7 @@ print.key <- function(x, ...) {
 
 #' @export
 #' @rdname keys
-do_keys <- function(key = NULL, page=1, per_page=25, config=NULL) {
+do_keys <- function(page=1, per_page=25, config=NULL) {
   do_GET("parsed", "account/keys", 
     query = list(page = page, per_page = per_page), 
     config = config
@@ -59,8 +64,8 @@ do_keys <- function(key = NULL, page=1, per_page=25, config=NULL) {
 
 #' @export
 #' @rdname keys
-do_key <- function(x, config = NULL) {
-  do_GET("parsed", sprintf('account/keys/%s', x), config = config)
+do_key <- function(key, config = NULL) {
+  do_GET("parsed", key, config = config)
 }
 
 #' Create, update, and delete ssh keys.
@@ -90,8 +95,7 @@ key_create <- function(name, public_key, ...) {
 key_rename <- function(key, name, ...) {
   key <- as.key(key)
   
-  res <- do_PUT("parsed", path = sprintf('account/keys/%s', key$id), 
-    args = list(name = name), ...)
+  res <- do_PUT("parsed", key, args = list(name = name), ...)
   as.key(res)
 }
 
@@ -100,6 +104,6 @@ key_rename <- function(key, name, ...) {
 key_delete <- function(key, ...) {
   key <- as.key(key)
 
-  res <- do_DELETE(path = sprintf('account/keys/%s', key$id), ...)
+  res <- do_DELETE(key, ...)
   invisible(TRUE)
 }

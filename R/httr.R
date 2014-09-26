@@ -1,3 +1,9 @@
+do_base <- "https://api.digitalocean.com/v2"
+
+as.url <- function(x, ...) UseMethod("as.url")
+#' @export
+as.url.character <- function(x, ...) paste0(do_base, "/", x)
+
 #' GET request and output result or errors
 #'
 #' @import httr jsonlite assertthat XML
@@ -11,7 +17,8 @@
 #' @return Some combination of warnings and httr response object, data.frame, or list
 
 do_GET <- function(what, path, query = NULL, parse=FALSE, config=NULL) {
-  url <- file.path("https://api.digitalocean.com/v2", path)
+  url <- as.url(path)
+
   tt <- GET(url, query = query, config = c(do_oauth(), config))
   if(tt$status_code > 202){
     if(tt$status_code > 202) stop(content(tt)$message, call. = FALSE)
@@ -37,10 +44,9 @@ do_GET <- function(what, path, query = NULL, parse=FALSE, config=NULL) {
 #' @return Some combination of warnings and httr response object, data.frame, or list
 
 do_POST <- function(what, path, args, parse=FALSE, config = NULL, encodejson=FALSE) {
-  
+  url <- as.url(path)
   args <- compact(args)
   
-  url <- file.path("https://api.digitalocean.com/v2", path)
   if(encodejson)
     tt <- POST(url, config = c(do_oauth(), config), body=args, encode="json")
   else
@@ -67,7 +73,8 @@ do_POST <- function(what, path, args, parse=FALSE, config = NULL, encodejson=FAL
 #' @return Some combination of warnings and httr response object, data.frame, or list
 
 do_PUT <- function(what, path, args, parse=FALSE, config=NULL) {
-  url <- file.path("https://api.digitalocean.com/v2", path)
+  url <- as.url(path)
+
   tt <- PUT(url, config = c(do_oauth(), config), body=args)
   if(tt$status_code > 202){
     if(tt$status_code > 202) stop(content(tt)$message)
@@ -89,7 +96,8 @@ do_PUT <- function(what, path, args, parse=FALSE, config=NULL) {
 #' @return Some combination of warnings and httr response object, data.frame, or list
 
 do_DELETE <- function(path, config = NULL) {
-  url <- file.path("https://api.digitalocean.com/v2", path)
+  url <- as.url(path)
+  
   tt <- DELETE(url, config = c(do_oauth(), config))
   if(tt$status_code > 204){
     if(tt$status_code > 204) stop(content(tt)$message)

@@ -1,5 +1,3 @@
-
-
 #' Compact
 #'
 #' @param ... List input
