@@ -1,3 +1,16 @@
+action_url <- function(action = NULL) {
+  url("actions", action)
+}
+
+as.action <- function(x) UseMethod("as.action")
+#' @export
+as.action.list <- function(x) list_to_object(x, "action", name = NULL)
+#' @export
+as.action.action <- function(x) x
+
+#' @export
+as.url.action <- function(x, ...) action_url(x$id)
+
 #' List actions across all droplets.
 #'
 #' "Actions are records of events that have occurred on the resources in your 
@@ -19,36 +32,7 @@
 #' actions()
 #' }
 actions <- function(...) {
-  res <- do_actions(...) 
-  lapply(res$actions, as.action)
-}
-
-#' @export
-#' @rdname actions
-do_actions <- function(page = 1, per_page = 25, config = NULL) {
-  do_GET("parsed", "actions", 
-    list(page = page, per_page = per_page),
-    config = config
-  )
-}
-
-as.action <- function(x) UseMethod("as.action")
-
-#' @export
-as.action.list <- function(x) {
-  if (is.null(x$id)) stop("No action id found", call. = FALSE)
-  
-  structure(x, class = "action")
-}
-#' @export
-as.action.action <- function(x) x
-
-action_update <- function(action) {
-  action <- as.action(action)
-  
-  path <- sprintf('droplets/%s/actions/%s', action$resource_id, action$id)
-  res <- do_GET("parsed", path)
-  as.action(res$action)
+  as.action(do_GET("parsed", action_url(), ...))
 }
 
 #' @export
@@ -68,11 +52,17 @@ action_wait <- function(x) {
   
   cat("Waiting for ", x$type, sep = "")
   while(!is_complete(x)) {
-    x <- action_update(x)
+    x <- action_refresh(x)
     Sys.sleep(1)
     cat('.')
   }
   cat("\n")
   
   droplet(x$resource_id)
+}
+
+
+action_refresh <- function(action) {
+  action <- as.action(action)
+  as.action(do_GET("parsed", action))
 }
