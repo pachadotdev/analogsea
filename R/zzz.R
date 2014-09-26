@@ -36,7 +36,7 @@ do_GET <- function(what, path, query = NULL, parse=FALSE, config=NULL) {
 #' @param encodejson (logical) Whether to set \code{encode='json'} in \code{httr::POST} call.
 #' @return Some combination of warnings and httr response object, data.frame, or list
 
-do_POST <- function(what, path, args, parse=FALSE, config=config, encodejson=FALSE) {
+do_POST <- function(what, path, args, parse=FALSE, config = NULL, encodejson=FALSE) {
   
   args <- compact(args)
   
@@ -66,7 +66,7 @@ do_POST <- function(what, path, args, parse=FALSE, config=config, encodejson=FAL
 #' @param config Options passed on to httr::GET. Must be named, see examples.
 #' @return Some combination of warnings and httr response object, data.frame, or list
 
-do_PUT <- function(what, path, args, parse=FALSE, config=config) {
+do_PUT <- function(what, path, args, parse=FALSE, config=NULL) {
   url <- file.path("https://api.digitalocean.com/v2", path)
   tt <- PUT(url, config = c(token = do_oauth(), config), body=args)
   if(tt$status_code > 202){
