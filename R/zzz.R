@@ -1,3 +1,17 @@
+list_to_object <- function(x, singular, plural = paste0(singular, "s"), 
+                  class = singular) {
+  if (!is.null(x[[plural]])) {
+    objs <- lapply(x[[plural]], structure, class = class)
+    names(objs) <- pluck(x[[plural]], "name", character(1))
+    objs
+  } else if (!is.null(x[[singular]])) {
+    structure(x[[singular]], class = class)  
+  } else {
+    stop("Don't know how to coerce this list to a ", class , call. = FALSE) 
+  }
+}
+
+
 #' Compact
 #'
 #' @param ... List input

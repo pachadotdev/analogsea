@@ -13,9 +13,9 @@ key(x)
 
 as.key(x)
 
-do_keys(key = NULL, page = 1, per_page = 25, config = NULL)
+do_keys(page = 1, per_page = 25, config = NULL)
 
-do_key(x, config = NULL)
+do_key(key, config = NULL)
 }
 \arguments{
 \item{...}{Additional arguments passed down to low-level API function

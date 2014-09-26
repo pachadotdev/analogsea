@@ -1,8 +1,16 @@
 do_base <- "https://api.digitalocean.com/v2"
 
+url <- function(...) structure(paste(do_base, ..., sep = "/"), class = "do_url")
+#' @export
+print.do_url <- function(x, ...) {
+  cat("<url> ", x, "\n", sep = "")
+}
+
 as.url <- function(x, ...) UseMethod("as.url")
 #' @export
 as.url.character <- function(x, ...) paste0(do_base, "/", x)
+#' @export
+as.url.do_url <- function(x, ...) x
 
 #' GET request and output result or errors
 #'
@@ -16,6 +24,7 @@ as.url.character <- function(x, ...) paste0(do_base, "/", x)
 #' @param config Options passed on to httr::GET. Must be named, see examples.
 #' @return Some combination of warnings and httr response object, data.frame, or list
 
+# Need to move page=1, per_page=25,  in here
 do_GET <- function(what, path, query = NULL, parse=FALSE, config=NULL) {
   url <- as.url(path)
 
