@@ -1,8 +1,10 @@
 list_to_object <- function(x, singular, plural = paste0(singular, "s"), 
-                  class = singular) {
+                  name = "name", class = singular) {
   if (!is.null(x[[plural]])) {
     objs <- lapply(x[[plural]], structure, class = class)
-    names(objs) <- pluck(x[[plural]], "name", character(1))
+    if (!is.null(name)) {
+      names(objs) <- pluck(x[[plural]], name, character(1))  
+    }
     objs
   } else if (!is.null(x[[singular]])) {
     structure(x[[singular]], class = class)  

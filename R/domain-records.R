@@ -1,90 +1,80 @@
-#' Get information on records for a single domain.
-#'
-#' @export
-#' @param domain (character) Required. Domain Name (e.g. domain.com), specifies the domain for 
-#' which to retrieve records.
-#' @param record (integer) Optional. Specifies the domain record id to retrieve.
-#' @template params
-#' @examples \dontrun{
-#' domains_records(domain='sckottdrop.info')
-#' domains_records(domain='sckottdrop.info', record=2194418)
-#' domains_records(domain='sckottdrop.info', what="raw")
-#' }
-
-domains_records <- function(domain=NULL, record=NULL, what="parsed", page=1, per_page=25, config=NULL)
-{
-  assert_that(!is.null(domain))
-  path <- if(is.null(record)) sprintf('domains/%s/records', domain) else sprintf('domains/%s/records/%s', domain, record)
-  do_GET(what, path=path, parse = TRUE, config = config)
+domain_record_url <- function(domain, record = NULL) {
+  url("domains", domain, "records", record)
 }
 
-#' Create a new domain name with an A record for the specified ip_address.
+#' @export
+as.domain_record <- function(x, domain) UseMethod("as.domain_record")
+#' @export
+as.domain_record.list <- function(x, domain) {
+  x <- list_to_object(x, "domain_record", name = NULL)
+  if (inherits(x, "domain_record")) {
+    x$domain <- domain
+    x
+  } else {
+    lapply(x, function(y) {
+      y$domain <- domain
+      domain
+    })
+  }
+}
+#' @export
+as.domain_record.domain_record <- function(x, domain) x
+
+#' @export
+print.domain_record <- function(x, ...) {
+  cat("<domain_record> ", x$id, "\n", sep = "")
+  cat("  ", x$type, " ", x$data, "\n", sep = "")
+}
+
+#' @export
+as.url.domain_record <- function(x, ...) {
+  domain_record_url(x$domain$name, x$id)
+}
+
+#' List, create and delete domain records.
 #'
 #' @export
-#' @param domain (character) Required. Domain Name (e.g. domain.com), specifies the domain for
-#' which to create a record.
-#' @param type (character) Required. The type of record you would like to create. 'A', 'CNAME',
-#' 'NS', 'TXT', 'MX' or 'SRV'
-#' @param name (character) The host name, alias, or service being defined by the record. Required 
-#' for 'A', 'CNAME', 'TXT' and 'SRV' records
-#' @param data (character) Variable data depending on record type. Required for 'A', 'AAAA', 
-#' 'CNAME', 'MX', 'TXT', 'SRV', and 'NS' records
+#' @param domain (domain) Required. Domain Name (e.g. domain.com), specifies 
+#'   the domain for which to create a record.
+#' @param type (character) Required. The type of record you would like to 
+#'   create. 'A', 'CNAME', 'NS', 'TXT', 'MX' or 'SRV'
+#' @param name (character) The host name, alias, or service being defined by 
+#'   the record. Required for 'A', 'CNAME', 'TXT' and 'SRV' records
+#' @param data (character) Variable data depending on record type. Required 
+#'   for 'A', 'AAAA', 'CNAME', 'MX', 'TXT', 'SRV', and 'NS' records
 #' @param priority (integer) Required for 'SRV' and 'MX' records
 #' @param port (integer) Required for 'SRV' records
 #' @param weight (integer) Required for 'SRV' records
-#' @template whatconfig
 #' @examples \dontrun{
-#' domains_records_new(domain='sckottdrop.info', type="TXT", data="just chillin")
-#' domains_records_new(domain='sckottdrop.info', type='TXT', name='thiking', data='just chillin')
-#' domains_records_new(domain='sckottdrop.info', type='TXT', name='what', data='the heck')
+#' d <- domains()[[1]]
+#' domain_records(d)
+#' 
+#' dr <- domain_record_create(d, "TXT", data = "Hi Mom!")
+#' domain_records(d)
+#' domain_record_delete(dr)
 #' }
-
-domains_records_new <- function(domain=NULL, type=NULL, name=NULL, data=NULL, priority=NULL,
-  port=NULL, weight=NULL, what="parsed", config=NULL)
-{
-  assert_that(!is.null(domain))
-  args <- ct(type=type, data=data, name=name, priority=priority, port=port, weight=weight)
-  tmp <- do_POST(what, path=sprintf('domains/%s/records', domain), args = args, parse=TRUE, config=config)
-  pdr(tmp$domain_record)
+domain_records <- function(domain, ...) {
+  domain <- as.domain(domain)
+  as.domain_record(do_GET("parsed", domain_record_url(domain$name)))
 }
 
-pdr <- function(x){
-  x[sapply(x, is.null)] <- NA
-  data.frame(x, stringsAsFactors = FALSE)
-}
-
-#' Edits an existing domain record.
-#'
 #' @export
-#' @param domain (character) Required. Domain Name (e.g. domain.com), specifies the domain for
-#' which to create a record.
-#' @param record (integer) Required. Specifies the record id to retrieve.
-#' @param name (Optional) String, required for 'A', 'CNAME', 'TXT' and 'SRV' records
-#' @template whatconfig
-#' @examples \dontrun{
-#' domains_records_rename(domain='sckottdrop.info', record=2714634, name="new_record_name")
-#' }
-
-domains_records_rename <- function(domain=NULL, record=NULL, name=NULL, what="parsed", config=NULL)
-{
-  assert_that(!is.null(domain), !is.null(record))
-  tmp <- do_PUT(what, path=sprintf('domains/%s/records/%s', domain, record), args=ct(name=name), parse=TRUE, config=config)
-  pdr(tmp$domain_record)
+#' @rdname domain_records
+domain_record_create <- function(domain, type, name = NULL, data = NULL, 
+                                  priority = NULL, port = NULL, weight = NULL,
+                                  ...) {
+  domain <- as.domain(domain)
+  
+  res <- do_POST("parsed", domain_record_url(domain$name),
+    args = list(type = type, data = data, name = name, priority = priority, 
+      port = port, weight = weight),
+    ...)
+  as.domain_record(res, domain = domain)
 }
 
-#' Deletes the specified domain record.
-#'
 #' @export
-#' @param domain (character) Required. Domain Name (e.g. domain.com), specifies the domain for 
-#' which to retrieve records.
-#' @param record (integer) Required. Specifies the record id to retrieve
-#' @param config Options passed on to httr::GET. Must be named, see examples.
-#' @examples \dontrun{
-#' domains_records_delete(domain="sckottdrop.info", record=2192414)
-#' }
-
-domains_records_delete <- function(domain=NULL, record=NULL, config=NULL)
-{
-  assert_that(!is.null(domain), !is.null(record))
-  do_DELETE(path = sprintf('domains/%s/records/%s', domain, record), config = config)
+#' @rdname domain_records
+domain_record_delete <- function(domain_record, ...) {
+  domain_record <- as.domain_record(domain_record)
+  do_DELETE(domain_record, ...)
 }
