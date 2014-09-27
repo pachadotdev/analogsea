@@ -3,7 +3,8 @@
 #' @importFrom plyr rbind.fill
 #' @export
 #' @param image (numeric) This is the id or slug of the image to return
-#' @template params
+#' @template pages
+#' @param ... Options passed on to httr::GET. Must be named, see examples.
 #' @examples \dontrun{
 #' out <- images()
 #' out$images
@@ -12,7 +13,7 @@
 #' images(per_page=2)
 #' }
 
-images <- function(image=NULL, page=1, per_page=25) {
+images <- function(image=NULL, page=1, per_page=25, ...) {
   path <- if(is.null(image)) 'images' else sprintf('images/%s', image)
   res <- do_GET(path, query = list(page=page, per_page=per_page))
   list(images=parseimg(image, res[[1]]), meta=res$meta, links=res$links)
@@ -34,7 +35,7 @@ imagetodf <- function(x){
 #'
 #' @export
 #' @param image_id (numeric) This is the id of the image to return
-#' @param config Options passed on to httr::GET. Must be named, see examples.
+#' @param ... Options passed on to httr::GET. Must be named, see examples.
 #' @examples \dontrun{
 #' images_delete(image_id=5620385)
 #' }
@@ -50,16 +51,16 @@ images_delete <- function(image_id=NULL, ...)
 #' @export
 #' @param image_id (numeric) Required. The image id.
 #' @param region (numeric) Required. The region slug that represents the region target.
-#' @template whatconfig
+#' @param ... Options passed on to httr::GET. Must be named, see examples.
 #' @examples \dontrun{
 #' images_transfer(image_id=5710271, region='nyc2')
 #' images_transfer(image_id=4546004, region='nyc1')
 #' }
 
-images_transfer <- function(image_id=NULL, region=NULL) {
+images_transfer <- function(image_id=NULL, region=NULL, ...) {
   assert_that(!is.null(image_id), !is.null(region))
   res <- do_POST(sprintf('images/%s/actions', image_id), 
-    body = list(type='transfer', region=region))
+    body = list(type='transfer', region=region), ...)
   as.action(res)
 }
 
@@ -70,7 +71,7 @@ images_transfer <- function(image_id=NULL, region=NULL) {
 #' @export
 #' @param image_id (numeric) This is the id of the image to return
 #' @param name (characer) New name for image.
-#' @template whatconfig
+#' @param ... Options passed on to httr::GET. Must be named, see examples.
 #' @examples \dontrun{
 #' images_rename(image_id=5710271, name='mirror_image2')
 #' }
@@ -85,7 +86,7 @@ images_rename <- function(image_id=NULL, name=NULL, ...) {
 #' @export
 #' @param image_id An image id.
 #' @param action_id An action id associated with an image.
-#' @template whatconfig
+#' @param ... Options passed on to httr::GET. Must be named, see examples.
 #' @examples \dontrun{
 #' images_actions(5710271, 31221438)
 #' }

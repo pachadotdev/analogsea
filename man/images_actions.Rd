@@ -10,9 +10,7 @@ images_actions(image_id = NULL, action_id = NULL, ...)
 
 \item{action_id}{An action id associated with an image.}
 
-\item{what}{(character) One of 'parsed' or 'raw'.}
-
-\item{config}{Options passed on to httr::GET. Must be named, see examples.}
+\item{...}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 Retrieve an action associated with a particular image id.

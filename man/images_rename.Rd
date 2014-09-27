@@ -10,9 +10,7 @@ images_rename(image_id = NULL, name = NULL, ...)
 
 \item{name}{(characer) New name for image.}
 
-\item{what}{(character) One of 'parsed' or 'raw'.}
-
-\item{config}{Options passed on to httr::GET. Must be named, see examples.}
+\item{...}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 In the API docs, they call this updating the image, but the only thing you can do is rename it.

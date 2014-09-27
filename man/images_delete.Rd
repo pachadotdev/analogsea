@@ -8,7 +8,7 @@ images_delete(image_id = NULL, ...)
 \arguments{
 \item{image_id}{(numeric) This is the id of the image to return}
 
-\item{config}{Options passed on to httr::GET. Must be named, see examples.}
+\item{...}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 There is no way to restore a deleted image so be careful and ensure your data is properly

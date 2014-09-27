@@ -3,7 +3,7 @@
 \alias{images}
 \title{Get list of images and their metadata, or a single image}
 \usage{
-images(image = NULL, page = 1, per_page = 25)
+images(image = NULL, page = 1, per_page = 25, ...)
 }
 \arguments{
 \item{image}{(numeric) This is the id or slug of the image to return}
@@ -12,9 +12,7 @@ images(image = NULL, page = 1, per_page = 25)
 
 \item{per_page}{Number of items per page (Default: 25)}
 
-\item{what}{(character) One of 'parsed' or 'raw'.}
-
-\item{config}{Options passed on to httr::GET. Must be named, see examples.}
+\item{...}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 Get list of images and their metadata, or a single image

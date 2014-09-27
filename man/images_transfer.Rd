@@ -3,16 +3,14 @@
 \alias{images_transfer}
 \title{Transfer an image to a specified region.}
 \usage{
-images_transfer(image_id = NULL, region = NULL)
+images_transfer(image_id = NULL, region = NULL, ...)
 }
 \arguments{
 \item{image_id}{(numeric) Required. The image id.}
 
 \item{region}{(numeric) Required. The region slug that represents the region target.}
 
-\item{what}{(character) One of 'parsed' or 'raw'.}
-
-\item{config}{Options passed on to httr::GET. Must be named, see examples.}
+\item{...}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 Transfer an image to a specified region.
