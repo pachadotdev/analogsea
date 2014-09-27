@@ -1,15 +1,15 @@
-list_to_object <- function(x, singular, plural = paste0(singular, "s"), 
+list_to_object <- function(x, singular, plural = paste0(singular, "s"),
                   name = "name", class = singular) {
   if (!is.null(x[[plural]])) {
     objs <- lapply(x[[plural]], structure, class = class)
     if (!is.null(name)) {
-      names(objs) <- pluck(x[[plural]], name, character(1))  
+      names(objs) <- pluck(x[[plural]], name, character(1))
     }
     objs
   } else if (!is.null(x[[singular]])) {
-    structure(x[[singular]], class = class)  
+    structure(x[[singular]], class = class)
   } else {
-    stop("Don't know how to coerce this list to a ", class , call. = FALSE) 
+    stop("Don't know how to coerce this list to a ", class , call. = FALSE)
   }
 }
 
@@ -135,7 +135,7 @@ print.do_rate <- function(x, ...){
 #' enabled when the Droplet is created. Saved in options as 'do_backups'
 #' @param ipv6 (optional) A boolean indicating whether IPv6 is enabled on the Droplet. Saved in
 #' options as 'do_ipv6'
-#' @param unset (optional) A boolean. If TRUE, unsets options so as to use defaults in 
+#' @param unset (optional) A boolean. If TRUE, unsets options so as to use defaults in
 #' \code{droplets_new}. If FALSE (default) your options are used in \code{droplets_new}.
 #'
 #' @details
@@ -172,7 +172,7 @@ do_options <- function(size=NULL, image=NULL, region=NULL, ssh_keys=NULL, privat
     options(do_ssh_keys = NULL); options(do_private_networking = NULL)
     options(do_backups = NULL); options(do_ipv6 = NULL)
   }
-  
+
 
   cat("Your analogsea default options for spinning up a new droplet:", "\n")
   cat("[size]", gopt('do_size', 'not set (Defaults to: 512mb)'), "\n")
@@ -188,7 +188,7 @@ gopt <- function(x, y='not set') getOption(x, y)
 gopt2 <- function(c, a, b) if(!is.null(c)) eval(c) else getOption(a, b)
 
 nn <- function(x, unbox=TRUE){
-  z <- switch(deparse(substitute(x)), 
+  z <- switch(deparse(substitute(x)),
          name = eval(x),
          size = gopt2(x, 'do_size', '512mb'),
          image = gopt2(x, 'do_image', 'ubuntu-14-04-x64'),
@@ -198,7 +198,7 @@ nn <- function(x, unbox=TRUE){
          backups = gopt2(x, 'do_backups', NULL),
          ipv6 = gopt2(x, 'do_ipv6', NULL)
   )
-  if(is.null(z)) z else if(unbox) unbox(z) else z
+  if(is.null(z)) z else if(unbox) jsonlite::unbox(z) else z
 }
 
 foo <- function(x){
