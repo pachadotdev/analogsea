@@ -9,11 +9,11 @@
 \usage{
 droplet_resize(droplet, size, ...)
 
-droplet_rebuild(droplet, image)
+droplet_rebuild(droplet, image, ...)
 
-droplet_rename(droplet, name)
+droplet_rename(droplet, name, ...)
 
-droplet_change_kernel(droplet, kernel)
+droplet_change_kernel(droplet, kernel, ...)
 }
 \arguments{
 \item{size}{(character) Size slug (name) of the image size. See \code{sizes}}

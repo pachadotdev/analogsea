@@ -216,21 +216,21 @@ droplet_resize <- function(droplet, size, ...) {
 
 #' @export
 #' @rdname droplet_modify
-droplet_rebuild <- function(droplet, image) {
+droplet_rebuild <- function(droplet, image, ...) {
   droplet_action("rebuild", droplet, image = jsonlite::unbox(image), ...)
 }
 
 #' @export
 #' @rdname droplet_modify
 #' @param name (character) The new name for the droplet
-droplet_rename <- function(droplet, name) {
+droplet_rename <- function(droplet, name, ...) {
   droplet_action("rename", droplet, name = jsonlite::unbox(name), ...)
 }
 
 #' @export
 #' @rdname droplet_modify
 #' @param kernel (numeric) The ID of the new kernel.
-droplet_change_kernel <- function(droplet, kernel) {
+droplet_change_kernel <- function(droplet, kernel, ...) {
   droplet_action("change_kernel", droplet, kernel = jsonlite::unbox(kernel), 
     ...)
 }
@@ -286,7 +286,7 @@ droplet_snapshots_list <- function(droplet, ...) {
 
 #' @export
 #' @rdname droplet_snapshot
-droplet_restore <- function(droplet, image) {
+droplet_restore <- function(droplet, image, ...) {
   droplet_action("restore", droplet, image = jsonlite::unbox(image), ...)
 }
 

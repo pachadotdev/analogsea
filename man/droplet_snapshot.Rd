@@ -10,7 +10,7 @@ droplet_snapshot(droplet, image = NULL, ...)
 
 droplet_snapshots_list(droplet, ...)
 
-droplet_restore(droplet, image)
+droplet_restore(droplet, image, ...)
 
 droplet_backups_list(droplet, ...)
 }
