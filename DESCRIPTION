@@ -15,7 +15,6 @@ BugReports: http://www.github.com/sckott/analogsea/issues
 LazyData: yes
 Imports:
     httr,
-    XML,
     assertthat,
     jsonlite,
     plyr,
