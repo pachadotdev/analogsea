@@ -6,7 +6,7 @@
 images(image = NULL, page = 1, per_page = 25)
 }
 \arguments{
-\item{image}{(numeric) This is the id of the image to return}
+\item{image}{(numeric) This is the id or slug of the image to return}
 
 \item{page}{Page number (Default: 1)}
 
@@ -22,14 +22,9 @@ Get list of images and their metadata, or a single image
 \examples{
 \dontrun{
 out <- images()
-out$data
-out$action_ids
-sapply(out$action_ids, names)
-
-head(images()$data)
-images(what='raw')
-images(image=5710271)
-images(image='ubuntu1404')
+out$images
+images(image=6374124)
+images(image='coreos-alpha')
 images(per_page=2)
 }
 }

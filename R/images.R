@@ -2,25 +2,29 @@
 #'
 #' @importFrom plyr rbind.fill
 #' @export
-#' @param image (numeric) This is the id of the image to return
+#' @param image (numeric) This is the id or slug of the image to return
 #' @template params
 #' @examples \dontrun{
 #' out <- images()
-#' out$data
-#' out$action_ids
-#' sapply(out$action_ids, names)
-#' 
-#' head(images()$data)
-#' images(what='raw')
-#' images(image=5710271)
-#' images(image='ubuntu1404')
+#' out$images
+#' images(image=6374124)
+#' images(image='coreos-alpha')
 #' images(per_page=2)
 #' }
 
 images <- function(image=NULL, page=1, per_page=25) {
   path <- if(is.null(image)) 'images' else sprintf('images/%s', image)
-  
-  do_GET(path, query = list(page=page, per_page=per_page))
+  res <- do_GET(path, query = list(page=page, per_page=per_page))
+  list(images=parseimg(image, res[[1]]), meta=res$meta, links=res$links)
+}
+
+parseimg <- function(image, x) if(is.null(image)) imagestodf(x) else imagetodf(x)
+imagestodf <- function(x) do.call(rbind.fill, lapply(x, imagetodf))
+imagetodf <- function(x){
+  data.frame(lapply(x, function(z){
+    tmp <- if(is(z, "list")) paste(unlist(z), collapse = ", ") else z
+    if(is.null(tmp)) NA else tmp
+  }), stringsAsFactors=FALSE)
 }
 
 #' Delete an image
