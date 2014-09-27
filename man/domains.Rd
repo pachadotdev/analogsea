@@ -14,13 +14,9 @@ domain(x, ...)
 \arguments{
 \item{domain}{(character) Required. Domain name}
 
-\item{what}{(character) One of 'parsed' or 'raw'.}
-
 \item{page}{Page number (Default: 1)}
 
 \item{per_page}{Number of items per page (Default: 25)}
-
-\item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 Get information on a single domain or all your domains.

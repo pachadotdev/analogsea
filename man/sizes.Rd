@@ -9,10 +9,6 @@ sizes(page = 1, per_page = 25)
 \item{page}{Page number (Default: 1)}
 
 \item{per_page}{Number of items per page (Default: 25)}
-
-\item{what}{(character) One of 'parsed' or 'raw'.}
-
-\item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \value{
 A data.frame with available sizes (RAM, disk, no. CPU's) and their costs

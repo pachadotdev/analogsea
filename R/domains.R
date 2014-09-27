@@ -2,7 +2,7 @@
 #'
 #' @export
 #' @param domain (character) Required. Domain name
-#' @template params
+#' @template pages
 #' @examples \dontrun{
 #' domains()
 #' }
