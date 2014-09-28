@@ -3,12 +3,14 @@
 \alias{sizes}
 \title{Get all the available sizes that can be used to create a droplet.}
 \usage{
-sizes(page = 1, per_page = 25)
+sizes(page = 1, per_page = 25, ...)
 }
 \arguments{
 \item{page}{Page number (Default: 1)}
 
 \item{per_page}{Number of items per page (Default: 25)}
+
+\item{...}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \value{
 A data.frame with available sizes (RAM, disk, no. CPU's) and their costs
@@ -20,7 +22,6 @@ Get all the available sizes that can be used to create a droplet.
 \dontrun{
 sizes()
 sizes(per_page=2)
-res <- sizes('raw')
 res$url
 res$headers
 }

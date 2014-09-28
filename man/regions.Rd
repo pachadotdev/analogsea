@@ -9,6 +9,8 @@ regions(page = 1, per_page = 25, ...)
 \item{page}{Page number (Default: 1)}
 
 \item{per_page}{Number of items per page (Default: 25)}
+
+\item{...}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 Get list of regions and their metadata
@@ -17,7 +19,6 @@ Get list of regions and their metadata
 \dontrun{
 regions()
 regions(per_page=2)
-regions('raw')
 }
 }
 
