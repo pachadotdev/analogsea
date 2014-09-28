@@ -12,11 +12,9 @@ as.domain(x)
 domain(x, ...)
 }
 \arguments{
-\item{domain}{(character) Required. Domain name}
+\item{...}{Further args passed on the curl call to the web.}
 
-\item{page}{Page number (Default: 1)}
-
-\item{per_page}{Number of items per page (Default: 25)}
+\item{x}{(character) Required. Domain name}
 }
 \description{
 Get information on a single domain or all your domains.

@@ -20,6 +20,8 @@ droplet_backups_list(droplet, ...)
 \item{name}{(character) Optional. Name of the new snapshot you want to
 create. If not set, the  snapshot name will default to the current date/time}
 
+\item{...}{Additional options passed down to \code{\link[httr]{POST}}}
+
 \item{image}{(optional) The image ID of the backup image that you would like to restore.}
 }
 \description{

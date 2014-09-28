@@ -1,8 +1,8 @@
 #' Get information on a single domain or all your domains.
 #'
 #' @export
-#' @param domain (character) Required. Domain name
-#' @template pages
+#' @param x (character) Required. Domain name
+#' @param ... Further args passed on the curl call to the web.
 #' @examples \dontrun{
 #' domains()
 #' }
@@ -46,6 +46,7 @@ print.domain <- function(x, ...) {
 #'   been taken.
 #' @param ip_address (character) Required. An IP address for the domain's 
 #'   initial A record.
+#' @param ... Further args passed on the curl call to the web.
 #' @examples \dontrun{
 #' d <- domain_create('tablesandchairsbunnies.info', '107.170.220.59')
 #' domain_delete(d)

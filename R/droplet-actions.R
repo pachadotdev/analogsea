@@ -20,6 +20,7 @@
 #' be enabled for the Droplet. Automated backups can only be enabled when the Droplet is created.
 #' Default: FALSE
 #' @param ipv6 (logical) A boolean indicating whether IPv6 is enabled on the Droplet.
+#' @param ... Additional options passed down to \code{\link[httr]{POST}}
 #' @examples \dontrun{
 #' droplet_new()
 #' droplet_new('droppinit')
@@ -193,7 +194,7 @@ droplet_action <- function(action, droplet, ...) {
 #' \item{change_kernel}{Change kernel ID.}
 #' }
 #' 
-#' @param x A droplet number or the result from a call to \code{droplets}
+#' @inheritParams droplet_delete
 #' @param size (character) Size slug (name) of the image size. See \code{sizes}
 #' @examples \dontrun{
 #' droplets_resize(2427664, size='1gb')
@@ -214,6 +215,7 @@ droplet_resize <- function(droplet, size, ...) {
 
 #' @export
 #' @rdname droplet_modify
+#' @param image (optional) The image ID of the backup image that you would like to restore.
 droplet_rebuild <- function(droplet, image, ...) {
   droplet_action("rebuild", droplet, image = jsonlite::unbox(image), ...)
 }
@@ -250,6 +252,7 @@ droplet_change_kernel <- function(droplet, kernel, ...) {
 #' @param name (character) Optional. Name of the new snapshot you want to 
 #'   create. If not set, the  snapshot name will default to the current date/time
 #' @param image (optional) The image ID of the backup image that you would like to restore.
+#' @param ... Additional options passed down to \code{\link[httr]{POST}}
 #' @examples \dontrun{
 #' d <- droplet_new()
 #' d %>% droplet_snapshots_list()
@@ -301,8 +304,7 @@ droplet_backups_list <- function(droplet, ...) {
 #' List all available kernels for a droplet.
 #'
 #' @export
-#' @param x A droplet number or the result from a call to \code{droplets()}
-#' @template whatconfig
+#' @inheritParams droplet_delete
 #' @examples \dontrun{
 #' droplets()[[1]] %>% droplet_kernels_list
 #' }

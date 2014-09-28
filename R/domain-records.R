@@ -3,8 +3,10 @@ domain_record_url <- function(domain, record = NULL) {
 }
 
 #' @export
+#' @rdname domain_records
 as.domain_record <- function(x, domain) UseMethod("as.domain_record")
 #' @export
+#' @rdname domain_records
 as.domain_record.list <- function(x, domain) {
   x <- list_to_object(x, "domain_record", name = NULL)
   if (inherits(x, "domain_record")) {
@@ -18,6 +20,7 @@ as.domain_record.list <- function(x, domain) {
   }
 }
 #' @export
+#' @rdname domain_records
 as.domain_record.domain_record <- function(x, domain) x
 
 #' @export
@@ -27,6 +30,7 @@ print.domain_record <- function(x, ...) {
 }
 
 #' @export
+#' @rdname domain_records
 as.url.domain_record <- function(x, ...) {
   domain_record_url(x$domain$name, x$id)
 }
@@ -45,6 +49,9 @@ as.url.domain_record <- function(x, ...) {
 #' @param priority (integer) Required for 'SRV' and 'MX' records
 #' @param port (integer) Required for 'SRV' records
 #' @param weight (integer) Required for 'SRV' records
+#' @param domain_record A domain record.
+#' @param x Domain record.
+#' @param ... Further args passed on the curl call to the web.
 #' @examples \dontrun{
 #' d <- domains()[[1]]
 #' domain_records(d)

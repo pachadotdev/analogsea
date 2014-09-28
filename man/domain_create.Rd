@@ -17,6 +17,8 @@ been taken.}
 \item{ip_address}{(character) Required. An IP address for the domain's
 initial A record.}
 
+\item{...}{Further args passed on the curl call to the web.}
+
 \item{domain}{A domain to modify}
 }
 \description{

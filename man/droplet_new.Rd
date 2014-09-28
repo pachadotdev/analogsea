@@ -30,6 +30,8 @@ Default: FALSE}
 
 \item{private_networking}{(logical) Use private networking. Private networking is currently
 only available in certain regions. Default: FALSE}
+
+\item{...}{Additional options passed down to \code{\link[httr]{POST}}}
 }
 \description{
 There are defaults for each of size, image, and region so that a quick one-liner with one

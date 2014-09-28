@@ -13,17 +13,17 @@ as.url.action <- function(x, ...) action_url(x$id)
 
 #' List actions across all droplets.
 #'
-#' "Actions are records of events that have occurred on the resources in your 
-#' account. These can be things like rebooting a Droplet, or transferring an 
+#' "Actions are records of events that have occurred on the resources in your
+#' account. These can be things like rebooting a Droplet, or transferring an
 #' image to a new region."
-#' 
-#' "An action object is created every time one of these actions is initiated. 
-#' The action object contains information about the current status of the 
-#' action, start and complete timestamps, and the associated resource type and 
+#'
+#' "An action object is created every time one of these actions is initiated.
+#' The action object contains information about the current status of the
+#' action, start and complete timestamps, and the associated resource type and
 #' ID."
 #'
-#' "Every action that creates an action object is available through this 
-#' endpoint. Completed actions are not removed from this list and are always 
+#' "Every action that creates an action object is available through this
+#' endpoint. Completed actions are not removed from this list and are always
 #' available for querying."
 #'
 #' @export
@@ -39,7 +39,7 @@ actions <- function(...) {
 print.action <- function(x, ...) {
   cat("<action> ", x$type, " (", x$id, ")\n", sep = "")
   cat("  Status: ", x$status, "\n", sep = "")
-  cat("  Resource: ", x$resource_type, " ", x$resource_id, "\n", sep = "")  
+  cat("  Resource: ", x$resource_type, " ", x$resource_id, "\n", sep = "")
 }
 
 is_complete <- function(x) {
@@ -47,9 +47,11 @@ is_complete <- function(x) {
 }
 
 #' @export
+#' @rdname actions
+#' @param x Input object
 action_wait <- function(x) {
   if (is_complete(x)) return(droplet(x$resource_id))
-  
+
   cat("Waiting for ", x$type, sep = "")
   while(!is_complete(x)) {
     x <- action_refresh(x)
@@ -57,7 +59,7 @@ action_wait <- function(x) {
     cat('.')
   }
   cat("\n")
-  
+
   droplet(x$resource_id)
 }
 
