@@ -40,12 +40,12 @@ remoter <- function(x, verbose=TRUE){
   mssg(verbose, "Sending R code to DO Droplet...")
   scp_ssh('remoter_send.txt', ip)
   mssg(verbose, "Running R code on DO Droplet...")
-  writefile('remoter_run.sh', xxxx)
+  writefile('remoter_run.sh', 'xxxx')
   scp_ssh('remoter_run.sh', ip)
 
   # Retrieve results from droplet
   mssg(verbose, "Receiving results from DO Droplet...")
-  writefile('remoter_get.sh', xxxx)
+  writefile('remoter_get.sh', 'xxxx')
   scp_ssh('remoter_get.sh', ip)
 
   # Delete the droplet
