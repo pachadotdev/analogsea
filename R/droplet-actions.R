@@ -20,7 +20,6 @@
 #' be enabled for the Droplet. Automated backups can only be enabled when the Droplet is created.
 #' Default: FALSE
 #' @param ipv6 (logical) A boolean indicating whether IPv6 is enabled on the Droplet.
-#' @template whatconfig
 #' @examples \dontrun{
 #' droplet_new()
 #' droplet_new('droppinit')
@@ -248,10 +247,9 @@ droplet_change_kernel <- function(droplet, kernel, ...) {
 #'   sure you have backed up any necessary information prior to restore.}
 #' }
 #'
-#' @param x A droplet number or the result from a call to \code{droplets()}
-#' @param name (character) Optional. Name of the new snapshot you want to 
+#' @param droplet A droplet number or the result from a call to \code{droplets()}
+#' @param image (character) Optional. Name of the new snapshot you want to 
 #'   create. If not set, the  snapshot name will default to the current date/time
-#' @template whatconfig
 #' @examples \dontrun{
 #' d <- droplet_new()
 #' d %>% droplet_snapshots_list()

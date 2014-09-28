@@ -30,10 +30,6 @@ Default: FALSE}
 
 \item{private_networking}{(logical) Use private networking. Private networking is currently
 only available in certain regions. Default: FALSE}
-
-\item{what}{(character) One of 'parsed' or 'raw'.}
-
-\item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 There are defaults for each of size, image, and region so that a quick one-liner with one
