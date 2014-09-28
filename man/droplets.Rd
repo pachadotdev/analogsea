@@ -12,8 +12,6 @@ droplets(..., page = 1, per_page = 25)
 \item{page}{Page to return}
 
 \item{per_page}{Number of results per page}
-
-\item{config}{Additional httr config options.}
 }
 \description{
 List all available droplets.

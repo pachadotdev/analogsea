@@ -5,7 +5,6 @@
 #'   (\code{do_*})
 #' @param page Page to return
 #' @param per_page Number of results per page
-#' @param config Additional httr config options.
 #' @examples \dontrun{
 #' droplets()
 #' }
