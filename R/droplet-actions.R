@@ -67,7 +67,6 @@ random_name <- function() sample(words, size = 1)
 #' @param droplet A droplet, or something that can be coerced to a droplet by
 #'   \code{\link{as.droplet}}.
 #' @param ... Additional options passed down to low-level API method.
-#' @param config Options passed on to httr::GET. Must be named, see examples.
 #' @examples
 #' \dontrun{
 #' drops <- droplets()
@@ -248,8 +247,9 @@ droplet_change_kernel <- function(droplet, kernel, ...) {
 #' }
 #'
 #' @param droplet A droplet number or the result from a call to \code{droplets()}
-#' @param image (character) Optional. Name of the new snapshot you want to 
+#' @param name (character) Optional. Name of the new snapshot you want to 
 #'   create. If not set, the  snapshot name will default to the current date/time
+#' @param image (optional) The image ID of the backup image that you would like to restore.
 #' @examples \dontrun{
 #' d <- droplet_new()
 #' d %>% droplet_snapshots_list()
@@ -269,8 +269,8 @@ droplet_change_kernel <- function(droplet, kernel, ...) {
 #'   action_wait()
 #' }
 #' @export
-droplet_snapshot <- function(droplet, image = NULL, ...) {
-  droplet_action("snapshot", droplet, name = image, ...)
+droplet_snapshot <- function(droplet, name = NULL, ...) {
+  droplet_action("snapshot", droplet, name = name, ...)
 }
 
 #' @export
@@ -316,16 +316,18 @@ droplet_kernels_list <- function(droplet, ...) {
 #' Retrieve a droplet action or list all actions associatd with a droplet.
 #'
 #' @export
-#' @param x A droplet number or the result from a call to \code{droplets()}
+#' @inheritParams droplet_delete
 #' @param actionid (integer) Optional. An action id.
-#' @template whatconfig
 #' @examples \dontrun{
 #' droplets_actions(2428384)
 #' droplets_actions(2428384, actionid=31223385)
 #' }
-droplet_actions <- function(droplet) {
+droplet_actions <- function(droplet, actionid = NULL, ...) {
   droplet <- as.droplet(droplet)
-  
-  res <- do_GET(sprintf('droplets/%s/actions', droplet$id))
-  lapply(res$actions, as.action)
+  path <- if(is.null(actionid)) 
+    sprintf('droplets/%s/actions', droplet$id) 
+  else 
+    sprintf('droplets/%s/actions/%s', droplet$id, actionid)
+  res <- do_GET(path, ...)
+  as.action(res)
 }

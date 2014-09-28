@@ -6,7 +6,7 @@
 \alias{droplet_snapshots_list}
 \title{Take and restore snapshots.}
 \usage{
-droplet_snapshot(droplet, image = NULL, ...)
+droplet_snapshot(droplet, name = NULL, ...)
 
 droplet_snapshots_list(droplet, ...)
 
@@ -15,14 +15,12 @@ droplet_restore(droplet, image, ...)
 droplet_backups_list(droplet, ...)
 }
 \arguments{
-\item{x}{A droplet number or the result from a call to \code{droplets()}}
+\item{droplet}{A droplet number or the result from a call to \code{droplets()}}
 
 \item{name}{(character) Optional. Name of the new snapshot you want to
 create. If not set, the  snapshot name will default to the current date/time}
 
-\item{what}{(character) One of 'parsed' or 'raw'.}
-
-\item{config}{Options passed on to httr::GET. Must be named, see examples.}
+\item{image}{(optional) The image ID of the backup image that you would like to restore.}
 }
 \description{
 \describe{

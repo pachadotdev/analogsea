@@ -10,8 +10,6 @@ droplet_delete(droplet, ...)
 \code{\link{as.droplet}}.}
 
 \item{...}{Additional options passed down to low-level API method.}
-
-\item{config}{Options passed on to httr::GET. Must be named, see examples.}
 }
 \description{
 This method deletes one of your droplets - this is irreversible.

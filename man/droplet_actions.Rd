@@ -3,16 +3,15 @@
 \alias{droplet_actions}
 \title{Retrieve a droplet action or list all actions associatd with a droplet.}
 \usage{
-droplet_actions(droplet)
+droplet_actions(droplet, actionid = NULL, ...)
 }
 \arguments{
-\item{x}{A droplet number or the result from a call to \code{droplets()}}
+\item{droplet}{A droplet, or something that can be coerced to a droplet by
+\code{\link{as.droplet}}.}
 
 \item{actionid}{(integer) Optional. An action id.}
 
-\item{what}{(character) One of 'parsed' or 'raw'.}
-
-\item{config}{Options passed on to httr::GET. Must be named, see examples.}
+\item{...}{Additional options passed down to low-level API method.}
 }
 \description{
 Retrieve a droplet action or list all actions associatd with a droplet.
