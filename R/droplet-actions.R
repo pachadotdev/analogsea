@@ -81,7 +81,7 @@ random_name <- function() sample(words, size = 1)
 #' }
 droplet_delete <- function(droplet, ...) {
   droplet <- as.droplet(droplet)
-  do_DELETE(sprintf('droplets/%s', id), ...)
+  do_DELETE(sprintf('droplets/%s', droplet$id), ...)
 }
 
 
