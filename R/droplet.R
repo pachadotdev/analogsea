@@ -63,7 +63,7 @@ summary.droplet <- function(object, ...) {
   cat("  Size: ", object$size$slug, " ($", object$size$price_hourly, " / hr)" ,"\n", sep = "")
   cat("  Estimated cost ($): ", cost, "\n", sep = "")
   cat("  Locked: ", object$locked, "\n", sep = "")
-  cat("  Created at: ", object$created_at, "\n", sep = "")
+  cat("  Created at: ", object$created_at, " UTC", "\n", sep = "")
   cat("  Networks: ", "\n", sep = "")
   cat("     v4: ", make_list(object$networks$v4), "\n", sep = "")
   cat("     v6: ", make_list(object$networks$v6), "\n", sep = "")
