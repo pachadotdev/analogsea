@@ -23,10 +23,10 @@
 
 remoter <- function(x, verbose=TRUE){
   # spin up new droplet, collect info
-  tmp <- droplets_new()
-  tmp2 <- droplets(tmp$data$id)
-  ip <- tmp2$droplets$details$networks_ip_address
-  id <- tmp$data$id
+  tmp <- droplet_new()
+  id <- tmp$id
+  tmp2 <- droplet(id)
+  ip <- tmp2$networks$v4[[1]]$ip_address
 
   # wait until droplet is up and running
   mssg(verbose, "Waiting for droplet to spin up")
@@ -49,7 +49,7 @@ remoter <- function(x, verbose=TRUE){
   scp_ssh('remoter_get.sh', ip)
 
   # Delete the droplet
-  droplets_delete(id)
+  droplet_delete(tmp2)
   mssg(verbose, sprintf("Droplet %s deleted", id))
 }
 
@@ -57,8 +57,8 @@ wait_running <- function(id){
   stat <- "new"
   while(stat == "new"){
     Sys.sleep(1)
-    out <- droplets(id)
-    stat <- out$droplets$data$status
+    out <- droplet(id)
+    stat <- out$status
   }
 }
 
