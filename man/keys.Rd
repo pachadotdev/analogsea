@@ -12,7 +12,7 @@ key(x)
 
 as.key(x)
 
-do_key(key, config = NULL)
+do_key(key, ...)
 }
 \arguments{
 \item{...}{Additional arguments passed down to low-level API function

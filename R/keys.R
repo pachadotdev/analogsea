@@ -56,8 +56,8 @@ print.key <- function(x, ...) {
 
 #' @export
 #' @rdname keys
-do_key <- function(key, config = NULL) {
-  do_GET("parsed", key, config = config)
+do_key <- function(key, ...) {
+  do_GET(sprintf('account/keys/%s', key), ...)
 }
 
 #' Create, update, and delete ssh keys.
