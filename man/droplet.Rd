@@ -2,11 +2,14 @@
 \name{droplet}
 \alias{as.droplet}
 \alias{droplet}
+\alias{summary.droplet}
 \title{Retrieve a single droplet.}
 \usage{
 droplet(id, ...)
 
 as.droplet(x)
+
+\method{summary}{droplet}(object, ...)
 }
 \arguments{
 \item{id}{(integer) Droplet id.}
@@ -17,6 +20,8 @@ as.droplet(x)
 \item{x}{Object to coerce. Can be an integer (droplet id), string
 (droplet name), a droplet (duh), or an action (which waits until
 complete then returns the droplet)}
+
+\item{object}{Droplet object to pass to \code{summary}}
 }
 \description{
 Retrieve a single droplet.
@@ -28,6 +33,8 @@ droplet(1234)
 as.droplet("my-favourite-droplet")
 as.droplet(10)
 as.droplet(droplets()[[1]])
+
+droplet(1234) \%>\% summary
 }
 }
 
