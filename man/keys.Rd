@@ -24,8 +24,6 @@ do_key(key, config = NULL)
 
 \item{x}{For \code{key} the numeric id. For \code{as.key}, a number (the id),
 a string (the name), or a key.}
-
-\item{config}{Additional httr config options.}
 }
 \description{
 List your ssh keys, or get a single key
