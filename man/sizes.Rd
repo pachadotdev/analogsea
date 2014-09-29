@@ -21,9 +21,6 @@ Get all the available sizes that can be used to create a droplet.
 \examples{
 \dontrun{
 sizes()
-sizes(per_page=2)
-res$url
-res$headers
 }
 }
 
