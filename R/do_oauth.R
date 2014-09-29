@@ -1,6 +1,6 @@
 #' Authorize with Digital Ocean.
 #'
-#' @import httr assertthat
+#' @import assertthat
 #' @export
 #'
 #' @param appname Your Digital Ocean registered application name
@@ -60,11 +60,11 @@ do_oauth <- function(appname = 'rdigocean',
     # Fall back to OAuth
     
     assert_that(!is.null(appname), !is.null(client_id), !is.null(client_secret))
-    endpt <- oauth_endpoint(NULL, "authorize", "token",
+    endpt <- httr::oauth_endpoint(NULL, "authorize", "token",
       base_url = "https://cloud.digitalocean.com/v1/oauth")
-    myapp <- oauth_app(appname, client_id, client_secret)
-    token <- oauth2.0_token(endpt, myapp, scope = scope, cache = !reauth)
+    myapp <- httr::oauth_app(appname, client_id, client_secret)
+    token <- httr::oauth2.0_token(endpt, myapp, scope = scope, cache = !reauth)
     
-    config(token = token)
+    httr::config(token = token)
   }
 }

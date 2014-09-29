@@ -93,7 +93,7 @@ bundledtar <- function(dir, fullname=TRUE){
 }
 
 rstudio_server_installed <- function(ip){
-  tmp <- tryCatch(GET(sprintf('http://%s:8787', ip)), error = function(e) e)
+  tmp <- tryCatch(httr::GET(sprintf('http://%s:8787', ip)), error = function(e) e)
   if(is(tmp, "error")) warning("Rstudio Server not installed - see ?do_install ")
 }
 
