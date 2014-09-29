@@ -30,31 +30,6 @@ cli_tools <- function(ip){
     stop(sprintf("%s not found on your computer\nTry ssh'ing into the machine\n    (ssh root@%s)\n& manually installing things. See ?do_scripts for help", nf, ip))
 }
 
-#' Rate limit information for the authenticated user.
-#'
-#' @export
-#' @param x input to print, a do_rate S3 object
-#' @param ... Not used
-
-do_rate_limit <- function(){
-  url <- "https://api.digitalocean.com/v2/sizes"
-  tt <- HEAD(url, config = do_oauth())
-  tmp <- as.numeric(tt$headers[c('ratelimit-limit','ratelimit-remaining','ratelimit-reset')])
-  reset <- as.POSIXct(tmp[3], origin="1970-01-01")
-  dat <- list(limit=tmp[1], remaining=tmp[2], reset=reset)
-  class(dat) <- "do_rate"
-  dat
-}
-
-#' @method print do_rate
-#' @export
-#' @rdname do_rate_limit
-print.do_rate <- function(x, ...){
-  cat("Rate limit:", x$limit, '\n')
-  cat("Limit remaining:", x$remaining, '\n')
-  cat("Reset time:", '\n')
-  print(x$reset)
-}
 
 #' Set Digital Ocean options including ssh keys, etc.
 #'
