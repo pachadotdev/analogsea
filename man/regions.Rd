@@ -18,7 +18,6 @@ Get list of regions and their metadata
 \examples{
 \dontrun{
 regions()
-regions(per_page=2)
 }
 }
 
