@@ -3,11 +3,12 @@
 #' @keywords internal
 #' @export
 #' @examples
+#' \donttest{
 #' rate_limit()
+#' }
 rate_limit <- function() {
   res <- httr::HEAD("https://api.digitalocean.com/v2/sizes", do_oauth())
-  
-  headers <- httr::headers(tt)
+  headers <- httr::headers(res)
   
   structure(
     list(

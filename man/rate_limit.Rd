@@ -9,7 +9,9 @@ rate_limit()
 Rate limit information for the authenticated user.
 }
 \examples{
+\donttest{
 rate_limit()
+}
 }
 \keyword{internal}
 
