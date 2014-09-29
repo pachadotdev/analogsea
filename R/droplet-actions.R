@@ -62,7 +62,7 @@ droplet_new <- function(name = random_name(),
   droplet <- structure(res$droplet, class = "droplet")
   
   message("NB: This costs $", droplet$size$price_hourly, " / hour ", 
-    " until you droplete_delete() it")
+    "until you droplet_delete() it")
   droplet
 }
 
