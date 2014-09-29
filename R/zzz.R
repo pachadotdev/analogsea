@@ -13,7 +13,6 @@ list_to_object <- function(x, singular, plural = paste0(singular, "s"),
   }
 }
 
-
 mssg <- function(x, y) if(x) message(y)
 
 writefile <- function(filename, installstring){
@@ -29,7 +28,6 @@ cli_tools <- function(ip){
   if(length(nf) != 0)
     stop(sprintf("%s not found on your computer\nTry ssh'ing into the machine\n    (ssh root@%s)\n& manually installing things. See ?do_scripts for help", nf, ip))
 }
-
 
 #' Set Digital Ocean options including ssh keys, etc.
 #'
@@ -87,7 +85,6 @@ do_options <- function(size=NULL, image=NULL, region=NULL, ssh_keys=NULL, privat
     options(do_backups = NULL); options(do_ipv6 = NULL)
   }
 
-
   cat("Your analogsea default options for spinning up a new droplet:", "\n")
   cat("[size]", gopt('do_size', 'not set (Defaults to: 512mb)'), "\n")
   cat("[image]", gopt('do_image', 'not set (Defaults to: ubuntu-14-04-x64)'), "\n")
@@ -96,23 +93,6 @@ do_options <- function(size=NULL, image=NULL, region=NULL, ssh_keys=NULL, privat
   cat("[private networking]", gopt('do_private_networking'), "\n")
   cat("[backups]", gopt('do_backups'), "\n")
   cat("[ipv6]", gopt('do_ipv6'))
-}
-
-gopt <- function(x, y='not set') getOption(x, y)
-gopt2 <- function(c, a, b) if(!is.null(c)) eval(c) else getOption(a, b)
-
-nn <- function(x, unbox=TRUE){
-  z <- switch(deparse(substitute(x)),
-         name = eval(x),
-         size = gopt2(x, 'do_size', '512mb'),
-         image = gopt2(x, 'do_image', 'ubuntu-14-04-x64'),
-         region = gopt2(x, 'do_region', 'sfo1'),
-         ssh_keys = gopt2(x, 'do_ssh_keys', NULL),
-         private_networking = gopt2(x, 'do_private_networking', NULL),
-         backups = gopt2(x, 'do_backups', NULL),
-         ipv6 = gopt2(x, 'do_ipv6', NULL)
-  )
-  if(is.null(z)) z else if(unbox) jsonlite::unbox(z) else z
 }
 
 compact <- function(x) Filter(Negate(is.null), x)
@@ -126,3 +106,7 @@ pluck <- function(x, name, type) {
 }
 
 `%||%` <- function(a, b) if (is.null(a)) b else a
+
+unbox <- function(x) {
+  if (is.null(x)) x else jsonlite::unbox(x)
+}

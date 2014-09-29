@@ -3,9 +3,11 @@
 \alias{droplet_new}
 \title{Create a new droplet.}
 \usage{
-droplet_new(name = random_name(), size = NULL, image = NULL,
-  region = NULL, ssh_keys = NULL, backups = NULL, ipv6 = NULL,
-  private_networking = FALSE, ...)
+droplet_new(name = random_name(), size = getOption("do_size", "512mb"),
+  image = getOption("do_image", "ubuntu-14-04-x64"),
+  region = getOption("do_region", "sfo1"), ssh_keys = NULL,
+  backups = getOption("do_backups", NULL), ipv6 = getOption("do_ipv6",
+  NULL), private_networking = getOption("do_private_networking", NULL), ...)
 }
 \arguments{
 \item{name}{(character) Name of the droplet. Default: picks a random name if none supplied.}

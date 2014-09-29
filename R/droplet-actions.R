@@ -27,9 +27,17 @@
 #' droplet_new(name="newdrop", size = '512mb', image = 'ubuntu-14-04-x64', region = 'sfo1')
 #' droplet_new(ssh_keys=89103)
 #' }
-droplet_new <- function(name = random_name(), size = NULL, image = NULL, 
-                        region = NULL,  ssh_keys = NULL, backups = NULL, 
-                        ipv6 = NULL, private_networking = FALSE, ...) {
+#' 
+#' 
+droplet_new <- function(name = random_name(), 
+                        size = getOption("do_size", "512mb"),
+                        image = getOption("do_image", "ubuntu-14-04-x64"), 
+                        region = getOption("do_region", "sfo1"),
+                        ssh_keys = NULL,
+                        backups = getOption("do_backups", NULL),
+                        ipv6 = getOption("do_ipv6", NULL),
+                        private_networking = getOption("do_private_networking", NULL),
+                        ...) {
   
   if (is.null(ssh_keys)) {
     all_keys <- keys()
@@ -41,14 +49,14 @@ droplet_new <- function(name = random_name(), size = NULL, image = NULL,
   
   res <- do_POST('droplets', 
     body = list(
-      name = nn(name), 
-      size = nn(size), 
-      image = nn(image), 
-      region = nn(region), 
-      ssh_keys = nn(ssh_keys, FALSE), 
-      backups = nn(backups), 
-      ipv6 = nn(ipv6), 
-      private_networking = nn(private_networking)
+      name = unbox(name), 
+      size = unbox(size), 
+      image = unbox(image), 
+      region = unbox(region), 
+      ssh_keys = ssh_keys, 
+      backups = unbox(backups), 
+      ipv6 = unbox(ipv6), 
+      private_networking = unbox(private_networking)
     ), ...
   )
   droplet <- structure(res$droplet, class = "droplet")
