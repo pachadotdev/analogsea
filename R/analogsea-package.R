@@ -8,7 +8,7 @@
 #' R environment, this should be one of the easiest options. 
 #'
 #' You need authentication detaild for this package. Get your auth token at 
-#' \url{https://cloud.digitalocean.com/settings/applications}. See \code{do_auth} for more 
+#' \url{https://cloud.digitalocean.com/settings/applications}. See \code{do_oauth} for more 
 #' on authentication.
 #'
 #' @name analogsea-package
