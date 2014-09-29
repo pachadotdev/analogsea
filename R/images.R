@@ -1,98 +1,116 @@
+image_url <- function(image = NULL) {
+  url("images", image)
+}
+
+#' @param x Object to coerce to an image.
+#' @export
+#' @rdname images
+as.image <- function(x) UseMethod("as.image")
+#' @export
+as.image.list <- function(x) list_to_object(x, "image")
+#' @export
+as.image.image <- function(x) x
+#' @export
+as.image.numeric <- function(x) image(x)
+#' @export
+as.image.character <- function(x) image(x)
+
 #' Get list of images and their metadata, or a single image
 #'
 #' @importFrom plyr rbind.fill
 #' @export
-#' @param image (numeric) This is the id or slug of the image to return
-#' @template pages
-#' @param ... Options passed on to httr::GET. Must be named, see examples.
+#' @param id (numeric) Image id.
+#' @param public Include public images? If \code{FALSE}, returns only the 
+#'   images that you've created (with snapshots).
+#' @inheritParams droplets
 #' @examples \dontrun{
-#' out <- images()
-#' out$images
-#' images(image=6374124)
-#' images(image='coreos-alpha')
-#' images(per_page=2)
+#' images()
+#' # Only images that you've created
+#' images(public = FALSE)
 #' }
-
-images <- function(image=NULL, page=1, per_page=25, ...) {
-  path <- if(is.null(image)) 'images' else sprintf('images/%s', image)
-  res <- do_GET(path, query = list(page=page, per_page=per_page))
-  list(images=parseimg(image, res[[1]]), meta=res$meta, links=res$links)
+images <- function(public = TRUE, page = 1, per_page = 25, ...) {
+  res <- do_GET(image_url(), query = list(page = page, per_page = per_page), ...)
+  images <- as.image(res)
+  if (public) return(images)
+  
+  Filter(function(x) !x$public, images)
 }
 
-parseimg <- function(image, x) if(is.null(image)) imagestodf(x) else imagetodf(x)
-imagestodf <- function(x) do.call(rbind.fill, lapply(x, imagetodf))
-imagetodf <- function(x){
-  data.frame(lapply(x, function(z){
-    tmp <- if(is(z, "list")) paste(unlist(z), collapse = ", ") else z
-    if(is.null(tmp)) NA else tmp
-  }), stringsAsFactors=FALSE)
+#' @export
+#' @rdname images
+image <- function(id, ...) {
+  res <- do_GET(image_url(id), ...)
+  as.image(res)
 }
 
-#' Delete an image
+#' @export
+print.image <- function(x, ...) {
+  cat("<image> ", x$name, " (", x$id, ")", "\n", sep = "")
+  cat("  Slug:    ", x$slug, " [", if (x$public) "public" else "private", 
+    "]\n", sep = "")
+  cat("  Distro:  ", x$distribution, "\n", sep = "")
+  cat("  Regions: ", paste0(unlist(x$regions), collapse = ", "), "\n", sep = "")
+}
+
+#' @export
+as.url.image <- function(x, ...) {
+  image_url(x$id)
+}
+
+#' Rename/delete an image
 #'
 #' There is no way to restore a deleted image so be careful and ensure your data is properly
 #' backed up before deleting it.
 #'
 #' @export
-#' @param image_id (numeric) This is the id of the image to return
-#' @param ... Options passed on to httr::GET. Must be named, see examples.
-#' @examples \dontrun{
-#' images_delete(image_id=5620385)
-#' }
-
-images_delete <- function(image_id=NULL, ...)
-{
-  assert_that(!is.null(image_id))
-  do_DELETE(sprintf('images/%s', image_id), ...)
-}
-
-#' Transfer an image to a specified region.
-#'
-#' @export
-#' @param image_id (numeric) Required. The image id.
-#' @param region (numeric) Required. The region slug that represents the region target.
-#' @param ... Options passed on to httr::GET. Must be named, see examples.
-#' @examples \dontrun{
-#' images_transfer(image_id=5710271, region='nyc2')
-#' images_transfer(image_id=4546004, region='nyc1')
-#' }
-
-images_transfer <- function(image_id=NULL, region=NULL, ...) {
-  assert_that(!is.null(image_id), !is.null(region))
-  res <- do_POST(sprintf('images/%s/actions', image_id), 
-    body = list(type='transfer', region=region), ...)
-  as.action(res)
-}
-
-#' Rename an image.
-#' 
-#' In the API docs, they call this updating the image, but the only thing you can do is rename it.
-#'
-#' @export
-#' @param image_id (numeric) This is the id of the image to return
+#' @param image An image to modify.
 #' @param name (characer) New name for image.
 #' @param ... Options passed on to httr::GET. Must be named, see examples.
 #' @examples \dontrun{
-#' images_rename(image_id=5710271, name='mirror_image2')
+#' image_delete(5620385)
 #' }
+image_delete <- function(image, ...) {
+  image <- as.image(image)
+  do_DELETE(image, ...)
+}
 
-images_rename <- function(image_id=NULL, name=NULL, ...) {
-  res <- do_PUT(sprintf('images/%s', image_id), query = list(name=name), ...)
-  parse_img(res$image)
+
+#' @export
+#' @rdname image_delete
+image_rename <- function(image, name, ...) {
+  image <- as.image(image)
+  as.image(do_PUT(image, query = list(name = name), ...))
 }
 
 #' Retrieve an action associated with a particular image id.
 #'
 #' @export
-#' @param image_id An image id.
+#' @param image An image to modify.
 #' @param action_id An action id associated with an image.
 #' @param ... Options passed on to httr::GET. Must be named, see examples.
 #' @examples \dontrun{
-#' images_actions(5710271, 31221438)
+#' image_actions(5710271, 31221438)
 #' }
+image_actions <- function(image, action_id, ...) {
+  image <- as.image(image)
+  res <- do_GET(sprintf('images/%s/actions/%s', image$id, action_id), ...)
+  as.action(res)
+}
 
-images_actions <- function(image_id=NULL, action_id=NULL, ...)
-{
-  res <- do_GET(sprintf('images/%s/actions/%s', image_id, action_id), ...)
-  parse_action(res$action)
+#' Transfer an image to a specified region.
+#'
+#' @export
+#' @param image An image to modify.
+#' @param region (numeric) Required. The region slug that represents the region target.
+#' @param ... Options passed on to httr::GET. Must be named, see examples.
+#' @examples \dontrun{
+#' image_transfer(image_id=5710271, region='nyc2')
+#' image_transfer(image_id=4546004, region='nyc1')
+#' }
+image_transfer <- function(image, region, ...) {
+  image <- as.image(image)
+  
+  res <- do_POST(sprintf('images/%s/actions', image$id), 
+    body = list(type='transfer', region=region), ...)
+  as.action(res)
 }
