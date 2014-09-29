@@ -1,3 +1,11 @@
+key_url <- function(key = NULL) {
+  url("account", "keys", key)
+}
+#' @export
+as.url.key <- function(x, ...) {
+  key_url(x$id)
+}
+
 #' List your ssh keys, or get a single key
 #'
 #' @export
@@ -10,32 +18,21 @@
 #' as.key("hadley")
 #' }
 keys <- function(..., page = 1, per_page = 25) {
-  res <- do_GET("account/keys", query = list(page = page, per_page = per_page), ...)
+  res <- do_GET(key_url(), query = list(page = page, per_page = per_page), ...)
   as.key(res)
 }
 
 #' @rdname keys
 #' @export
-key <- function(x) {
-  res <- do_key(x)
-  as.key(res)
+key <- function(x, ...) {
+  as.key(do_GET(key_url(x), ...))
 }
 
 #' @rdname keys
 #' @export
 as.key <- function(x) UseMethod("as.key")
 #' @export
-as.key.list <- function(x) {
-  if (!is.null(x$ssh_keys)) {
-    keys <- lapply(x$ssh_keys, structure, class = "key")
-    names(keys) <- pluck(x$ssh_keys, "name", character(1))
-    keys
-  } else if (!is.null(x$ssh_key)) {
-    structure(x$ssh_key, class = "key")  
-  } else {
-    stop("Don't know how to coerce this list to a key", call. = FALSE) 
-  }
-}
+as.key.list <- function(x) list_to_object(x, "ssh_key", class = "key")
 #' @export 
 as.key.numeric <- function(x) key(x)
 #' @export
@@ -44,20 +41,9 @@ as.key.character <- function(x) keys()[[x]]
 as.key.key <- function(x) x
 
 #' @export
-as.url.key <- function(x, ...) {
-  sprintf('%s/account/keys/%s', do_base, x$id)
-}
-
-#' @export
 print.key <- function(x, ...) {
   cat("<key> ", x$name, " (", x$id, ")", "\n", sep = "")
   cat("  Fingerprint: ", x$fingerprint, "\n", sep = "")
-}
-
-#' @export
-#' @rdname keys
-do_key <- function(x, ...) {
-  do_GET(sprintf('account/keys/%s', x), ...)
 }
 
 #' Create, update, and delete ssh keys.
@@ -77,8 +63,8 @@ NULL
 #' @rdname key-crud
 #' @export
 key_create <- function(name, public_key, ...) {
-  res <- do_POST('account/keys', query = list(
-    name = name, 
+  res <- do_POST(key_url(), query = list(
+    name = name,
     public_key = public_key
   ), ...)
   as.key(res)
