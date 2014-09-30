@@ -66,5 +66,5 @@ action_wait <- function(x) {
 
 action_refresh <- function(action) {
   action <- as.action(action)
-  as.action(do_GET("parsed", action))
+  as.action(do_GET(action))
 }
