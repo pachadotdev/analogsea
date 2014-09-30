@@ -13,6 +13,10 @@ droplet_ssh(droplet, cmd, user = "root", verbose = FALSE)
 
 \item{user}{User}
 }
+\value{
+On success, the droplet (invisibly). On failure, throws an
+  error.
+}
 \description{
 Assumes that you have ssh installed, and password-less login set up
 on the droplet.
@@ -20,9 +24,16 @@ on the droplet.
 \examples{
 \dontrun{
 d <- droplet_new() \%>\% droplet_wait()
-d \%>\% droplet_ssh("apt-get update")
-d \%>\% droplet_ssh("sudo apt-get upgrade -y")
-d \%>\% droplet_ssh("apt-get autoremove -y")
+
+# Upgrade system packages
+d \%>\%
+  droplet_ssh("apt-get update") \%>\%
+  droplet_ssh("sudo apt-get upgrade -y --force-yes") \%>\%
+  droplet_ssh("apt-get autoremove -y")
+
+# Install R
+d \%>\%
+  droplet_ssh("apt-get install r-base-core r-base-dev --yes --force-yes")
 }
 }
 

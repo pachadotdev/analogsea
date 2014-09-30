@@ -7,12 +7,21 @@
 #'   \code{\link{as.droplet}}.
 #' @param cmd Shell command to run
 #' @param user User
+#' @return On success, the droplet (invisibly). On failure, throws an 
+#'   error.
 #' @examples
 #' \dontrun{
 #' d <- droplet_new() %>% droplet_wait()
-#' d %>% droplet_ssh("apt-get update")
-#' d %>% droplet_ssh("sudo apt-get upgrade -y")
-#' d %>% droplet_ssh("apt-get autoremove -y")
+#' 
+#' # Upgrade system packages
+#' d %>% 
+#'   droplet_ssh("apt-get update") %>% 
+#'   droplet_ssh("sudo apt-get upgrade -y --force-yes") %>%
+#'   droplet_ssh("apt-get autoremove -y") 
+#'   
+#' # Install R
+#' d %>%
+#'   droplet_ssh("apt-get install r-base-core r-base-dev --yes --force-yes")
 #' }
 droplet_ssh <- function(droplet, cmd, user = "root", verbose = FALSE) {
   droplet <- as.droplet(droplet)
