@@ -3,12 +3,12 @@
 \alias{remoter}
 \title{Execute code remotely on Digital Ocean in a single command.}
 \usage{
-remoter(x, verbose = TRUE)
+remoter(code, droplet = NULL, verbose = TRUE, savepath = NULL)
 }
 \arguments{
-\item{x}{Code to excute on Digital Ocean droplet.}
-
 \item{verbose}{(logical) Print messages}
+
+\item{x}{Code to excute on Digital Ocean droplet.}
 }
 \description{
 See Details.
@@ -26,8 +26,17 @@ This function (when complete, that is):
 }
 \examples{
 \dontrun{
-remoter({
-  head(mtcars)
+d <- droplets()[[1]]
+remoter(code={
+  install.packages("ggplot2")
+  library('ggplot2')
+  carsplot <- qplot(mpg, wt, data=mtcars)
+  df <- diamonds[1:5000,]
+  diaomondsplot <- qplot(cut, carat, data=df)
+  numbers <- runif(100)
+}, droplet = d)
+
+remoter(code={
   head(iris)
 })
 }
