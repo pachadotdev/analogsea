@@ -145,24 +145,6 @@ do_install <- function(id=NULL, what='r', deps=NULL, usr='rstudio', pwd='rstudio
   sprintf("ssh root@%s", ip)
 }
 
-scp_ssh <- function(file, ip, user='root', verbose){
-  # remove known_hosts key
-  mssg(verbose, "Removing known host if already present")
-  system(sprintf('ssh-keygen -R %s', ip))
-  scp(file, ip, user)
-  ssh(file, ip, user)
-}
-
-scp <- function(file, ip, user='root'){
-  scp_cmd <- sprintf('scp -o StrictHostKeyChecking=no %s %s@%s:~/', file, user, ip)
-  system(scp_cmd)
-}
-
-ssh <- function(file, ip, user='root'){
-  ssh_cmd <- sprintf('ssh %s@%s "sh %s"', user, ip, file)
-  system(ssh_cmd)
-}
-
 r_string <-
 'sudo echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
