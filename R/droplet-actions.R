@@ -68,6 +68,23 @@ droplet_new <- function(name = random_name(),
 
 random_name <- function() sample(words, size = 1)
 
+#' Wait for a droplet to be ready.
+#' 
+#' @param droplet  A droplet, or something that can be coerced to a droplet by
+#'   \code{\link{as.droplet}}.
+#' @export
+#' @examples
+#' \dontrun{
+#' droplet_new() %>% droplet_wait()
+#' }
+droplet_wait <- function(droplet) {
+  droplet <- as.droplet(droplet)
+  
+  action <- droplet_actions(droplet)[[1]]
+  action_wait(action)
+}
+
+
 #' Delete a droplet.
 #'
 #' This method deletes one of your droplets - this is irreversible.

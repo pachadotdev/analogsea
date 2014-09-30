@@ -26,8 +26,9 @@ This function (when complete, that is):
 }
 \examples{
 \dontrun{
-d <- droplets()[[1]]
-remoter(code={
+# If you already have a droplet
+(d <- droplets()[[1]])
+path <- remoter({
   install.packages("ggplot2")
   library('ggplot2')
   carsplot <- qplot(mpg, wt, data=mtcars)
@@ -35,10 +36,13 @@ remoter(code={
   diaomondsplot <- qplot(cut, carat, data=df)
   numbers <- runif(100)
 }, droplet = d)
+remoter_load(path)
 
-remoter(code={
-  head(iris)
-})
+# With a new droplet
+path <- remoter({
+  numbers <- runif(100)
+}, droplets()[[3]])
+remoter_load(path)
 }
 }
 

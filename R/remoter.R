@@ -37,14 +37,15 @@
 remoter <- function(code, droplet=NULL, verbose=TRUE, savepath=NULL){
   
   # spin up new droplet, collect info
-  if(is.null(droplet)) droplet <- droplet_new()
-  id <- droplet$id
-  tmp2 <- droplet(id)
-  ip <- tmp2$networks$v4[[1]]$ip_address
+  if(is.null(droplet)) {
+    droplet <- droplet_new()
+    droplet <- droplet_wait(droplet)
+  } else {
+    droplet <- as.droplet(droplet)
+  }
 
-  # wait until droplet is up and running
-  mssg(verbose, "Waiting for droplet to spin up")
-  wait_running(id)
+  id <- droplet$id
+  ip <- droplet$networks$v4[[1]]$ip_address
   
   # check if R is installed, and if not, install R
   do_swap(TRUE, ip, swap_string, verbose)
@@ -81,15 +82,6 @@ remoter_load <- function(x){
   path <- file.path(x, 'output.RData')
   assert_that(file.exists(path))
   load(path, envir = .GlobalEnv, verbose = TRUE)
-}
-
-wait_running <- function(id){
-  stat <- "new"
-  while(stat == "new"){
-    Sys.sleep(1)
-    out <- droplet(id)
-    stat <- out$status
-  }
 }
 
 parse_code <- function(x){
