@@ -22,6 +22,9 @@ backed up before deleting it.
 \examples{
 \dontrun{
 image_delete(5620385)
+
+# Delete all of your snapshots
+lapply(images(public = FALSE), image_delete)
 }
 }
 

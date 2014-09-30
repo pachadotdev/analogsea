@@ -23,6 +23,9 @@ droplet_new() \%>\% droplet_delete()
 
 droplet_delete("lombard")
 droplet_delete(12345)
+
+# Delete all droplets
+lapply(droplets(), droplet_delete)
 }
 }
 

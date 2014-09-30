@@ -102,6 +102,9 @@ droplet_wait <- function(droplet) {
 #' 
 #' droplet_delete("lombard")
 #' droplet_delete(12345)
+#' 
+#' # Delete all droplets
+#' lapply(droplets(), droplet_delete)
 #' }
 droplet_delete <- function(droplet, ...) {
   droplet <- as.droplet(droplet)

@@ -68,6 +68,9 @@ as.url.image <- function(x, ...) {
 #' @param ... Options passed on to httr::GET. Must be named, see examples.
 #' @examples \dontrun{
 #' image_delete(5620385)
+#' 
+#' # Delete all of your snapshots
+#' lapply(images(public = FALSE), image_delete)
 #' }
 image_delete <- function(image, ...) {
   image <- as.image(image)
