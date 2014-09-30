@@ -45,7 +45,7 @@ remoter <- function(code, droplet=NULL, verbose=TRUE, savepath=NULL){
   }
 
   id <- droplet$id
-  ip <- droplet$networks$v4[[1]]$ip_address
+  ip <- droplet_ip(droplet)
   
   # check if R is installed, and if not, install R
   do_swap(TRUE, ip, swap_string, verbose)
