@@ -71,7 +71,7 @@ remoter <- function(code, droplet=NULL, verbose=TRUE, savepath=NULL){
   answer <- readline("Delete droplet? (y/n) ")
   answer <- match.arg(answer, c('yes','no'))
   if(answer=="yes"){
-    droplet_delete(tmp2)
+    droplet_delete(droplet)
     message(sprintf("Droplet %s deleted", id))
   } else { message("droplet still running") }
   
