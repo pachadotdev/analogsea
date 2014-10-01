@@ -39,7 +39,7 @@
 #' 
 #' stopifnot(all.equal(mtcars, mtcars2))
 #' }
-droplet_ssh <- function(droplet, cmd, user = "root", verbose = TRUE) {
+droplet_ssh <- function(droplet, cmd, user = "root", verbose = FALSE) {
   droplet <- as.droplet(droplet)  
   
   cmd <- sprintf("ssh -o BatchMode=yes -o StrictHostKeyChecking=no %s@%s %s", user, 
