@@ -19,6 +19,9 @@
 #' d %>% docklet_run("eddelbuettel/ubuntu-r-base", "R --version", rm = TRUE)
 #' d %>% docklet_ps()
 #' 
+#' # Run rstudio
+#' d %>% docklet_rstudio()
+#' 
 #' d %>% droplet_delete()
 #' }
 docklet_create <- function(name = random_name(), 
@@ -69,8 +72,8 @@ docklet_pull <- function(droplet, repo) {
 #' @rdname docklet_create
 docklet_run <- function(droplet, ..., rm = FALSE, name = NULL) {
   docklet_docker(droplet, "run", c(
-    if (rm) "--rm", 
-    if (!is.null(name)) paste0("--name=", name),
+    if (rm) " --rm", 
+    if (!is.null(name)) paste0(" --name=", name),
     ...
   ))
 }
@@ -78,5 +81,30 @@ docklet_run <- function(droplet, ..., rm = FALSE, name = NULL) {
 #' @export
 #' @rdname docklet_create
 docklet_docker <- function(droplet, cmd, args = NULL, docker_args = NULL) {
+  args <- paste(args, collapse = "")
   droplet_ssh(droplet, paste(c("docker", docker_args, cmd, args), collapse = " "))
+}
+
+#' @export
+#' @rdname docklet_create
+docklet_rstudio <- function(droplet, user = 'rstudio', password = 'rstudio', 
+                            email = 'rstudio@example.com', 
+                            img = 'eddelbuettel/ubuntu-rstudio', 
+                            port = '8787', browse = TRUE, verbose = TRUE) {
+  droplet <- as.droplet(droplet)
+  
+  docklet_pull(d, img)
+  docklet_run(d,
+    " -p ", port, ":8787", 
+    " -e USER=", user,
+    " -e PASSWORD=", password,
+    " -e EMAIL=", email, " ",
+    img) 
+  
+  url <- sprintf("http://%s:%s/", droplet_ip(droplet), port)
+  if (browse) {
+    browseURL(url)
+  }
+  
+  invisible(url)
 }
