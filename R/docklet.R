@@ -7,6 +7,8 @@
 
 #' Docklets: docker on droplets.
 #' 
+#' @export
+#' 
 #' @keywords internal
 #' @examples 
 #' \dontrun{
