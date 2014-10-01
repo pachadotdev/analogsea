@@ -108,8 +108,8 @@ docklet_rstudio <- function(droplet, user = 'rstudio', password = 'rstudio',
                             port = '8787', browse = TRUE, verbose = TRUE) {
   droplet <- as.droplet(droplet)
   
-  docklet_pull(d, img)
-  docklet_run(d,
+  docklet_pull(droplet, img)
+  docklet_run(droplet,
     " -d", 
     " -p ", port, ":8787", 
     " -e USER=", user,
