@@ -20,7 +20,7 @@ docklet_images(droplet)
 
 docklet_pull(droplet, repo)
 
-docklet_run(droplet, image, ..., rm = FALSE, name = NULL)
+docklet_run(droplet, ..., rm = FALSE, name = NULL)
 
 docklet_docker(droplet, cmd, args = NULL, docker_args = NULL)
 }

@@ -67,11 +67,10 @@ docklet_pull <- function(droplet, repo) {
 
 #' @export
 #' @rdname docklet_create
-docklet_run <- function(droplet, image, ..., rm = FALSE, name = NULL) {
+docklet_run <- function(droplet, ..., rm = FALSE, name = NULL) {
   docklet_docker(droplet, "run", c(
     if (rm) "--rm", 
     if (!is.null(name)) paste0("--name=", name),
-    image, 
     ...
   ))
 }
