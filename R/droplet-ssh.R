@@ -1,7 +1,9 @@
 #' Remotely execute ssh code, upload & download files.
 #' 
 #' Assumes that you have ssh & scp installed, and password-less login set up
-#' on the droplet.
+#' on the droplet.  Use \code{droplet_reset_host} to reset your host file 
+#' if you get complaints from ssh - this usually occurs when you have a new
+#' droplet on a previously used ip address.
 #' 
 #' @param droplet  A droplet, or something that can be coerced to a droplet by
 #'   \code{\link{as.droplet}}.
@@ -65,6 +67,13 @@ droplet_download <- function(droplet, remote, local, user = "root", verbose = FA
   do_system(droplet, cmd, verbose = verbose)  
 }
 
+
+#' @export 
+#' @rdname droplet_ssh
+droplet_reset_host <- function(droplet) {
+  droplet <- as.droplet(droplet)  
+  system(paste0("ssh-keygen -R ", droplet_ip(droplet)))
+}
 
 droplet_ip <- function(x) {
   v4 <- x$network$v4
