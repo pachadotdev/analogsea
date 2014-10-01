@@ -7,7 +7,7 @@
 \alias{httr-verbs}
 \title{httr wrappers.}
 \usage{
-do_GET(url, ..., query = list())
+do_GET(url, ...)
 
 do_POST(url, ..., encode = "json")
 

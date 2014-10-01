@@ -20,7 +20,7 @@ NULL
 
 #' @export
 #' @rdname httr-verbs
-do_GET <- function(url, ..., query = list()) {
+do_GET <- function(url, ...) {
   do_VERB("GET", url, ...)
 }
 #' @export
