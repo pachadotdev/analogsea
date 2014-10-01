@@ -26,7 +26,7 @@ droplet <- function(id, ...) {
 #' @rdname droplet
 as.droplet <- function(x) UseMethod("as.droplet")
 #' @export
-as.droplet.numeric <- function(x) droplets(x)
+as.droplet.numeric <- function(x) droplet(x)
 #' @export
 as.droplet.character <- function(x) droplets()[[x]]
 #' @export
