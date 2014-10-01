@@ -49,8 +49,7 @@ d \%>\% docklet_images()
 d \%>\% docklet_run("eddelbuettel/ubuntu-r-base", "R --version", rm = TRUE)
 d \%>\% docklet_ps()
 
-# Run rstudio - currently this command never terminates because ssh
-# connection stays open.
+# Run a docklet containing rstudio
 d \%>\% docklet_rstudio()
 
 d \%>\% droplet_delete()
