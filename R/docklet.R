@@ -16,20 +16,20 @@
 #'   docklet_images()
 #' d %>% docklet_images()
 #' 
-#' d %>% docklet_run("eddelbuettel/ubuntu-r-base", "R -- --version")
+#' d %>% docklet_run("eddelbuettel/ubuntu-r-base", "R --version", rm = TRUE)
 #' d %>% docklet_ps()
 #' 
 #' d %>% droplet_delete()
 #' }
 docklet_create <- function(name = random_name(), 
-                        size = getOption("do_size", "1gb"),
-                        region = getOption("do_region", "sfo1"),
-                        ssh_keys = NULL,
-                        backups = getOption("do_backups", NULL),
-                        ipv6 = getOption("do_ipv6", NULL),
-                        private_networking = getOption("do_private_networking", NULL),
-                        wait = TRUE,
-                        ...) {  
+                           size = getOption("do_size", "1gb"),
+                           region = getOption("do_region", "sfo1"),
+                           ssh_keys = NULL,
+                           backups = getOption("do_backups", NULL),
+                           ipv6 = getOption("do_ipv6", NULL),
+                           private_networking = getOption("do_private_networking", NULL),
+                           wait = TRUE,
+                           ...) {  
   d <- droplet_new(
     name = name, 
     size = size, 
@@ -67,12 +67,17 @@ docklet_pull <- function(droplet, repo) {
 
 #' @export
 #' @rdname docklet_create
-docklet_run <- function(droplet, image, ...) {
-  docklet_docker(droplet, "run", c(image, ...))
+docklet_run <- function(droplet, image, ..., rm = FALSE, name = NULL) {
+  docklet_docker(droplet, "run", c(
+    if (rm) "--rm", 
+    if (!is.null(name)) paste0("--name=", name),
+    image, 
+    ...
+  ))
 }
 
 #' @export
 #' @rdname docklet_create
-docklet_docker <- function(droplet, cmd, args = NULL) {
-  droplet_ssh(droplet, paste(c("docker", cmd, args), collapse = " "))
+docklet_docker <- function(droplet, cmd, args = NULL, docker_args = NULL) {
+  droplet_ssh(droplet, paste(c("docker", docker_args, cmd, args), collapse = " "))
 }

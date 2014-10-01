@@ -20,9 +20,9 @@ docklet_images(droplet)
 
 docklet_pull(droplet, repo)
 
-docklet_run(droplet, image, ...)
+docklet_run(droplet, image, ..., rm = FALSE, name = NULL)
 
-docklet_docker(droplet, cmd, args = NULL)
+docklet_docker(droplet, cmd, args = NULL, docker_args = NULL)
 }
 \description{
 Docklets: docker on droplets.
@@ -35,7 +35,7 @@ d \%>\%
   docklet_images()
 d \%>\% docklet_images()
 
-d \%>\% docklet_run("eddelbuettel/ubuntu-r-base", "R -- --version")
+d \%>\% docklet_run("eddelbuettel/ubuntu-r-base", "R --version", rm = TRUE)
 d \%>\% docklet_ps()
 
 d \%>\% droplet_delete()
