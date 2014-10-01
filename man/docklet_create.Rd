@@ -5,7 +5,10 @@
 \alias{docklet_images}
 \alias{docklet_ps}
 \alias{docklet_pull}
+\alias{docklet_rm}
+\alias{docklet_rstudio}
 \alias{docklet_run}
+\alias{docklet_stop}
 \title{Docklets: docker on droplets.}
 \usage{
 docklet_create(name = random_name(), size = getOption("do_size", "1gb"),
@@ -22,7 +25,15 @@ docklet_pull(droplet, repo)
 
 docklet_run(droplet, ..., rm = FALSE, name = NULL)
 
+docklet_stop(droplet, container)
+
+docklet_rm(droplet, container)
+
 docklet_docker(droplet, cmd, args = NULL, docker_args = NULL)
+
+docklet_rstudio(droplet, user = "rstudio", password = "rstudio",
+  email = "rstudio@example.com", img = "eddelbuettel/ubuntu-rstudio",
+  port = "8787", browse = TRUE, verbose = TRUE)
 }
 \description{
 Docklets: docker on droplets.
@@ -37,6 +48,10 @@ d \%>\% docklet_images()
 
 d \%>\% docklet_run("eddelbuettel/ubuntu-r-base", "R --version", rm = TRUE)
 d \%>\% docklet_ps()
+
+# Run rstudio - currently this command never terminates because ssh
+# connection stays open.
+d \%>\% docklet_rstudio()
 
 d \%>\% droplet_delete()
 }

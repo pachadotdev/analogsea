@@ -19,7 +19,7 @@
 #' d %>% docklet_run("eddelbuettel/ubuntu-r-base", "R --version", rm = TRUE)
 #' d %>% docklet_ps()
 #' 
-#' # Run rstudio
+#' # Run a docklet containing rstudio
 #' d %>% docklet_rstudio()
 #' 
 #' d %>% droplet_delete()
@@ -80,6 +80,19 @@ docklet_run <- function(droplet, ..., rm = FALSE, name = NULL) {
 
 #' @export
 #' @rdname docklet_create
+docklet_stop <- function(droplet, container) {
+  docklet_docker(droplet, "stop", container)
+}
+
+
+#' @export
+#' @rdname docklet_create
+docklet_rm <- function(droplet, container) {
+  docklet_docker(droplet, "rm", container)
+}
+
+#' @export
+#' @rdname docklet_create
 docklet_docker <- function(droplet, cmd, args = NULL, docker_args = NULL) {
   args <- paste(args, collapse = "")
   droplet_ssh(droplet, paste(c("docker", docker_args, cmd, args), collapse = " "))
@@ -95,6 +108,7 @@ docklet_rstudio <- function(droplet, user = 'rstudio', password = 'rstudio',
   
   docklet_pull(d, img)
   docklet_run(d,
+    " -d", 
     " -p ", port, ":8787", 
     " -e USER=", user,
     " -e PASSWORD=", password,
@@ -103,6 +117,7 @@ docklet_rstudio <- function(droplet, user = 'rstudio', password = 'rstudio',
   
   url <- sprintf("http://%s:%s/", droplet_ip(droplet), port)
   if (browse) {
+    Sys.sleep(4) # give Rstudio server a few seconds to start up
     browseURL(url)
   }
   
