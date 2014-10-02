@@ -45,7 +45,7 @@ droplet_ssh <- function(droplet, ..., user = "root", verbose = FALSE) {
   
   lines <- paste(c(...), collapse = " \\\n&& ")
   cmd <- sprintf("ssh -o BatchMode=yes -o StrictHostKeyChecking=no %s@%s %s", user, 
-    droplet_ip(droplet), lines)
+    droplet_ip(droplet), shQuote(lines))
   do_system(droplet, cmd, verbose = verbose)
 }
 
