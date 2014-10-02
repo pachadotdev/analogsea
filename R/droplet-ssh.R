@@ -5,9 +5,9 @@
 #' if you get complaints from ssh - this usually occurs when you have a new
 #' droplet on a previously used ip address.
 #' 
-#' @param droplet  A droplet, or something that can be coerced to a droplet by
+#' @param droplet A droplet, or something that can be coerced to a droplet by
 #'   \code{\link{as.droplet}}.
-#' @param cmd Shell command to run
+#' @param ... Shell command to run
 #' @param user User name. Defaults to "root".
 #' @param local,remote Local and remote paths.
 #' @param verbose If TRUE, will print command before executing it.

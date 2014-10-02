@@ -6,7 +6,7 @@
 \alias{droplet_upload}
 \title{Remotely execute ssh code, upload & download files.}
 \usage{
-droplet_ssh(droplet, cmd, user = "root", verbose = FALSE)
+droplet_ssh(droplet, ..., user = "root", verbose = FALSE)
 
 droplet_upload(droplet, local, remote, user = "root", verbose = FALSE)
 
@@ -18,7 +18,7 @@ droplet_reset_host(droplet)
 \item{droplet}{A droplet, or something that can be coerced to a droplet by
 \code{\link{as.droplet}}.}
 
-\item{cmd}{Shell command to run}
+\item{...}{Shell command to run}
 
 \item{user}{User name. Defaults to "root".}
 
