@@ -8,7 +8,7 @@ droplet_new(name = random_name(), size = getOption("do_size", "512mb"),
   region = getOption("do_region", "sfo1"), ssh_keys = NULL,
   backups = getOption("do_backups", NULL), ipv6 = getOption("do_ipv6",
   NULL), private_networking = getOption("do_private_networking", NULL),
-  user_data = NULL, ...)
+  user_data = NULL, wait = TRUE, ...)
 }
 \arguments{
 \item{name}{(character) Name of the droplet. Default: picks a random name if none supplied.}
@@ -36,6 +36,9 @@ only available in certain regions. Default: FALSE}
 
 \item{user_data}{(character) Gets passed to the Droplet at boot time. Not all regions have this enabled,
 and is not used by all images.}
+
+\item{wait}{If \code{TRUE}, wait until droplet has been initialised and
+is ready for use.}
 
 \item{...}{Additional options passed down to \code{\link[httr]{POST}}}
 }

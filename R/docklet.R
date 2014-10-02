@@ -10,6 +10,7 @@
 #' @export
 #' 
 #' @keywords internal
+#' @inheritParams droplet_new
 #' @examples 
 #' \dontrun{
 #' d <- docklet_create()
@@ -43,13 +44,9 @@ docklet_create <- function(name = random_name(),
     ssh_keys = ssh_keys,
     backups = backups,
     ipv6 = ipv6,
-    private_networking = private_networking
+    private_networking = private_networking, 
+    wait = wait
   )
-  if (wait) {
-    droplet_wait(d)
-  } else { 
-    d
-  }
 }
 
 #' @export

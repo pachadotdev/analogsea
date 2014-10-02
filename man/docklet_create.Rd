@@ -35,6 +35,31 @@ docklet_rstudio(droplet, user = "rstudio", password = "rstudio",
   email = "rstudio@example.com", img = "eddelbuettel/ubuntu-rstudio",
   port = "8787", browse = TRUE, verbose = TRUE)
 }
+\arguments{
+\item{name}{(character) Name of the droplet. Default: picks a random name if none supplied.}
+
+\item{size}{(character) Size slug identifier. See \code{sizes}. Default: 512mb, the smallest}
+
+\item{region}{(character) The unique slug identifier for the region that you wish to deploy in.
+Default: sfo1}
+
+\item{ssh_keys}{(character) A vector with IDs or fingerprints of the SSH keys that you wish to
+embed in the Droplet's root account upon creation.}
+
+\item{backups}{(logical) Enable backups. A boolean indicating whether automated backups should
+be enabled for the Droplet. Automated backups can only be enabled when the Droplet is created.
+Default: FALSE}
+
+\item{ipv6}{(logical) A boolean indicating whether IPv6 is enabled on the Droplet.}
+
+\item{private_networking}{(logical) Use private networking. Private networking is currently
+only available in certain regions. Default: FALSE}
+
+\item{wait}{If \code{TRUE}, wait until droplet has been initialised and
+is ready for use.}
+
+\item{...}{Additional options passed down to \code{\link[httr]{POST}}}
+}
 \description{
 Docklets: docker on droplets.
 }

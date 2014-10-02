@@ -22,6 +22,8 @@
 #' @param ipv6 (logical) A boolean indicating whether IPv6 is enabled on the Droplet.
 #' @param user_data (character) Gets passed to the Droplet at boot time. Not all regions have this enabled, 
 #' and is not used by all images.
+#' @param wait If \code{TRUE}, wait until droplet has been initialised and
+#'   is ready for use.
 #' @param ... Additional options passed down to \code{\link[httr]{POST}}
 #' @examples \dontrun{
 #' droplet_new()
@@ -40,6 +42,7 @@ droplet_new <- function(name = random_name(),
                         ipv6 = getOption("do_ipv6", NULL),
                         private_networking = getOption("do_private_networking", NULL),
                         user_data = NULL,
+                        wait = TRUE,
                         ...) {
   
   if (is.null(ssh_keys)) {
@@ -67,7 +70,12 @@ droplet_new <- function(name = random_name(),
   
   message("NB: This costs $", droplet$size$price_hourly, " / hour ", 
     "until you droplet_delete() it")
-  droplet
+  
+  if (wait) {
+    droplet_wait(droplet)
+  } else {
+    droplet  
+  }
 }
 
 random_name <- function() sample(words, size = 1)
