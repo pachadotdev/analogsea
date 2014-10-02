@@ -3,3 +3,4 @@ tests/testthat/keys.R
 .Rproj.user
 .httr-oauth
 .Rhistory
+droplet_remote.R
