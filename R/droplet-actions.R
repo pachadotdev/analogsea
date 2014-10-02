@@ -20,6 +20,8 @@
 #' be enabled for the Droplet. Automated backups can only be enabled when the Droplet is created.
 #' Default: FALSE
 #' @param ipv6 (logical) A boolean indicating whether IPv6 is enabled on the Droplet.
+#' @param user_data (character) Gets passed to the Droplet at boot time. Not all regions have this enabled, 
+#' and is not used by all images.
 #' @param ... Additional options passed down to \code{\link[httr]{POST}}
 #' @examples \dontrun{
 #' droplet_new()
