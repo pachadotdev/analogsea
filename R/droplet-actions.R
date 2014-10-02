@@ -37,6 +37,7 @@ droplet_new <- function(name = random_name(),
                         backups = getOption("do_backups", NULL),
                         ipv6 = getOption("do_ipv6", NULL),
                         private_networking = getOption("do_private_networking", NULL),
+                        user_data = NULL,
                         ...) {
   
   if (is.null(ssh_keys)) {
@@ -56,7 +57,8 @@ droplet_new <- function(name = random_name(),
       ssh_keys = ssh_keys, 
       backups = unbox(backups), 
       ipv6 = unbox(ipv6), 
-      private_networking = unbox(private_networking)
+      private_networking = unbox(private_networking),
+      user_data = unbox(user_data)
     ), ...
   )
   droplet <- structure(res$droplet, class = "droplet")
