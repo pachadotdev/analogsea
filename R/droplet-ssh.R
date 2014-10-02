@@ -7,7 +7,8 @@
 #' 
 #' @param droplet A droplet, or something that can be coerced to a droplet by
 #'   \code{\link{as.droplet}}.
-#' @param ... Shell command to run
+#' @param ... Shell commands to run. Multiple commands are combined with
+#'   \code{&&} so that execution will halt after the first failure.
 #' @param user User name. Defaults to "root".
 #' @param local,remote Local and remote paths.
 #' @param verbose If TRUE, will print command before executing it.

@@ -18,7 +18,8 @@ droplet_reset_host(droplet)
 \item{droplet}{A droplet, or something that can be coerced to a droplet by
 \code{\link{as.droplet}}.}
 
-\item{...}{Shell command to run}
+\item{...}{Shell commands to run. Multiple commands are combined with
+\code{&&} so that execution will halt after the first failure.}
 
 \item{user}{User name. Defaults to "root".}
 
