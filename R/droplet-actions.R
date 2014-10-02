@@ -49,20 +49,20 @@ droplet_new <- function(name = random_name(),
       ssh_keys <- all_keys[[1]]$id
     }
   }
+  body <- list(
+    name = unbox(name), 
+    size = unbox(size), 
+    image = unbox(image), 
+    region = unbox(region), 
+    ssh_keys = ssh_keys, 
+    backups = unbox(backups), 
+    ipv6 = unbox(ipv6), 
+    private_networking = unbox(private_networking))
+
+  if (!is.null(user_data))
+    body$user_data = unbox(user_data)
   
-  res <- do_POST('droplets', 
-    body = list(
-      name = unbox(name), 
-      size = unbox(size), 
-      image = unbox(image), 
-      region = unbox(region), 
-      ssh_keys = ssh_keys, 
-      backups = unbox(backups), 
-      ipv6 = unbox(ipv6), 
-      private_networking = unbox(private_networking),
-      user_data = unbox(user_data)
-    ), ...
-  )
+  res <- do_POST('droplets', body = body, ...)
   droplet <- structure(res$droplet, class = "droplet")
   
   message("NB: This costs $", droplet$size$price_hourly, " / hour ", 
