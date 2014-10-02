@@ -27,7 +27,7 @@ do_oauth <- function(app = do_app, reauth = FALSE) {
     return(cache$auth_config)
   }
   
-  pat <- "" # Sys.getenv("DO_PAT", "")
+  pat <- Sys.getenv("DO_PAT", "")
   if (!identical(pat, "")) {
     auth_config <- httr::add_headers(Authorization = paste0("Bearer ", pat))
   } else {
