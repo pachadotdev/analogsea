@@ -30,7 +30,11 @@ do_oauth <- function(app = do_app, reauth = FALSE) {
   pat <- Sys.getenv("DO_PAT", "")
   if (!identical(pat, "")) {
     auth_config <- httr::add_headers(Authorization = paste0("Bearer ", pat))
-  } else {
+  } else if (!interactive()) {
+    stop("In non-interactive environments, please set DO_PAT env to a DO",
+      " access token (https://cloud.digitalocean.com/settings/tokens/new)",
+      call. = FALSE)
+  } else  {
     endpt <- httr::oauth_endpoint(NULL, "authorize", "token",
       base_url = "https://cloud.digitalocean.com/v1/oauth")
     token <- httr::oauth2.0_token(endpt, app, scope = c("read", "write"), cache = !reauth)
