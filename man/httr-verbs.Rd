@@ -9,7 +9,7 @@
 \usage{
 do_GET(url, ...)
 
-do_POST(url, ..., encode = "json")
+do_POST(url, ..., body = body, encode = "json")
 
 do_PUT(url, ...)
 
