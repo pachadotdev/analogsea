@@ -3,7 +3,7 @@
 \alias{droplet_execute}
 \title{Execute R code on a droplet.}
 \usage{
-droplet_execute(droplet, code, verbose = TRUE, savepath = NULL)
+droplet_execute(droplet, code, verbose = TRUE)
 }
 \arguments{
 \item{droplet}{A droplet, or object that can be coerced to a droplet

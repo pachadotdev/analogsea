@@ -18,8 +18,7 @@
 #' 
 #' droplet_delete(d)
 #' }
-droplet_execute <- function(droplet, code, verbose=TRUE, savepath=NULL) {
-  browser()
+droplet_execute <- function(droplet, code, verbose=TRUE) {
   droplet <- as.droplet(droplet)
   
   code <- substitute(code)
