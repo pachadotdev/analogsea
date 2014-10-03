@@ -18,9 +18,9 @@ Imports:
     assertthat,
     jsonlite,
     plyr,
-    packrat,
     magrittr
 Suggests:
+    packrat,
     testthat,
     roxygen2,
     knitr
