@@ -24,7 +24,7 @@ library("analogsea")
 
 ### Create a DO account
 
-If you don't already have create, [create a DO account](https://www.digitalocean.com/?refcode=0740f5169634). Use this referral link to generate some DO credits for us to offset our costs for testing the package. Thanks :)
+If you don't already have one, [create a DO account](https://www.digitalocean.com/?refcode=0740f5169634). By using this link, you'll start with $10 in credits (enough for >600 hours of computing on a 1 gb machine), and if you become a digital ocean customer we'll get some DO credits for us to offset our testing costs for testing. Thanks :)
 
 ### Authenticate
 
