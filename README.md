@@ -30,7 +30,7 @@ If you don't already have one, [create a DO account](https://www.digitalocean.co
 
 The best way to authenticate is to generate a [personal access token](https://cloud.digitalocean.com/settings/tokens/new) and save it in an environment variable called `DO_PAT`.  If you don't do this, you'll be prompted to authenticate in your browser the first time you use analogsea.
 
-Make sure you provide digitial ocean your public key at <https://cloud.digitalocean.com/ssh_keys>. 
+Make sure you provide digitial ocean your public key at <https://cloud.digitalocean.com/ssh_keys>. Github has some good advice on creating a new public key if you don't already have one: <https://help.github.com/articles/generating-ssh-keys/>.
 
 ### Get droplets
 
@@ -81,7 +81,7 @@ droplet_new()
 
 ```r
 Using default ssh key: Scott Chamberlain
-NB: This costs $0.00744 / hour  until you droplete_delete() it
+NB: This costs $0.00744 / hour  until you droplet_delete() it
 <droplet>sabaoth (2727258)
   Status: new
   Region: San Francisco 1
@@ -97,7 +97,7 @@ You can of course pass in lots of options for name of the droplet, RAM size, dis
 droplet_delete(1707487)
 ```
 
-### Chaining
+## Chaining
 
 Most of the `droplet_*` functions can be chained together using the `%>%` function. For example, you can turn a droplet off, snapshot, and then turn it back on with:
 
@@ -114,17 +114,11 @@ We're still working on these, but would love feedback.
 
 ### Install RStudio Server
 
-You of course have to have an active droplet to do this. Once you have one, pass in a droplet id.
+This requires a "docklet", a droplet with docker installed:
 
 ```r
-do_install(1746479, what='rstudio_server')
+docklet_create() %>%
+  docklet_rstudio()
 ```
 
 This will install R, RStudio Server and it's dependencies. It will automatically pop open the RStudio server instance in your default browser, with default `username/password` of `rstudio/rstudio`.
-
-Other options include:
-
-* Install R using `what='r'`
-* Install RStudio Shiny Server using `what='shiny_server'`
-* Install common dependencies, e.g. `deps=c('curl','xml')`
-* Install OpenCPU using `what='opencpu'` __not working yet__
