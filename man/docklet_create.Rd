@@ -16,25 +16,26 @@ docklet_create(name = random_name(), size = getOption("do_size", "1gb"),
   ssh_keys = getOption("do_ssh_keys", NULL),
   backups = getOption("do_backups", NULL), ipv6 = getOption("do_ipv6",
   NULL), private_networking = getOption("do_private_networking", NULL),
-  wait = TRUE, ...)
+  wait = TRUE, image = "docker", ...)
 
-docklet_ps(droplet, all = TRUE)
+docklet_ps(droplet, all = TRUE, ssh_user = "root")
 
-docklet_images(droplet)
+docklet_images(droplet, ssh_user = "root")
 
-docklet_pull(droplet, repo)
+docklet_pull(droplet, repo, ssh_user = "root")
 
-docklet_run(droplet, ..., rm = FALSE, name = NULL)
+docklet_run(droplet, ..., rm = FALSE, name = NULL, ssh_user = "root")
 
-docklet_stop(droplet, container)
+docklet_stop(droplet, container, ssh_user = "root")
 
-docklet_rm(droplet, container)
+docklet_rm(droplet, container, ssh_user = "root")
 
-docklet_docker(droplet, cmd, args = NULL, docker_args = NULL)
+docklet_docker(droplet, cmd, args = NULL, docker_args = NULL,
+  ssh_user = "root")
 
 docklet_rstudio(droplet, user = "rstudio", password = "rstudio",
   email = "rstudio@example.com", img = "eddelbuettel/ubuntu-rstudio",
-  port = "8787", browse = TRUE, verbose = TRUE)
+  port = "8787", browse = TRUE, verbose = TRUE, ssh_user = "root")
 }
 \arguments{
 \item{name}{(character) Name of the droplet. Default: picks a random name if none supplied.}
@@ -44,8 +45,8 @@ docklet_rstudio(droplet, user = "rstudio", password = "rstudio",
 \item{region}{(character) The unique slug identifier for the region that you wish to deploy in.
 Default: sfo1}
 
-\item{ssh_keys}{(character) A vector with IDs or fingerprints of the SSH
-keys that you wish to embed in the Droplet's root account upon creation.}
+\item{ssh_keys}{(character) A vector with IDs or fingerprints of the SSH keys that you wish to
+embed in the Droplet's ssh account upon creation.}
 
 \item{backups}{(logical) Enable backups. A boolean indicating whether automated backups should
 be enabled for the Droplet. Automated backups can only be enabled when the Droplet is created.
@@ -59,7 +60,13 @@ only available in certain regions. Default: FALSE}
 \item{wait}{If \code{TRUE}, wait until droplet has been initialised and
 is ready for use.}
 
+\item{image}{(character/numeric) The image ID of a public or private image, or the unique slug
+identifier for a public image. This image will be the base image for your Droplet.
+Default: ubuntu-14-04-x64}
+
 \item{...}{Additional options passed down to \code{\link[httr]{POST}}}
+
+\item{ssh_user}{(character) User account for ssh commands against droplet. Default: root}
 }
 \description{
 Docklets: docker on droplets.

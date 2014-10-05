@@ -23,8 +23,8 @@ Default: ubuntu-14-04-x64}
 \item{region}{(character) The unique slug identifier for the region that you wish to deploy in.
 Default: sfo1}
 
-\item{ssh_keys}{(character) A vector with IDs or fingerprints of the SSH
-keys that you wish to embed in the Droplet's root account upon creation.}
+\item{ssh_keys}{(character) A vector with IDs or fingerprints of the SSH keys that you wish to
+embed in the Droplet's ssh account upon creation.}
 
 \item{backups}{(logical) Enable backups. A boolean indicating whether automated backups should
 be enabled for the Droplet. Automated backups can only be enabled when the Droplet is created.
