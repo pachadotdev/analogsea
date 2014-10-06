@@ -40,6 +40,7 @@
 #' 
 #' stopifnot(all.equal(mtcars, mtcars2))
 #' }
+#' @export
 droplet_ssh <- function(droplet, ..., user = "root", verbose = FALSE) {
   droplet <- as.droplet(droplet)  
   
