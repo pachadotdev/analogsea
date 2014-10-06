@@ -36,7 +36,7 @@ docklet_create <- function(name = random_name(),
                            private_networking = getOption("do_private_networking", NULL),
                            wait = TRUE,
                            ...) {  
-  d <- droplet_new(
+  droplet_new(
     name = name, 
     size = size, 
     image = "docker",
