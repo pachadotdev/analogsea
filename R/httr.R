@@ -25,7 +25,7 @@ do_GET <- function(url, ...) {
 }
 #' @export
 #' @rdname httr-verbs
-do_POST <- function(url, ..., body = body, encode = "json") {
+do_POST <- function(url, ..., body = NULL, encode = "json") {
   body <- compact(body)
   do_VERB("POST", url, ..., body = body, encode = encode)
 }
