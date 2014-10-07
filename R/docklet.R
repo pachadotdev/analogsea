@@ -30,7 +30,7 @@
 docklet_create <- function(name = random_name(), 
                            size = getOption("do_size", "1gb"),
                            region = getOption("do_region", "sfo1"),
-                           ssh_keys = NULL,
+                           ssh_keys = getOption("do_ssh_keys", NULL),
                            backups = getOption("do_backups", NULL),
                            ipv6 = getOption("do_ipv6", NULL),
                            private_networking = getOption("do_private_networking", NULL),

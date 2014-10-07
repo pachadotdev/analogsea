@@ -12,8 +12,8 @@
 #' Default: ubuntu-14-04-x64
 #' @param region (character) The unique slug identifier for the region that you wish to deploy in.
 #' Default: sfo1
-#' @param ssh_keys (character) A vector with IDs or fingerprints of the SSH keys that you wish to
-#' embed in the Droplet's root account upon creation.
+#' @param ssh_keys (character) A vector with IDs or fingerprints of the SSH 
+#'   keys that you wish to embed in the Droplet's root account upon creation.
 #' @param private_networking (logical) Use private networking. Private networking is currently
 #' only available in certain regions. Default: FALSE
 #' @param backups (logical) Enable backups. A boolean indicating whether automated backups should
@@ -37,7 +37,7 @@ droplet_new <- function(name = random_name(),
                         size = getOption("do_size", "512mb"),
                         image = getOption("do_image", "ubuntu-14-04-x64"), 
                         region = getOption("do_region", "sfo1"),
-                        ssh_keys = NULL,
+                        ssh_keys = getOption("do_ssh_keys", NULL),
                         backups = getOption("do_backups", NULL),
                         ipv6 = getOption("do_ipv6", NULL),
                         private_networking = getOption("do_private_networking", NULL),
