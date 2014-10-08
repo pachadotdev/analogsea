@@ -11,6 +11,7 @@
 #' 
 #' @keywords internal
 #' @inheritParams droplet_new
+#' @param ssh_user (character) User account for ssh commands against droplet. Default: root
 #' @examples 
 #' \dontrun{
 #' d <- docklet_create()
@@ -35,11 +36,12 @@ docklet_create <- function(name = random_name(),
                            ipv6 = getOption("do_ipv6", NULL),
                            private_networking = getOption("do_private_networking", NULL),
                            wait = TRUE,
+                           image = "docker",
                            ...) {  
   droplet_new(
     name = name, 
     size = size, 
-    image = "docker",
+    image = image,
     region = region, 
     ssh_keys = ssh_keys,
     backups = backups,
@@ -51,68 +53,74 @@ docklet_create <- function(name = random_name(),
 
 #' @export
 #' @rdname docklet_create
-docklet_ps <- function(droplet, all = TRUE) {
-  docklet_docker(droplet, "ps", if (all) "-a")
+docklet_ps <- function(droplet, all = TRUE, ssh_user = "root") {
+  docklet_docker(droplet, "ps",  if (all) "-a", ssh_user = ssh_user)
 }
 
 #' @export
 #' @rdname docklet_create
-docklet_images <- function(droplet) {
-  docklet_docker(droplet, "images")
+docklet_images <- function(droplet, ssh_user = "root") {
+  docklet_docker(droplet, "images", ssh_user = ssh_user)
 }
 
 #' @export
 #' @rdname docklet_create
-docklet_pull <- function(droplet, repo) {
-  docklet_docker(droplet, "pull", repo)
+docklet_pull <- function(droplet, repo, ssh_user = "root") {
+  docklet_docker(droplet, "pull", repo, ssh_user = ssh_user)
 }
 
 #' @export
 #' @rdname docklet_create
-docklet_run <- function(droplet, ..., rm = FALSE, name = NULL) {
-  docklet_docker(droplet, "run", c(
+docklet_run <- function(droplet, ..., rm = FALSE, name = NULL, ssh_user = "root") {
+  docklet_docker(droplet, 
+    "run", c(
     if (rm) " --rm", 
     if (!is.null(name)) paste0(" --name=", name),
     ...
-  ))
+  ),ssh_user = ssh_user)
 }
 
 #' @export
 #' @rdname docklet_create
-docklet_stop <- function(droplet, container) {
-  docklet_docker(droplet, "stop", container)
+docklet_stop <- function(droplet, container, ssh_user = "root") {
+  docklet_docker(droplet, "stop", container, ssh_user = ssh_user)
 }
 
 
 #' @export
 #' @rdname docklet_create
-docklet_rm <- function(droplet, container) {
-  docklet_docker(droplet, "rm", container)
+docklet_rm <- function(droplet, container, ssh_user = "root") {
+  docklet_docker(droplet, "rm", container, ssh_user = ssh_user)
 }
 
-#' @export
+#' @export 
 #' @rdname docklet_create
-docklet_docker <- function(droplet, cmd, args = NULL, docker_args = NULL) {
+docklet_docker <- function(droplet, cmd, args = NULL, docker_args = NULL, ssh_user = "root") {
   args <- paste(args, collapse = "")
-  droplet_ssh(droplet, paste(c("docker", docker_args, cmd, args), collapse = " "))
+  droplet_ssh(droplet, user = ssh_user, paste(c("docker", docker_args, cmd, args), collapse = " "))
 }
 
 #' @export
 #' @rdname docklet_create
-docklet_rstudio <- function(droplet, user = 'rstudio', password = 'rstudio', 
+docklet_rstudio <- function(droplet, 
+                            user = 'rstudio', password = 'rstudio', 
                             email = 'rstudio@example.com', 
                             img = 'eddelbuettel/ubuntu-rstudio', 
-                            port = '8787', browse = TRUE, verbose = TRUE) {
+                            port = '8787',
+                            browse = TRUE, verbose = TRUE,
+                            ssh_user = "root") {
   droplet <- as.droplet(droplet)
   
-  docklet_pull(droplet, img)
-  docklet_run(droplet,
+  docklet_pull(droplet, img, ssh_user)
+  docklet_run(droplet,   
     " -d", 
     " -p ", port, ":8787", 
     " -e USER=", user,
     " -e PASSWORD=", password,
     " -e EMAIL=", email, " ",
-    img) 
+    img,
+    ssh_user = ssh_user
+    ) 
   
   url <- sprintf("http://%s:%s/", droplet_ip(droplet), port)
   if (browse) {
