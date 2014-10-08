@@ -21,16 +21,15 @@
 #' droplet_thaw(image='chiromantical-1412718795', region='nyc3')
 #' }
 
-droplet_freeze <- function(droplet, name = NULL, ...) {
+droplet_freeze <- function(droplet, name = droplet$name, ...) {
   droplet <- as.droplet(droplet)
-  name <- if(is.null(name)) droplet$name else name
   droplet %>% 
     droplet_power_off %>%
     droplet_snapshot(name = name) %>%
     action_wait
   droplet %>% droplet_delete
   imgs <- droplet %>% droplet_snapshots_list
-  imgid <- imgs[vapply(imgs, "[[", character(1), "name") == name][[1]]$id
+  imgid <- Filter(function(x) grepl(name, x$name), imgs)[[1]]$id
   image(imgid)
 }
 

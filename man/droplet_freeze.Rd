@@ -4,7 +4,7 @@
 \alias{droplet_thaw}
 \title{Freeze or thaw a droplet.}
 \usage{
-droplet_freeze(droplet, name = NULL, ...)
+droplet_freeze(droplet, name = droplet$name, ...)
 
 droplet_thaw(image, ...)
 }
