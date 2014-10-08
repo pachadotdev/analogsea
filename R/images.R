@@ -13,7 +13,7 @@ as.image.image <- function(x) x
 #' @export
 as.image.numeric <- function(x) image(x)
 #' @export
-as.image.character <- function(x) image(x)
+as.image.character <- function(x) images()[[x]]
 
 #' Get list of images and their metadata, or a single image
 #'
