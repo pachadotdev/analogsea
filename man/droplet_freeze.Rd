@@ -6,7 +6,7 @@
 \usage{
 droplet_freeze(droplet, name = NULL, ...)
 
-droplet_thaw(name, ...)
+droplet_thaw(image, ...)
 }
 \arguments{
 \item{droplet}{A droplet, or something that can be coerced to a droplet by
@@ -15,11 +15,17 @@ droplet_thaw(name, ...)
 \item{name}{Name for the image to be created, or to be used to create a new droplet. On image
 creation, defaults to a name assigned by Digital Ocean.}
 
-\item{...}{For freeze, further args passed on to \code{\link{droplet_shapshot}}, whereas for
+\item{...}{For freeze, further args passed on to \code{\link{droplet_snapshot}}, whereas for
 thaw, args passed on to \code{\link{droplet_new}}.}
+
+\item{image}{An image to modify.}
 }
 \description{
 All in one step, power off the droplet, snapshot to create an image, and delete the droplet.
+}
+\details{
+freeze accepts a droplet as first argument, and returns an image.
+thaw accepts an image as first argument, and returns a droplet.
 }
 \examples{
 \dontrun{
@@ -27,7 +33,7 @@ All in one step, power off the droplet, snapshot to create an image, and delete 
 droplet_new(region = 'nyc3') \%>\% droplet_freeze()
 
 # thaw
-droplet_thaw('chiromantical-1412718795', region='nyc3')
+droplet_thaw(image='chiromantical-1412718795', region='nyc3')
 }
 }
 

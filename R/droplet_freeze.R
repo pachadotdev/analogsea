@@ -6,32 +6,37 @@
 #'   \code{\link{as.droplet}}.
 #' @param name Name for the image to be created, or to be used to create a new droplet. On image 
 #' creation, defaults to a name assigned by Digital Ocean.
-#' @param ... For freeze, further args passed on to \code{\link{droplet_shapshot}}, whereas for 
+#' @param image An image to modify.
+#' @param ... For freeze, further args passed on to \code{\link{droplet_snapshot}}, whereas for 
 #' thaw, args passed on to \code{\link{droplet_new}}.
 #' @export
+#' @details freeze accepts a droplet as first argument, and returns an image. 
+#' thaw accepts an image as first argument, and returns a droplet.
 #' @examples
 #' \dontrun{
 #' # freeze
 #' droplet_new(region = 'nyc3') %>% droplet_freeze()
 #' 
 #' # thaw
-#' droplet_thaw('chiromantical-1412718795', region='nyc3')
+#' droplet_thaw(image='chiromantical-1412718795', region='nyc3')
 #' }
 
 droplet_freeze <- function(droplet, name = NULL, ...) {
   droplet <- as.droplet(droplet)
+  name <- if(is.null(name)) droplet$name else name
   droplet %>% 
     droplet_power_off %>%
-    droplet_snapshot(name = name, ...) %>%
-    droplet_delete
+    droplet_snapshot(name = name) %>%
+    action_wait
+  droplet %>% droplet_delete
+  imgs <- droplet %>% droplet_snapshots_list
+  imgid <- imgs[vapply(imgs, "[[", character(1), "name") == name][[1]]$id
+  image(imgid)
 }
 
 #' @export
 #' @rdname droplet_freeze
-droplet_thaw <- function(name, ...) {
-  imgs <- images(public = FALSE)
-  if(!name %in% names(imgs)) stop(sprintf("%s not found", name), call. = FALSE)
-  img <- imgs[ names(imgs) %in% name ]
-  d <- droplet_new(image = img[[1]]$id, ...)
-  as.droplet(d)
+droplet_thaw <- function(image, ...) {
+  image <- as.image(image)
+  droplet_new(image = image$id, ...)
 }
