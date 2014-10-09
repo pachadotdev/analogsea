@@ -105,7 +105,7 @@ docklet_docker <- function(droplet, cmd, args = NULL, docker_args = NULL, ssh_us
 docklet_rstudio <- function(droplet, 
                             user = 'rstudio', password = 'rstudio', 
                             email = 'rstudio@example.com', 
-                            img = 'eddelbuettel/ubuntu-rstudio', 
+                            img = 'rocker/rstudio', 
                             port = '8787',
                             browse = TRUE, verbose = TRUE,
                             ssh_user = "root") {
