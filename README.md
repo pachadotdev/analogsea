@@ -4,7 +4,7 @@ analogsea
 [![Build Status](https://api.travis-ci.org/sckott/analogsea.png?branch=master)](https://travis-ci.org/sckott/analogsea)
 [![Build status](https://ci.appveyor.com/api/projects/status/ll9lcqafuw338q0h/branch/master)](https://ci.appveyor.com/project/sckott/analogsea/branch/master)
 
-`analogsea` is an R client for version 2 of the [Digital Ocean API](https://developers.digitalocean.com/v2/) API. It allows you to progmatically create and destroy droplets (remote computes), and install various R related tools: (these are still a work in progress):
+`analogsea` is an R client for version 2 of the [Digital Ocean API](https://developers.digitalocean.com/v2/). It allows you to programatically create and destroy droplets (remote computers), and install various R related tools: (these are still a work in progress):
 
 * R
 * RStudio Server
@@ -24,7 +24,7 @@ library("analogsea")
 
 ### Create a DO account
 
-If you don't already have one, [create a DO account](https://www.digitalocean.com/?refcode=0740f5169634). By using this link, you'll start with $10 in credits (enough for >600 hours of computing on a 1 gb machine), and if you become a digital ocean customer we'll get some DO credits for us to offset our testing costs for testing. Thanks :)
+If you don't already have one, [create a DO account](https://www.digitalocean.com/?refcode=0740f5169634). By using this link, you'll start with $10 in credits (enough for >600 hours of computing on a 1 gb machine), and if you become a digital ocean customer we'll get some DO credits for us to offset our costs for testing. Thanks :)
 
 ### Authenticate
 
@@ -102,7 +102,7 @@ droplet_delete(1707487)
 Most of the `droplet_*` functions can be chained together using the `%>%` function. For example, you can turn a droplet off, snapshot, and then turn it back on with:
 
 ```r
-d %>% 
+d %>%
    droplet_power_off() %>%
    droplet_snapshot() %>%
    droplet_power_on() %>%
