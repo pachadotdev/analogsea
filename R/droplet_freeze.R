@@ -25,6 +25,7 @@ droplet_freeze <- function(droplet, name = droplet$name, ...) {
   droplet <- as.droplet(droplet)
   droplet %>% 
     droplet_power_off %>%
+     action_wait %>%
     droplet_snapshot(name = name) %>%
     action_wait
   droplet %>% droplet_delete
