@@ -48,15 +48,15 @@ cli_tools <- function(ip){
 #' @param ipv6 (optional) A boolean indicating whether IPv6 is enabled on the Droplet. Saved in
 #' options as 'do_ipv6'
 #' @param unset (optional) A boolean. If TRUE, unsets options so as to use defaults in
-#' \code{droplets_new}. If FALSE (default) your options are used in \code{droplets_new}.
+#' \code{droplet_create}. If FALSE (default) your options are used in \code{droplet_create}.
 #'
 #' @details
-#' These options are read and used by \code{droplets_new}.
+#' These options are read and used by \code{droplet_create}.
 #'
 #' You can only set one value for each of size, image, and region, but multiple
 #' values for ssh_keys as you can use multiple ssh keys on one DO droplet.
 #'
-#' Keep in mind that there are defaults set for size, image, and region in \code{droplets_new}.
+#' Keep in mind that there are defaults set for size, image, and region in \code{droplet_create}.
 #'
 #' @examples \dontrun{
 #' do_options()

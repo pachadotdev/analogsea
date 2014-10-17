@@ -76,7 +76,7 @@ droplet(2724525)
 To make this as dead simple as possible, you just use one function, without any parameters.
 
 ```r
-droplet_new()
+droplet_create()
 ```
 
 ```r

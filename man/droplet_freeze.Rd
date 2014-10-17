@@ -17,7 +17,7 @@ new droplet. Defaults to name of the droplet.}
 
 \item{...}{For freeze, further args passed on to
  \code{\link{droplet_snapshot}}; thaw, args passed on to
-\code{\link{droplet_new}}.}
+\code{\link{droplet_create}}.}
 
 \item{image}{Image to thaw into a droplet.}
 }
@@ -34,7 +34,7 @@ a running droplet.
 \examples{
 \dontrun{
 # freeze
-droplet_new(region = 'nyc3') \%>\% droplet_freeze()
+droplet_create(region = 'nyc3') \%>\% droplet_freeze()
 
 # thaw
 droplet_thaw(image='chiromantical-1412718795', region='nyc3')

@@ -11,7 +11,7 @@
 #' @param image Image to thaw into a droplet.
 #' @param ... For freeze, further args passed on to 
 #'   \code{\link{droplet_snapshot}}; thaw, args passed on to 
-#'  \code{\link{droplet_new}}.
+#'  \code{\link{droplet_create}}.
 #' @return \code{droplet_freeze} accepts a droplet as first 
 #'   argument, and returns an image; \code{droplet_thaw} does the opposite:
 #'   it accepts an image as first argument, and returns a droplet.
@@ -19,7 +19,7 @@
 #' @examples
 #' \dontrun{
 #' # freeze
-#' droplet_new(region = 'nyc3') %>% droplet_freeze()
+#' droplet_create(region = 'nyc3') %>% droplet_freeze()
 #' 
 #' # thaw
 #' droplet_thaw(image='chiromantical-1412718795', region='nyc3')
@@ -44,5 +44,5 @@ droplet_freeze <- function(droplet, name = droplet$name, ...) {
 #' @rdname droplet_freeze
 droplet_thaw <- function(image, ...) {
   image <- as.image(image)
-  droplet_new(image = image$id, ...)
+  droplet_create(image = image$id, ...)
 }

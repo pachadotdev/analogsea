@@ -7,7 +7,7 @@
 #' @param code Code to excute on Digital Ocean droplet.
 #' @param verbose (logical) Print messages
 #' @examples \donttest{
-#' d <- droplet_new() %>% 
+#' d <- droplet_create() %>% 
 #'   debian_add_swap() %>%
 #'   debian_install_r()
 #' 

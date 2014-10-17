@@ -19,7 +19,7 @@ This method deletes one of your droplets - this is irreversible.
 drops <- droplets()
 drops[[1]] \%>\% droplet_delete()
 drops[[2]] \%>\% droplet_delete()
-droplet_new() \%>\% droplet_delete()
+droplet_create() \%>\% droplet_delete()
 
 droplet_delete("lombard")
 droplet_delete(12345)

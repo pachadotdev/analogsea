@@ -39,7 +39,7 @@ droplet on a previously used ip address.
 }
 \examples{
 \dontrun{
-d <- droplet_new() \%>\% droplet_wait()
+d <- droplet_create() \%>\% droplet_wait()
 
 # Upgrade system packages
 d \%>\%

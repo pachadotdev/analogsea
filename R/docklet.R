@@ -10,7 +10,7 @@
 #' @export
 #' 
 #' @keywords internal
-#' @inheritParams droplet_new
+#' @inheritParams droplet_create
 #' @param ssh_user (character) User account for ssh commands against droplet. Default: root
 #' @examples 
 #' \dontrun{
@@ -38,7 +38,7 @@ docklet_create <- function(name = random_name(),
                            wait = TRUE,
                            image = "docker",
                            ...) {  
-  droplet_new(
+  droplet_create(
     name = name, 
     size = size, 
     image = image,

@@ -38,7 +38,7 @@ create. If not set, the  snapshot name will default to the current date/time}
 }
 \examples{
 \dontrun{
-d <- droplet_new()
+d <- droplet_create()
 d \%>\% droplet_snapshots_list()
 d \%>\% droplet_backups_list()
 

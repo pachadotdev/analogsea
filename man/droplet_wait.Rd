@@ -14,7 +14,7 @@ Wait for a droplet to be ready.
 }
 \examples{
 \dontrun{
-droplet_new() \%>\% droplet_wait()
+droplet_create() \%>\% droplet_wait()
 }
 }
 

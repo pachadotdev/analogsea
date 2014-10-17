@@ -26,14 +26,14 @@
 #'   is ready for use.
 #' @param ... Additional options passed down to \code{\link[httr]{POST}}
 #' @examples \dontrun{
-#' droplet_new()
-#' droplet_new('droppinit')
-#' droplet_new(name="newdrop", size = '512mb', image = 'ubuntu-14-04-x64', region = 'sfo1')
-#' droplet_new(ssh_keys=89103)
+#' droplet_create()
+#' droplet_create('droppinit')
+#' droplet_create(name="newdrop", size = '512mb', image = 'ubuntu-14-04-x64', region = 'sfo1')
+#' droplet_create(ssh_keys=89103)
 #' }
 #' 
 #' 
-droplet_new <- function(name = random_name(), 
+droplet_create <- function(name = random_name(), 
                         size = getOption("do_size", "512mb"),
                         image = getOption("do_image", "ubuntu-14-04-x64"), 
                         region = getOption("do_region", "sfo1"),
@@ -87,7 +87,7 @@ random_name <- function() sample(words, size = 1)
 #' @export
 #' @examples
 #' \dontrun{
-#' droplet_new() %>% droplet_wait()
+#' droplet_create() %>% droplet_wait()
 #' }
 droplet_wait <- function(droplet) {
   droplet <- as.droplet(droplet)
@@ -110,7 +110,7 @@ droplet_wait <- function(droplet) {
 #' drops <- droplets()
 #' drops[[1]] %>% droplet_delete()
 #' drops[[2]] %>% droplet_delete()
-#' droplet_new() %>% droplet_delete()
+#' droplet_create() %>% droplet_delete()
 #' 
 #' droplet_delete("lombard")
 #' droplet_delete(12345)
@@ -294,7 +294,7 @@ droplet_change_kernel <- function(droplet, kernel, ...) {
 #' @param image (optional) The image ID of the backup image that you would like to restore.
 #' @param ... Additional options passed down to \code{\link[httr]{POST}}
 #' @examples \dontrun{
-#' d <- droplet_new()
+#' d <- droplet_create()
 #' d %>% droplet_snapshots_list()
 #' d %>% droplet_backups_list()
 #' 

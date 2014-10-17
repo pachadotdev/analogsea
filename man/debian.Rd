@@ -49,7 +49,7 @@ Helpers for managing an debian droplets.
 }
 \examples{
 \donttest{
-d <- droplet_new()
+d <- droplet_create()
 d \%>\% debian_add_swap()
 d \%>\% debian_apt_get_update()
 

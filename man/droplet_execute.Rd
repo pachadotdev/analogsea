@@ -18,7 +18,7 @@ Assumes that the droplet has R installed.
 }
 \examples{
 \donttest{
-d <- droplet_new() \%>\%
+d <- droplet_create() \%>\%
   debian_add_swap() \%>\%
   debian_install_r()
 
