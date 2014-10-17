@@ -24,9 +24,9 @@ writefile <- function(filename, installstring){
 
 cli_tools <- function(ip){
   tmp <- Sys.which(c("ssh","scp"))
-  nf <- names(tmp[vapply(tmp, nchar, 1) == 0])
-  if(length(nf) != 0)
-    stop(sprintf("%s not found on your computer\nTry ssh'ing into the machine\n    (ssh root@%s)\n& manually installing things. See ?do_scripts for help", nf, ip))
+  nf <- paste0(names(tmp[vapply(tmp, nchar, 1) == 0]), collapse = ", ")
+  if(nf != "")
+    stop(sprintf("\n%s not found on your computer\nInstall the missing tool(s) and try again", nf))
 }
 
 #' Set Digital Ocean options including ssh keys, etc.

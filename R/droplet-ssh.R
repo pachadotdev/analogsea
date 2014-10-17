@@ -90,6 +90,7 @@ droplet_ip <- function(x) {
 
 
 do_system <- function(droplet, cmd, verbose = FALSE) {
+  cli_tools()
   mssg(verbose, cmd)
   status <- system(cmd)
   if (status != 0) {
