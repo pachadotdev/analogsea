@@ -322,7 +322,7 @@ droplet_snapshots_list <- function(droplet, ...) {
   droplet <- as.droplet(droplet)
   
   res <- do_GET(sprintf('droplets/%s/snapshots', droplet$id), ...)
-  res$snapshots
+  list_to_object(res, "snapshot", class = "image")
 }
 
 #' @export

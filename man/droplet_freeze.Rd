@@ -2,7 +2,7 @@
 \name{droplet_freeze}
 \alias{droplet_freeze}
 \alias{droplet_thaw}
-\title{Freeze or thaw a droplet.}
+\title{Freeze/thaw droplets.}
 \usage{
 droplet_freeze(droplet, name = droplet$name, ...)
 
@@ -12,20 +12,24 @@ droplet_thaw(image, ...)
 \item{droplet}{A droplet, or something that can be coerced to a droplet by
 \code{\link{as.droplet}}.}
 
-\item{name}{Name for the image to be created, or to be used to create a new droplet. On image
-creation, defaults to a name assigned by Digital Ocean.}
+\item{name}{Name for the image to be created, or to be used to create a
+new droplet. Defaults to name of the droplet.}
 
-\item{...}{For freeze, further args passed on to \code{\link{droplet_snapshot}}, whereas for
-thaw, args passed on to \code{\link{droplet_new}}.}
+\item{...}{For freeze, further args passed on to
+ \code{\link{droplet_snapshot}}; thaw, args passed on to
+\code{\link{droplet_new}}.}
 
-\item{image}{An image to modify.}
+\item{image}{Image to thaw into a droplet.}
+}
+\value{
+\code{droplet_freeze} accepts a droplet as first
+  argument, and returns an image; \code{droplet_thaw} does the opposite:
+  it accepts an image as first argument, and returns a droplet.
 }
 \description{
-All in one step, power off the droplet, snapshot to create an image, and delete the droplet.
-}
-\details{
-freeze accepts a droplet as first argument, and returns an image.
-thaw accepts an image as first argument, and returns a droplet.
+Freeze powers off the droplet, snapshots to create an image, and deletes the
+droplet. Thaw performs the inverse: it takes an image and turns it into
+a running droplet.
 }
 \examples{
 \dontrun{
