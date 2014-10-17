@@ -12,8 +12,8 @@
 #' Default: ubuntu-14-04-x64
 #' @param region (character) The unique slug identifier for the region that you wish to deploy in.
 #' Default: sfo1
-#' @param ssh_keys (character) A vector with IDs or fingerprints of the SSH keys that you wish to
-#' embed in the Droplet's ssh account upon creation.
+#' @param ssh_keys (character) A vector with IDs or fingerprints of the SSH 
+#'   keys that you wish to embed in the Droplet's root account upon creation.
 #' @param private_networking (logical) Use private networking. Private networking is currently
 #' only available in certain regions. Default: FALSE
 #' @param backups (logical) Enable backups. A boolean indicating whether automated backups should

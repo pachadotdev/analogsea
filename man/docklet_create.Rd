@@ -34,8 +34,8 @@ docklet_docker(droplet, cmd, args = NULL, docker_args = NULL,
   ssh_user = "root")
 
 docklet_rstudio(droplet, user = "rstudio", password = "rstudio",
-  email = "rstudio@example.com", img = "eddelbuettel/ubuntu-rstudio",
-  port = "8787", browse = TRUE, verbose = TRUE, ssh_user = "root")
+  email = "rstudio@example.com", img = "rocker/rstudio", port = "8787",
+  browse = TRUE, verbose = TRUE, ssh_user = "root")
 }
 \arguments{
 \item{name}{(character) Name of the droplet. Default: picks a random name if none supplied.}
@@ -45,8 +45,8 @@ docklet_rstudio(droplet, user = "rstudio", password = "rstudio",
 \item{region}{(character) The unique slug identifier for the region that you wish to deploy in.
 Default: sfo1}
 
-\item{ssh_keys}{(character) A vector with IDs or fingerprints of the SSH keys that you wish to
-embed in the Droplet's ssh account upon creation.}
+\item{ssh_keys}{(character) A vector with IDs or fingerprints of the SSH
+keys that you wish to embed in the Droplet's root account upon creation.}
 
 \item{backups}{(logical) Enable backups. A boolean indicating whether automated backups should
 be enabled for the Droplet. Automated backups can only be enabled when the Droplet is created.
