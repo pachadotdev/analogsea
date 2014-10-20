@@ -38,32 +38,38 @@ docklet_rstudio(droplet, user = "rstudio", password = "rstudio",
   browse = TRUE, verbose = TRUE, ssh_user = "root")
 }
 \arguments{
-\item{name}{(character) Name of the droplet. Default: picks a random name if none supplied.}
+\item{name}{(character) Name of the droplet. Default: picks a random name
+from \code{\link{words}} if none supplied.}
 
-\item{size}{(character) Size slug identifier. See \code{\link{sizes}()}.
-Default: 512mb, the smallest}
+\item{size}{(character) Size slug identifier. See \code{\link{sizes}()} for
+a complete list. Default: 512mb, the smallest}
 
-\item{region}{(character) The unique slug identifier for the region that you wish to deploy in.
+\item{region}{(character) The unique slug identifier for the region that you
+wish to deploy in. See \code{\link{regions}()} for a complete list.
 Default: sfo1}
 
 \item{ssh_keys}{(character) A vector with IDs or fingerprints of the SSH
-keys that you wish to embed in the Droplet's root account upon creation.}
+keys that you wish to embed in the droplet's root account upon creation.
+See \code{\link{ssh_key}()} for a list of the keys that you've added.}
 
-\item{backups}{(logical) Enable backups. A boolean indicating whether automated backups should
-be enabled for the Droplet. Automated backups can only be enabled when the Droplet is created.
+\item{backups}{(logical) Enable backups. A boolean indicating whether
+automated backups should be enabled for the droplet. Automated backups can
+only be enabled when the droplet is created, and cost extra.
 Default: FALSE}
 
-\item{ipv6}{(logical) A boolean indicating whether IPv6 is enabled on the Droplet.}
+\item{ipv6}{(logical) A boolean indicating whether IPv6 is enabled on the
+droplet.}
 
-\item{private_networking}{(logical) Use private networking. Private networking is currently
-only available in certain regions. Default: FALSE}
+\item{private_networking}{(logical) Use private networking. Private
+networking is currently only available in certain regions. Default: FALSE}
 
 \item{wait}{If \code{TRUE}, wait until droplet has been initialised and
 is ready for use.}
 
-\item{image}{(character/numeric) The image ID of a public or private image, or the unique slug
-identifier for a public image. This image will be the base image for your Droplet.
-Default: ubuntu-14-04-x64}
+\item{image}{(character/numeric) The image ID of a public or private image,
+or the unique slug identifier for a public image. This image will be the
+base image for your droplet. See \code{\link{images}()} for a complete
+list. Default: ubuntu-14-04-x64}
 
 \item{...}{Additional options passed down to \code{\link[httr]{POST}}}
 

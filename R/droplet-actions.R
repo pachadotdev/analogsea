@@ -5,24 +5,30 @@
 #' parameter is possible: simply specify the name of the droplet and your'e up and running.
 #'
 #' @export
-#' @param name (character) Name of the droplet. Default: picks a random name if none supplied.
-#' @param size (character) Size slug identifier. See \code{\link{sizes}()}. 
-#'   Default: 512mb, the smallest
-#' @param image (character/numeric) The image ID of a public or private image, or the unique slug
-#' identifier for a public image. This image will be the base image for your Droplet.
-#' Default: ubuntu-14-04-x64
-#' @param region (character) The unique slug identifier for the region that you wish to deploy in.
-#' Default: sfo1
+#' @param name (character) Name of the droplet. Default: picks a random name 
+#'   from \code{\link{words}} if none supplied.
+#' @param size (character) Size slug identifier. See \code{\link{sizes}()} for
+#'   a complete list. Default: 512mb, the smallest
+#' @param image (character/numeric) The image ID of a public or private image, 
+#'   or the unique slug identifier for a public image. This image will be the 
+#'   base image for your droplet. See \code{\link{images}()} for a complete 
+#'   list. Default: ubuntu-14-04-x64
+#' @param region (character) The unique slug identifier for the region that you 
+#'   wish to deploy in. See \code{\link{regions}()} for a complete list.
+#'   Default: sfo1
 #' @param ssh_keys (character) A vector with IDs or fingerprints of the SSH 
-#'   keys that you wish to embed in the Droplet's root account upon creation.
-#' @param private_networking (logical) Use private networking. Private networking is currently
-#' only available in certain regions. Default: FALSE
-#' @param backups (logical) Enable backups. A boolean indicating whether automated backups should
-#' be enabled for the Droplet. Automated backups can only be enabled when the Droplet is created.
-#' Default: FALSE
-#' @param ipv6 (logical) A boolean indicating whether IPv6 is enabled on the Droplet.
-#' @param user_data (character) Gets passed to the Droplet at boot time. Not all regions have this enabled, 
-#' and is not used by all images.
+#'   keys that you wish to embed in the droplet's root account upon creation.
+#'   See \code{\link{ssh_key}()} for a list of the keys that you've added.
+#' @param private_networking (logical) Use private networking. Private 
+#'   networking is currently only available in certain regions. Default: FALSE
+#' @param backups (logical) Enable backups. A boolean indicating whether 
+#'   automated backups should be enabled for the droplet. Automated backups can 
+#'   only be enabled when the droplet is created, and cost extra. 
+#'   Default: FALSE
+#' @param ipv6 (logical) A boolean indicating whether IPv6 is enabled on the 
+#'   droplet.
+#' @param user_data (character) Gets passed to the droplet at boot time. Not 
+#'   all regions have this enabled, and is not used by all images.
 #' @param wait If \code{TRUE}, wait until droplet has been initialised and
 #'   is ready for use.
 #' @param ... Additional options passed down to \code{\link[httr]{POST}}
