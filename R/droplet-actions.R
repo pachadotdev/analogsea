@@ -52,6 +52,11 @@ droplet_create <- function(name = random_name(),
       message("Using default ssh key: ", all_keys[[1]]$name)
       ssh_keys <- all_keys[[1]]$id
     }
+  } else if (is.character(ssh_keys)) {
+    keys <- lapply(ssh_keys, as.key)
+    ssh_keys <- pluck(keys, "id", integer(1))
+  } else {
+    stop("Unknown specification for ssh_keys", call. = FALSE)
   }
   
   res <- do_POST('droplets', 
