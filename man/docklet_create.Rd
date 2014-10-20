@@ -40,7 +40,8 @@ docklet_rstudio(droplet, user = "rstudio", password = "rstudio",
 \arguments{
 \item{name}{(character) Name of the droplet. Default: picks a random name if none supplied.}
 
-\item{size}{(character) Size slug identifier. See \code{sizes}. Default: 512mb, the smallest}
+\item{size}{(character) Size slug identifier. See \code{\link{sizes}()}.
+Default: 512mb, the smallest}
 
 \item{region}{(character) The unique slug identifier for the region that you wish to deploy in.
 Default: sfo1}

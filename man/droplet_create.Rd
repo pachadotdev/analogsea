@@ -14,7 +14,8 @@ droplet_create(name = random_name(), size = getOption("do_size", "512mb"),
 \arguments{
 \item{name}{(character) Name of the droplet. Default: picks a random name if none supplied.}
 
-\item{size}{(character) Size slug identifier. See \code{sizes}. Default: 512mb, the smallest}
+\item{size}{(character) Size slug identifier. See \code{\link{sizes}()}.
+Default: 512mb, the smallest}
 
 \item{image}{(character/numeric) The image ID of a public or private image, or the unique slug
 identifier for a public image. This image will be the base image for your Droplet.

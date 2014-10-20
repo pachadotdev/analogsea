@@ -6,7 +6,8 @@
 #'
 #' @export
 #' @param name (character) Name of the droplet. Default: picks a random name if none supplied.
-#' @param size (character) Size slug identifier. See \code{sizes}. Default: 512mb, the smallest
+#' @param size (character) Size slug identifier. See \code{\link{sizes}()}. 
+#'   Default: 512mb, the smallest
 #' @param image (character/numeric) The image ID of a public or private image, or the unique slug
 #' identifier for a public image. This image will be the base image for your Droplet.
 #' Default: ubuntu-14-04-x64
