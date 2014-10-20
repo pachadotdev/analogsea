@@ -65,6 +65,12 @@ droplet_create <- function(name = random_name(),
     stop("Unknown specification for ssh_keys", call. = FALSE)
   }
   
+  if (length(ssh_keys) == 0) {
+    warning("You have not specified any ssh_keys. This is NOT recommended.",
+      " (You will receive an email with the root password in a few minutes", 
+      call. = FALSE)
+  }
+  
   res <- do_POST('droplets', 
     body = list(
       name = unbox(name), 
