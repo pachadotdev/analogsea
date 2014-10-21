@@ -31,6 +31,11 @@
 #'   droplet.
 #' @param user_data (character) Gets passed to the droplet at boot time. Not 
 #'   all regions have this enabled, and is not used by all images.
+#' @param cloud_config (character) Specify the name of a cloud config template
+#'   to automatically generate \code{\link{cloud_config}} and submit in 
+#'   user metadata. Setting this is best practice: the built-in templates
+#'   use security best practices (disabling root log-in, security autoupdates)
+#'   to make it harder to hack your droplet.
 #' @param wait If \code{TRUE}, wait until droplet has been initialised and
 #'   is ready for use.
 #' @param ... Additional options passed down to \code{\link[httr]{POST}}
@@ -49,6 +54,7 @@ droplet_create <- function(name = random_name(),
                         ipv6 = getOption("do_ipv6", NULL),
                         private_networking = getOption("do_private_networking", NULL),
                         user_data = NULL,
+                        cloud_config = NULL,
                         wait = TRUE,
                         ...) {
   
@@ -57,6 +63,17 @@ droplet_create <- function(name = random_name(),
     warning("You have not specified any ssh_keys. This is NOT recommended.",
       " (You will receive an email with the root password in a few minutes", 
       call. = FALSE)
+  }
+  
+  # Generate user_data if cloud_config specified
+  if (!is.null(cloud_config)) {
+    if (!is.null(user_data)) {
+      stop("You may only specify one of cloud_config and user_data.", 
+        call. = FALSE)
+    }
+    
+    config <- cloud_config(cloud_config, ssh_keys)  
+    user_data <- yaml::as.yaml(config)
   }
   
   res <- do_POST('droplets', 

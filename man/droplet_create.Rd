@@ -9,7 +9,7 @@ droplet_create(name = random_name(), size = getOption("do_size", "512mb"),
   ssh_keys = getOption("do_ssh_keys", NULL),
   backups = getOption("do_backups", NULL), ipv6 = getOption("do_ipv6",
   NULL), private_networking = getOption("do_private_networking", NULL),
-  user_data = NULL, wait = TRUE, ...)
+  user_data = NULL, cloud_config = NULL, wait = TRUE, ...)
 }
 \arguments{
 \item{name}{(character) Name of the droplet. Default: picks a random name
@@ -46,6 +46,12 @@ networking is currently only available in certain regions. Default: FALSE}
 
 \item{user_data}{(character) Gets passed to the droplet at boot time. Not
 all regions have this enabled, and is not used by all images.}
+
+\item{cloud_config}{(character) Specify the name of a cloud config template
+to automatically generate \code{\link{cloud_config}} and submit in
+user metadata. Setting this is best practice: the built-in templates
+use security best practices (disabling root log-in, security autoupdates)
+to make it harder to hack your droplet.}
 
 \item{wait}{If \code{TRUE}, wait until droplet has been initialised and
 is ready for use.}
