@@ -1,9 +1,7 @@
 #' Remotely execute ssh code, upload & download files.
 #' 
 #' Assumes that you have ssh & scp installed, and password-less login set up
-#' on the droplet.  Use \code{droplet_reset_host} to reset your host file 
-#' if you get complaints from ssh - this usually occurs when you have a new
-#' droplet on a previously used ip address.
+#' on the droplet.
 #' 
 #' @param droplet A droplet, or something that can be coerced to a droplet by
 #'   \code{\link{as.droplet}}.
@@ -45,18 +43,34 @@ droplet_ssh <- function(droplet, ..., user = "root", verbose = FALSE) {
   droplet <- as.droplet(droplet)  
   
   lines <- paste(c(...), collapse = " \\\n&& ")
-  cmd <- sprintf("ssh -o BatchMode=yes -o StrictHostKeyChecking=no %s@%s %s", user, 
-    droplet_ip(droplet), shQuote(lines))
+  cmd <- paste0(
+    "ssh ", ssh_options(), 
+    " ", user, "@", droplet_ip(droplet), 
+    " ", shQuote(lines)
+  )
   do_system(droplet, cmd, verbose = verbose)
+}
+
+ssh_options <- function() {
+  opts <- c(
+    BatchMode = "yes",
+    StrictHostKeyChecking = "no",
+    UserKnownHostsFile = file.path(tempdir(), "hosts")
+  )
+  paste0("-o ", names(opts), "=", opts, collapse = " ")
 }
 
 #' @export
 #' @rdname droplet_ssh
 droplet_upload <- function(droplet, local, remote, user = "root", verbose = FALSE) {
   droplet <- as.droplet(droplet)  
+
+  cmd <- paste0(
+    "scp ", ssh_options(), 
+    " ", local,
+    " ", user, "@", droplet_ip(droplet), ":", remote
+  )
   
-  cmd <- sprintf("scp -o StrictHostKeyChecking=no %s %s@%s:~/%s", 
-    local, user, droplet_ip(droplet), remote)
   do_system(droplet, cmd, verbose = verbose)  
 }
 
@@ -65,18 +79,15 @@ droplet_upload <- function(droplet, local, remote, user = "root", verbose = FALS
 droplet_download <- function(droplet, remote, local, user = "root", verbose = FALSE) {
   droplet <- as.droplet(droplet)  
   
-  cmd <- sprintf("scp -o StrictHostKeyChecking=no %s@%s:~/%s %s", 
-    user, droplet_ip(droplet), remote, local)
+  cmd <- paste0(
+    "scp ", ssh_options(), 
+    " ", user, "@", droplet_ip(droplet), ":", remote, 
+    " ", local
+  )
+  
   do_system(droplet, cmd, verbose = verbose)  
 }
 
-
-#' @export 
-#' @rdname droplet_ssh
-droplet_reset_host <- function(droplet) {
-  droplet <- as.droplet(droplet)  
-  system(paste0("ssh-keygen -R ", droplet_ip(droplet)))
-}
 
 droplet_ip <- function(x) {
   v4 <- x$network$v4
