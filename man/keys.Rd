@@ -15,9 +15,9 @@ as.key(x)
 \item{...}{Additional arguments passed down to low-level API function
 (\code{do_*})}
 
-\item{page}{Page to return}
+\item{page}{Page to return. Default: 1.}
 
-\item{per_page}{Number of results per page}
+\item{per_page}{Number of results per page. Default: 25.}
 
 \item{x}{For \code{key} the numeric id. For \code{as.key}, a number (the id),
 a string (the name), or a key.}

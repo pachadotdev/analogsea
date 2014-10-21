@@ -9,9 +9,9 @@ droplets(..., page = 1, per_page = 25)
 \item{...}{Additional arguments passed down to low-level API function
 (\code{do_*})}
 
-\item{page}{Page to return}
+\item{page}{Page to return. Default: 1.}
 
-\item{per_page}{Number of results per page}
+\item{per_page}{Number of results per page. Default: 25.}
 }
 \description{
 List all available droplets.

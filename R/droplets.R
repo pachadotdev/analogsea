@@ -3,8 +3,8 @@
 #' @export
 #' @param ... Additional arguments passed down to low-level API function 
 #'   (\code{do_*})
-#' @param page Page to return
-#' @param per_page Number of results per page
+#' @param page Page to return. Default: 1.
+#' @param per_page Number of results per page. Default: 25.
 #' @examples \dontrun{
 #' droplets()
 #' }

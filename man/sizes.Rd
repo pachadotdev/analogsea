@@ -6,9 +6,9 @@
 sizes(page = 1, per_page = 25, ...)
 }
 \arguments{
-\item{page}{Page number (Default: 1)}
+\item{page}{Page to return. Default: 1.}
 
-\item{per_page}{Number of items per page (Default: 25)}
+\item{per_page}{Number of results per page. Default: 25.}
 
 \item{...}{Options passed on to httr::GET. Must be named, see examples.}
 }

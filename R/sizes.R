@@ -1,7 +1,7 @@
 #' Get all the available sizes that can be used to create a droplet.
 #'
 #' @export
-#' @template pages
+#' @inheritParams droplets
 #' @return A data.frame with available sizes (RAM, disk, no. CPU's) and their costs
 #' @param ... Options passed on to httr::GET. Must be named, see examples.
 #' @examples \dontrun{

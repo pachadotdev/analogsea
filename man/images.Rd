@@ -17,9 +17,9 @@ image(id, ...)
 \item{public}{Include public images? If \code{FALSE}, returns only the
 images that you've created (with snapshots).}
 
-\item{page}{Page to return}
+\item{page}{Page to return. Default: 1.}
 
-\item{per_page}{Number of results per page}
+\item{per_page}{Number of results per page. Default: 25.}
 
 \item{...}{Additional arguments passed down to low-level API function
 (\code{do_*})}

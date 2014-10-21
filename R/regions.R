@@ -1,7 +1,7 @@
 #' Get list of regions and their metadata
 #' 
 #' @export
-#' @template pages
+#' @inheritParams droplets
 #' @param ... Options passed on to httr::GET. Must be named, see examples.
 #' @examples \dontrun{
 #' regions()
