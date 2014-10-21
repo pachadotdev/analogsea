@@ -14,9 +14,18 @@ with the corresponding private key will be able to log in to the droplet.
 See \code{\link{keys}()} for a list of the keys that you've added.
 Default: NULL.}
 }
+\value{
+A string. (Can't return yaml because the \code{yaml} package
+  strips off comments, and the first comment is extremely important.)
+}
 \description{
 This takes a template stored in \code{inst/cloudconfig} and inserts
 ssh_keys into the first user.
+}
+\examples{
+\donttest{
+cat(cloud_config("ubuntu"))
+}
 }
 \keyword{internal}
 

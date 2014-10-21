@@ -72,8 +72,7 @@ droplet_create <- function(name = random_name(),
         call. = FALSE)
     }
     
-    config <- cloud_config(cloud_config, ssh_keys)  
-    user_data <- yaml::as.yaml(config)
+    user_data <- cloud_config(cloud_config, ssh_keys)  
   }
   
   res <- do_POST('droplets', 

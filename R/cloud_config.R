@@ -5,8 +5,14 @@
 #' 
 #' @param name Name of template
 #' @inheritParams droplet_create
+#' @return A string. (Can't return yaml because the \code{yaml} package
+#'   strips off comments, and the first comment is extremely important.)
 #' @export
 #' @keywords internal
+#' @examples
+#' \donttest{
+#' cat(cloud_config("ubuntu"))
+#' }
 cloud_config <- function(name, ssh_keys = NULL) {
   path <- system.file("cloudconfig", paste0(name, ".yaml"), 
     package = "analogsea")
@@ -22,5 +28,7 @@ cloud_config <- function(name, ssh_keys = NULL) {
   
   config$users[[1]]$`ssh-authorized-keys` <- public
   
-  config
+  # Convert back to string and restore comment
+  text <- yaml::as.yaml(config)
+  paste0("#cloud-config\n", text)
 }
