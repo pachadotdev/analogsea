@@ -1,13 +1,5 @@
-man-roxygen/
-.travis.yml
-.DS_Store
-travis-tool.sh
-vignettes/margins.sty
-Makefile
-inst/stuff/
-drone.yml
-appveyor.yml
 ^.*\.Rproj$
 ^\.Rproj\.user$
-.httr-oauth
-droplet_remote.R
+^\.travis\.yml$
+^appveyor\.yml$
+^\.httr-oauth$
