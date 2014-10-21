@@ -50,7 +50,8 @@ Default: sfo1}
 
 \item{ssh_keys}{(character) A vector with IDs or fingerprints of the SSH
 keys that you wish to embed in the droplet's root account upon creation.
-See \code{\link{ssh_key}()} for a list of the keys that you've added.}
+See \code{\link{ssh_key}()} for a list of the keys that you've added.
+Default: uses all ssh keys that you've added to your account.}
 
 \item{backups}{(logical) Enable backups. A boolean indicating whether
 automated backups should be enabled for the droplet. Automated backups can

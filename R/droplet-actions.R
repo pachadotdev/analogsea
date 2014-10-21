@@ -19,6 +19,7 @@
 #' @param ssh_keys (character) A vector with IDs or fingerprints of the SSH 
 #'   keys that you wish to embed in the droplet's root account upon creation.
 #'   See \code{\link{ssh_key}()} for a list of the keys that you've added.
+#'   Default: uses all ssh keys that you've added to your account.
 #' @param private_networking (logical) Use private networking. Private 
 #'   networking is currently only available in certain regions. Default: FALSE
 #' @param backups (logical) Enable backups. A boolean indicating whether 
@@ -38,8 +39,6 @@
 #' droplet_create(name="newdrop", size = '512mb', image = 'ubuntu-14-04-x64', region = 'sfo1')
 #' droplet_create(ssh_keys=89103)
 #' }
-#' 
-#' 
 droplet_create <- function(name = random_name(), 
                         size = getOption("do_size", "512mb"),
                         image = getOption("do_image", "ubuntu-14-04-x64"), 
@@ -53,11 +52,10 @@ droplet_create <- function(name = random_name(),
                         ...) {
   
   if (is.null(ssh_keys)) {
-    all_keys <- keys()
-    if (length(all_keys) >= 1) {
-      message("Using default ssh key: ", all_keys[[1]]$name)
-      ssh_keys <- all_keys[[1]]$id
-    }
+    keys <- keys()
+    ssh_keys <- pluck(keys, "id", integer(1))
+    message("Using default ssh keys: ", 
+      paste0(pluck(keys, "name", character(1)), collapse = ", "))
   } else if (is.character(ssh_keys)) {
     keys <- lapply(ssh_keys, as.key)
     ssh_keys <- pluck(keys, "id", integer(1))
