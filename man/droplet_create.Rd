@@ -30,7 +30,7 @@ Default: sfo1}
 \item{ssh_keys}{(character) A character vector of key names, an integer
 vector of key ids, or NULL, to use all keys in your account. Accounts
 with the corresponding private key will be able to log in to the droplet.
-See \code{\link{ssh_key}()} for a list of the keys that you've added.
+See \code{\link{keys}()} for a list of the keys that you've added.
 Default: NULL.}
 
 \item{backups}{(logical) Enable backups. A boolean indicating whether
