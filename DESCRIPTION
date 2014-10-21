@@ -18,7 +18,8 @@ Imports:
     assertthat,
     jsonlite,
     plyr,
-    magrittr
+    magrittr,
+    yaml
 Suggests:
     packrat,
     testthat,
