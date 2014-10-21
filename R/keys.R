@@ -83,3 +83,34 @@ key_delete <- function(key, ...) {
   key <- as.key(key)
   do_DELETE(key, ...)
 }
+
+#' Standardise specification of ssh keys.
+#' 
+#' @param ssh_keys An integer vector of given key ids, a character vector
+#'   of key ids, or NULL, to use all ssh keys in account.
+#' @param A integer vector of key ids.
+#' @export
+#' @examples
+#' \dontrun{
+#' standardise_keys(123)
+#' standardise_keys(123L)
+#' standardise_keys()
+#' standardise_keys("hadley")
+#' }
+standardise_keys <- function(ssh_keys = NULL) {
+  if (is.integer(ssh_keys)) return(ssh_keys)
+  if (is.numeric(ssh_keys)) return(as.integer(ssh_keys))
+  
+  if (is.null(ssh_keys)) {
+    ssh_keys <- keys()
+    
+    names <- pluck(ssh_keys, "name", character(1))
+    message("Using default ssh keys: ", paste0(names, collapse = ", "))
+  } else if (is.character(ssh_keys)) {
+    ssh_keys <- lapply(ssh_keys, as.key)
+  } else {
+    stop("Unknown specification for ssh_keys", call. = FALSE)
+  }
+  
+  unname(pluck(ssh_keys, "id", integer(1)))
+}

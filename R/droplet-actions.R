@@ -16,10 +16,11 @@
 #' @param region (character) The unique slug identifier for the region that you 
 #'   wish to deploy in. See \code{\link{regions}()} for a complete list.
 #'   Default: sfo1
-#' @param ssh_keys (character) A vector with IDs or fingerprints of the SSH 
-#'   keys that you wish to embed in the droplet's root account upon creation.
+#' @param ssh_keys (character) A character vector of key names, an integer
+#'   vector of key ids, or NULL, to use all keys in your account. Accounts
+#'   with the corresponding private key will be able to log in to the droplet.
 #'   See \code{\link{ssh_key}()} for a list of the keys that you've added.
-#'   Default: uses all ssh keys that you've added to your account.
+#'   Default: NULL.
 #' @param private_networking (logical) Use private networking. Private 
 #'   networking is currently only available in certain regions. Default: FALSE
 #' @param backups (logical) Enable backups. A boolean indicating whether 
@@ -51,18 +52,7 @@ droplet_create <- function(name = random_name(),
                         wait = TRUE,
                         ...) {
   
-  if (is.null(ssh_keys)) {
-    keys <- keys()
-    ssh_keys <- pluck(keys, "id", integer(1))
-    message("Using default ssh keys: ", 
-      paste0(pluck(keys, "name", character(1)), collapse = ", "))
-  } else if (is.character(ssh_keys)) {
-    keys <- lapply(ssh_keys, as.key)
-    ssh_keys <- pluck(keys, "id", integer(1))
-  } else {
-    stop("Unknown specification for ssh_keys", call. = FALSE)
-  }
-  
+  ssh_keys <- standardise_keys(ssh_keys)
   if (length(ssh_keys) == 0) {
     warning("You have not specified any ssh_keys. This is NOT recommended.",
       " (You will receive an email with the root password in a few minutes", 

@@ -27,10 +27,11 @@ list. Default: ubuntu-14-04-x64}
 wish to deploy in. See \code{\link{regions}()} for a complete list.
 Default: sfo1}
 
-\item{ssh_keys}{(character) A vector with IDs or fingerprints of the SSH
-keys that you wish to embed in the droplet's root account upon creation.
+\item{ssh_keys}{(character) A character vector of key names, an integer
+vector of key ids, or NULL, to use all keys in your account. Accounts
+with the corresponding private key will be able to log in to the droplet.
 See \code{\link{ssh_key}()} for a list of the keys that you've added.
-Default: uses all ssh keys that you've added to your account.}
+Default: NULL.}
 
 \item{backups}{(logical) Enable backups. A boolean indicating whether
 automated backups should be enabled for the droplet. Automated backups can
