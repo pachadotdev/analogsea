@@ -88,7 +88,7 @@ key_delete <- function(key, ...) {
 #' 
 #' @param ssh_keys An integer vector of given key ids, a character vector
 #'   of key ids, or NULL, to use all ssh keys in account.
-#' @param A integer vector of key ids.
+#' @return A integer vector of key ids.
 #' @export
 #' @examples
 #' \dontrun{

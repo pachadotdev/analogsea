@@ -8,8 +8,9 @@ standardise_keys(ssh_keys = NULL)
 \arguments{
 \item{ssh_keys}{An integer vector of given key ids, a character vector
 of key ids, or NULL, to use all ssh keys in account.}
-
-\item{A}{integer vector of key ids.}
+}
+\value{
+A integer vector of key ids.
 }
 \description{
 Standardise specification of ssh keys.
