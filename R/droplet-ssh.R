@@ -43,6 +43,7 @@ droplet_ssh <- function(droplet, ..., user = "root", verbose = FALSE) {
   droplet <- as.droplet(droplet)  
   
   lines <- paste(c(...), collapse = " \\\n&& ")
+  if(lines == "") stop("Provide commands", call. = FALSE)
   cmd <- paste0(
     "ssh ", ssh_options(), 
     " ", user, "@", droplet_ip(droplet), 

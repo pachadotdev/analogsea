@@ -30,9 +30,7 @@ On success, the droplet (invisibly). On failure, throws an
 }
 \description{
 Assumes that you have ssh & scp installed, and password-less login set up
-on the droplet.  Use \code{droplet_reset_host} to reset your host file
-if you get complaints from ssh - this usually occurs when you have a new
-droplet on a previously used ip address.
+on the droplet.
 }
 \examples{
 \dontrun{
