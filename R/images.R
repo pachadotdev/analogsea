@@ -107,8 +107,8 @@ image_actions <- function(image, action_id, ...) {
 #' @param region (numeric) Required. The region slug that represents the region target.
 #' @param ... Options passed on to httr::GET. Must be named, see examples.
 #' @examples \dontrun{
-#' image_transfer(image_id=5710271, region='nyc2')
-#' image_transfer(image_id=4546004, region='nyc1')
+#' image_transfer(image=images()[[1]], region='nyc2')
+#' image_transfer(image=images()[[1]], region='nyc1')
 #' }
 image_transfer <- function(image, region, ...) {
   image <- as.image(image)
