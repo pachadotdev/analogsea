@@ -35,7 +35,8 @@ docklet_docker(droplet, cmd, args = NULL, docker_args = NULL,
 
 docklet_rstudio(droplet, user = "rstudio", password = "rstudio",
   email = "rstudio@example.com", img = "rocker/rstudio", port = "8787",
-  browse = TRUE, verbose = TRUE, ssh_user = "root")
+  volume = "", dir = "", browse = TRUE, verbose = TRUE,
+  ssh_user = "root")
 }
 \arguments{
 \item{name}{(character) Name of the droplet. Default: picks a random name

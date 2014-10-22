@@ -107,14 +107,18 @@ docklet_rstudio <- function(droplet,
                             email = 'rstudio@example.com', 
                             img = 'rocker/rstudio', 
                             port = '8787',
+                            volume = "",
+                            dir = "",
                             browse = TRUE, verbose = TRUE,
                             ssh_user = "root") {
   droplet <- as.droplet(droplet)
   
   docklet_pull(droplet, img, ssh_user)
-  docklet_run(droplet,   
+  docklet_run(droplet,
     " -d", 
     " -p ", port, ":8787", 
+    " -v ", volume,
+    " -w", dir,
     " -e USER=", user,
     " -e PASSWORD=", password,
     " -e EMAIL=", email, " ",
