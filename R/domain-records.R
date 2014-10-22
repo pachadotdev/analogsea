@@ -75,6 +75,7 @@ domain_record_create <- function(domain, type, name = NULL, data = NULL,
   res <- do_POST(domain_record_url(domain$name),
     body = list(type = type, data = data, name = name, priority = priority, 
       port = port, weight = weight),
+    encode="multipart",
     ...)
   as.domain_record(res, domain = domain)
 }
