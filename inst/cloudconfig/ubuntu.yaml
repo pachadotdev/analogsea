@@ -52,3 +52,7 @@ runcmd: |
   echo "/swapfile   none    swap    sw    0   0" >> /etc/fstab
   echo "vm.swappiness=10" >> /etc/sysctl.conf
   echo "vm.vfs_cache_pressure=50" >> /etc/sysctl.conf
+  # If docker is installed, allow analogsea user to be able to use docker
+  if [ $(command -v docker) ];then
+    gpasswd -a analogsea docker && service docker restart
+  fi
