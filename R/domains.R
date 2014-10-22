@@ -54,6 +54,7 @@ print.domain <- function(x, ...) {
 domain_create <- function(name, ip_address, ...) {
   as.domain(do_POST(domain_url(), 
     body = list(name = name, ip_address = ip_address), 
+    encode = "multipart",
     ...
   ))
 }

@@ -15,7 +15,7 @@ as.domain_record.list <- function(x, domain) {
   } else {
     lapply(x, function(y) {
       y$domain <- domain
-      domain
+      y
     })
   }
 }
@@ -62,7 +62,7 @@ as.url.domain_record <- function(x, ...) {
 #' }
 domain_records <- function(domain, ...) {
   domain <- as.domain(domain)
-  as.domain_record(do_GET(domain_record_url(domain$name)))
+  as.domain_record(do_GET(domain_record_url(domain$name)), domain)
 }
 
 #' @export
