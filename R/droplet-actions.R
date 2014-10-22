@@ -88,7 +88,8 @@ droplet_create <- function(name = random_name(),
       user_data = unbox(user_data)
     ), ...
   )
-  droplet <- structure(res$droplet, class = "droplet")
+#   droplet <- structure(res$droplet, class = "droplet")
+  droplet <- droplet(res$droplet$id)
   
   message("NB: This costs $", droplet$size$price_hourly, " / hour ", 
     "until you droplet_delete() it")
