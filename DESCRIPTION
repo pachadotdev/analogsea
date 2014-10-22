@@ -13,6 +13,7 @@ License: MIT + file LICENSE
 URL: https://github.com/sckott/analogsea
 BugReports: http://www.github.com/sckott/analogsea/issues
 LazyData: yes
+VignetteBuilder: knitr
 Imports:
     httr,
     assertthat,

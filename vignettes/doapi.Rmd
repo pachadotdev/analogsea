@@ -1,0 +1,517 @@
+<!--
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{Working with the Digital Ocean API}
+-->
+
+Working with the Digital Ocean API
+======
+
+## Create a DO account
+
+If you don't already have one, [create a DO account](https://www.digitalocean.com/?refcode=0740f5169634). By using this link, you'll start with $10 in credits (enough for >600 hours of computing on a 1 gb machine), and if you become a digital ocean customer we'll get some DO credits for us to offset our costs for testing. Thanks :)
+
+## Authenticate
+
+The best way to authenticate is to generate a [personal access token](https://cloud.digitalocean.com/settings/tokens/new) and save it in an environment variable called `DO_PAT`.  If you don't do this, you'll be prompted to authenticate in your browser the first time you use analogsea.
+
+Make sure you provide digitial ocean your public key at <https://cloud.digitalocean.com/ssh_keys>. Github has some good advice on creating a new public key if you don't already have one: <https://help.github.com/articles/generating-ssh-keys/>.
+
+## Create a droplet
+
+`droplet_create()` will create a droplet on your account. You can run it as below without any inputs, and it will use sensible defaults:
+
+* The smallest memory size of 512mb
+* Ubuntu 14.04 box
+* Region sfo1
+* Uses your ssh key
+* Don't use ipv6
+* Don't allow backups
+* Don't allow private networking
+
+You can set all of thse options in your `.Rprofile` file like `options(do_size = "8gb")` for a default of 8 GB.
+
+The name given to the droplet is picked at random from a list of 1000 random names.
+
+You can of course set any of these parameters.
+
+
+```r
+droplet_create()
+```
+
+```
+#> Waiting for create ........................................
+```
+
+```
+#> <droplet>outwit (2947821)
+#>   IP:     104.131.155.135
+#>   Status: active
+#>   Region: San Francisco 1
+#>   Image:  Ubuntu 14.04 x64
+#>   Size:   512mb ($0.00744 / hr)
+```
+
+## Get a droplet or droplets
+
+Listing droplets can be done in singular or plural fashion. `droplet()` accepts a droplet ID, while `droplets()` list all droplets.
+
+If you don't have any droplets yet, you will get an empty list running `droplets()`, and you of course can't pass in a droplet ID number to `droplet()` if you don't have any droplets yet.
+
+
+```r
+droplets()
+#> named list()
+```
+
+After creating a droplet and running `droplets()` again, we see a list of our droplet(s)
+
+
+```r
+(d <- droplets())
+```
+
+```
+#> $outwit
+#> <droplet>outwit (2947821)
+#>   IP:     104.131.155.135
+#>   Status: active
+#>   Region: San Francisco 1
+#>   Image:  Ubuntu 14.04 x64
+#>   Size:   512mb ($0.00744 / hr)
+```
+
+Or we can pass in a droplet id to `droplet()`
+
+
+```r
+droplet(d[[1]]$id)
+```
+
+```
+#> <droplet>outwit (2947821)
+#>   IP:     104.131.155.135
+#>   Status: active
+#>   Region: San Francisco 1
+#>   Image:  Ubuntu 14.04 x64
+#>   Size:   512mb ($0.00744 / hr)
+```
+
+Get more detailed information on your droplet with `summary()`
+
+
+```r
+droplet(d[[1]]$id) %>% summary
+```
+
+```
+#> <droplet_detail>outwit (2947821)
+#>   Status: active
+#>   Region: San Francisco 1
+#>   Image: Ubuntu 14.04 x64
+#>   Size: 512mb ($0.00744 / hr)
+#>   Estimated cost ($): 0
+#>   Locked: FALSE
+#>   Created at: 2014-10-22T21:00:33Z UTC
+#>   Networks:
+#>      v4: ip_address (104.131.155.135), netmask (255.255.240.0), gateway (104.131.144.1), type (public)
+#>      v6: none
+#>   Kernel:  id (1682), name (Ubuntu 14.04 x64 vmlinuz-3.13.0-32-generic), version (3.13.0-32-generic)
+#>   Snapshots:  
+#>   Backups:
+```
+
+## Actions on droplets
+
+### Delete
+
+You can delete a droplet with `droplet_delete()`. Be careful, as this completely removes your droplet. Backup your droplet or make an image if you want to use the droplet later.
+
+
+```r
+droplet_create() %>%
+  droplet_delete()
+```
+
+```
+#> Waiting for create ..........................................
+```
+
+### Actions
+
+List actions on a droplet, newer ones at the top. Here's list actions, then rename and list actions again.
+
+
+```r
+droplets()[[1]] %>% droplet_actions()
+```
+
+```
+#> [[1]]
+#> <action> create (34988475)
+#>   Status: completed
+#>   Resource: droplet 2947821
+```
+
+```r
+droplets()[[1]] %>%
+  droplet_rename(name = "droppy") %>%
+  droplet_wait() %>%
+  droplet_actions()
+```
+
+```
+#> Waiting for rename ..
+```
+
+```
+#> [[1]]
+#> <action> rename (34988584)
+#>   Status: completed
+#>   Resource: droplet 2947821
+#>
+#> [[2]]
+#> <action> create (34988475)
+#>   Status: completed
+#>   Resource: droplet 2947821
+```
+
+### Snapshot
+
+Making a snapshot of a droplet can be done with `droplet_snapshot()`. This action requires that you turn off the droplet first, then take the snapshot. First, create a droplet
+
+
+```r
+d <- droplet_create(size = "2gb")
+```
+
+```
+#> Waiting for create ....................................
+```
+
+Then power off, and take a snapshot, which gives an action object describing that the snapshot is in progress.
+
+
+```r
+d %>%
+  droplet_power_off() %>%
+  droplet_wait() %>%
+  droplet_snapshot(name = "mynewsnap")
+```
+
+```
+#> Waiting for power_off ..........
+```
+
+```
+#> <action> snapshot (34988627)
+#>   Status: in-progress
+#>   Resource: droplet 2947849
+```
+
+## Regions
+
+The `regions()` function lists region slug names, full names, available sizes, whether the region is available at all, and features.
+
+
+```r
+regions()
+```
+
+```
+#>   slug            name                                             sizes
+#> 1 nyc1      New York 1
+#> 2 ams1     Amsterdam 1
+#> 3 sfo1 San Francisco 1 32gb, 16gb, 2gb, 1gb, 4gb, 8gb, 512mb, 64gb, 48gb
+#> 4 nyc2      New York 2 32gb, 16gb, 2gb, 1gb, 4gb, 8gb, 512mb, 64gb, 48gb
+#> 5 ams2     Amsterdam 2 32gb, 16gb, 2gb, 1gb, 4gb, 8gb, 512mb, 64gb, 48gb
+#> 6 sgp1     Singapore 1 32gb, 16gb, 2gb, 1gb, 4gb, 8gb, 512mb, 64gb, 48gb
+#> 7 lon1        London 1 32gb, 16gb, 2gb, 1gb, 4gb, 8gb, 512mb, 64gb, 48gb
+#> 8 nyc3      New York 3 32gb, 16gb, 2gb, 1gb, 4gb, 8gb, 512mb, 64gb, 48gb
+#> 9 ams3     Amsterdam 3 32gb, 16gb, 2gb, 1gb, 4gb, 8gb, 512mb, 64gb, 48gb
+#>   available                                            features
+#> 1     FALSE                                     virtio, backups
+#> 2     FALSE                                     virtio, backups
+#> 3      TRUE                           virtio, backups, metadata
+#> 4      TRUE                 virtio, private_networking, backups
+#> 5      TRUE       virtio, private_networking, backups, metadata
+#> 6      TRUE virtio, private_networking, backups, ipv6, metadata
+#> 7      TRUE virtio, private_networking, backups, ipv6, metadata
+#> 8      TRUE virtio, private_networking, backups, ipv6, metadata
+#> 9      TRUE virtio, private_networking, backups, ipv6, metadata
+```
+
+## Sizes
+
+The `sizes()` function lists size slug names, associated memory, vcpus, disk size, prices, and regions where the size is available.
+
+
+```r
+sizes()
+```
+
+```
+#>    slug memory vcpus disk transfer price_monthly price_hourly
+#> 1 512mb    512     1   20        1             5      0.00744
+#> 2   1gb   1024     1   30        2            10      0.01488
+#> 3   2gb   2048     2   40        3            20      0.02976
+#> 4   4gb   4096     2   60        4            40      0.05952
+#> 5   8gb   8192     4   80        5            80      0.11905
+#> 6  16gb  16384     8  160        6           160      0.23810
+#> 7  32gb  32768    12  320        7           320      0.47619
+#> 8  48gb  49152    16  480        8           480      0.71429
+#> 9  64gb  65536    20  640        9           640      0.95238
+#>                                                 region
+#> 1 ams1, ams2, ams3, lon1, nyc1, nyc2, nyc3, sfo1, sgp1
+#> 2 ams1, ams2, ams3, lon1, nyc1, nyc2, nyc3, sfo1, sgp1
+#> 3 ams1, ams2, ams3, lon1, nyc1, nyc2, nyc3, sfo1, sgp1
+#> 4 ams1, ams2, ams3, lon1, nyc1, nyc2, nyc3, sfo1, sgp1
+#> 5 ams1, ams2, ams3, lon1, nyc1, nyc2, nyc3, sfo1, sgp1
+#> 6 ams1, ams2, ams3, lon1, nyc1, nyc2, nyc3, sfo1, sgp1
+#> 7       ams2, ams3, lon1, nyc1, nyc2, nyc3, sfo1, sgp1
+#> 8       ams2, ams3, lon1, nyc1, nyc2, nyc3, sfo1, sgp1
+#> 9       ams2, ams3, lon1, nyc1, nyc2, nyc3, sfo1, sgp1
+```
+
+## Keys
+
+We suggest you use SSH keys to interact with Digital Ocean from `analogsea`. There are a variety of functions for working with SSH keys.
+
+List your keys
+
+
+```r
+keys()
+```
+
+```
+#> $`Scott Chamberlain`
+#> <key> Scott Chamberlain (89103)
+#>   Fingerprint: 6b:2e:f6:be:e7:b4:58:0e:2a:a0:23:7e:16:ac:fc:17
+```
+
+Get a key by id
+
+
+```r
+key(keys()[[1]]$id)
+```
+
+```
+#> <key> Scott Chamberlain (89103)
+#>   Fingerprint: 6b:2e:f6:be:e7:b4:58:0e:2a:a0:23:7e:16:ac:fc:17
+```
+
+You can also create a key, rename a key, and delete a key
+
+
+```r
+k <- key_create("key", readLines("~/.ssh/id_rsa.pub"))
+k <- key_rename(k, "new_name")
+key_delete(k)
+```
+
+## Images
+
+The `images()` function can list both your own private images, and public images. If `public=FALSE` only your private images are listed, while if `public=TRUE`, your private images are listed along with publicly avaialble images.
+
+
+```r
+images(public = TRUE, page = 4, per_page = 5)
+```
+
+```
+#> $`CoreOS (beta) 444.5.0`
+#> <image> CoreOS (beta) 444.5.0 (6882384)
+#>   Slug:    coreos-beta [public]
+#>   Distro:  CoreOS
+#>   Regions: sfo1, nyc2, ams2, sgp1, lon1, nyc3, ams3, nyc3
+#>
+#> $`CoreOS (stable) 444.5.0`
+#> <image> CoreOS (stable) 444.5.0 (6886342)
+#>   Slug:    coreos-stable [public]
+#>   Distro:  CoreOS
+#>   Regions: sfo1, nyc2, ams2, sgp1, lon1, nyc3, ams3, nyc3
+#>
+#> $`CoreOS (alpha) 472.0.0`
+#> <image> CoreOS (alpha) 472.0.0 (6919197)
+#>   Slug:    coreos-alpha [public]
+#>   Distro:  CoreOS
+#>   Regions: sfo1, nyc2, ams2, sgp1, lon1, nyc3, ams3, nyc3
+#>
+#> $`Fedora 20 x64`
+#> <image> Fedora 20 x64 (6370882)
+#>   Slug:    fedora-20-x64 [public]
+#>   Distro:  Fedora
+#>   Regions: nyc1, ams1, sfo1, nyc2, ams2, sgp1, lon1, nyc3, ams3, nyc3
+#>
+#> $`Fedora 20 x32`
+#> <image> Fedora 20 x32 (6370885)
+#>   Slug:    fedora-20-x32 [public]
+#>   Distro:  Fedora
+#>   Regions: nyc1, ams1, sfo1, nyc2, ams2, sgp1, lon1, nyc3, ams3, nyc3
+```
+
+You can also do various actions on images. First, you can pass in an image ID to the `image()` function to get an image object.
+
+
+```r
+img <- images(per_page = 1)[[1]]
+image(img$id)
+```
+
+```
+#> <image> analog (3209452)
+#>   Slug:     [private]
+#>   Distro:  Ubuntu
+#>   Regions: sfo1, sfo1
+```
+
+You can rename an image
+
+
+```r
+img %>% image_rename(name = "analog")
+```
+
+```
+#> <image> analog (3209452)
+#>   Slug:     [private]
+#>   Distro:  Ubuntu
+#>   Regions: sfo1, sfo1
+```
+
+You can transfer an image to another region
+
+
+```r
+image(img$id) %>% image_transfer(region = "sfo1")
+```
+
+## Domains
+
+You can use domain names for your droplets on Digital Ocean. `analogsea` has a variety of functions to work with domain names.
+
+List domain names
+
+
+```r
+domains()
+```
+
+```
+#> $asdfljalfjalafjadljfasd.com
+#> <domain> asdfljalfjalafjadljfasd.com
+#>   ttl: 1800
+#>
+#> $sckottdrop.info
+#> <domain> sckottdrop.info
+#>   ttl: 1800
+#>
+#> $spheroidicity.info
+#> <domain> spheroidicity.info
+#>   ttl: 1800
+#>
+#> $tablesandchairsbunnies.info
+#> <domain> tablesandchairsbunnies.info
+#>   ttl: 1800
+#>
+#> $xyzabc.info
+#> <domain> xyzabc.info
+#>   ttl: 1800
+#>
+#> $zzzzzzzz.com
+#> <domain> zzzzzzzz.com
+#>   ttl: 1800
+```
+
+Get a single domain by domain name
+
+
+```r
+domain("sckottdrop.info")
+```
+
+```
+#> <domain> sckottdrop.info
+#>   ttl: 1800
+```
+
+Create a new domain name
+
+
+```r
+dom <- paste0(sample(words, 1), ".info")
+domain_create(name = dom, ip_address = "127.0.0.1")
+```
+
+```
+#> <domain> spiritualization.info
+#>   ttl: 1800
+```
+
+Create a domain record, list records and delete the one just created
+
+
+```r
+domain("sckottdrop.info") %>%
+  domain_record_create(type = "TXT", name = "hello", data = "world")
+```
+
+```
+#> <domain_record> 3173688
+#>   TXT "world"
+```
+
+```r
+records <- domain("sckottdrop.info") %>% domain_records()
+domain_record_delete(records[[length(records)]])
+```
+
+List records
+
+
+```r
+domain("sckottdrop.info") %>% domain_records()
+```
+
+```
+#> [[1]]
+#> <domain_record> 2192415
+#>   NS NS2.DIGITALOCEAN.COM.
+#>
+#> [[2]]
+#> <domain_record> 2192416
+#>   NS NS3.DIGITALOCEAN.COM.
+#>
+#> [[3]]
+#> <domain_record> 2194418
+#>   TXT "hey there"
+#>
+#> [[4]]
+#> <domain_record> 2714618
+#>   TXT "just chillin"
+#>
+#> [[5]]
+#> <domain_record> 2714621
+#>   TXT "just chillin"
+#>
+#> [[6]]
+#> <domain_record> 2714634
+#>   TXT "the heck"
+#>
+#> [[7]]
+#> <domain_record> 3173514
+#>   TXT "things"
+```
+
+Delete a domain name, returns nothing if delete is successful
+
+
+```r
+domain(dom) %>% domain_delete()
+```
+
+## Docker and Digital Ocean
+
+In the _Docker on Digital Ocean_ vignette we cover working with Docker on Digital Ocean.

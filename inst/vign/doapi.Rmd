@@ -1,0 +1,233 @@
+<!--
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{Working with the Digital Ocean API}
+-->
+
+```{r echo=FALSE}
+library(analogsea)
+knitr::opts_chunk$set(
+  comment = "#>",
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+
+Working with the Digital Ocean API
+======
+
+## Create a DO account
+
+If you don't already have one, [create a DO account](https://www.digitalocean.com/?refcode=0740f5169634). By using this link, you'll start with $10 in credits (enough for >600 hours of computing on a 1 gb machine), and if you become a digital ocean customer we'll get some DO credits for us to offset our costs for testing. Thanks :)
+
+## Authenticate
+
+The best way to authenticate is to generate a [personal access token](https://cloud.digitalocean.com/settings/tokens/new) and save it in an environment variable called `DO_PAT`.  If you don't do this, you'll be prompted to authenticate in your browser the first time you use analogsea.
+
+Make sure you provide digitial ocean your public key at <https://cloud.digitalocean.com/ssh_keys>. Github has some good advice on creating a new public key if you don't already have one: <https://help.github.com/articles/generating-ssh-keys/>.
+
+## Create a droplet
+
+`droplet_create()` will create a droplet on your account. You can run it as below without any inputs, and it will use sensible defaults:
+
+* The smallest memory size of 512mb
+* Ubuntu 14.04 box
+* Region sfo1
+* Uses your ssh key
+* Don't use ipv6
+* Don't allow backups
+* Don't allow private networking
+
+You can set all of thse options in your `.Rprofile` file like `options(do_size = "8gb")` for a default of 8 GB.
+
+The name given to the droplet is picked at random from a list of 1000 random names. 
+
+You can of course set any of these parameters.
+
+```{r}
+droplet_create()
+```
+
+## Get a droplet or droplets
+
+Listing droplets can be done in singular or plural fashion. `droplet()` accepts a droplet ID, while `droplets()` list all droplets.
+
+If you don't have any droplets yet, you will get an empty list running `droplets()`, and you of course can't pass in a droplet ID number to `droplet()` if you don't have any droplets yet.
+
+```{r eval=FALSE}
+droplets()
+#> named list()
+```
+
+After creating a droplet and running `droplets()` again, we see a list of our droplet(s)
+
+```{r}
+(d <- droplets())
+```
+
+Or we can pass in a droplet id to `droplet()`
+
+```{r}
+droplet(d[[1]]$id)
+```
+
+Get more detailed information on your droplet with `summary()`
+
+```{r}
+droplet(d[[1]]$id) %>% summary
+```
+
+## Actions on droplets
+
+### Delete
+
+You can delete a droplet with `droplet_delete()`. Be careful, as this completely removes your droplet. Backup your droplet or make an image if you want to use the droplet later.
+
+```{r}
+droplet_create() %>%
+  droplet_delete()
+```
+
+### Actions
+
+List actions on a droplet, newer ones at the top. Here's list actions, then rename and list actions again. 
+
+```{r}
+droplets()[[1]] %>% droplet_actions()
+droplets()[[1]] %>%
+  droplet_rename(name = "droppy") %>%
+  droplet_wait() %>%
+  droplet_actions()
+```
+
+### Snapshot
+
+Making a snapshot of a droplet can be done with `droplet_snapshot()`. This action requires that you turn off the droplet first, then take the snapshot. First, create a droplet
+
+```{r}
+d <- droplet_create(size = "2gb")
+```
+
+Then power off, and take a snapshot, which gives an action object describing that the snapshot is in progress.
+
+```{r}
+d %>%
+  droplet_power_off() %>%
+  droplet_wait() %>%
+  droplet_snapshot(name = "mynewsnap")
+```
+
+## Regions
+
+The `regions()` function lists region slug names, full names, available sizes, whether the region is available at all, and features. 
+
+```{r}
+regions()
+```
+
+## Sizes
+
+The `sizes()` function lists size slug names, associated memory, vcpus, disk size, prices, and regions where the size is available. 
+
+```{r}
+sizes()
+```
+
+## Keys
+
+We suggest you use SSH keys to interact with Digital Ocean from `analogsea`. There are a variety of functions for working with SSH keys. 
+
+List your keys
+
+```{r}
+keys()
+```
+
+Get a key by id
+
+```{r}
+key(keys()[[1]]$id)
+```
+
+You can also create a key, rename a key, and delete a key
+
+```{r eval=FALSE}
+k <- key_create("key", readLines("~/.ssh/id_rsa.pub"))
+k <- key_rename(k, "new_name")
+key_delete(k)
+```
+
+## Images
+
+The `images()` function can list both your own private images, and public images. If `public=FALSE` only your private images are listed, while if `public=TRUE`, your private images are listed along with publicly avaialble images. 
+
+```{r}
+images(public = TRUE, page = 4, per_page = 5)
+```
+
+You can also do various actions on images. First, you can pass in an image ID to the `image()` function to get an image object. 
+
+```{r}
+img <- images(per_page = 1)[[1]]
+image(img$id)
+```
+
+You can rename an image
+
+```{r}
+img %>% image_rename(name = "analog")
+```
+
+You can transfer an image to another region
+
+```{r eval=FALSE}
+image(img$id) %>% image_transfer(region = "sfo1")
+```
+
+## Domains
+
+You can use domain names for your droplets on Digital Ocean. `analogsea` has a variety of functions to work with domain names. 
+
+List domain names
+
+```{r}
+domains()
+```
+
+Get a single domain by domain name
+
+```{r}
+domain("sckottdrop.info")
+```
+
+Create a new domain name
+
+```{r}
+dom <- paste0(sample(words, 1), ".info")
+domain_create(name = dom, ip_address = "127.0.0.1")
+```
+
+Create a domain record, list records and delete the one just created
+
+```{r}
+domain("sckottdrop.info") %>% 
+  domain_record_create(type = "TXT", name = "hello", data = "world")
+records <- domain("sckottdrop.info") %>% domain_records()
+domain_record_delete(records[[length(records)]])
+```
+
+List records
+
+```{r}
+domain("sckottdrop.info") %>% domain_records()
+```
+
+Delete a domain name, returns nothing if delete is successful
+
+```{r}
+domain(dom) %>% domain_delete()
+```
+
+## Docker and Digital Ocean
+
+In the _Docker on Digital Ocean_ vignette we cover working with Docker on Digital Ocean.
