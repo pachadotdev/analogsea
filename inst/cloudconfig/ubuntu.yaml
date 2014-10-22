@@ -40,19 +40,22 @@ write_files:
       AcceptEnv LANG LC_*
       Subsystem sftp /usr/lib/openssh/sftp-server
       UsePAM yes
-runcmd: |
-  apt-get update
-  apt-get install -y unattended-upgrades
-  # Setup a swapfile
-  # https://www.digitalocean.com/community/tutorials/how-to-add-swap-on-ubuntu-14-04
-  fallocate -l 4G /swapfile
-  chmod 600 /swapfile
-  mkswap /swapfile
-  swapon /swapfile
-  echo "/swapfile   none    swap    sw    0   0" >> /etc/fstab
-  echo "vm.swappiness=10" >> /etc/sysctl.conf
-  echo "vm.vfs_cache_pressure=50" >> /etc/sysctl.conf
-  # If docker is installed, allow analogsea user to be able to use docker
-  if [ $(command -v docker) ];then
-    gpasswd -a analogsea docker && service docker restart
-  fi
+runcmd:
+  - |
+    apt-get update
+    apt-get install -y unattended-upgrades
+  - |
+    # Setup a swapfile
+    # https://www.digitalocean.com/community/tutorials/how-to-add-swap-on-ubuntu-14-04
+    fallocate -l 4G /swapfile
+    chmod 600 /swapfile
+    mkswap /swapfile
+    swapon /swapfile
+    echo "/swapfile   none    swap    sw    0   0" >> /etc/fstab
+    echo "vm.swappiness=10" >> /etc/sysctl.conf
+    echo "vm.vfs_cache_pressure=50" >> /etc/sysctl.conf
+  - |
+    # If docker is installed, allow analogsea user to be able to use docker
+    if [ $(command -v docker) ];then
+      gpasswd -a analogsea docker && service docker restart
+    fi
