@@ -3,6 +3,9 @@
 #' Assumes that you have ssh & scp installed, and password-less login set up
 #' on the droplet.
 #' 
+#' Uploads and downloads are recursive, so if you specify a directory,
+#' everything inside the directory will also be downloaded.
+#'
 #' @param droplet A droplet, or something that can be coerced to a droplet by
 #'   \code{\link{as.droplet}}.
 #' @param ... Shell commands to run. Multiple commands are combined with
@@ -67,7 +70,7 @@ droplet_upload <- function(droplet, local, remote, user = "root", verbose = FALS
   droplet <- as.droplet(droplet)  
 
   cmd <- paste0(
-    "scp ", ssh_options(), 
+    "scp -r ", ssh_options(),
     " ", local,
     " ", user, "@", droplet_ip(droplet), ":", remote
   )
@@ -81,7 +84,7 @@ droplet_download <- function(droplet, remote, local, user = "root", verbose = FA
   droplet <- as.droplet(droplet)  
   
   cmd <- paste0(
-    "scp ", ssh_options(), 
+    "scp -r ", ssh_options(),
     " ", user, "@", droplet_ip(droplet), ":", remote, 
     " ", local
   )
