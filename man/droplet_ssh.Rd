@@ -9,7 +9,8 @@ droplet_ssh(droplet, ..., user = "root", verbose = FALSE)
 
 droplet_upload(droplet, local, remote, user = "root", verbose = FALSE)
 
-droplet_download(droplet, remote, local, user = "root", verbose = FALSE)
+droplet_download(droplet, remote, local, user = "root", verbose = FALSE,
+  overwrite = FALSE)
 }
 \arguments{
 \item{droplet}{A droplet, or something that can be coerced to a droplet by
@@ -23,14 +24,20 @@ droplet_download(droplet, remote, local, user = "root", verbose = FALSE)
 \item{verbose}{If TRUE, will print command before executing it.}
 
 \item{local,remote}{Local and remote paths.}
+
+\item{overwrite}{If TRUE, then overwrite destination files if they already
+exist.}
 }
 \value{
-On success, the droplet (invisibly). On failure, throws an
-  error.
+On success, the droplet (invisibly). On failure, throws an error.
 }
 \description{
-Assumes that you have ssh & scp installed, and password-less login set up
-on the droplet.
+Assumes that you have ssh & scp installed, and password-less login set up on
+the droplet.
+}
+\details{
+Uploads and downloads are recursive, so if you specify a directory,
+everything inside the directory will also be downloaded.
 }
 \examples{
 \dontrun{
