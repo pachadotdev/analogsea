@@ -47,7 +47,7 @@ print.droplet <- function(x, ...) {
   cat("  Status: ", x$status, "\n", sep = "")
   cat("  Region: ", x$region$name, "\n", sep = "")
   cat("  Image:  ", x$image$name, "\n", sep = "")
-  cat("  Size:   ", x$size$slug, " ($", x$size$price_hourly, " / hr)" ,"\n", sep = "")
+  cat("  Size:   ", x$size_slug, "\n", sep = "")
 }
 
 #' @export
