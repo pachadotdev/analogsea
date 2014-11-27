@@ -1,19 +1,18 @@
-
 #' Create a new droplet.
 #'
 #' There are defaults for each of size, image, and region so that a quick one-liner with one
 #' parameter is possible: simply specify the name of the droplet and your'e up and running.
 #'
 #' @export
-#' @param name (character) Name of the droplet. Default: picks a random name 
+#' @param name (character) Name of the droplet. Default: picks a random name
 #'   from \code{\link{words}} if none supplied.
 #' @param size (character) Size slug identifier. See \code{\link{sizes}()} for
 #'   a complete list. Default: 512mb, the smallest
-#' @param image (character/numeric) The image ID of a public or private image, 
-#'   or the unique slug identifier for a public image. This image will be the 
-#'   base image for your droplet. See \code{\link{images}()} for a complete 
+#' @param image (character/numeric) The image ID of a public or private image,
+#'   or the unique slug identifier for a public image. This image will be the
+#'   base image for your droplet. See \code{\link{images}()} for a complete
 #'   list. Default: ubuntu-14-04-x64
-#' @param region (character) The unique slug identifier for the region that you 
+#' @param region (character) The unique slug identifier for the region that you
 #'   wish to deploy in. See \code{\link{regions}()} for a complete list.
 #'   Default: sfo1
 #' @param ssh_keys (character) A character vector of key names, an integer
@@ -21,18 +20,18 @@
 #'   with the corresponding private key will be able to log in to the droplet.
 #'   See \code{\link{keys}()} for a list of the keys that you've added.
 #'   Default: NULL.
-#' @param private_networking (logical) Use private networking. Private 
+#' @param private_networking (logical) Use private networking. Private
 #'   networking is currently only available in certain regions. Default: FALSE
-#' @param backups (logical) Enable backups. A boolean indicating whether 
-#'   automated backups should be enabled for the droplet. Automated backups can 
-#'   only be enabled when the droplet is created, and cost extra. 
+#' @param backups (logical) Enable backups. A boolean indicating whether
+#'   automated backups should be enabled for the droplet. Automated backups can
+#'   only be enabled when the droplet is created, and cost extra.
 #'   Default: FALSE
-#' @param ipv6 (logical) A boolean indicating whether IPv6 is enabled on the 
+#' @param ipv6 (logical) A boolean indicating whether IPv6 is enabled on the
 #'   droplet.
-#' @param user_data (character) Gets passed to the droplet at boot time. Not 
+#' @param user_data (character) Gets passed to the droplet at boot time. Not
 #'   all regions have this enabled, and is not used by all images.
 #' @param cloud_config (character) Specify the name of a cloud config template
-#'   to automatically generate \code{\link{cloud_config}} and submit in 
+#'   to automatically generate \code{\link{cloud_config}} and submit in
 #'   user metadata. Setting this is best practice: the built-in templates
 #'   use security best practices (disabling root log-in, security autoupdates)
 #'   to make it harder to hack your droplet.
@@ -45,9 +44,9 @@
 #' droplet_create(name="newdrop", size = '512mb', image = 'ubuntu-14-04-x64', region = 'sfo1')
 #' droplet_create(ssh_keys=89103)
 #' }
-droplet_create <- function(name = random_name(), 
+droplet_create <- function(name = random_name(),
                         size = getOption("do_size", "512mb"),
-                        image = getOption("do_image", "ubuntu-14-04-x64"), 
+                        image = getOption("do_image", "ubuntu-14-04-x64"),
                         region = getOption("do_region", "sfo1"),
                         ssh_keys = getOption("do_ssh_keys", NULL),
                         backups = getOption("do_backups", NULL),
@@ -57,54 +56,54 @@ droplet_create <- function(name = random_name(),
                         cloud_config = NULL,
                         wait = TRUE,
                         ...) {
-  
+
   ssh_keys <- standardise_keys(ssh_keys)
   if (length(ssh_keys) == 0) {
     warning("You have not specified any ssh_keys. This is NOT recommended.",
-      " (You will receive an email with the root password in a few minutes", 
+      " (You will receive an email with the root password in a few minutes",
       call. = FALSE)
   }
-  
+
   # Generate user_data if cloud_config specified
   if (!is.null(cloud_config)) {
     if (!is.null(user_data)) {
-      stop("You may only specify one of cloud_config and user_data.", 
+      stop("You may only specify one of cloud_config and user_data.",
         call. = FALSE)
     }
-    
-    user_data <- cloud_config(cloud_config, ssh_keys)  
+
+    user_data <- cloud_config(cloud_config, ssh_keys)
   }
-  
-  res <- do_POST('droplets', 
+
+  res <- do_POST('droplets',
     body = list(
-      name = unbox(name), 
-      size = unbox(size), 
-      image = unbox(image), 
-      region = unbox(region), 
-      ssh_keys = ssh_keys, 
-      backups = unbox(backups), 
-      ipv6 = unbox(ipv6), 
+      name = unbox(name),
+      size = unbox(size),
+      image = unbox(image),
+      region = unbox(region),
+      ssh_keys = ssh_keys,
+      backups = unbox(backups),
+      ipv6 = unbox(ipv6),
       private_networking = unbox(private_networking),
       user_data = unbox(user_data)
     ), ...
   )
 #   droplet <- structure(res$droplet, class = "droplet")
   droplet <- droplet(res$droplet$id)
-  
-  message("NB: This costs $", droplet$size$price_hourly, " / hour ", 
+
+  message("NB: This costs $", get_price(droplet$size)$price_hourly, " / hour ",
     "until you droplet_delete() it")
-  
+
   if (wait) {
     droplet_wait(droplet)
   } else {
-    droplet  
+    droplet
   }
 }
 
 random_name <- function() sample(words, size = 1)
 
 #' Wait for a droplet to be ready.
-#' 
+#'
 #' @param droplet  A droplet, or something that can be coerced to a droplet by
 #'   \code{\link{as.droplet}}.
 #' @export
@@ -114,7 +113,7 @@ random_name <- function() sample(words, size = 1)
 #' }
 droplet_wait <- function(droplet) {
   droplet <- as.droplet(droplet)
-  
+
   action <- droplet_actions(droplet)[[1]]
   action_wait(action)
 }
@@ -134,10 +133,10 @@ droplet_wait <- function(droplet) {
 #' drops[[1]] %>% droplet_delete()
 #' drops[[2]] %>% droplet_delete()
 #' droplet_create() %>% droplet_delete()
-#' 
+#'
 #' droplet_delete("lombard")
 #' droplet_delete(12345)
-#' 
+#'
 #' # Delete all droplets
 #' lapply(droplets(), droplet_delete)
 #' }
@@ -152,20 +151,20 @@ droplet_delete <- function(droplet, ...) {
 #' These droplet actions have no further arguments.
 #'
 #' \describe{
-#' \item{reboot}{This method allows you to reboot a droplet. This is 
+#' \item{reboot}{This method allows you to reboot a droplet. This is
 #'   the preferred method to use if a server is not responding}
 #' \item{powercycle}{This method allows you to power cycle a droplet.
 #'    This will turn off the droplet and then turn it back on.}
-#' \item{shutdown}{Shutdown a running droplet. The droplet will remain in 
+#' \item{shutdown}{Shutdown a running droplet. The droplet will remain in
 #'   your account and you will continue to be charged for it.}
-#' \item{power_off}{Shutdown a running droplet. The droplet will remain in 
+#' \item{power_off}{Shutdown a running droplet. The droplet will remain in
 #'   your account and you will continue to be charged for it.}
-#' \item{reset_password}{This method will reset the root password for a 
-#'   droplet. Please be aware that this will reboot the droplet to allow 
+#' \item{reset_password}{This method will reset the root password for a
+#'   droplet. Please be aware that this will reboot the droplet to allow
 #'   resetting the password.}
-#' \item{enable_ipv6}{Enable IPv6 networking on an existing droplet (within 
+#' \item{enable_ipv6}{Enable IPv6 networking on an existing droplet (within
 #'   a region that has IPv6 available).}
-#' \item{enable_private_networking}{Enable private networking on an existing  
+#' \item{enable_private_networking}{Enable private networking on an existing
 #'   droplet (within a region that has private networking available)}
 #' \item{disable_backups}{Disables backups for a droplet.}
 #' \item{power_on}{Turn on a droplet that's turned off.}
@@ -235,7 +234,7 @@ droplet_disable_backups <- function(droplet, ...) {
 
 droplet_action <- function(action, droplet, ...) {
   droplet <- as.droplet(droplet)
-  
+
   res <- do_POST(sprintf('droplets/%s/actions', droplet$id), query = list(
     type = jsonlite::unbox(action),
     ...)
@@ -245,18 +244,18 @@ droplet_action <- function(action, droplet, ...) {
 
 
 #' Modify a droplet.
-#' 
+#'
 #' These methods allow you to modify existing droplets.
-#' 
+#'
 #' \describe{
-#' \item{resize}{Resize a specific droplet to a different size. This will 
+#' \item{resize}{Resize a specific droplet to a different size. This will
 #'   affect the number of processors and memory allocated to the droplet.}
 #' \item{rebuild}{Reinstall a droplet with a default image. This is useful if you want
 #'   to start again but retain the same IP address for your droplet.}
 #' \item{rename}{Change the droplet name}
 #' \item{change_kernel}{Change kernel ID.}
 #' }
-#' 
+#'
 #' @inheritParams droplet_delete
 #' @param size (character) Size slug (name) of the image size. See \code{sizes}
 #' @examples \dontrun{
@@ -294,25 +293,25 @@ droplet_rename <- function(droplet, name, ...) {
 #' @rdname droplet_modify
 #' @param kernel (numeric) The ID of the new kernel.
 droplet_change_kernel <- function(droplet, kernel, ...) {
-  droplet_action("change_kernel", droplet, kernel = jsonlite::unbox(kernel), 
+  droplet_action("change_kernel", droplet, kernel = jsonlite::unbox(kernel),
     ...)
 }
 
 #' Take and restore snapshots.
-#' 
+#'
 #' \describe{
-#' \item{snapshot}{Take a snapshot of the droplet once it has been powered 
-#'   off, which can later be restored or used to create a new droplet from 
+#' \item{snapshot}{Take a snapshot of the droplet once it has been powered
+#'   off, which can later be restored or used to create a new droplet from
 #'   the same image. Please be aware this may cause a reboot.}
 #' \item{snapshots_list}{List available snapshots}
 #' \item{backups_list}{List available snapshots}
-#' \item{restore}{Restore a droplet with a previous image or snapshot. 
-#'   This will be a mirror copy of the image or snapshot to your droplet. Be 
+#' \item{restore}{Restore a droplet with a previous image or snapshot.
+#'   This will be a mirror copy of the image or snapshot to your droplet. Be
 #'   sure you have backed up any necessary information prior to restore.}
 #' }
 #'
 #' @param droplet A droplet number or the result from a call to \code{droplets()}
-#' @param name (character) Optional. Name of the new snapshot you want to 
+#' @param name (character) Optional. Name of the new snapshot you want to
 #'   create. If not set, the  snapshot name will default to the current date/time
 #' @param image (optional) The image ID of the backup image that you would like to restore.
 #' @param ... Additional options passed down to \code{\link[httr]{POST}}
@@ -320,18 +319,18 @@ droplet_change_kernel <- function(droplet, kernel, ...) {
 #' d <- droplet_create()
 #' d %>% droplet_snapshots_list()
 #' d %>% droplet_backups_list()
-#' 
-#' d %>% 
+#'
+#' d %>%
 #'   droplet_power_off() %>%
 #'   droplet_snapshot() %>%
 #'   droplet_power_on() %>%
 #'   droplet_snapshots_list()
-#'   
+#'
 #' # To delete safely
-#' d %>% 
+#' d %>%
 #'   droplet_power_off() %>%
 #'   droplet_snapshot() %>%
-#'   droplet_delete() %>% 
+#'   droplet_delete() %>%
 #'   action_wait()
 #' }
 #' @export
@@ -343,7 +342,7 @@ droplet_snapshot <- function(droplet, name = NULL, ...) {
 #' @rdname droplet_snapshot
 droplet_snapshots_list <- function(droplet, ...) {
   droplet <- as.droplet(droplet)
-  
+
   res <- do_GET(sprintf('droplets/%s/snapshots', droplet$id), ...)
   list_to_object(res, "snapshot", class = "image")
 }
@@ -358,7 +357,7 @@ droplet_restore <- function(droplet, image, ...) {
 #' @rdname droplet_snapshot
 droplet_backups_list <- function(droplet, ...) {
   droplet <- as.droplet(droplet)
-  
+
   res <- do_GET(sprintf('droplets/%s/backups', droplet$id), ...)
   res$backups
 }
@@ -373,7 +372,7 @@ droplet_backups_list <- function(droplet, ...) {
 #' }
 droplet_kernels_list <- function(droplet, ...) {
   droplet <- as.droplet(droplet)
-  
+
   res <- do_GET(sprintf('droplets/%s/kernels', droplet$id), ...)
   res$kernels
 }
@@ -389,9 +388,9 @@ droplet_kernels_list <- function(droplet, ...) {
 #' }
 droplet_actions <- function(droplet, actionid = NULL, ...) {
   droplet <- as.droplet(droplet)
-  path <- if(is.null(actionid)) 
-    sprintf('droplets/%s/actions', droplet$id) 
-  else 
+  path <- if(is.null(actionid))
+    sprintf('droplets/%s/actions', droplet$id)
+  else
     sprintf('droplets/%s/actions/%s', droplet$id, actionid)
   res <- do_GET(path, ...)
   as.action(res)

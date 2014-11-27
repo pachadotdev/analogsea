@@ -69,10 +69,10 @@ cli_tools <- function(ip){
 #' getOption('do_image')
 #' getOption('do_region')
 #' }
-do_options <- function(size = NULL, image = NULL, region = NULL, ssh_keys = NULL, 
-                       private_networking = NULL, backups = NULL, ipv6 = NULL, 
+do_options <- function(size = NULL, image = NULL, region = NULL, ssh_keys = NULL,
+                       private_networking = NULL, backups = NULL, ipv6 = NULL,
                        unset = FALSE) {
-  
+
   if (!unset) {
     new_opts = compact(list(
       do_size = size,
@@ -121,4 +121,9 @@ pluck <- function(x, name, type) {
 
 unbox <- function(x) {
   if (is.null(x)) x else jsonlite::unbox(x)
+}
+
+get_price <- function(slug){
+  sz <- sizes()
+  as.list(sz[ sz$slug == slug , c("price_monthly","price_hourly") ])
 }
