@@ -2,33 +2,33 @@
 # docker pull:  remote image -> local image
 # docker build: dockerfile -> image, execute dockerfile and caches the result as a binary
 # docker run:   image -> container, every time you run you get a new container
-#               by default 
+#               by default
 # docker ps -q -a | xargs docker rm
 
 #' Docklets: docker on droplets.
-#' 
+#'
 #' @export
-#' 
+#'
 #' @keywords internal
 #' @inheritParams droplet_create
 #' @param ssh_user (character) User account for ssh commands against droplet. Default: root
-#' @examples 
+#' @examples
 #' \dontrun{
 #' d <- docklet_create()
-#' d %>% 
+#' d %>%
 #'   docklet_pull("eddelbuettel/ubuntu-r-base") %>%
 #'   docklet_images()
 #' d %>% docklet_images()
-#' 
+#'
 #' d %>% docklet_run("eddelbuettel/ubuntu-r-base", "R --version", rm = TRUE)
 #' d %>% docklet_ps()
-#' 
+#'
 #' # Run a docklet containing rstudio
 #' d %>% docklet_rstudio()
-#' 
+#'
 #' d %>% droplet_delete()
 #' }
-docklet_create <- function(name = random_name(), 
+docklet_create <- function(name = random_name(),
                            size = getOption("do_size", "1gb"),
                            region = getOption("do_region", "sfo1"),
                            ssh_keys = getOption("do_ssh_keys", NULL),
@@ -37,16 +37,16 @@ docklet_create <- function(name = random_name(),
                            private_networking = getOption("do_private_networking", NULL),
                            wait = TRUE,
                            image = "docker",
-                           ...) {  
+                           ...) {
   droplet_create(
-    name = name, 
-    size = size, 
+    name = name,
+    size = size,
     image = image,
-    region = region, 
+    region = region,
     ssh_keys = ssh_keys,
     backups = backups,
     ipv6 = ipv6,
-    private_networking = private_networking, 
+    private_networking = private_networking,
     wait = wait
   )
 }
@@ -72,9 +72,9 @@ docklet_pull <- function(droplet, repo, ssh_user = "root") {
 #' @export
 #' @rdname docklet_create
 docklet_run <- function(droplet, ..., rm = FALSE, name = NULL, ssh_user = "root") {
-  docklet_docker(droplet, 
+  docklet_docker(droplet,
     "run", c(
-    if (rm) " --rm", 
+    if (rm) " --rm",
     if (!is.null(name)) paste0(" --name=", name),
     ...
   ),ssh_user = ssh_user)
@@ -93,7 +93,7 @@ docklet_rm <- function(droplet, container, ssh_user = "root") {
   docklet_docker(droplet, "rm", container, ssh_user = ssh_user)
 }
 
-#' @export 
+#' @export
 #' @rdname docklet_create
 docklet_docker <- function(droplet, cmd, args = NULL, docker_args = NULL, ssh_user = "root") {
   args <- paste(args, collapse = "")
@@ -102,35 +102,37 @@ docklet_docker <- function(droplet, cmd, args = NULL, docker_args = NULL, ssh_us
 
 #' @export
 #' @rdname docklet_create
-docklet_rstudio <- function(droplet, 
-                            user = 'rstudio', password = 'rstudio', 
-                            email = 'rstudio@example.com', 
-                            img = 'rocker/rstudio', 
+docklet_rstudio <- function(droplet,
+                            user = 'rstudio', password = 'rstudio',
+                            email = 'rstudio@example.com',
+                            img = 'rocker/rstudio',
                             port = '8787',
-                            volume = "",
-                            dir = "",
+                            volume = '',
+                            dir = '',
                             browse = TRUE, verbose = TRUE,
                             ssh_user = "root") {
   droplet <- as.droplet(droplet)
-  
+
   docklet_pull(droplet, img, ssh_user)
   docklet_run(droplet,
-    " -d", 
-    " -p ", port, ":8787", 
-    " -v ", volume,
-    " -w", dir,
+    " -d",
+    " -p ", port, ":8787",
+    cn(" -v ", volume),
+    cn(" -w", dir),
     " -e USER=", user,
     " -e PASSWORD=", password,
     " -e EMAIL=", email, " ",
     img,
     ssh_user = ssh_user
-    ) 
-  
+  )
+
   url <- sprintf("http://%s:%s/", droplet_ip(droplet), port)
   if (browse) {
     Sys.sleep(4) # give Rstudio server a few seconds to start up
     browseURL(url)
   }
-  
+
   invisible(url)
 }
+
+cn <- function(x, y) if(nchar(y) == 0) y else paste0(x, y)
