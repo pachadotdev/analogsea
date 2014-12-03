@@ -7,7 +7,7 @@
 \usage{
 as.image(x)
 
-images(public = TRUE, page = 1, per_page = 25, ...)
+images(public = TRUE, type = NULL, page = 1, per_page = 25, ...)
 
 image(id, ...)
 }
@@ -16,6 +16,9 @@ image(id, ...)
 
 \item{public}{Include public images? If \code{FALSE}, returns only the
 images that you've created (with snapshots).}
+
+\item{type}{(character) One of \code{distribution} or \code{application}.
+Default: NULL (no type parameter passed)}
 
 \item{page}{Page to return. Default: 1.}
 

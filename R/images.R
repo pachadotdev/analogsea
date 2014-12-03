@@ -20,19 +20,21 @@ as.image.character <- function(x) images()[[x]]
 #' @importFrom plyr rbind.fill
 #' @export
 #' @param id (numeric) Image id.
-#' @param public Include public images? If \code{FALSE}, returns only the 
+#' @param public Include public images? If \code{FALSE}, returns only the
 #'   images that you've created (with snapshots).
+#' @param type (character) One of \code{distribution} or \code{application}.
+#'   Default: NULL (no type parameter passed)
 #' @inheritParams droplets
 #' @examples \dontrun{
 #' images()
 #' # Only images that you've created
 #' images(public = FALSE)
 #' }
-images <- function(public = TRUE, page = 1, per_page = 25, ...) {
-  res <- do_GET(image_url(), query = list(page = page, per_page = per_page), ...)
+images <- function(public = TRUE, type = NULL, page = 1, per_page = 25, ...) {
+  res <- do_GET(image_url(), query = list(page = page, per_page = per_page, type = type), ...)
   images <- as.image(res)
   if (public) return(images)
-  
+
   Filter(function(x) !x$public, images)
 }
 
@@ -46,7 +48,7 @@ image <- function(id, ...) {
 #' @export
 print.image <- function(x, ...) {
   cat("<image> ", x$name, " (", x$id, ")", "\n", sep = "")
-  cat("  Slug:    ", x$slug, " [", if (x$public) "public" else "private", 
+  cat("  Slug:    ", x$slug, " [", if (x$public) "public" else "private",
     "]\n", sep = "")
   cat("  Distro:  ", x$distribution, "\n", sep = "")
   cat("  Regions: ", paste0(unlist(x$regions), collapse = ", "), "\n", sep = "")
@@ -68,7 +70,7 @@ as.url.image <- function(x, ...) {
 #' @param ... Options passed on to httr::GET. Must be named, see examples.
 #' @examples \dontrun{
 #' image_delete(5620385)
-#' 
+#'
 #' # Delete all of your snapshots
 #' lapply(images(public = FALSE), image_delete)
 #' }
@@ -112,8 +114,8 @@ image_actions <- function(image, action_id, ...) {
 #' }
 image_transfer <- function(image, region, ...) {
   image <- as.image(image)
-  
-  res <- do_POST(sprintf('images/%s/actions', image$id), 
+
+  res <- do_POST(sprintf('images/%s/actions', image$id),
     body = list(type='transfer', region=region), ...)
   as.action(res)
 }
