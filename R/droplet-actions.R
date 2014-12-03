@@ -101,7 +101,24 @@ droplet_create <- function(name = random_name(),
 }
 
 # random_name <- function() sample(words, size = 1)
-random_name <- function() tolower(paste0(sample(adjectives, size = 1), "-", sample(nouns, size = 1)))
+random_name <- function(){
+  sample_upcase <- function(x) capwords(sample(x, size = 1))
+  paste0(sample_upcase(adjectives), sample_upcase(nouns))
+}
+
+capwords <- function(s, strict = FALSE, onlyfirst = FALSE) {
+  cap <- function(s) paste(toupper(substring(s,1,1)), {
+    s <- substring(s,2); if(strict) tolower(s) else s}, sep = "", collapse = " " )
+  if(!onlyfirst){
+    sapply(strsplit(s, split = " "), cap, USE.NAMES = !is.null(names(s)))
+  } else
+  {
+    sapply(s, function(x)
+      paste(toupper(substring(x,1,1)),
+            tolower(substring(x,2)),
+            sep="", collapse=" "), USE.NAMES=F)
+  }
+}
 
 #' Wait for a droplet to be ready.
 #'
