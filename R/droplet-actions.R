@@ -100,7 +100,8 @@ droplet_create <- function(name = random_name(),
   }
 }
 
-random_name <- function() sample(words, size = 1)
+# random_name <- function() sample(words, size = 1)
+random_name <- function() tolower(paste0(sample(adjectives, size = 1), "-", sample(nouns, size = 1)))
 
 #' Wait for a droplet to be ready.
 #'
