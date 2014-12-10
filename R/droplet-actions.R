@@ -250,6 +250,12 @@ droplet_disable_backups <- function(droplet, ...) {
   droplet_action("disable_backups", droplet, ...)
 }
 
+#' @export
+#' @rdname droplet_action
+droplet_upgrade <- function(droplet, ...) {
+  droplet_action("migrate_droplet", droplet, ...)
+}
+
 droplet_action <- function(action, droplet, ...) {
   droplet <- as.droplet(droplet)
 
@@ -394,6 +400,15 @@ droplet_kernels_list <- function(droplet, ...) {
   res <- do_GET(sprintf('droplets/%s/kernels', droplet$id), ...)
   res$kernels
 }
+
+#' List all droplets that are scheduled to be upgraded.
+#'
+#' @export
+#' @param ... Additional options passed down to low-level API method.
+#' @examples \dontrun{
+#' droplet_upgrades_list()
+#' }
+droplet_upgrades_list <- function(...) do_GET('droplet_upgrades', ...)
 
 #' Retrieve a droplet action or list all actions associatd with a droplet.
 #'

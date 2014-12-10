@@ -10,6 +10,7 @@
 \alias{droplet_reboot}
 \alias{droplet_reset_password}
 \alias{droplet_shutdown}
+\alias{droplet_upgrade}
 \title{Perform various actions on a droplet.}
 \usage{
 droplet_reboot(droplet, ...)
@@ -29,6 +30,8 @@ droplet_enable_ipv6(droplet, ...)
 droplet_enable_private_networking(droplet, ...)
 
 droplet_disable_backups(droplet, ...)
+
+droplet_upgrade(droplet, ...)
 }
 \arguments{
 \item{droplet}{A droplet, or something that can be coerced to a droplet by
