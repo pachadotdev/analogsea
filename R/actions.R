@@ -31,8 +31,22 @@ as.url.action <- function(x, ...) action_url(x$id)
 #' @examples \dontrun{
 #' actions()
 #' }
-actions <- function(...) {
-  as.action(do_GET(action_url(), ...))
+actions <- function(..., page = 1, per_page = 25) {
+  as.action(do_GET(action_url(), query = list(page = page, per_page = per_page), ...))
+}
+
+#' Retrieve an existing action by action id
+#'
+#' @export
+#' @param actionid (integer) Optional. An action id.
+#' @param ... Additional arguments passed down to low-level API function
+#'   (\code{do_*})
+#' @examples \dontrun{
+#' d <- droplet_create()
+#' droplet_actions(d)[[1]]$id %>% action()
+#' }
+action <- function(actionid, ...) {
+  as.action(do_GET(action_url(actionid), ...))
 }
 
 #' @export

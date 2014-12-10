@@ -4,13 +4,17 @@
 \alias{actions}
 \title{List actions across all droplets.}
 \usage{
-actions(...)
+actions(..., page = 1, per_page = 25)
 
 action_wait(x)
 }
 \arguments{
 \item{...}{Additional arguments passed down to low-level API function
 (\code{do_*})}
+
+\item{page}{Page to return. Default: 1.}
+
+\item{per_page}{Number of results per page. Default: 25.}
 
 \item{x}{Input object}
 }
