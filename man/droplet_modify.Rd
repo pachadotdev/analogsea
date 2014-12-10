@@ -41,15 +41,12 @@ These methods allow you to modify existing droplets.
 \item{rename}{Change the droplet name}
 \item{change_kernel}{Change kernel ID.}
 }
+
+Beware: \code{droplet_resize()} does not seem to work, see \code{resize()}
 }
 \examples{
 \dontrun{
-droplets_resize(2427664, size='1gb')
-
-droplets() \%>\%
-   droplets_power_off \%>\%
-   droplets_resize(size = '1gb') \%>\%
-   events
+droplets()[[1]] \%>\% droplet_rename(name='newname')
 }
 }
 

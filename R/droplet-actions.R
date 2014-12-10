@@ -282,13 +282,9 @@ droplet_action <- function(action, droplet, ...) {
 #'
 #' @inheritParams droplet_delete
 #' @param size (character) Size slug (name) of the image size. See \code{sizes}
+#' @details Beware: \code{droplet_resize()} does not seem to work, see \code{resize()}
 #' @examples \dontrun{
-#' droplets_resize(2427664, size='1gb')
-#'
-#' droplets() %>%
-#'    droplets_power_off %>%
-#'    droplets_resize(size = '1gb') %>%
-#'    events
+#' droplets()[[1]] %>% droplet_rename(name='newname')
 #' }
 #' @name droplet_modify
 NULL
