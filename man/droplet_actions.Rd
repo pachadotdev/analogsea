@@ -18,8 +18,8 @@ Retrieve a droplet action or list all actions associatd with a droplet.
 }
 \examples{
 \dontrun{
-droplets_actions(2428384)
-droplets_actions(2428384, actionid=31223385)
+droplet_actions(2428384)
+droplet_actions(2428384, actionid=31223385)
 }
 }
 

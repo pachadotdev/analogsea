@@ -412,8 +412,8 @@ droplet_upgrades_list <- function(...) do_GET('droplet_upgrades', ...)
 #' @inheritParams droplet_delete
 #' @param actionid (integer) Optional. An action id.
 #' @examples \dontrun{
-#' droplets_actions(2428384)
-#' droplets_actions(2428384, actionid=31223385)
+#' droplet_actions(2428384)
+#' droplet_actions(2428384, actionid=31223385)
 #' }
 droplet_actions <- function(droplet, actionid = NULL, ...) {
   droplet <- as.droplet(droplet)
