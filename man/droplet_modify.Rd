@@ -7,7 +7,7 @@
 \alias{droplet_resize}
 \title{Modify a droplet.}
 \usage{
-droplet_resize(droplet, delete_original = TRUE, ...)
+droplet_resize(droplet, size, ...)
 
 droplet_rebuild(droplet, image, ...)
 
@@ -19,6 +19,8 @@ droplet_change_kernel(droplet, kernel, ...)
 \item{droplet}{A droplet, or something that can be coerced to a droplet by
 \code{\link{as.droplet}}.}
 
+\item{size}{(character) Size slug (name) of the image size. See \code{sizes}}
+
 \item{...}{Additional options passed down to low-level API method.}
 
 \item{image}{(optional) The image ID of the backup image that you would like to restore.}
@@ -26,8 +28,6 @@ droplet_change_kernel(droplet, kernel, ...)
 \item{name}{(character) The new name for the droplet}
 
 \item{kernel}{(numeric) The ID of the new kernel.}
-
-\item{size}{(character) Size slug (name) of the image size. See \code{sizes}}
 }
 \description{
 These methods allow you to modify existing droplets.

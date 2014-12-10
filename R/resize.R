@@ -9,10 +9,10 @@
 #' @examples \dontrun{
 #' d <- droplet_create()
 #' d # current size is 512mb
-#' d %>% droplet_resize(size = "2gb")
+#' d %>% resize(size = "2gb")
 #' }
 
-droplet_resize <- function(droplet, delete_original = TRUE, ...) {
+resize <- function(droplet, delete_original = TRUE, ...) {
   droplet <- as.droplet(droplet)
   droplet %>%
     droplet_power_off() %>%
