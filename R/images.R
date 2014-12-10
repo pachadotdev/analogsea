@@ -109,13 +109,13 @@ image_actions <- function(image, action_id, ...) {
 #' @param region (numeric) Required. The region slug that represents the region target.
 #' @param ... Options passed on to httr::GET. Must be named, see examples.
 #' @examples \dontrun{
-#' image_transfer(image=images()[[1]], region='nyc2')
-#' image_transfer(image=images()[[1]], region='nyc1')
+#' image_transfer(image=images(FALSE)[[1]], region='nyc2')
+#' image_transfer(image=images(FALSE)[[1]], region='ams2')
 #' }
 image_transfer <- function(image, region, ...) {
   image <- as.image(image)
 
-  res <- do_POST(sprintf('images/%s/actions', image$id),
-    body = list(type='transfer', region=region), ...)
+  res <- do_POST(url = sprintf('images/%s/actions', image$id),
+    body = list(type='transfer', region=region), encode=NULL, ...)
   as.action(res)
 }

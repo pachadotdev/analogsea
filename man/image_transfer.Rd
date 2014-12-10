@@ -17,8 +17,8 @@ Transfer an image to a specified region.
 }
 \examples{
 \dontrun{
-image_transfer(image=images()[[1]], region='nyc2')
-image_transfer(image=images()[[1]], region='nyc1')
+image_transfer(image=images(FALSE)[[1]], region='nyc2')
+image_transfer(image=images(FALSE)[[1]], region='ams2')
 }
 }
 

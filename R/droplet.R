@@ -53,15 +53,16 @@ print.droplet <- function(x, ...) {
 #' @export
 #' @rdname droplet
 summary.droplet <- function(object, ...) {
+  price <- get_price(object$size)$price_hourly
   crat <- as.POSIXct(strptime(object$created_at, "%Y-%m-%dT%H:%M:%S", "UTC"))
   now <- as.POSIXlt(Sys.time(), "UTC")
-  cost <- round(difftime(now, crat, units = "hours")[[1]] * object$size$price_hourly, 3)
+  cost <- round(difftime(now, crat, units = "hours")[[1]] * price, 3)
 
   cat("<droplet_detail>", object$name, " (", object$id, ")\n", sep = "")
   cat("  Status: ", object$status, "\n", sep = "")
   cat("  Region: ", object$region$name, "\n", sep = "")
   cat("  Image: ", object$image$name, "\n", sep = "")
-  cat("  Size: ", object$size$slug, " ($", object$size$price_hourly, " / hr)" ,"\n", sep = "")
+  cat("  Size: ", object$size_slug, " ($", price, " / hr)" ,"\n", sep = "")
   cat("  Estimated cost ($): ", cost, "\n", sep = "")
   cat("  Locked: ", object$locked, "\n", sep = "")
   cat("  Created at: ", object$created_at, " UTC", "\n", sep = "")
