@@ -424,3 +424,27 @@ droplet_actions <- function(droplet, actionid = NULL, ...) {
   res <- do_GET(path, ...)
   as.action(res)
 }
+
+#' List neighbors
+#'
+#' @export
+#' @inheritParams droplet_delete
+#' @examples \dontrun{
+#' # List a droplet's neighbors on the same physical server
+#' droplets()[[3]] %>% droplet_neighbors()
+#' # List all neighbors on the same physical server
+#' neighbors()
+#' }
+neighbors <- function(...) {
+  res <- do_GET('reports/droplet_neighbors', ...)
+  res$droplets
+}
+
+#' @export
+#' @rdname neighbors
+droplet_neighbors <- function(droplet, ...) {
+  droplet <- as.droplet(droplet)
+
+  res <- do_GET(sprintf('droplets/%s/neighbors', droplet$id), ...)
+  res$droplets
+}
