@@ -53,7 +53,8 @@ print.droplet <- function(x, ...) {
 #' @export
 #' @rdname droplet
 summary.droplet <- function(object, ...) {
-  price <- get_price(object$size)$price_hourly
+  # price <- get_price(object$size)$price_hourly
+  price <- object$size$price_hourly
   crat <- as.POSIXct(strptime(object$created_at, "%Y-%m-%dT%H:%M:%S", "UTC"))
   now <- as.POSIXlt(Sys.time(), "UTC")
   cost <- round(difftime(now, crat, units = "hours")[[1]] * price, 3)
