@@ -19,6 +19,7 @@ sizes <- function(page = 1, per_page = 25, ...) {
     transfer = pluck(sizes, "transfer", numeric(1)),
     price_monthly = pluck(sizes, "price_monthly", numeric(1)),
     price_hourly = pluck(sizes, "price_hourly", numeric(1)),
+    available = pluck(sizes, "available", logical(1)),
     region = vapply(sizes, function(x) paste0(sort(unlist(x$regions)), collapse = ", "),
       character(1)),
     stringsAsFactors = FALSE
