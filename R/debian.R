@@ -57,7 +57,7 @@ debian_install_rstudio <- function(droplet, user = "rstudio", password = "rstudi
 
 #' @rdname debian
 #' @export
-debian_install_shiny <- function(droplet, version = "1.2.1.362") {
+debian_install_shiny <- function(droplet, version = "1.3.0.403") {
   droplet %>%
     debian_install_r() %>%
     install_r_package("shiny") %>%
