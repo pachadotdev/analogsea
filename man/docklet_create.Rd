@@ -37,8 +37,7 @@ docklet_docker(droplet, cmd, args = NULL, docker_args = NULL,
 
 docklet_rstudio(droplet, user = "rstudio", password = "rstudio",
   email = "rstudio@example.com", img = "rocker/rstudio", port = "8787",
-  volume = "", dir = "", browse = TRUE, verbose = TRUE,
-  ssh_user = "root")
+  volume = "", dir = "", browse = TRUE, ssh_user = "root")
 
 docklet_rstudio_addusers(droplet, user = "rstudio", password = "rstudio",
   img = "rocker/rstudio", port = "8787")
@@ -79,9 +78,49 @@ or the unique slug identifier for a public image. This image will be the
 base image for your droplet. See \code{\link{images}()} for a complete
 list. Default: ubuntu-14-04-x64}
 
-\item{...}{Additional options passed down to \code{\link[httr]{POST}}}
+\item{...}{For \code{docklet_create}, additional options passed down to
+\code{\link[httr]{POST}}. For \code{docklet_run}, additional arguments combined
+and applied to docker statement.}
+
+\item{droplet}{A droplet, or something that can be coerced to a droplet by
+\code{\link{as.droplet}}.}
+
+\item{all}{(logical) List all containers. Default: \code{TRUE}}
 
 \item{ssh_user}{(character) User account for ssh commands against droplet. Default: root}
+
+\item{repo}{(character) Docker name, can be local to the Droplet or remote,
+e.g., \code{rocker/rstudio}}
+
+\item{rm}{(logical) Automatically remove the container when it exits.
+Default: \code{FALSE}}
+
+\item{container}{(character) Container name, can be partial (though has
+to be unique)}
+
+\item{cmd}{(character) A docker command (e.g., \code{"run"})}
+
+\item{args}{(character) Docker args}
+
+\item{docker_args}{(character) Docker args}
+
+\item{user}{(character) User name. Default: \code{"rstudio"}}
+
+\item{password}{(character) Password. Default: \code{"rstudio"}}
+
+\item{email}{(character) Password. Default: \code{"rstudio@example.com"}}
+
+\item{img}{(character) Docker image (not a DigitalOcean image). Default:
+\code{'rocker/rstudio'}}
+
+\item{port}{(character) Port. Default: \code{8787}}
+
+\item{volume}{(character) Volume. Can use to bind a volume.}
+
+\item{dir}{(character) Working directory inside the container.}
+
+\item{browse}{(logical) If \code{TRUE}, open RStudio instance in your default
+browser.}
 }
 \description{
 Docklets: docker on droplets.

@@ -10,6 +10,31 @@
 #' @export
 #'
 #' @inheritParams droplet_create
+#' @param droplet A droplet, or something that can be coerced to a droplet by
+#'   \code{\link{as.droplet}}.
+#' @param all (logical) List all containers. Default: \code{TRUE}
+#' @param repo (character) Docker name, can be local to the Droplet or remote,
+#' e.g., \code{rocker/rstudio}
+#' @param rm (logical) Automatically remove the container when it exits.
+#' Default: \code{FALSE}
+#' @param container (character) Container name, can be partial (though has
+#' to be unique)
+#' @param ... For \code{docklet_create}, additional options passed down to
+#' \code{\link[httr]{POST}}. For \code{docklet_run}, additional arguments combined
+#' and applied to docker statement.
+#' @param cmd (character) A docker command (e.g., \code{"run"})
+#' @param args (character) Docker args
+#' @param docker_args (character) Docker args
+#' @param user (character) User name. Default: \code{"rstudio"}
+#' @param password (character) Password. Default: \code{"rstudio"}
+#' @param email (character) Password. Default: \code{"rstudio@@example.com"}
+#' @param img (character) Docker image (not a DigitalOcean image). Default:
+#' \code{'rocker/rstudio'}
+#' @param port (character) Port. Default: \code{8787}
+#' @param volume (character) Volume. Can use to bind a volume.
+#' @param dir (character) Working directory inside the container.
+#' @param browse (logical) If \code{TRUE}, open RStudio instance in your default
+#' browser.
 #' @param ssh_user (character) User account for ssh commands against droplet. Default: root
 #' @examples
 #' \dontrun{
@@ -113,7 +138,7 @@ docklet_rstudio <- function(droplet,
                             port = '8787',
                             volume = '',
                             dir = '',
-                            browse = TRUE, verbose = TRUE,
+                            browse = TRUE,
                             ssh_user = "root") {
   droplet <- as.droplet(droplet)
 
