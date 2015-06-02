@@ -9,7 +9,6 @@
 #'
 #' @export
 #'
-#' @keywords internal
 #' @inheritParams droplet_create
 #' @param ssh_user (character) User account for ssh commands against droplet. Default: root
 #' @examples
@@ -26,7 +25,12 @@
 #' # Run a docklet containing rstudio
 #' d %>% docklet_rstudio()
 #'
+#' # Delete a droplet
 #' d %>% droplet_delete()
+#'
+#' # Add users to an Rstudio instance
+#' d <- docklet_create()
+#' d %>% docklet_rstudio() %>% docklet_rstudio_addusers()
 #' }
 docklet_create <- function(name = random_name(),
                            size = getOption("do_size", "1gb"),
@@ -135,4 +139,22 @@ docklet_rstudio <- function(droplet,
   invisible(url)
 }
 
-cn <- function(x, y) if(nchar(y) == 0) y else paste0(x, y)
+#' @export
+#' @rdname docklet_create
+docklet_rstudio_addusers <- function(droplet,
+                                     user = 'rstudio', password = 'rstudio',
+                                     img = 'rocker/rstudio',
+                                     port = '8787') {
+  droplet <- as.droplet(droplet)
+
+  docklet_run(droplet,
+              " -d",
+              " -p ", port, ":8787",
+              " -e USER=", user,
+              " -e PASSWORD=", password,
+              " ", img,
+              ' bash -c "add-students && supervisord"'
+  )
+}
+
+cn <- function(x, y) if (nchar(y) == 0) y else paste0(x, y)
