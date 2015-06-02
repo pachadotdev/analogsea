@@ -108,5 +108,4 @@ d <- docklet_create()
 d \%>\% docklet_rstudio() \%>\% docklet_rstudio_addusers()
 }
 }
-\keyword{internal}
 
