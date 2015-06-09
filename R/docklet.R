@@ -36,6 +36,7 @@
 #' @param browse (logical) If \code{TRUE}, open RStudio instance in your default
 #' browser.
 #' @param ssh_user (character) User account for ssh commands against droplet. Default: root
+#' @param add_users (logical) Add users or not when installing RStudio server. Default: FALSE
 #' @examples
 #' \dontrun{
 #' d <- docklet_create()
@@ -54,6 +55,8 @@
 #' d %>% droplet_delete()
 #'
 #' # Add users to an Rstudio instance
+#' ## This adds 100 users to the instance, with username/passwords
+#' ## following pattern user1/user1 ... through 100
 #' d <- docklet_create()
 #' d %>% docklet_rstudio() %>% docklet_rstudio_addusers()
 #' }
@@ -106,7 +109,7 @@ docklet_run <- function(droplet, ..., rm = FALSE, name = NULL, ssh_user = "root"
     if (rm) " --rm",
     if (!is.null(name)) paste0(" --name=", name),
     ...
-  ),ssh_user = ssh_user)
+  ), ssh_user = ssh_user)
 }
 
 #' @export
@@ -139,6 +142,7 @@ docklet_rstudio <- function(droplet,
                             volume = '',
                             dir = '',
                             browse = TRUE,
+                            add_users = FALSE,
                             ssh_user = "root") {
   droplet <- as.droplet(droplet)
 
@@ -152,6 +156,7 @@ docklet_rstudio <- function(droplet,
     " -e PASSWORD=", password,
     " -e EMAIL=", email, " ",
     img,
+    ifelse(add_users, ' bash -c "add-students && supervisord" ', ' '),
     ssh_user = ssh_user
   )
 
@@ -172,6 +177,15 @@ docklet_rstudio_addusers <- function(droplet,
                                      port = '8787') {
   droplet <- as.droplet(droplet)
 
+  # check if rstudio container already running, shut down if up
+  cons <- docklet_ps_data(droplet)
+  id <- cons[ grep("rocker/rstudio:latest", cons$image), "container.id" ]
+  if (length(id) > 0) {
+    docklet_stop(droplet, container = id)
+    docklet_rm(droplet, container = id)
+  }
+
+  # spin up new container with users
   docklet_run(droplet,
               " -d",
               " -p ", port, ":8787",
@@ -183,3 +197,7 @@ docklet_rstudio_addusers <- function(droplet,
 }
 
 cn <- function(x, y) if (nchar(y) == 0) y else paste0(x, y)
+
+strExtract <- function(str, pattern) regmatches(str, regexpr(pattern, str))
+
+strTrim <- function(str) gsub("^\\s+|\\s+$", "", str)

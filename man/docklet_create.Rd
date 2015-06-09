@@ -37,7 +37,8 @@ docklet_docker(droplet, cmd, args = NULL, docker_args = NULL,
 
 docklet_rstudio(droplet, user = "rstudio", password = "rstudio",
   email = "rstudio@example.com", img = "rocker/rstudio", port = "8787",
-  volume = "", dir = "", browse = TRUE, ssh_user = "root")
+  volume = "", dir = "", browse = TRUE, add_users = FALSE,
+  ssh_user = "root")
 
 docklet_rstudio_addusers(droplet, user = "rstudio", password = "rstudio",
   img = "rocker/rstudio", port = "8787")
@@ -121,6 +122,8 @@ to be unique)}
 
 \item{browse}{(logical) If \code{TRUE}, open RStudio instance in your default
 browser.}
+
+\item{add_users}{(logical) Add users or not when installing RStudio server. Default: FALSE}
 }
 \description{
 Docklets: docker on droplets.
@@ -143,6 +146,8 @@ d \%>\% docklet_rstudio()
 d \%>\% droplet_delete()
 
 # Add users to an Rstudio instance
+## This adds 100 users to the instance, with username/passwords
+## following pattern user1/user1 ... through 100
 d <- docklet_create()
 d \%>\% docklet_rstudio() \%>\% docklet_rstudio_addusers()
 }
