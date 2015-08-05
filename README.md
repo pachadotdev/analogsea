@@ -3,6 +3,7 @@ analogsea
 
 [![Build Status](https://api.travis-ci.org/sckott/analogsea.png?branch=master)](https://travis-ci.org/sckott/analogsea)
 [![Build status](https://ci.appveyor.com/api/projects/status/ll9lcqafuw338q0h/branch/master)](https://ci.appveyor.com/project/sckott/analogsea/branch/master)
+[![codecov.io](https://codecov.io/github/sckott/analogsea/coverage.svg?branch=master)](https://codecov.io/github/sckott/analogsea?branch=master)
 
 `analogsea` is an R client for version 2 of the [Digital Ocean API](https://developers.digitalocean.com/v2/). It allows you to programatically create and destroy droplets (remote computers), and install various R related tools: (these are still a work in progress):
 
