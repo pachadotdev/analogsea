@@ -1,15 +1,15 @@
-#' R client for Digital Ocean
+#' @title R client for Digital Ocean
 #'
-#' This package is an R client for Digital Ocean's RESTful API, and a set of scripts that allow you
+#' @description This package is an R client for Digital Ocean's RESTful API, and a set of scripts that allow you
 #' to install R, RStudio server, RStudio Shiny server, or OpenCPU server, in addition to common
 #' packages used. The goal here is to spin up a cloud R environment without leaving R, and
 #' requiring no knowledge other than R. Of course if you are more experienced you can log in
 #' on the command line and modify anything you want, but for those that just want a quick cloud
 #' R environment, this should be one of the easiest options.
 #'
-#' You need authentication detaild for this package. Get your auth token at
-#' \url{https://cloud.digitalocean.com/settings/applications}. See \code{do_oauth} for more
-#' on authentication.
+#' You need to authenticate to use this package. Get your auth token at
+#' \url{https://cloud.digitalocean.com/settings/applications}. See \code{\link{do_oauth}}
+#' for more on authentication.
 #'
 #' @importFrom jsonlite fromJSON unbox
 #' @importFrom httr HEAD GET POST add_headers oauth_endpoint oauth2.0_token config oauth_app
@@ -17,9 +17,10 @@
 #' @importFrom yaml yaml.load_file as.yaml
 #' @name analogsea-package
 #' @aliases analogsea
-#' @docType package
-#' @title R client for Digital Ocean
 #' @author Scott Chamberlain \email{myrmecocystus@@gmail.com}
+#' @author Hadley Wickham \email{hadley@@rstudio.com}
+#' @author Winston Chang \email{winston@@stdout.org}
+#' @docType package
 #' @keywords package
 NULL
 
