@@ -87,10 +87,9 @@ droplet_create <- function(name = random_name(),
       user_data = unbox(user_data)
     ), ...
   )
-#   droplet <- structure(res$droplet, class = "droplet")
   droplet <- droplet(res$droplet$id)
 
-  message("NB: This costs $", get_price(droplet$size)$price_hourly, " / hour ",
+  message("NB: This costs $", droplet$size$price_hourly, " / hour ",
     "until you droplet_delete() it")
 
   if (wait) {
@@ -107,16 +106,15 @@ random_name <- function(){
 }
 
 capwords <- function(s, strict = FALSE, onlyfirst = FALSE) {
-  cap <- function(s) paste(toupper(substring(s,1,1)), {
-    s <- substring(s,2); if(strict) tolower(s) else s}, sep = "", collapse = " " )
-  if(!onlyfirst){
+  cap <- function(s) paste(toupper(substring(s, 1, 1)), {
+    s <- substring(s,2); if (strict) tolower(s) else s}, sep = "", collapse = " " )
+  if (!onlyfirst) {
     sapply(strsplit(s, split = " "), cap, USE.NAMES = !is.null(names(s)))
-  } else
-  {
+  } else {
     sapply(s, function(x)
       paste(toupper(substring(x,1,1)),
             tolower(substring(x,2)),
-            sep="", collapse=" "), USE.NAMES=F)
+            sep = "", collapse = " "), USE.NAMES = FALSE)
   }
 }
 
