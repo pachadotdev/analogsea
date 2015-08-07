@@ -74,7 +74,7 @@ do_options <- function(size = NULL, image = NULL, region = NULL, ssh_keys = NULL
                        unset = FALSE) {
 
   if (!unset) {
-    new_opts = compact(list(
+    new_opts = ascompact(list(
       do_size = size,
       do_image = image,
       do_region = region,
@@ -107,7 +107,7 @@ do_options <- function(size = NULL, image = NULL, region = NULL, ssh_keys = NULL
   cat("[ipv6]:     ", getOption("do_ipv6"))
 }
 
-compact <- function(x) Filter(Negate(is.null), x)
+ascompact <- function(x) Filter(Negate(is.null), x)
 
 pluck <- function(x, name, type) {
   if (missing(type)) {

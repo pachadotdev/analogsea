@@ -26,7 +26,7 @@ do_GET <- function(url, ...) {
 #' @export
 #' @rdname httr-verbs
 do_POST <- function(url, ..., body = NULL, encode = "json") {
-  body <- compact(body)
+  body <- ascompact(body)
   do_VERB("POST", url, ..., body = body, encode = encode)
 }
 #' @export
@@ -50,13 +50,13 @@ do_VERB <- function(verb, url, ...) {
     httr::stop_for_status(res)
     return(invisible(TRUE))
   }
-  
+
   text <- httr::content(res, as = "text")
   json <- jsonlite::fromJSON(text, simplifyVector = FALSE)
-  
+
   if (httr::status_code(res) >= 400) {
     stop(json$message, call. = FALSE)
   }
-  
+
   json
 }

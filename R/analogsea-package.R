@@ -11,6 +11,10 @@
 #' \url{https://cloud.digitalocean.com/settings/applications}. See \code{do_oauth} for more
 #' on authentication.
 #'
+#' @importFrom jsonlite fromJSON unbox
+#' @importFrom httr HEAD GET POST add_headers oauth_endpoint oauth2.0_token config oauth_app
+#' stop_for_status content status_code headers
+#' @importFrom yaml yaml.load_file as.yaml
 #' @name analogsea-package
 #' @aliases analogsea
 #' @docType package

@@ -17,7 +17,6 @@ as.image.character <- function(x) images()[[x]]
 
 #' Get list of images and their metadata, or a single image
 #'
-#' @importFrom plyr rbind.fill
 #' @export
 #' @param id (numeric) Image id.
 #' @param public Include public images? If \code{FALSE}, returns only the
