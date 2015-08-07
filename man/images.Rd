@@ -8,14 +8,15 @@
 \usage{
 as.image(x)
 
-images(public = TRUE, type = NULL, page = 1, per_page = 25, ...)
+images(private = FALSE, type = NULL, page = 1, per_page = 25,
+  public = TRUE, ...)
 
 image(id, ...)
 }
 \arguments{
 \item{x}{Object to coerce to an image.}
 
-\item{public}{Include public images? If \code{FALSE}, returns only the
+\item{private}{Include public images? If \code{FALSE}, returns only the
 images that you've created (with snapshots).}
 
 \item{type}{(character) One of \code{distribution} or \code{application}.
@@ -24,6 +25,9 @@ Default: NULL (no type parameter passed)}
 \item{page}{Page to return. Default: 1.}
 
 \item{per_page}{Number of results per page. Default: 25.}
+
+\item{public}{Include public images? If \code{FALSE}, returns only the
+images that you've created (with snapshots).}
 
 \item{...}{Additional arguments passed down to low-level API function
 (\code{do_*})}
@@ -36,8 +40,17 @@ Get list of images and their metadata, or a single image
 \examples{
 \dontrun{
 images()
-# Only images that you've created
-images(public = FALSE)
+
+# list private images
+images(private = TRUE)
+
+# list by type
+images(type = "distribution")
+images(type = "application")
+
+# paging
+images(per_page = 3)
+images(per_page = 3, page = 2)
 }
 }
 

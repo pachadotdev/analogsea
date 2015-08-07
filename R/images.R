@@ -19,22 +19,37 @@ as.image.character <- function(x) images()[[x]]
 #'
 #' @export
 #' @param id (numeric) Image id.
-#' @param public Include public images? If \code{FALSE}, returns only the
+#' @param private Include public images? If \code{FALSE}, returns only the
 #'   images that you've created (with snapshots).
 #' @param type (character) One of \code{distribution} or \code{application}.
 #'   Default: NULL (no type parameter passed)
+#' @param public Include public images? If \code{FALSE}, returns only the
+#'   images that you've created (with snapshots).
 #' @inheritParams droplets
 #' @examples \dontrun{
 #' images()
-#' # Only images that you've created
-#' images(public = FALSE)
+#'
+#' # list private images
+#' images(private = TRUE)
+#'
+#' # list by type
+#' images(type = "distribution")
+#' images(type = "application")
+#'
+#' # paging
+#' images(per_page = 3)
+#' images(per_page = 3, page = 2)
 #' }
-images <- function(public = TRUE, type = NULL, page = 1, per_page = 25, ...) {
-  res <- do_GET(image_url(), query = list(page = page, per_page = per_page, type = type), ...)
-  images <- as.image(res)
-  if (public) return(images)
+images <- function(private = FALSE, type = NULL, page = 1, per_page = 25, public = TRUE, ...) {
+  calls <- names(sapply(match.call(), deparse))[-1]
+  if (any("public" %in% calls)) {
+    stop("The parameter public has been removed, see private",
+         call. = FALSE)
+  }
 
-  Filter(function(x) !x$public, images)
+  res <- do_GET(image_url(), query = list(page = page, per_page = per_page,
+                                          type = type, private = al(private)), ...)
+  as.image(res)
 }
 
 #' @export
@@ -71,7 +86,8 @@ as.url.image <- function(x, ...) {
 #' image_delete(5620385)
 #'
 #' # Delete all of your snapshots
-#' lapply(images(public = FALSE), image_delete)
+#' ## BE CAREFUL WITH THIS ONE
+#' # lapply(images(TRUE), image_delete)
 #' }
 image_delete <- function(image, ...) {
   image <- as.image(image)
@@ -108,13 +124,33 @@ image_actions <- function(image, action_id, ...) {
 #' @param region (numeric) Required. The region slug that represents the region target.
 #' @param ... Options passed on to httr::GET. Must be named, see examples.
 #' @examples \dontrun{
-#' image_transfer(image=images(FALSE)[[1]], region='nyc2')
-#' image_transfer(image=images(FALSE)[[1]], region='ams2')
+#' image_transfer(image=images(TRUE)[[1]], region='nyc2')
+#' image_transfer(image=images(TRUE)[[1]], region='ams2')
 #' }
 image_transfer <- function(image, region, ...) {
   image <- as.image(image)
 
   res <- do_POST(url = sprintf('images/%s/actions', image$id),
-    body = list(type='transfer', region=region), encode=NULL, ...)
+    body = list(type = 'transfer', region = region), encode = NULL, ...)
+  as.action(res)
+}
+
+
+#' Convert an backup image to a snapshot.
+#'
+#' @export
+#' @param image An image to modify.
+#' @param ... Options passed on to httr::GET. Must be named, see examples.
+#' @examples \dontrun{
+#' # get a backup image
+#' img <- images(TRUE)[[1]]
+#' # then convert to a snapshot
+#' # image_convert(img)
+#' }
+image_convert <- function(image, ...) {
+  image <- as.image(image)
+
+  res <- do_POST(url = sprintf('images/%s/actions', image$id),
+                 body = list(type = 'convert'), encode = NULL, ...)
   as.action(res)
 }

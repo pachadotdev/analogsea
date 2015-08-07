@@ -127,3 +127,8 @@ get_price <- function(slug){
   sz <- sizes()
   as.list(sz[ sz$slug == slug , c("price_monthly","price_hourly") ])
 }
+
+al <- function(x){
+  stopifnot(is.logical(x))
+  if (x) 'true' else 'false'
+}

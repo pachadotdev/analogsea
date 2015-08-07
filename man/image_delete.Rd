@@ -25,7 +25,8 @@ backed up before deleting it.
 image_delete(5620385)
 
 # Delete all of your snapshots
-lapply(images(public = FALSE), image_delete)
+## BE CAREFUL WITH THIS ONE
+# lapply(images(TRUE), image_delete)
 }
 }
 
