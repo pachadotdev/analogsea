@@ -7,7 +7,7 @@ test_that("returns expected output for public images", {
   expect_is(imgs, "list")
   expect_is(imgs[[1]], "image")
   expect_is(imgs[[1]]$id, "integer")
-  expect_is(imgs[[1]]$name, "integer")
+  expect_is(imgs[[1]]$name, "character")
   expect_true(imgs[[1]]$public)
 })
 
