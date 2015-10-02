@@ -3,7 +3,7 @@
 #' @export
 #' @inheritParams droplets
 #' @return A data.frame with available sizes (RAM, disk, no. CPU's) and their costs
-#' @param ... Options passed on to httr::GET. Must be named, see examples.
+#' @param ... Named options passed on to \code{\link[httr]{GET}}.
 #' @examples \dontrun{
 #' sizes()
 #' }
