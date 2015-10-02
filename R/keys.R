@@ -33,7 +33,7 @@ key <- function(x, ...) {
 as.key <- function(x) UseMethod("as.key")
 #' @export
 as.key.list <- function(x) list_to_object(x, "ssh_key", class = "key")
-#' @export 
+#' @export
 as.key.numeric <- function(x) key(x)
 #' @export
 as.key.character <- function(x) keys()[[x]]
@@ -53,7 +53,7 @@ print.key <- function(x, ...) {
 #' @param key (key) Key to modify.
 #' @param ... Other options passed on to low-level API methods.
 #' @name key-crud
-#' @examples \donttest{
+#' @examples \dontrun{
 #' k <- key_create("key", readLines("~/.ssh/id_rsa.pub"))
 #' k <- key_rename(k, "new_name")
 #' key_delete(k)
@@ -85,7 +85,7 @@ key_delete <- function(key, ...) {
 }
 
 #' Standardise specification of ssh keys.
-#' 
+#'
 #' @param ssh_keys An integer vector of given key ids, a character vector
 #'   of key ids, or NULL, to use all ssh keys in account.
 #' @return A integer vector of key ids.
@@ -100,10 +100,10 @@ key_delete <- function(key, ...) {
 standardise_keys <- function(ssh_keys = NULL) {
   if (is.integer(ssh_keys)) return(ssh_keys)
   if (is.numeric(ssh_keys)) return(as.integer(ssh_keys))
-  
+
   if (is.null(ssh_keys)) {
     ssh_keys <- keys()
-    
+
     names <- pluck(ssh_keys, "name", character(1))
     message("Using default ssh keys: ", paste0(names, collapse = ", "))
   } else if (is.character(ssh_keys)) {
@@ -111,6 +111,6 @@ standardise_keys <- function(ssh_keys = NULL) {
   } else {
     stop("Unknown specification for ssh_keys", call. = FALSE)
   }
-  
+
   unname(pluck(ssh_keys, "id", integer(1)))
 }

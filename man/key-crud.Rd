@@ -26,7 +26,7 @@ key_delete(key, ...)
 Create, update, and delete ssh keys.
 }
 \examples{
-\donttest{
+\dontrun{
 k <- key_create("key", readLines("~/.ssh/id_rsa.pub"))
 k <- key_rename(k, "new_name")
 key_delete(k)

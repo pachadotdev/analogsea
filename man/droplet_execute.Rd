@@ -21,7 +21,7 @@ Execute R code on a droplet.
 Assumes that the droplet has R installed.
 }
 \examples{
-\donttest{
+\dontrun{
 d <- droplet_create() \%>\%
   debian_add_swap() \%>\%
   droplet_ssh("apt-get update") \%>\%

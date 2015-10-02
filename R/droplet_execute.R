@@ -6,7 +6,7 @@
 #' @param code Code to excute on a droplet.
 #' @param verbose (logical) Print messages. Default: \code{TRUE}
 #' @details Assumes that the droplet has R installed.
-#' @examples \donttest{
+#' @examples \dontrun{
 #' d <- droplet_create() %>%
 #'   debian_add_swap() %>%
 #'   droplet_ssh("apt-get update") %>%

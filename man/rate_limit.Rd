@@ -10,7 +10,7 @@ rate_limit()
 Rate limit information for the authenticated user.
 }
 \examples{
-\donttest{
+\dontrun{
 rate_limit()
 }
 }

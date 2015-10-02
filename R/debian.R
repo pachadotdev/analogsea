@@ -4,7 +4,7 @@
 #'   by \code{\link{as.droplet}}.
 #' @name debian
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' d <- droplet_create()
 #' d %>% debian_add_swap()
 #' d %>% debian_apt_get_update()

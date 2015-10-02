@@ -24,7 +24,7 @@ This takes a template stored in \code{inst/cloudconfig} and inserts
 ssh_keys into the first user.
 }
 \examples{
-\donttest{
+\dontrun{
 cat(cloud_config("ubuntu"))
 }
 }
