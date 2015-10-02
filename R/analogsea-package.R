@@ -12,6 +12,8 @@
 #' \url{https://cloud.digitalocean.com/settings/applications}. See \code{\link{do_oauth}}
 #' for more on authentication.
 #'
+#' @importFrom stats setNames
+#' @importFrom utils browseURL read.csv
 #' @importFrom jsonlite fromJSON unbox
 #' @importFrom httr HEAD GET POST add_headers oauth_endpoint oauth2.0_token config oauth_app
 #' stop_for_status content status_code headers
