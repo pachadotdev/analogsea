@@ -1,5 +1,5 @@
 analogsea
-=======
+=========
 
 [![Build Status](https://api.travis-ci.org/sckott/analogsea.png?branch=master)](https://travis-ci.org/sckott/analogsea)
 [![Build status](https://ci.appveyor.com/api/projects/status/ll9lcqafuw338q0h/branch/master)](https://ci.appveyor.com/project/sckott/analogsea/branch/master)
@@ -7,18 +7,25 @@ analogsea
 
 `analogsea` is an R client for version 2 of the [Digital Ocean API](https://developers.digitalocean.com/v2/). It allows you to programatically create and destroy droplets (remote computers), and install various R related tools: (these are still a work in progress):
 
-* R
-* RStudio Server
-* RStudio Shiny Server
-* OpenCPU
-* Use packrat to move a project to a droplet
+* R (done)
+* RStudio Server (done)
+* RStudio Shiny Server (done)
+* OpenCPU (not yet)
+* Use packrat to move a project to a droplet (not yet)
 
 ## Quick start
 
 ### Install
 
+Stable version from CRAN
+
 ```r
-# install.packages("devtools")
+install.packages("analogsea")
+```
+
+Development version from GitHub
+
+```r
 devtools::install_github("sckott/analogsea")
 library("analogsea")
 ```
