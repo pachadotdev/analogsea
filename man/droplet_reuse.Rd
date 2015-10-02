@@ -17,6 +17,11 @@ A droplet
 \description{
 Reuse a droplet or image by name
 }
+\details{
+Internally, we call the \code{\link{droplets}} and
+\code{\link{images}} (with \code{private = TRUE}) to get list of your
+droplets and images - and we check against those.
+}
 \examples{
 \dontrun{
 droplet_reuse(name = 'BeguiledAmmonia') # matches droplet that exists
