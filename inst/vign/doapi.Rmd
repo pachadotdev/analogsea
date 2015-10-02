@@ -1,10 +1,11 @@
 <!--
 %\VignetteEngine{knitr::knitr}
 %\VignetteIndexEntry{Working with the Digital Ocean API}
+%\VignetteEncoding{UTF-8}
 -->
 
 ```{r echo=FALSE}
-library(analogsea)
+library("analogsea")
 knitr::opts_chunk$set(
   comment = "#>",
   warning = FALSE,
@@ -40,7 +41,7 @@ Make sure you provide digitial ocean your public key at <https://cloud.digitaloc
 
 You can set all of thse options in your `.Rprofile` file like `options(do_size = "8gb")` for a default of 8 GB.
 
-The name given to the droplet is picked at random from a list of 1000 random names. 
+The name given to the droplet is picked at random from a list of 1000 random names.
 
 You can of course set any of these parameters.
 
@@ -90,7 +91,7 @@ droplet_create() %>%
 
 ### Actions
 
-List actions on a droplet, newer ones at the top. Here's list actions, then rename and list actions again. 
+List actions on a droplet, newer ones at the top. Here's list actions, then rename and list actions again.
 
 ```{r}
 droplets()[[1]] %>% droplet_actions()
@@ -119,7 +120,7 @@ d %>%
 
 ## Regions
 
-The `regions()` function lists region slug names, full names, available sizes, whether the region is available at all, and features. 
+The `regions()` function lists region slug names, full names, available sizes, whether the region is available at all, and features.
 
 ```{r}
 regions()
@@ -127,7 +128,7 @@ regions()
 
 ## Sizes
 
-The `sizes()` function lists size slug names, associated memory, vcpus, disk size, prices, and regions where the size is available. 
+The `sizes()` function lists size slug names, associated memory, vcpus, disk size, prices, and regions where the size is available.
 
 ```{r}
 sizes()
@@ -135,7 +136,7 @@ sizes()
 
 ## Keys
 
-We suggest you use SSH keys to interact with Digital Ocean from `analogsea`. There are a variety of functions for working with SSH keys. 
+We suggest you use SSH keys to interact with Digital Ocean from `analogsea`. There are a variety of functions for working with SSH keys.
 
 List your keys
 
@@ -159,13 +160,13 @@ key_delete(k)
 
 ## Images
 
-The `images()` function can list both your own private images, and public images. If `public=FALSE` only your private images are listed, while if `public=TRUE`, your private images are listed along with publicly avaialble images. 
+The `images()` function can list both your own private images, and public images. If `public=FALSE` only your private images are listed, while if `public=TRUE`, your private images are listed along with publicly avaialble images.
 
 ```{r}
 images(public = TRUE, page = 4, per_page = 5)
 ```
 
-You can also do various actions on images. First, you can pass in an image ID to the `image()` function to get an image object. 
+You can also do various actions on images. First, you can pass in an image ID to the `image()` function to get an image object.
 
 ```{r}
 img <- images(per_page = 1)[[1]]
@@ -186,7 +187,7 @@ image(img$id) %>% image_transfer(region = "sfo1")
 
 ## Domains
 
-You can use domain names for your droplets on Digital Ocean. `analogsea` has a variety of functions to work with domain names. 
+You can use domain names for your droplets on Digital Ocean. `analogsea` has a variety of functions to work with domain names.
 
 List domain names
 
@@ -210,7 +211,7 @@ domain_create(name = dom, ip_address = "127.0.0.1")
 Create a domain record, list records and delete the one just created
 
 ```{r}
-domain("sckottdrop.info") %>% 
+domain("sckottdrop.info") %>%
   domain_record_create(type = "TXT", name = "hello", data = "world")
 records <- domain("sckottdrop.info") %>% domain_records()
 domain_record_delete(records[[length(records)]])
