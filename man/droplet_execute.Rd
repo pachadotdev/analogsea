@@ -10,23 +10,29 @@ droplet_execute(droplet, code, verbose = TRUE)
 \item{droplet}{A droplet, or object that can be coerced to a droplet
 by \code{\link{as.droplet}}.}
 
-\item{code}{Code to excute on Digital Ocean droplet.}
+\item{code}{Code to excute on a droplet.}
 
-\item{verbose}{(logical) Print messages}
+\item{verbose}{(logical) Print messages. Default: \code{TRUE}}
 }
 \description{
+Execute R code on a droplet.
+}
+\details{
 Assumes that the droplet has R installed.
 }
 \examples{
 \donttest{
 d <- droplet_create() \%>\%
   debian_add_swap() \%>\%
+  droplet_ssh("apt-get update") \%>\%
   debian_install_r()
 
 results <- d \%>\% droplet_execute({
   x <- letters
   numbers <- runif(1000)
 })
+results$x
+results$numbers
 
 droplet_delete(d)
 }
