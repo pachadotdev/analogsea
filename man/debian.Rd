@@ -5,7 +5,6 @@
 \alias{debian_add_swap}
 \alias{debian_apt_get_install}
 \alias{debian_apt_get_update}
-\alias{debian_install_opencpu}
 \alias{debian_install_r}
 \alias{debian_install_rstudio}
 \alias{debian_install_shiny}
@@ -17,11 +16,9 @@ debian_add_swap(droplet)
 debian_install_r(droplet)
 
 debian_install_rstudio(droplet, user = "rstudio", password = "rstudio",
-  version = "0.98.1062")
+  version = "0.99.484")
 
-debian_install_shiny(droplet, version = "1.3.0.403")
-
-debian_install_opencpu(droplet)
+debian_install_shiny(droplet, version = "1.4.0.756")
 
 debian_apt_get_update(droplet)
 

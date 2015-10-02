@@ -44,7 +44,7 @@ debian_install_r <- function(droplet) {
 #' @param version Version of rstudio to install.
 #' @export
 debian_install_rstudio <- function(droplet, user = "rstudio", password = "rstudio",
-                                   version = "0.98.1062") {
+                                   version = "0.99.484") {
   droplet %>%
     debian_apt_get_install("gdebi-core", "libapparmor1") %>%
     droplet_ssh(
@@ -57,7 +57,7 @@ debian_install_rstudio <- function(droplet, user = "rstudio", password = "rstudi
 
 #' @rdname debian
 #' @export
-debian_install_shiny <- function(droplet, version = "1.3.0.403") {
+debian_install_shiny <- function(droplet, version = "1.4.0.756") {
   droplet %>%
     debian_install_r() %>%
     install_r_package("shiny") %>%
@@ -69,12 +69,10 @@ debian_install_shiny <- function(droplet, version = "1.3.0.403") {
     )
 }
 
-#' @rdname debian
-#' @export
-debian_install_opencpu <- function(droplet) {
+debian_install_opencpu <- function(droplet, version = "1.5") {
   droplet %>%
     droplet_ssh(
-      "sudo add-apt-repository ppa:opencpu/opencpu-1.4",
+      paste0("sudo add-apt-repository ppa:opencpu/opencpu-", version),
       "sudo apt-get update",
       "sudo apt-get -q -y install opencpu",
       "sudo service opencpu start"
