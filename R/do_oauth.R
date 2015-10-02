@@ -7,7 +7,7 @@
 #' account:
 #' \itemize{
 #' \item Generate a personal access token at
-#'   \url{https://cloud.digitalocean.com/settings/tokens/new} and
+#'   https://cloud.digitalocean.com/settings/tokens/new and
 #'   record in the \code{DO_PAT} envar.
 #'
 #' \item Interatively login into your DO account and authorise with

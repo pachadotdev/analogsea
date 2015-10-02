@@ -9,7 +9,7 @@
 #' should be one of the easiest options.
 #'
 #' You need to authenticate to use this package. Get your auth token at
-#' \url{https://cloud.digitalocean.com/settings/applications}. See \code{\link{do_oauth}}
+#' https://cloud.digitalocean.com/settings/applications. See \code{\link{do_oauth}}
 #' for more on authentication.
 #'
 #' @importFrom stats setNames
