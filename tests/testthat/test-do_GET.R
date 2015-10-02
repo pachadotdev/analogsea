@@ -2,6 +2,8 @@
 context("do_GET")
 
 test_that("returns expected output for sizes endpoint", {
+	skip_on_cran()
+
   siz <- do_GET("sizes")
 
   expect_is(siz, "list")
@@ -9,6 +11,8 @@ test_that("returns expected output for sizes endpoint", {
 })
 
 test_that("returns expected output for regions endpoint", {
+	skip_on_cran()
+
   regs <- do_GET("regions")
 
   expect_is(regs, "list")
@@ -16,6 +20,8 @@ test_that("returns expected output for regions endpoint", {
 })
 
 test_that("httr curl options work", {
+	skip_on_cran()
+
   library("httr")
   expect_error(do_GET("sizes", config = timeout(seconds = 0.001)))
 })

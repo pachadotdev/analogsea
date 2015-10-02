@@ -2,6 +2,8 @@
 context("images")
 
 test_that("returns expected output for public images", {
+  skip_on_cran()
+
   imgs <- images()
 
   expect_is(imgs, "list")
@@ -12,10 +14,14 @@ test_that("returns expected output for public images", {
 })
 
 test_that("fails well with wrong input type to private parameter", {
+  skip_on_cran()
+
   expect_error(images(private = "af"), "is not TRUE")
 })
 
 test_that("works with type parameter", {
+  skip_on_cran()
+
   imgs_dist <- images(type = "distribution")
   imgs_appl <- images(type = "application")
 
@@ -27,10 +33,14 @@ test_that("works with type parameter", {
 })
 
 test_that("public parameter is defunct", {
+  skip_on_cran()
+
   expect_error(images(public = TRUE), "The parameter public has been removed, see private")
 })
 
 test_that("httr curl options work", {
+  skip_on_cran()
+
   library("httr")
   expect_error(images(config = timeout(seconds = 0.001)))
 })

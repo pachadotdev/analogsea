@@ -2,6 +2,8 @@
 context("regions")
 
 test_that("returns expected output", {
+	skip_on_cran()
+
   regs <- regions()
 
   expect_is(regs, "data.frame")
@@ -10,6 +12,8 @@ test_that("returns expected output", {
 })
 
 test_that("httr curl options work", {
+	skip_on_cran()
+
   library("httr")
   expect_error(regions(config = timeout(seconds = 0.001)))
 })
