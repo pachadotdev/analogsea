@@ -35,9 +35,13 @@
 #'   user metadata. Setting this is best practice: the built-in templates
 #'   use security best practices (disabling root log-in, security autoupdates)
 #'   to make it harder to hack your droplet.
-#' @param wait If \code{TRUE}, wait until droplet has been initialised and
+#' @param wait If \code{TRUE} (default), wait until droplet has been initialised and
 #'   is ready for use.
 #' @param ... Additional options passed down to \code{\link[httr]{POST}}
+#'
+#' @details Note that if you exit the R session or kill the function call after it's
+#' in waiting process (the string of ...), the droplet creation will continue.
+#'
 #' @examples \dontrun{
 #' droplet_create()
 #' droplet_create('droppinit')

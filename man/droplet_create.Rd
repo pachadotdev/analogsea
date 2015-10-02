@@ -54,7 +54,7 @@ user metadata. Setting this is best practice: the built-in templates
 use security best practices (disabling root log-in, security autoupdates)
 to make it harder to hack your droplet.}
 
-\item{wait}{If \code{TRUE}, wait until droplet has been initialised and
+\item{wait}{If \code{TRUE} (default), wait until droplet has been initialised and
 is ready for use.}
 
 \item{...}{Additional options passed down to \code{\link[httr]{POST}}}
@@ -62,6 +62,10 @@ is ready for use.}
 \description{
 There are defaults for each of size, image, and region so that a quick one-liner with one
 parameter is possible: simply specify the name of the droplet and your'e up and running.
+}
+\details{
+Note that if you exit the R session or kill the function call after it's
+in waiting process (the string of ...), the droplet creation will continue.
 }
 \examples{
 \dontrun{

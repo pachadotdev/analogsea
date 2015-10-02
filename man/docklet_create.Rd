@@ -71,7 +71,7 @@ droplet.}
 \item{private_networking}{(logical) Use private networking. Private
 networking is currently only available in certain regions. Default: FALSE}
 
-\item{wait}{If \code{TRUE}, wait until droplet has been initialised and
+\item{wait}{If \code{TRUE} (default), wait until droplet has been initialised and
 is ready for use.}
 
 \item{image}{(character/numeric) The image ID of a public or private image,
