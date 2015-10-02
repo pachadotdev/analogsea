@@ -5,12 +5,12 @@ Description: Provides a set of functions for interacting with the
     including creating images, destroying them, 'rebooting',
     getting details on regions, and available images.
 Version: 0.3.0
-Authors@R: as.person(c(
-    "Scott Chamberlain <myrmecocystus@gmail.com> [aut,cre]",
-    "Hadley Wickham <hadley@rstudio.com> [aut]",
-    "Winston Chang <winston@stdout.org> [aut]",
-    "RStudio [cph]"
-    ))
+Authors@R: c(
+    person("Scott", "Chamberlain", role = c("aut", "cre"), email = "myrmecocystus@gmail.com"),
+    person("Hadley", "Wickham", role = "aut", email = "hadley@rstudio.com"),
+    person("Winston", "Chang", role = "aut", email = "winston@stdout.org"),
+    person("RStudio", role = "cph")
+    )
 License: MIT + file LICENSE
 URL: https://github.com/sckott/analogsea
 BugReports: http://www.github.com/sckott/analogsea/issues
