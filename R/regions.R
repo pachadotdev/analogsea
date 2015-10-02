@@ -1,15 +1,15 @@
 #' Get list of regions and their metadata
-#' 
+#'
 #' @export
 #' @inheritParams droplets
-#' @param ... Options passed on to httr::GET. Must be named, see examples.
+#' @param ... Named options passed on to \code{\link[httr]{GET}}.
 #' @examples \dontrun{
 #' regions()
 #' }
 regions <- function(page = 1, per_page = 25, ...) {
   res <- do_GET('regions', query = list(page = page, per_page = per_page), ...)
   regions <- res$regions
-  
+
   data.frame(
     slug = pluck(regions, "slug", character(1)),
     name = pluck(regions, "name", character(1)),
@@ -19,5 +19,5 @@ regions <- function(page = 1, per_page = 25, ...) {
     features = vapply(regions, function(x) paste0(x$features, collapse = ", "),
       character(1)),
     stringsAsFactors = FALSE
-  ) 
+  )
 }

@@ -11,7 +11,7 @@ regions(page = 1, per_page = 25, ...)
 
 \item{per_page}{Number of results per page. Default: 25.}
 
-\item{...}{Options passed on to httr::GET. Must be named, see examples.}
+\item{...}{Named options passed on to \code{\link[httr]{GET}}.}
 }
 \description{
 Get list of regions and their metadata
