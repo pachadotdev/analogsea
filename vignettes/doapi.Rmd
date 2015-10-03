@@ -28,7 +28,7 @@ Make sure you provide digitial ocean your public key at the url cloud.digitaloce
 * Don't allow backups
 * Don't allow private networking
 
-You can set all of thse options in your `.Rprofile` file like `options(do_size = "8gb")` for a default of 8 GB.
+You can set all of these options in your `.Rprofile` file like `options(do_size = "8gb")` for a default of 8 GB.
 
 The name given to the droplet is picked at random from a list of 1000 random names.
 
