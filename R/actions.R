@@ -67,9 +67,9 @@ action_wait <- function(x) {
   if (is_complete(x)) return(droplet(x$resource_id))
 
   cat("Waiting for ", x$type, " ", sep = "")
-  while(!is_complete(x)) {
+  while (!is_complete(x)) {
     x <- action_refresh(x)
-    Sys.sleep(1)
+    Sys.sleep(getOption("do.wait_time", 1))
     cat('.')
   }
   cat("\n")
