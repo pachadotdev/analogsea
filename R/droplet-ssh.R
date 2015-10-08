@@ -148,6 +148,12 @@ droplet_ip <- function(x) {
 }
 
 
+droplet_ip_safe <- function(x) {
+  res <- tryCatch(droplet_ip(x), error = function(e) e)
+  if (is(res, "simpleError")) 'droplet likely not up yet' else res
+}
+
+
 do_system <- function(droplet, cmd, verbose = FALSE) {
   cli_tools()
   mssg(verbose, cmd)
