@@ -77,7 +77,9 @@ networking is currently only available in certain regions. Default: FALSE}
   address in the object yet. Note that waiting means we ping the DigitalOcean
   API to check on the status of your droplet, which uses up your API requests.
   The option \code{do.wait_time} can be set to any positive integer to
-  determine how many seconds between pings. The default is 1 sec.}
+  determine how many seconds between pings. The default is 1 sec. Note that if
+  you are creating droplets in a loop, parallel or otherwise, set
+  \code{do.wait_time} within the loop instead of outside of it.}
 
 \item{image}{(character/numeric) The image ID of a public or private image,
 or the unique slug identifier for a public image. This image will be the
