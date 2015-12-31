@@ -209,12 +209,12 @@ droplet_delete <- function(droplet, ...) {
 #' d <- droplets()
 #' d[[1]] %>% droplet_reboot()
 #' d[[2]] %>% droplet_power_cycle()
-#' }
 #'
 #' d <- droplet_create()
 #' d %>% summary
 #' d %>% droplet_enable_backups()
 #' d %>% summary
+#' }
 #' @name droplet_action
 NULL
 
