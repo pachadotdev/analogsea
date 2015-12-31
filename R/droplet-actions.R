@@ -54,6 +54,8 @@
 #' @details Note that if you exit the R session or kill the function call after it's
 #' in waiting process (the string of ...), the droplet creation will continue.
 #'
+#' @return A droplet object
+#'
 #' @examples \dontrun{
 #' droplet_create()
 #' droplet_create('droppinit')
@@ -91,25 +93,26 @@ droplet_create <- function(name = random_name(),
   }
 
   res <- do_POST('droplets',
-    body = list(
-      name = unbox(name),
-      size = unbox(size),
-      image = unbox(image),
-      region = unbox(region),
-      ssh_keys = I(ssh_keys),
-      backups = unbox(backups),
-      ipv6 = unbox(ipv6),
-      private_networking = unbox(private_networking),
-      user_data = unbox(user_data)
-    ), ...
+                 body = list(
+                   name = unbox(name),
+                   size = unbox(size),
+                   image = unbox(image),
+                   region = unbox(region),
+                   ssh_keys = I(ssh_keys),
+                   backups = unbox(backups),
+                   ipv6 = unbox(ipv6),
+                   private_networking = unbox(private_networking),
+                   user_data = unbox(user_data)
+                 ), ...
   )
   droplet <- droplet(res$droplet$id)
 
   message("NB: This costs $", droplet$size$price_hourly, " / hour ",
-    "until you droplet_delete() it")
+          "until you droplet_delete() it")
 
   if (wait) {
     droplet_wait(droplet)
+    droplet
   } else {
     droplet
   }

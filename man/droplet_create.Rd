@@ -70,6 +70,9 @@ you are creating droplets in a loop, parallel or otherwise, set
 
 \item{...}{Additional options passed down to \code{\link[httr]{POST}}}
 }
+\value{
+A droplet object
+}
 \description{
 There are defaults for each of size, image, and region so that a quick one-liner with one
 parameter is possible: simply specify the name of the droplet and your'e up and running.

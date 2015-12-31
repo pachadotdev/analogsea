@@ -79,7 +79,8 @@ docklet_create <- function(name = random_name(),
     backups = backups,
     ipv6 = ipv6,
     private_networking = private_networking,
-    wait = wait
+    wait = wait,
+    ...
   )
 }
 
