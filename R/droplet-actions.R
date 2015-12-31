@@ -4,8 +4,12 @@
 #' parameter is possible: simply specify the name of the droplet and your'e up and running.
 #'
 #' @export
-#' @param name (character) Name of the droplet. Default: picks a random name
-#'   from \code{\link{words}} if none supplied.
+#' @param name (character) Name of the droplet. The human-readable string you
+#'   wish to use when displaying the Droplet name. The name, if set to a domain
+#'   name managed in the DigitalOcean DNS management system, will configure a PTR
+#'   record for the Droplet. The name set during creation will also determine
+#'   the hostname for the Droplet in its internal configuration. Default: picks
+#'   a random name from \code{\link{words}} if none supplied.
 #' @param size (character) Size slug identifier. See \code{\link{sizes}()} for
 #'   a complete list. Default: 512mb, the smallest
 #' @param image (character/numeric) The image ID of a public or private image,

@@ -1,9 +1,9 @@
 Package: analogsea
 Title: Interface to 'Digital Ocean'
-Description: Provides a set of functions for interacting with the
-    'Digital Ocean' 'API' at https://developers.digitalocean.com/documentation/v2/,
-    including creating images, destroying them, 'rebooting',
-    getting details on regions, and available images.
+Description: Provides a set of functions for interacting with the 'Digital
+    Ocean' 'API' at https://developers.digitalocean.com/documentation/v2/, including
+    creating images, destroying them, 'rebooting', getting details on regions, and
+    available images.
 Version: 0.3.0.9310
 Authors@R: c(
     person("Scott", "Chamberlain", role = c("aut", "cre"), email = "myrmecocystus@gmail.com"),
@@ -26,3 +26,4 @@ Imports:
 Suggests:
     testthat,
     knitr
+RoxygenNote: 5.0.1
