@@ -10,6 +10,7 @@
 \alias{docklet_rstudio}
 \alias{docklet_rstudio_addusers}
 \alias{docklet_run}
+\alias{docklet_shinyserver}
 \alias{docklet_stop}
 \title{Docklets: docker on droplets.}
 \usage{
@@ -42,6 +43,9 @@ docklet_rstudio(droplet, user = "rstudio", password = "rstudio",
 
 docklet_rstudio_addusers(droplet, user = "rstudio", password = "rstudio",
   img = "rocker/rstudio", port = "8787")
+
+docklet_shinyserver(droplet, img = "rocker/shiny", port = "3838",
+  volume = "", dir = "", browse = TRUE, ssh_user = "root")
 }
 \arguments{
 \item{name}{(character) Name of the droplet. The human-readable string you
@@ -161,6 +165,10 @@ d \%>\% droplet_delete()
 ## following pattern user1/user1 ... through 100
 d <- docklet_create()
 d \%>\% docklet_rstudio() \%>\% docklet_rstudio_addusers()
+
+# Spin up a Shiny server (opens in default browser)
+d <- docklet_create()
+d \%>\% docklet_shinyserver()
 }
 }
 

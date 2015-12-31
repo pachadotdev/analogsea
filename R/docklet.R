@@ -59,6 +59,10 @@
 #' ## following pattern user1/user1 ... through 100
 #' d <- docklet_create()
 #' d %>% docklet_rstudio() %>% docklet_rstudio_addusers()
+#'
+#' # Spin up a Shiny server (opens in default browser)
+#' d <- docklet_create()
+#' d %>% docklet_shinyserver()
 #' }
 docklet_create <- function(name = random_name(),
                            size = getOption("do_size", "1gb"),
@@ -197,8 +201,33 @@ docklet_rstudio_addusers <- function(droplet,
   )
 }
 
-cn <- function(x, y) if (nchar(y) == 0) y else paste0(x, y)
+#' @export
+#' @rdname docklet_create
+docklet_shinyserver <- function(droplet,
+                            img = 'rocker/shiny',
+                            port = '3838',
+                            volume = '',
+                            dir = '',
+                            browse = TRUE,
+                            ssh_user = "root") {
+  droplet <- as.droplet(droplet)
 
-strExtract <- function(str, pattern) regmatches(str, regexpr(pattern, str))
+  docklet_pull(droplet, img, ssh_user)
+  docklet_run(droplet,
+              " -d",
+              " -p ", port, ":3838",
+              cn(" -v ", volume),
+              cn(" -w", dir),
+              " ",
+              img,
+              ssh_user = ssh_user
+  )
 
-strTrim <- function(str) gsub("^\\s+|\\s+$", "", str)
+  url <- sprintf("http://%s:%s/", droplet_ip(droplet), port)
+  if (browse) {
+    Sys.sleep(4) # give Rstudio Shiny Server a few seconds to start up
+    browseURL(url)
+  }
+
+  invisible(url)
+}

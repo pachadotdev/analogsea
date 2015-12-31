@@ -55,3 +55,9 @@ al <- function(x){
   stopifnot(is.logical(x))
   if (x) 'true' else 'false'
 }
+
+cn <- function(x, y) if (nchar(y) == 0) y else paste0(x, y)
+
+strExtract <- function(str, pattern) regmatches(str, regexpr(pattern, str))
+
+strTrim <- function(str) gsub("^\\s+|\\s+$", "", str)
