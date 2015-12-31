@@ -3,6 +3,7 @@
 \name{droplet_action}
 \alias{droplet_action}
 \alias{droplet_disable_backups}
+\alias{droplet_enable_backups}
 \alias{droplet_enable_ipv6}
 \alias{droplet_enable_private_networking}
 \alias{droplet_power_cycle}
@@ -29,6 +30,8 @@ droplet_reset_password(droplet, ...)
 droplet_enable_ipv6(droplet, ...)
 
 droplet_enable_private_networking(droplet, ...)
+
+droplet_enable_backups(droplet, ...)
 
 droplet_disable_backups(droplet, ...)
 
@@ -70,5 +73,10 @@ d <- droplets()
 d[[1]] \%>\% droplet_reboot()
 d[[2]] \%>\% droplet_power_cycle()
 }
+
+d <- droplet_create()
+d \%>\% summary
+d \%>\% droplet_enable_backups()
+d \%>\% summary
 }
 
