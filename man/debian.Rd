@@ -9,7 +9,7 @@
 \alias{debian_install_rstudio}
 \alias{debian_install_shiny}
 \alias{install_r_package}
-\title{Helpers for managing an debian droplets.}
+\title{Helpers for managing a debian droplets.}
 \usage{
 debian_add_swap(droplet)
 
@@ -43,7 +43,7 @@ by \code{\link{as.droplet}}.}
 \item{repo}{CRAN mirror to use.}
 }
 \description{
-Helpers for managing an debian droplets.
+Helpers for managing a debian droplets.
 }
 \examples{
 \dontrun{

@@ -1,4 +1,4 @@
-#' Helpers for managing an debian droplets.
+#' Helpers for managing a debian droplets.
 #'
 #' @param droplet A droplet, or object that can be coerced to a droplet
 #'   by \code{\link{as.droplet}}.
