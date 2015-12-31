@@ -10,6 +10,7 @@
 \alias{docklet_rstudio}
 \alias{docklet_rstudio_addusers}
 \alias{docklet_run}
+\alias{docklet_shinyapp}
 \alias{docklet_shinyserver}
 \alias{docklet_stop}
 \title{Docklets: docker on droplets.}
@@ -46,6 +47,9 @@ docklet_rstudio_addusers(droplet, user = "rstudio", password = "rstudio",
 
 docklet_shinyserver(droplet, img = "rocker/shiny", port = "3838",
   volume = "", dir = "", browse = TRUE, ssh_user = "root")
+
+docklet_shinyapp(droplet, path, img = "rocker/shiny", port = "80",
+  dir = "", browse = TRUE, ssh_user = "root")
 }
 \arguments{
 \item{name}{(character) Name of the droplet. The human-readable string you
@@ -139,6 +143,8 @@ to be unique)}
 browser.}
 
 \item{add_users}{(logical) Add users or not when installing RStudio server. Default: FALSE}
+
+\item{path}{(character) Path to a directory with Shiny app files}
 }
 \description{
 Docklets: docker on droplets.
@@ -169,6 +175,15 @@ d \%>\% docklet_rstudio() \%>\% docklet_rstudio_addusers()
 # Spin up a Shiny server (opens in default browser)
 d <- docklet_create()
 d \%>\% docklet_shinyserver()
+
+# Spin up a Shiny server with an app (opens in default browser)
+d <- docklet_create()
+path <- system.file("examples", "widgets", package = "analogsea")
+d \%>\% docklet_shinyapp(path)
+## uploading more apps - use droplet_upload, then navigate in browser
+### if you try to use docklet_shinyapp again on the same droplet, it will error
+path2 <- system.file("examples", "mpg", package = "analogsea")
+d \%>\% droplet_upload(path2, "/srv/shinyapps/mpg") # then go to browser
 }
 }
 

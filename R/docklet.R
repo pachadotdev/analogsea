@@ -37,6 +37,7 @@
 #' browser.
 #' @param ssh_user (character) User account for ssh commands against droplet. Default: root
 #' @param add_users (logical) Add users or not when installing RStudio server. Default: FALSE
+#' @param path (character) Path to a directory with Shiny app files
 #' @examples
 #' \dontrun{
 #' d <- docklet_create()
@@ -63,6 +64,15 @@
 #' # Spin up a Shiny server (opens in default browser)
 #' d <- docklet_create()
 #' d %>% docklet_shinyserver()
+#'
+#' # Spin up a Shiny server with an app (opens in default browser)
+#' d <- docklet_create()
+#' path <- system.file("examples", "widgets", package = "analogsea")
+#' d %>% docklet_shinyapp(path)
+#' ## uploading more apps - use droplet_upload, then navigate in browser
+#' ### if you try to use docklet_shinyapp again on the same droplet, it will error
+#' path2 <- system.file("examples", "mpg", package = "analogsea")
+#' d %>% droplet_upload(path2, "/srv/shinyapps/mpg") # then go to browser
 #' }
 docklet_create <- function(name = random_name(),
                            size = getOption("do_size", "1gb"),
@@ -230,4 +240,28 @@ docklet_shinyserver <- function(droplet,
   }
 
   invisible(url)
+}
+
+#' @export
+#' @rdname docklet_create
+docklet_shinyapp <- function(droplet,
+                             path,
+                             img = 'rocker/shiny',
+                             port = '80',
+                             dir = '',
+                             browse = TRUE,
+                             ssh_user = "root") {
+  droplet <- as.droplet(droplet)
+  # move files to server
+  droplet_ssh(droplet, "mkdir -p /srv/shinyapps")
+  droplet_upload(droplet, path, paste0("/srv/shinyapps/", basename(path)))
+  # spin up shiny server
+  res <- docklet_shinyserver(droplet, img, port, volume = '/srv/shinyapps/:/srv/shiny-server/',
+                      dir, browse = FALSE, ssh_user)
+  url <- file.path(res, basename(path))
+  if (browse) {
+    browseURL(url)
+  } else {
+    url
+  }
 }
