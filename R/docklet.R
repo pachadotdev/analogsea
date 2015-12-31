@@ -256,12 +256,6 @@ docklet_shinyapp <- function(droplet,
   droplet_ssh(droplet, "mkdir -p /srv/shinyapps")
   droplet_upload(droplet, path, paste0("/srv/shinyapps/", basename(path)))
   # spin up shiny server
-  res <- docklet_shinyserver(droplet, img, port, volume = '/srv/shinyapps/:/srv/shiny-server/',
-                      dir, browse = FALSE, ssh_user)
-  url <- file.path(res, basename(path))
-  if (browse) {
-    browseURL(url)
-  } else {
-    url
-  }
+  docklet_shinyserver(droplet, img, port, volume = '/srv/shinyapps/:/srv/shiny-server/',
+                      dir, browse, ssh_user)
 }
