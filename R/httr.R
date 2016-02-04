@@ -51,7 +51,7 @@ do_VERB <- function(verb, url, ...) {
     return(invisible(TRUE))
   }
 
-  text <- httr::content(res, as = "text")
+  text <- httr::content(res, as = "text", encoding = "UTF-8")
   json <- jsonlite::fromJSON(text, simplifyVector = FALSE)
 
   if (httr::status_code(res) >= 400) {
