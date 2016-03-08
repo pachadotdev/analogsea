@@ -140,7 +140,7 @@ droplet_download <- function(droplet, remote, local, user = "root",
 droplet_ip <- function(x) {
   v4 <- x$network$v4
   if (length(v4) == 0) {
-    stop("No network interface registered for this droplet",
+    stop("No network interface registered for this droplet\n  Try refreshing like: droplet(d$id)",
       call. = FALSE)
   }
 
@@ -156,6 +156,10 @@ droplet_ip_safe <- function(x) {
 
 do_system <- function(droplet, cmd, verbose = FALSE) {
   cli_tools()
+  # check to make sure port 22 open, otherwise ssh commands will fail
+  if (!is_port_open(droplet_ip(droplet), 22)) {
+    stop("port 22 is not open; wait a bit (try 5 - 10 sec.) and try again", call. = FALSE)
+  }
   mssg(verbose, cmd)
   status <- system(cmd)
   if (status != 0) {

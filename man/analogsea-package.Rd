@@ -24,6 +24,8 @@ Scott Chamberlain \email{myrmecocystus@gmail.com}
 Hadley Wickham \email{hadley@rstudio.com}
 
 Winston Chang \email{winston@stdout.org}
+
+Bob Rudis \email{bob@rudis.net}
 }
 \keyword{package}
 

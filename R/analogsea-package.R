@@ -23,6 +23,7 @@
 #' @author Scott Chamberlain \email{myrmecocystus@@gmail.com}
 #' @author Hadley Wickham \email{hadley@@rstudio.com}
 #' @author Winston Chang \email{winston@@stdout.org}
+#' @author Bob Rudis \email{bob@@rudis.net}
 #' @docType package
 #' @keywords package
 NULL

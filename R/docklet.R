@@ -62,8 +62,9 @@
 #' d %>% docklet_rstudio() %>% docklet_rstudio_addusers()
 #'
 #' # Spin up a Shiny server (opens in default browser)
-#' d <- docklet_create()
+#' (d <- docklet_create())
 #' d %>% docklet_shinyserver()
+#' docklet_create() %>% docklet_shinyserver()
 #'
 #' # Spin up a Shiny server with an app (opens in default browser)
 #' d <- docklet_create()

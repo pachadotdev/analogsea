@@ -76,9 +76,17 @@ action_wait <- function(x) {
   }
   cat("\n")
 
-  droplet(x$resource_id)
+  droplet_refresh(droplet(x$resource_id))
 }
 
+droplet_refresh <- function(x) {
+  ip <- "likely"
+  while (grepl("likely", ip)) {
+    x <- droplet(x$id)
+    ip <- droplet_ip_safe(x)
+  }
+  x
+}
 
 action_refresh <- function(action) {
   action <- as.action(action)
