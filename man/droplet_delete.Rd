@@ -4,11 +4,13 @@
 \alias{droplet_delete}
 \title{Delete a droplet.}
 \usage{
-droplet_delete(droplet, ...)
+droplet_delete(droplet = NULL, tag = NULL, ...)
 }
 \arguments{
 \item{droplet}{A droplet, or something that can be coerced to a droplet by
 \code{\link{as.droplet}}.}
+
+\item{tag}{(character) Name of a tag. optional}
 
 \item{...}{Additional options passed down to low-level API method.}
 }
@@ -27,6 +29,15 @@ droplet_delete(12345)
 
 # Delete all droplets
 lapply(droplets(), droplet_delete)
+
+# delete droplets by tag
+## first, create a tag, then a droplet, then tag it
+tag_create(name = "foobar")
+e <- droplet_create()
+tag_resource(name = "foobar", resource_id = e$id)
+droplets(tag = "foobar")
+## then delete the droplet by tag name
+droplet_delete(tag = "foobar")
 }
 }
 

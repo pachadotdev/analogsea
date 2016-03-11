@@ -161,6 +161,7 @@ droplet_wait <- function(droplet) {
 #' @export
 #' @param droplet A droplet, or something that can be coerced to a droplet by
 #'   \code{\link{as.droplet}}.
+#' @param tag (character) Name of a tag. optional
 #' @param ... Additional options passed down to low-level API method.
 #' @examples
 #' \dontrun{
@@ -174,10 +175,23 @@ droplet_wait <- function(droplet) {
 #'
 #' # Delete all droplets
 #' lapply(droplets(), droplet_delete)
+#'
+#' # delete droplets by tag
+#' ## first, create a tag, then a droplet, then tag it
+#' tag_create(name = "foobar")
+#' e <- droplet_create()
+#' tag_resource(name = "foobar", resource_id = e$id)
+#' droplets(tag = "foobar")
+#' ## then delete the droplet by tag name
+#' droplet_delete(tag = "foobar")
 #' }
-droplet_delete <- function(droplet, ...) {
-  droplet <- as.droplet(droplet)
-  do_DELETE(sprintf('droplets/%s', droplet$id), ...)
+droplet_delete <- function(droplet = NULL, tag = NULL, ...) {
+  if (!is.null(droplet)) {
+    droplet <- as.droplet(droplet)
+    do_DELETE(sprintf('droplets/%s', droplet$id), ...)
+  } else {
+    do_DELETE('droplets', query = ascompact(list(tag_name = tag)), ...)
+  }
 }
 
 

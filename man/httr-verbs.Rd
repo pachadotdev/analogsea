@@ -2,6 +2,7 @@
 % Please edit documentation in R/httr.R
 \name{httr-verbs}
 \alias{do_DELETE}
+\alias{do_DELETE_body}
 \alias{do_GET}
 \alias{do_POST}
 \alias{do_PUT}
@@ -15,6 +16,8 @@ do_POST(url, ..., body = NULL, encode = "json")
 do_PUT(url, ...)
 
 do_DELETE(url, ...)
+
+do_DELETE_body(url, body = NULL, ...)
 }
 \description{
 httr wrappers.

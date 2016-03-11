@@ -39,6 +39,26 @@ do_PUT <- function(url, ...) {
 do_DELETE <- function(url, ...) {
   do_VERB("DELETE", url, ...)
 }
+#' @export
+#' @rdname httr-verbs
+do_DELETE_body <- function(url, body = NULL, ...) {
+  url <- as.url(url)
+  res <- VERB("DELETE", url, body = body, ..., do_oauth())
+  # No content
+  if (length(res$content) == 0) {
+    httr::stop_for_status(res)
+    return(invisible(TRUE))
+  }
+
+  text <- httr::content(res, as = "text", encoding = "UTF-8")
+  json <- jsonlite::fromJSON(text, simplifyVector = FALSE)
+
+  if (httr::status_code(res) >= 400) {
+    stop(json$message, call. = FALSE)
+  }
+
+  json
+}
 
 do_VERB <- function(verb, url, ...) {
   url <- as.url(url)
