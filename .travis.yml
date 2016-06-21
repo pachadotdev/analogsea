@@ -1,9 +1,12 @@
 language: r
-sudo: required
+sudo: false
+cache: packages
 warnings_are_errors: true
 
-r_github_packages:
-  - jimhester/covr
+r:
+  - oldrel
+  - release
+  - devel
 
 after_success:
   - Rscript -e 'covr::codecov()'
