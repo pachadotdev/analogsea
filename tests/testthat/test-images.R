@@ -23,7 +23,7 @@ test_that("works with type parameter", {
   skip_on_cran()
 
   imgs_dist <- images(type = "distribution")
-  imgs_appl <- images(type = "application")
+  imgs_appl <- c(images(type = "application"), images(type = "application", page = 2))
 
   expect_is(imgs_dist, "list")
   expect_is(imgs_appl, "list")

@@ -150,7 +150,7 @@ droplet_ip <- function(x) {
 
 droplet_ip_safe <- function(x) {
   res <- tryCatch(droplet_ip(x), error = function(e) e)
-  if (is(res, "simpleError")) 'droplet likely not up yet' else res
+  if (inherits(res, "simpleError")) 'droplet likely not up yet' else res
 }
 
 
