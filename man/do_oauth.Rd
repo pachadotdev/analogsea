@@ -21,7 +21,7 @@ There are two ways to authorise analogsea to work with your digital ocean
 account:
 \itemize{
 \item Generate a personal access token at
-  https://cloud.digitalocean.com/settings/tokens/new and
+  https://cloud.digitalocean.com/settings/api/tokens and
   record in the \code{DO_PAT} envar.
 
 \item Interatively login into your DO account and authorise with
