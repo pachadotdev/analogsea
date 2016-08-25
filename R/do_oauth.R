@@ -7,7 +7,7 @@
 #' account:
 #' \itemize{
 #' \item Generate a personal access token at
-#'   https://cloud.digitalocean.com/settings/tokens/new and
+#'   https://cloud.digitalocean.com/settings/api/tokens and
 #'   record in the \code{DO_PAT} envar.
 #'
 #' \item Interatively login into your DO account and authorise with
@@ -31,10 +31,11 @@ do_oauth <- function(app = do_app, reauth = FALSE) {
     auth_config <- httr::add_headers(Authorization = paste0("Bearer ", pat))
   } else if (!interactive()) {
     stop("In non-interactive environments, please set DO_PAT env to a DO",
-      " access token (https://cloud.digitalocean.com/settings/tokens/new)",
+      " access token (https://cloud.digitalocean.com/settings/api/tokens)",
       call. = FALSE)
   } else  {
-    endpt <- httr::oauth_endpoint(NULL, "authorize", "token",
+    endpt <- httr::oauth_endpoint(
+      NULL, "authorize", "token",
       base_url = "https://cloud.digitalocean.com/v1/oauth")
     token <- httr::oauth2.0_token(endpt, app, scope = c("read", "write"), cache = !reauth)
 

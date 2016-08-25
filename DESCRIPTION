@@ -1,10 +1,10 @@
 Package: analogsea
 Title: Interface to 'Digital Ocean'
 Description: Provides a set of functions for interacting with the 'Digital
-    Ocean' 'API' at https://developers.digitalocean.com/documentation/v2/, including
+    Ocean' 'API' at <https://developers.digitalocean.com/documentation/v2>, including
     creating images, destroying them, 'rebooting', getting details on regions, and
     available images.
-Version: 0.3.2.9235
+Version: 0.4.0
 Authors@R: c(
     person("Scott", "Chamberlain", role = c("aut", "cre"), email = "myrmecocystus@gmail.com"),
     person("Hadley", "Wickham", role = "aut", email = "hadley@rstudio.com"),
@@ -21,10 +21,11 @@ Imports:
     stats,
     utils,
     httr (>= 1.2.0),
-    jsonlite (>= 0.9.17),
+    jsonlite (>= 1.0),
     magrittr,
     yaml
 Suggests:
+    roxygen2 (>= 5.0.1),
     testthat,
     knitr,
     covr
