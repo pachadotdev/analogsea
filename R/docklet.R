@@ -38,6 +38,7 @@
 #' @param ssh_user (character) User account for ssh commands against droplet. Default: root
 #' @param add_users (logical) Add users or not when installing RStudio server. Default: FALSE
 #' @param path (character) Path to a directory with Shiny app files
+#' @seealso \code{\link{docklets_create}}
 #' @examples
 #' \dontrun{
 #' d <- docklet_create()

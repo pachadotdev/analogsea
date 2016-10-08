@@ -187,4 +187,7 @@ path2 <- system.file("examples", "mpg", package = "analogsea")
 d \%>\% droplet_upload(path2, "/srv/shinyapps/mpg") # then go to browser
 }
 }
+\seealso{
+\code{\link{docklets_create}}
+}
 
