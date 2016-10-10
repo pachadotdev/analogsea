@@ -60,17 +60,21 @@ from which to create the volume. Should not be specified with a region_id.}
  \item{volume_delete}{delete a volume}
 }
 }
+\details{
+note that if you delete a volume, and it has a snapshot, the
+snapshot still exists, so beware
+}
 \examples{
 \dontrun{
 # list volumes
 volumes()
 
 # create a volume
-vol1 <- volume_create('testing', 5, config=verbose())
-vol2 <- volume_create('foobar', 6, config=verbose())
+vol1 <- volume_create('testing', 5)
+vol2 <- volume_create('foobar', 6)
 
 # create snapshot of a volume
-xx <- volume_snapshot_create(vol1, "stuff", config=verbose())
+xx <- volume_snapshot_create(vol2, "howdy")
 
 # list snaphots for a volume
 volume_snapshots(xx)
@@ -93,6 +97,9 @@ volume_delete(res$testing)
 volume_delete(res[[1]]$id)
 ## by name
 volume_delete(res[[1]]$name)
+
+# delete many volumes
+lapply(volumes(), volume_delete)
 }
 }
 

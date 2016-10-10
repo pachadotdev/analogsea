@@ -50,16 +50,18 @@ as.volume.character <- function(x) {
 #' from which to create the volume. Should not be specified with a region_id.
 #' @param ... Additional options passed down to \code{\link[httr]{GET}},
 #' \code{\link[httr]{POST}}, etc.
+#' @details  note that if you delete a volume, and it has a snapshot, the
+#' snapshot still exists, so beware
 #' @examples \dontrun{
 #' # list volumes
 #' volumes()
 #'
 #' # create a volume
-#' vol1 <- volume_create('testing', 5, config=verbose())
-#' vol2 <- volume_create('foobar', 6, config=verbose())
+#' vol1 <- volume_create('testing', 5)
+#' vol2 <- volume_create('foobar', 6)
 #'
 #' # create snapshot of a volume
-#' xx <- volume_snapshot_create(vol1, "stuff", config=verbose())
+#' xx <- volume_snapshot_create(vol2, "howdy")
 #'
 #' # list snaphots for a volume
 #' volume_snapshots(xx)
@@ -82,12 +84,15 @@ as.volume.character <- function(x) {
 #' volume_delete(res[[1]]$id)
 #' ## by name
 #' volume_delete(res[[1]]$name)
+#'
+#' # delete many volumes
+#' lapply(volumes(), volume_delete)
 #' }
 
 #' @export
 #' @rdname volumes
 volumes <- function(...) {
-  res <- do_GET('volumes')
+  res <- do_GET('volumes', ...)
   as.volume(res)
 }
 
@@ -95,7 +100,7 @@ volumes <- function(...) {
 #' @rdname volumes
 volume <- function(volume, ...) {
   vol <- as.volume(volume)
-  res <- do_GET(volume_url(vol$id))
+  res <- do_GET(volume_url(vol$id), ...)
   list_to_object(res, "volume")
 }
 
@@ -113,15 +118,16 @@ volume_create <- function(name, size, description = NULL, region = 'nyc1',
 #' @rdname volumes
 volume_snapshot_create <- function(volume, name, ...) {
   vol <- as.volume(volume)
-  do_POST(sprintf("volumes/%s/snapshots", vol$id), ..., body = list(name = name))
+  res <- do_POST(sprintf("volumes/%s/snapshots", vol$id), ..., body = list(name = name))
+  list_to_object(res, "snapshot", class = "volume_snapshot")
 }
 
 #' @export
 #' @rdname volumes
 volume_snapshots <- function(volume, ...) {
   vol <- as.volume(volume)
-  do_GET(sprintf("volumes/%s/snapshots", vol$id))
-  #list_to_object(res, "volume")
+  res <- do_GET(sprintf("volumes/%s/snapshots", vol$id), ...)
+  list_to_object(res, "snapshot", class = "volume_snapshot")
 }
 
 #' @export
@@ -139,4 +145,13 @@ print.volume <- function(x, ...) {
   cat("  Region:    ", x$region$slug, "\n")
   cat("  Size (GB): ", x$size_gigabytes, "\n")
   cat("  Created:   ", x$created_at, "\n")
+}
+
+#' @export
+print.volume_snapshot <- function(x, ...) {
+  cat("<volume - snapshot> ", x$name, " (", x$id, ")", "\n", sep = "")
+  cat("  Regions:             ", paste0(unlist(x$regions), collapse = ", "), "\n")
+  cat("  Min. Disk Size (GB): ", x$min_disk_size, "\n")
+  cat("  Size (GB):           ", x$size_gigabytes, "\n")
+  cat("  Created:             ", x$created_at, "\n")
 }

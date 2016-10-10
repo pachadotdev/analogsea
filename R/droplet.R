@@ -43,11 +43,12 @@ as.droplet.action <- function(x) {
 #' @export
 print.droplet <- function(x, ...) {
   cat("<droplet>", x$name, " (", x$id, ")\n", sep = "")
-  cat("  IP:     ", droplet_ip_safe(x), "\n", sep = "")
-  cat("  Status: ", x$status, "\n", sep = "")
-  cat("  Region: ", x$region$name, "\n", sep = "")
-  cat("  Image:  ", x$image$name, "\n", sep = "")
-  cat("  Size:   ", x$size_slug, "\n", sep = "")
+  cat("  IP:        ", droplet_ip_safe(x), "\n", sep = "")
+  cat("  Status:    ", x$status, "\n", sep = "")
+  cat("  Region:    ", x$region$name, "\n", sep = "")
+  cat("  Image:     ", x$image$name, "\n", sep = "")
+  cat("  Size:      ", x$size_slug, "\n", sep = "")
+  cat("  Volumes:   ", paste0(unlist(x$volume_ids), collapse = ", "), "\n", sep = "")
 }
 
 #' @export
