@@ -1,7 +1,7 @@
 #' Docklets: docker on droplets - create many docklets
 #'
 #' @export
-#'
+#' @inheritParams droplet_create
 #' @inheritParams droplets_create
 #' @return Two or more droplet objects
 #' @examples
@@ -13,7 +13,7 @@
 #' docklets_create(names = c('drop1', 'drop2'))
 #' docklets_create(names = c('drop3', 'drop4'))
 #' }
-docklets_create <- function(name = NULL,
+docklets_create <- function(names = NULL,
                            size = getOption("do_size", "1gb"),
                            region = getOption("do_region", "sfo1"),
                            ssh_keys = getOption("do_ssh_keys", NULL),
@@ -24,7 +24,7 @@ docklets_create <- function(name = NULL,
                            image = "docker",
                            ...) {
   droplets_create(
-    name = name,
+    names = names,
     size = size,
     image = image,
     region = region,
