@@ -34,6 +34,8 @@ Default: nyc1}
 \item{...}{Additional options passed down to \code{\link[httr]{GET}},
 \code{\link[httr]{POST}}, etc.}
 
+\item{size}{(integer) The size of the Block Storage volume in GiB}
+
 \item{actionid}{(integer) Optional. An action id.}
 
 \item{page}{Page to return. Default: 1.}

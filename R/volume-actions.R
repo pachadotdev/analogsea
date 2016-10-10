@@ -4,6 +4,7 @@
 #'   \code{\link{as.volume}}.
 #' @param droplet A droplet, or something that can be coerced to a droplet by
 #'   \code{\link{as.droplet}}.
+#' @param size (integer) The size of the Block Storage volume in GiB
 #' @param region (character) The region where the Block Storage volume will
 #' be created. When setting a region, the value should be the slug identifier
 #' for the region. When you query a Block Storage volume, the entire region

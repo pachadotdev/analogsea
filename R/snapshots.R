@@ -30,12 +30,11 @@ as.snapshot.character <- function(x) {
 #'
 #' @param snapshot A snapshot, or something that can be coerced to a snapshot by
 #'   \code{\link{as.snapshot}}.
-#' @param snapshot_id (integer) The unique identifier for the snapshot snapshot
-#' from which to create the snapshot. Should not be specified with a region_id.
+#' @param type (character) \code{NULL} (all snapshots), or one of droplet
+#' (droplet snapshots) or volume (volume snapshots)
+#' @param id A snapshot id (varies depending on droplet or volume ID)
 #' @param ... Additional options passed down to \code{\link[httr]{GET}},
 #' \code{\link[httr]{POST}}, etc.
-#' @details  note that if you delete a snapshot, and it has a snapshot, the
-#' snapshot still exists, so beware
 #' @examples \dontrun{
 #' # list all snapshots
 #' (res <- snapshots())

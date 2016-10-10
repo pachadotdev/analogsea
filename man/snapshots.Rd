@@ -18,14 +18,16 @@ snapshot_delete(snapshot, ...)
 \arguments{
 \item{x}{Object to coerce to an snapshot}
 
+\item{type}{(character) \code{NULL} (all snapshots), or one of droplet
+(droplet snapshots) or volume (volume snapshots)}
+
 \item{...}{Additional options passed down to \code{\link[httr]{GET}},
 \code{\link[httr]{POST}}, etc.}
 
+\item{id}{A snapshot id (varies depending on droplet or volume ID)}
+
 \item{snapshot}{A snapshot, or something that can be coerced to a snapshot by
 \code{\link{as.snapshot}}.}
-
-\item{snapshot_id}{(integer) The unique identifier for the snapshot snapshot
-from which to create the snapshot. Should not be specified with a region_id.}
 }
 \description{
 \describe{
@@ -33,10 +35,6 @@ from which to create the snapshot. Should not be specified with a region_id.}
  \item{snapshots}{list snapshots, all, droplets, or volumes}
  \item{snapshot_delete}{delete a snapshot}
 }
-}
-\details{
-note that if you delete a snapshot, and it has a snapshot, the
-snapshot still exists, so beware
 }
 \examples{
 \dontrun{
