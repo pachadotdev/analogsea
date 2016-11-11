@@ -5,7 +5,6 @@
 -->
 
 ```{r echo=FALSE}
-library("analogsea")
 knitr::opts_chunk$set(
   comment = "#>",
   warning = FALSE,
@@ -70,13 +69,13 @@ The name given to the droplet is picked at random from a list of 1000 random nam
 
 You can of course set any of these parameters.
 
-```{r}
+```{r eval=FALSE}
 droplet_create()
 ```
 
 You can also create many droplets at once:
 
-```{r}
+```{r eval=FALSE}
 droplets_create()
 ```
 
@@ -89,41 +88,47 @@ If you don't have any droplets yet, you will get an empty list running
 `droplets()`, and you of course can't pass in a droplet ID number to `droplet()` 
 if you don't have any droplets yet.
 
+```{r}
+library("analogsea")
+```
+
 ```{r eval=FALSE}
 droplets()
 #> named list()
 ```
 
+Create a droplet
+
+```{r}
+droplet_create()
+```
+
 After creating a droplet and running `droplets()` again, we see a list of 
 our droplet(s)
 
-```{r}
-(d <- droplets())
+```{r echo=FALSE}
+drops <- droplets()[-1]
 ```
 
-Or we can pass in a droplet id to `droplet()`
-
-```{r}
-droplet(d[[1]]$id)
+```{r eval=FALSE}
+(drops <- droplets())
 ```
 
-Get more detailed information on your droplet with `summary()`
+Or we can pass in a droplet id to `droplet()`. There is a `print.droplet()` method 
+that is used to print a brief summary of each droplet. 
 
 ```{r}
-droplet(d[[1]]$id) %>% summary
+droplet(drops[[1]]$id)
 ```
 
-## Droplet details
-
-There is a `print.droplet()` method that is used to print a brief summary 
-of each droplet. 
-
-In addition, you can get a more detailed summary of a droplet by using 
-`summary()`. For example:
+Get more detailed information on your droplet with `summary()`. This is a 
+`summary.droplet()` method, that is just a little more verbose than the 
+`print.droplet()` method 
 
 ```{r}
-
+droplet(drops[[1]]$id) %>% summary
 ```
+
 
 ## Actions on droplets
 
@@ -140,40 +145,62 @@ droplet_create() %>%
 
 ### Actions
 
-List actions on a droplet, newer ones at the top. Here's list actions, then 
-rename and list actions again.
+List actions on a droplet, newer ones at the top. Here, list actions
 
 ```{r}
-droplets()[[1]] %>% droplet_actions()
-droplets()[[1]] %>%
+drops[[1]] %>% droplet_actions()
+```
+
+Then rename and list actions again
+
+```{r eval=FALSE}
+drops[[1]] %>%
   droplet_rename(name = "droppy") %>%
   droplet_wait() %>%
   droplet_actions()
+#> Waiting for rename ...
+#> [[1]]
+#> <action> rename (166715389)
+#>   Status: completed
+#>   Resource: droplet 31859471
+#> 
+#> [[2]]
+#> <action> create (166715005)
+#>   Status: completed
+#>   Resource: droplet 31859471
 ```
 
 ### Snapshot
 
-Making a snapshot of a droplet can be done with `droplet_snapshot()`. This action 
-requires that you turn off the droplet first, then take the snapshot. First, create a droplet
+Making a snapshot of a droplet can be done with `droplet_snapshot()`. This 
+action requires that you turn off the droplet first, then take the snapshot. 
+First, create a droplet
 
-```{r}
+```{r eval=FALSE}
 d <- droplet_create(size = "2gb")
 ```
 
 Then power off, and take a snapshot, which gives an action object describing 
 that the snapshot is in progress.
 
-```{r}
+```{r eval=FALSE}
 d %>%
   droplet_power_off() %>%
   droplet_wait() %>%
   droplet_snapshot(name = "mynewsnap")
+#> Waiting for power_off ...................................................
+#> <action> snapshot (166715834)
+#>   Status: in-progress
+#>   Resource: droplet 31859617
 ```
 
 ## Regions
 
 The `regions()` function lists region slug names, full names, available sizes,
 whether the region is available at all, and features.
+
+This helps you get an overview of region details, which you can select from
+when creating droplets
 
 ```{r}
 regions()
@@ -183,6 +210,9 @@ regions()
 
 The `sizes()` function lists size slug names, associated memory, vcpus, disk 
 size, prices, and regions where the size is available.
+
+This helps you get an overview of sizes, which you can select from
+when creating droplets
 
 ```{r}
 sizes()
@@ -223,7 +253,7 @@ If `public=FALSE` only your private images are listed, while if `public=TRUE`,
 your private images are listed along with publicly avaialble images.
 
 ```{r}
-images(public = TRUE, page = 4, per_page = 5)
+images(page = 4, per_page = 5)
 ```
 
 You can also do various actions on images. First, you can pass in an image ID to 
@@ -236,7 +266,7 @@ image(img$id)
 
 You can rename an image
 
-```{r}
+```{r eval=FALSE}
 img %>% image_rename(name = "analog")
 ```
 
@@ -257,12 +287,6 @@ List domain names
 domains()
 ```
 
-Get a single domain by domain name
-
-```{r}
-domain("sckottdrop.info")
-```
-
 Create a new domain name
 
 ```{r}
@@ -270,19 +294,25 @@ dom <- paste0(sample(words, 1), ".info")
 domain_create(name = dom, ip_address = "127.0.0.1")
 ```
 
+Get a single domain by domain name
+
+```{r}
+domain(dom)
+```
+
 Create a domain record, list records and delete the one just created
 
 ```{r}
-domain("sckottdrop.info") %>%
+domain(dom) %>%
   domain_record_create(type = "TXT", name = "hello", data = "world")
-records <- domain("sckottdrop.info") %>% domain_records()
+records <- domain(dom) %>% domain_records()
 domain_record_delete(records[[length(records)]])
 ```
 
 List records
 
 ```{r}
-domain("sckottdrop.info") %>% domain_records()
+domain(dom) %>% domain_records()
 ```
 
 Delete a domain name, returns nothing if delete is successful
