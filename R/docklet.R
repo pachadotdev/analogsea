@@ -1,6 +1,7 @@
 # dockerfile: script that descibes dependencies
 # docker pull:  remote image -> local image
-# docker build: dockerfile -> image, execute dockerfile and caches the result as a binary
+# docker build: dockerfile -> image, execute dockerfile and caches the result
+#   as a binary
 # docker run:   image -> container, every time you run you get a new container
 #               by default
 # docker ps -q -a | xargs docker rm
@@ -20,8 +21,8 @@
 #' @param container (character) Container name, can be partial (though has
 #' to be unique)
 #' @param ... For \code{docklet_create}, additional options passed down to
-#' \code{\link[httr]{POST}}. For \code{docklet_run}, additional arguments combined
-#' and applied to docker statement.
+#' \code{\link[httr]{POST}}. For \code{docklet_run}, additional arguments
+#' combined and applied to docker statement.
 #' @param cmd (character) A docker command (e.g., \code{"run"})
 #' @param args (character) Docker args
 #' @param docker_args (character) Docker args
@@ -35,8 +36,10 @@
 #' @param dir (character) Working directory inside the container.
 #' @param browse (logical) If \code{TRUE}, open RStudio instance in your default
 #' browser.
-#' @param ssh_user (character) User account for ssh commands against droplet. Default: root
-#' @param add_users (logical) Add users or not when installing RStudio server. Default: FALSE
+#' @param ssh_user (character) User account for ssh commands against droplet.
+#' Default: root
+#' @param add_users (logical) Add users or not when installing RStudio server.
+#' Default: FALSE
 #' @param path (character) Path to a directory with Shiny app files
 #' @seealso \code{\link{docklets_create}}
 #' @examples
@@ -82,7 +85,8 @@ docklet_create <- function(name = random_name(),
                            ssh_keys = getOption("do_ssh_keys", NULL),
                            backups = getOption("do_backups", NULL),
                            ipv6 = getOption("do_ipv6", NULL),
-                           private_networking = getOption("do_private_networking", NULL),
+                           private_networking =
+                             getOption("do_private_networking", NULL),
                            wait = TRUE,
                            image = "docker",
                            ...) {
@@ -120,7 +124,8 @@ docklet_pull <- function(droplet, repo, ssh_user = "root") {
 
 #' @export
 #' @rdname docklet_create
-docklet_run <- function(droplet, ..., rm = FALSE, name = NULL, ssh_user = "root") {
+docklet_run <- function(droplet, ..., rm = FALSE, name = NULL,
+                        ssh_user = "root") {
   docklet_docker(droplet,
     "run", c(
     if (rm) " --rm",
@@ -144,9 +149,13 @@ docklet_rm <- function(droplet, container, ssh_user = "root") {
 
 #' @export
 #' @rdname docklet_create
-docklet_docker <- function(droplet, cmd, args = NULL, docker_args = NULL, ssh_user = "root") {
+docklet_docker <- function(droplet, cmd, args = NULL, docker_args = NULL,
+                           ssh_user = "root") {
   args <- paste(args, collapse = "")
-  droplet_ssh(droplet, user = ssh_user, paste(c("docker", docker_args, cmd, args), collapse = " "))
+  droplet_ssh(
+    droplet,
+    user = ssh_user,
+    paste(c("docker", docker_args, cmd, args), collapse = " "))
 }
 
 #' @export
@@ -258,6 +267,7 @@ docklet_shinyapp <- function(droplet,
   droplet_ssh(droplet, "mkdir -p /srv/shinyapps")
   droplet_upload(droplet, path, paste0("/srv/shinyapps/", basename(path)))
   # spin up shiny server
-  docklet_shinyserver(droplet, img, port, volume = '/srv/shinyapps/:/srv/shiny-server/',
+  docklet_shinyserver(
+    droplet, img, port, volume = '/srv/shinyapps/:/srv/shiny-server/',
                       dir, browse, ssh_user)
 }

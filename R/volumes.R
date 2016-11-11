@@ -14,7 +14,8 @@ as.volume.volume <- function(x) x
 as.volume.numeric <- function(x) volume(x)
 #' @export
 as.volume.character <- function(x) {
-  if (!grepl("[A-Za-z0-9]+-[A-Za-z0-9]+-[A-Za-z0-9]+-[A-Za-z0-9]+-[A-Za-z0-9]+", x)) {
+  if (!grepl("[A-Za-z0-9]+-[A-Za-z0-9]+-[A-Za-z0-9]+-[A-Za-z0-9]+-[A-Za-z0-9]+",
+             x)) {
     volumes()[[x]]
   } else {
     vv <- volumes()
@@ -118,7 +119,8 @@ volume_create <- function(name, size, description = NULL, region = 'nyc1',
 #' @rdname volumes
 volume_snapshot_create <- function(volume, name, ...) {
   vol <- as.volume(volume)
-  res <- do_POST(sprintf("volumes/%s/snapshots", vol$id), ..., body = list(name = name))
+  res <- do_POST(sprintf("volumes/%s/snapshots", vol$id), ...,
+                 body = list(name = name))
   list_to_object(res, "snapshot", class = "volume_snapshot")
 }
 
@@ -150,7 +152,8 @@ print.volume <- function(x, ...) {
 #' @export
 print.volume_snapshot <- function(x, ...) {
   cat("<volume - snapshot> ", x$name, " (", x$id, ")", "\n", sep = "")
-  cat("  Regions:             ", paste0(unlist(x$regions), collapse = ", "), "\n")
+  cat("  Regions:             ", paste0(unlist(x$regions), collapse = ", "),
+      "\n")
   cat("  Min. Disk Size (GB): ", x$min_disk_size, "\n")
   cat("  Size (GB):           ", x$size_gigabytes, "\n")
   cat("  Created:             ", x$created_at, "\n")

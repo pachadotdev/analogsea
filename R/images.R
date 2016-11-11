@@ -40,15 +40,17 @@ as.image.character <- function(x) images()[[x]]
 #' images(per_page = 3)
 #' images(per_page = 3, page = 2)
 #' }
-images <- function(private = FALSE, type = NULL, page = 1, per_page = 25, public = TRUE, ...) {
+images <- function(private = FALSE, type = NULL, page = 1, per_page = 25,
+                   public = TRUE, ...) {
   calls <- names(sapply(match.call(), deparse))[-1]
   if (any("public" %in% calls)) {
     stop("The parameter public has been removed, see private",
          call. = FALSE)
   }
 
-  res <- do_GET(image_url(), query = list(page = page, per_page = per_page,
-                                          type = type, private = al(private)), ...)
+  res <- do_GET(image_url(),
+                query = list(page = page, per_page = per_page,
+                             type = type, private = al(private)), ...)
   as.image(res)
 }
 
@@ -75,8 +77,8 @@ as.url.image <- function(x, ...) {
 
 #' Rename/delete an image
 #'
-#' There is no way to restore a deleted image so be careful and ensure your data is properly
-#' backed up before deleting it.
+#' There is no way to restore a deleted image so be careful and ensure your
+#' data is properly backed up before deleting it.
 #'
 #' @export
 #' @param image An image to modify.
@@ -121,7 +123,8 @@ image_actions <- function(image, action_id, ...) {
 #'
 #' @export
 #' @param image An image to modify.
-#' @param region (numeric) Required. The region slug that represents the region target.
+#' @param region (numeric) Required. The region slug that represents the
+#' region target.
 #' @param ... Options passed on to httr::GET. Must be named, see examples.
 #' @examples \dontrun{
 #' image_transfer(image=images(TRUE)[[1]], region='nyc2')

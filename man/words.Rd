@@ -3,9 +3,11 @@
 \docType{data}
 \name{words}
 \alias{words}
-\title{1000 words to use for seeding random word selection when name not given for a droplet}
+\title{1000 words to use for seeding random word selection when name not given
+for a droplet}
 \description{
-1000 words to use for seeding random word selection when name not given for a droplet
+1000 words to use for seeding random word selection when name not given
+for a droplet
 }
 \keyword{data}
 

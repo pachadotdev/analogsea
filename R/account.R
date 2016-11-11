@@ -6,7 +6,8 @@
 #' @examples \dontrun{
 #' account()
 #' }
-account <- function(...) structure(do_GET("account", list(), ...), class = "account")
+account <- function(...) structure(do_GET("account", list(), ...),
+                                   class = "account")
 
 #' @export
 print.account <- function(x, ...) {

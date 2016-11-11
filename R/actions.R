@@ -32,7 +32,8 @@ as.url.action <- function(x, ...) action_url(x$id)
 #' actions()
 #' }
 actions <- function(..., page = 1, per_page = 25) {
-  as.action(do_GET(action_url(), query = list(page = page, per_page = per_page), ...))
+  as.action(do_GET(
+    action_url(), query = list(page = page, per_page = per_page), ...))
 }
 
 #' Retrieve an existing action by action id

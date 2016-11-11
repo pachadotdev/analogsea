@@ -101,15 +101,16 @@ base image for your droplet. See \code{\link{images}()} for a complete
 list. Default: ubuntu-14-04-x64}
 
 \item{...}{For \code{docklet_create}, additional options passed down to
-\code{\link[httr]{POST}}. For \code{docklet_run}, additional arguments combined
-and applied to docker statement.}
+\code{\link[httr]{POST}}. For \code{docklet_run}, additional arguments
+combined and applied to docker statement.}
 
 \item{droplet}{A droplet, or something that can be coerced to a droplet by
 \code{\link{as.droplet}}.}
 
 \item{all}{(logical) List all containers. Default: \code{TRUE}}
 
-\item{ssh_user}{(character) User account for ssh commands against droplet. Default: root}
+\item{ssh_user}{(character) User account for ssh commands against droplet.
+Default: root}
 
 \item{repo}{(character) Docker name, can be local to the Droplet or remote,
 e.g., \code{rocker/rstudio}}
@@ -144,7 +145,8 @@ to be unique)}
 \item{browse}{(logical) If \code{TRUE}, open RStudio instance in your default
 browser.}
 
-\item{add_users}{(logical) Add users or not when installing RStudio server. Default: FALSE}
+\item{add_users}{(logical) Add users or not when installing RStudio server.
+Default: FALSE}
 
 \item{path}{(character) Path to a directory with Shiny app files}
 }

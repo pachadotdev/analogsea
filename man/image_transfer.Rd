@@ -9,7 +9,8 @@ image_transfer(image, region, ...)
 \arguments{
 \item{image}{An image to modify.}
 
-\item{region}{(numeric) Required. The region slug that represents the region target.}
+\item{region}{(numeric) Required. The region slug that represents the
+region target.}
 
 \item{...}{Options passed on to httr::GET. Must be named, see examples.}
 }
