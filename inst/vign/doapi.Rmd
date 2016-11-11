@@ -19,17 +19,41 @@ Working with the Digital Ocean API
 
 ## Create a DO account
 
-If you don't already have one, [create a DO account](https://www.digitalocean.com/?refcode=0740f5169634). By using this link, you'll start with $10 in credits (enough for >600 hours of computing on a 1 gb machine), and if you become a digital ocean customer we'll get some DO credits for us to offset our costs for testing. Thanks :)
+If you don't already have one, [create a DO account](https://www.digitalocean.com/?refcode=0740f5169634). 
+By using this link, you'll start with $10 in credits (enough for >600 hours of 
+computing on a 1 gb machine), and if you become a digital ocean customer we'll 
+get some DO credits for us to offset our costs for testing. Thanks :)
 
 ## Authenticate
 
-The best way to authenticate is to generate a personal access token (https://cloud.digitalocean.com/settings/tokens/new) and save it in an environment variable called `DO_PAT`.  If you don't do this, you'll be prompted to authenticate in your browser the first time you use analogsea.
+The best way to authenticate is to generate a personal access token 
+(<https://cloud.digitalocean.com/settings/tokens/new>) and save it in an 
+environment variable called `DO_PAT`.  If you don't do this, you'll be prompted 
+to authenticate in your browser the first time you use analogsea.
 
-Make sure you provide digitial ocean your public key at https://cloud.digitalocean.com/ssh_keys. Github has some good advice on creating a new public key if you don't already have one: <https://help.github.com/articles/generating-ssh-keys/>.
+## SSH keys
+
+`analogsea` allows you to interact with your droplet(s) from R via SSH. To do 
+this you need to setup SSH keys with Digital Ocean. Make sure you provide Digitial 
+Ocean your public key at <https://cloud.digitalocean.com/ssh_keys>. GitHub has 
+some good advice on  creating a new public key if you don't already have one: 
+<https://help.github.com/articles/generating-ssh-keys/>.
+
+Note that when using ssh, you'll likely get warnings like 
+
+> The authenticity of host can't be established ...
+
+This is normal, don't be worried about this.
+
+Note that if you want to connect over SSH to a droplet you have to 
+create the droplet with an SSH key with the `ssh_keys` parameter. If you
+don't you can still interact with the droplet via the Digital Ocean API, 
+but you can't access the droplet over SSH. 
 
 ## Create a droplet
 
-`droplet_create()` will create a droplet on your account. You can run it as below without any inputs, and it will use sensible defaults:
+`droplet_create()` will create a droplet on your account. You can run it as 
+below without any inputs, and it will use sensible defaults:
 
 * The smallest memory size of 512mb
 * Ubuntu 14.04 box
@@ -39,7 +63,8 @@ Make sure you provide digitial ocean your public key at https://cloud.digitaloce
 * Don't allow backups
 * Don't allow private networking
 
-You can set all of thse options in your `.Rprofile` file like `options(do_size = "8gb")` for a default of 8 GB.
+You can set all of these options in your `.Rprofile` file like 
+`options(do_size = "8gb")` for a default of 8 GB.
 
 The name given to the droplet is picked at random from a list of 1000 random names.
 
@@ -49,18 +74,28 @@ You can of course set any of these parameters.
 droplet_create()
 ```
 
+You can also create many droplets at once:
+
+```{r}
+droplets_create()
+```
+
 ## Get a droplet or droplets
 
-Listing droplets can be done in singular or plural fashion. `droplet()` accepts a droplet ID, while `droplets()` list all droplets.
+Listing droplets can be done in singular or plural fashion. `droplet()` accepts 
+a droplet ID, while `droplets()` list all droplets.
 
-If you don't have any droplets yet, you will get an empty list running `droplets()`, and you of course can't pass in a droplet ID number to `droplet()` if you don't have any droplets yet.
+If you don't have any droplets yet, you will get an empty list running 
+`droplets()`, and you of course can't pass in a droplet ID number to `droplet()` 
+if you don't have any droplets yet.
 
 ```{r eval=FALSE}
 droplets()
 #> named list()
 ```
 
-After creating a droplet and running `droplets()` again, we see a list of our droplet(s)
+After creating a droplet and running `droplets()` again, we see a list of 
+our droplet(s)
 
 ```{r}
 (d <- droplets())
@@ -78,11 +113,25 @@ Get more detailed information on your droplet with `summary()`
 droplet(d[[1]]$id) %>% summary
 ```
 
+## Droplet details
+
+There is a `print.droplet()` method that is used to print a brief summary 
+of each droplet. 
+
+In addition, you can get a more detailed summary of a droplet by using 
+`summary()`. For example:
+
+```{r}
+
+```
+
 ## Actions on droplets
 
 ### Delete
 
-You can delete a droplet with `droplet_delete()`. Be careful, as this completely removes your droplet. Backup your droplet or make an image if you want to use the droplet later.
+You can delete a droplet with `droplet_delete()`. Be careful, as this completely 
+removes your droplet. Backup your droplet or make an image if you want to use 
+the droplet later.
 
 ```{r}
 droplet_create() %>%
@@ -91,7 +140,8 @@ droplet_create() %>%
 
 ### Actions
 
-List actions on a droplet, newer ones at the top. Here's list actions, then rename and list actions again.
+List actions on a droplet, newer ones at the top. Here's list actions, then 
+rename and list actions again.
 
 ```{r}
 droplets()[[1]] %>% droplet_actions()
@@ -103,13 +153,15 @@ droplets()[[1]] %>%
 
 ### Snapshot
 
-Making a snapshot of a droplet can be done with `droplet_snapshot()`. This action requires that you turn off the droplet first, then take the snapshot. First, create a droplet
+Making a snapshot of a droplet can be done with `droplet_snapshot()`. This action 
+requires that you turn off the droplet first, then take the snapshot. First, create a droplet
 
 ```{r}
 d <- droplet_create(size = "2gb")
 ```
 
-Then power off, and take a snapshot, which gives an action object describing that the snapshot is in progress.
+Then power off, and take a snapshot, which gives an action object describing 
+that the snapshot is in progress.
 
 ```{r}
 d %>%
@@ -120,7 +172,8 @@ d %>%
 
 ## Regions
 
-The `regions()` function lists region slug names, full names, available sizes, whether the region is available at all, and features.
+The `regions()` function lists region slug names, full names, available sizes,
+whether the region is available at all, and features.
 
 ```{r}
 regions()
@@ -128,7 +181,8 @@ regions()
 
 ## Sizes
 
-The `sizes()` function lists size slug names, associated memory, vcpus, disk size, prices, and regions where the size is available.
+The `sizes()` function lists size slug names, associated memory, vcpus, disk 
+size, prices, and regions where the size is available.
 
 ```{r}
 sizes()
@@ -136,7 +190,8 @@ sizes()
 
 ## Keys
 
-We suggest you use SSH keys to interact with Digital Ocean from `analogsea`. There are a variety of functions for working with SSH keys.
+We suggest you use SSH keys to interact with Digital Ocean from `analogsea`. 
+There are a variety of functions for working with SSH keys.
 
 List your keys
 
@@ -158,15 +213,21 @@ k <- key_rename(k, "new_name")
 key_delete(k)
 ```
 
+Note that if you're on Windows you may experience some problems connecting 
+over SSH. We hope to resolve these  problems as soon as possible.
+
 ## Images
 
-The `images()` function can list both your own private images, and public images. If `public=FALSE` only your private images are listed, while if `public=TRUE`, your private images are listed along with publicly avaialble images.
+The `images()` function can list both your own private images, and public images. 
+If `public=FALSE` only your private images are listed, while if `public=TRUE`, 
+your private images are listed along with publicly avaialble images.
 
 ```{r}
 images(public = TRUE, page = 4, per_page = 5)
 ```
 
-You can also do various actions on images. First, you can pass in an image ID to the `image()` function to get an image object.
+You can also do various actions on images. First, you can pass in an image ID to 
+the `image()` function to get an image object.
 
 ```{r}
 img <- images(per_page = 1)[[1]]
@@ -187,7 +248,8 @@ image(img$id) %>% image_transfer(region = "sfo1")
 
 ## Domains
 
-You can use domain names for your droplets on Digital Ocean. `analogsea` has a variety of functions to work with domain names.
+You can use domain names for your droplets on Digital Ocean. `analogsea` has 
+a variety of functions to work with domain names.
 
 List domain names
 
