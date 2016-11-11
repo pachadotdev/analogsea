@@ -87,6 +87,7 @@ docklet_create <- function(name = random_name(),
                            ipv6 = getOption("do_ipv6", NULL),
                            private_networking =
                              getOption("do_private_networking", NULL),
+                           tags = NULL,
                            wait = TRUE,
                            image = "docker",
                            ...) {
@@ -99,6 +100,7 @@ docklet_create <- function(name = random_name(),
     backups = backups,
     ipv6 = ipv6,
     private_networking = private_networking,
+    tags = tags,
     wait = wait,
     ...
   )

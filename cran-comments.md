@@ -1,8 +1,9 @@
 ## Test environments
 
-* local OS X install, R 3.3.1
-* ubuntu 12.04 (on travis-ci), R 3.3.1
+* local OS X install, R 3.3.2
+* ubuntu 12.04 (on travis-ci), R 3.3.2
 * win-builder (devel and release)
+* Rhub (Windows Server R-oldrel, Ubuntu Linux R-release, Fedora Linux R-devel)
 
 ## R CMD check results
 
@@ -20,7 +21,8 @@ There are no reverse dependencies.
 
 ---
 
-This release includes many new functions, and a number of bug fixes.
+This release includes many new functions, and some improved 
+documentation.
 
 Thanks!
 Scott Chamberlain

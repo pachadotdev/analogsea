@@ -1,3 +1,27 @@
+analogsea 0.5.0
+===============
+
+## NEW FEATURES
+
+* New function `docklets_create()` to create many docklets at once 
+(similar to `droplets_create()`)  (#120)
+* New volumes methods for the new block storage (aka volumes)
+<https://www.digitalocean.com/products/storage/>: `volume`, `volume_action`, 
+`volume_actions`, `volume_attach`, `volume_create`, `volume_delete`, `volume_detach`, 
+`volume_resize`, `volume_snapshot_create`, `volume_snapshots`, `volumes`, 
+`as.volume` (#121)
+* New methods for new unified snapshots DO endpoints: `snapshot`,
+`snapshots`, `snapshot_delete`, and `as.shapshot` (#121)
+
+## MINOR IMPROVEMENTS
+
+* You can now pass `tags` to the parameter of the same name when creating
+droplets, with either `droplet_create`, `droplets_create`, 
+`docklet_create`, or `docklets_create`. The tags can be existing ones,
+or if not they will be created (#122)
+* Added more help on ssh keys to pkg level man file and to vignette (#115)
+
+
 analogsea 0.4.0
 ===============
 

@@ -9,7 +9,7 @@ docklets_create(names = NULL, size = getOption("do_size", "1gb"),
   ssh_keys = getOption("do_ssh_keys", NULL),
   backups = getOption("do_backups", NULL), ipv6 = getOption("do_ipv6",
   NULL), private_networking = getOption("do_private_networking", NULL),
-  wait = TRUE, image = "docker", ...)
+  tags = NULL, wait = TRUE, image = "docker", ...)
 }
 \arguments{
 \item{names}{(character) Names of the droplets. The human-readable string
@@ -43,6 +43,9 @@ droplet.}
 \item{private_networking}{(logical) Use private networking. Private
 networking is currently only available in certain regions.
 Default: \code{FALSE}}
+
+\item{tags}{(character) A vector of tag names to apply to the Droplet after
+it is created. Tag names can either be existing or new tags.}
 
 \item{wait}{If \code{TRUE} (default), wait until droplet has been
 initialised and is ready for use. If set to \code{FALSE} we return a
