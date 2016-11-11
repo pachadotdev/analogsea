@@ -10,15 +10,15 @@ droplets_create(names = NULL, size = getOption("do_size", "512mb"),
   ssh_keys = getOption("do_ssh_keys", NULL),
   backups = getOption("do_backups", NULL), ipv6 = getOption("do_ipv6",
   NULL), private_networking = getOption("do_private_networking", NULL),
-  user_data = NULL, cloud_config = NULL, wait = TRUE, ...)
+  tags = NULL, user_data = NULL, cloud_config = NULL, wait = TRUE, ...)
 }
 \arguments{
-\item{names}{(character) Names of the droplets. The human-readable string you
-wish to use when displaying the Droplet name. The name, if set to a domain
-name managed in the DigitalOcean DNS management system, will configure a PTR
-record for the Droplet. The name set during creation will also determine
-the hostname for the Droplet in its internal configuration. Default: picks
-a random name from \code{\link{words}} if none supplied.}
+\item{names}{(character) Names of the droplets. The human-readable string
+you wish to use when displaying the Droplet name. The name, if set to
+a domain name managed in the DigitalOcean DNS management system, will
+configure a PTR record for the Droplet. The name set during creation will
+also determine the hostname for the Droplet in its internal configuration.
+Default: picks a random name from \code{\link{words}} if none supplied.}
 
 \item{size}{(character) Size slug identifier. See \code{\link{sizes}()} for
 a complete list. Default: 512mb, the smallest}
@@ -47,7 +47,11 @@ Default: FALSE}
 droplet.}
 
 \item{private_networking}{(logical) Use private networking. Private
-networking is currently only available in certain regions. Default: FALSE}
+networking is currently only available in certain regions.
+Default: \code{FALSE}}
+
+\item{tags}{(character) A vector of tag names to apply to the Droplet after
+it is created. Tag names can either be existing or new tags.}
 
 \item{user_data}{(character) Gets passed to the droplet at boot time. Not
 all regions have this enabled, and is not used by all images.}
@@ -58,15 +62,16 @@ user metadata. Setting this is best practice: the built-in templates
 use security best practices (disabling root log-in, security autoupdates)
 to make it harder to hack your droplet.}
 
-\item{wait}{If \code{TRUE} (default), wait until droplet has been initialised and
-is ready for use. If set to \code{FALSE} we return a droplet object right away
-after droplet creation request has been sent. Note that there won't be an IP
-address in the object yet. Note that waiting means we ping the DigitalOcean
-API to check on the status of your droplet, which uses up your API requests.
-The option \code{do.wait_time} can be set to any positive integer to
-determine how many seconds between pings. The default is 1 sec. Note that if
-you are creating droplets in a loop, parallel or otherwise, set
-\code{do.wait_time} within the loop instead of outside of it.}
+\item{wait}{If \code{TRUE} (default), wait until droplet has been
+initialised and is ready for use. If set to \code{FALSE} we return a
+droplet object right away after droplet creation request has been sent.
+Note that there won't be an IP address in the object yet. Note that
+waiting means we ping the DigitalOcean API to check on the status of your
+droplet, which uses up your API requests. The option \code{do.wait_time}
+can be set to any positive integer to determine how many seconds between
+pings. The default is 1 sec. Note that if you are creating droplets in a
+loop, parallel or otherwise, set \code{do.wait_time} within the loop
+instead of outside of it.}
 
 \item{...}{Additional options passed down to \code{\link[httr]{POST}}}
 }
@@ -74,12 +79,14 @@ you are creating droplets in a loop, parallel or otherwise, set
 Two or more droplet objects
 }
 \description{
-There are defaults for each of size, image, and region so that a quick one-liner with one
-parameter is possible: simply specify the name of the droplet and your'e up and running.
+There are defaults for each of size, image, and region so that a quick
+one-liner with one parameter is possible: simply specify the name of the
+droplet and your'e up and running.
 }
 \details{
-Note that if you exit the R session or kill the function call after it's
-in waiting process (the string of ...), the droplet creation will continue.
+Note that if you exit the R session or kill the function call
+after it's in waiting process (the string of ...), the droplet creation
+will continue.
 }
 \examples{
 \dontrun{
@@ -89,6 +96,10 @@ droplets_create()
 # give names
 droplets_create(names = c('drop1', 'drop2'))
 droplets_create(names = c('drop3', 'drop4'))
+
+# add tags
+(d <- droplets_create(tags = 'mystuff'))
+invisible(lapply(d, summary))
 }
 }
 

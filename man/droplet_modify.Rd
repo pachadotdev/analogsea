@@ -24,7 +24,8 @@ droplet_change_kernel(droplet, kernel, ...)
 
 \item{...}{Additional options passed down to low-level API method.}
 
-\item{image}{(optional) The image ID of the backup image that you would like to restore.}
+\item{image}{(optional) The image ID of the backup image that you would
+like to restore.}
 
 \item{name}{(character) The new name for the droplet}
 
@@ -37,13 +38,15 @@ These methods allow you to modify existing droplets.
 \describe{
 \item{resize}{Resize a specific droplet to a different size. This will
   affect the number of processors and memory allocated to the droplet.}
-\item{rebuild}{Reinstall a droplet with a default image. This is useful if you want
-  to start again but retain the same IP address for your droplet.}
+\item{rebuild}{Reinstall a droplet with a default image. This is useful
+  if you want to start again but retain the same IP address for your
+  droplet.}
 \item{rename}{Change the droplet name}
 \item{change_kernel}{Change kernel ID.}
 }
 
-Beware: \code{droplet_resize()} does not seem to work, see \code{resize()}
+Beware: \code{droplet_resize()} does not seem to work, see
+\code{resize()}
 }
 \examples{
 \dontrun{

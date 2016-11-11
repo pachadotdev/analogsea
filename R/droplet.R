@@ -74,6 +74,7 @@ summary.droplet <- function(object, ...) {
   cat("  Kernel: ", make_list(list(object$kernel)), "\n")
   cat("  Snapshots: ", unlist(object$snapshot_ids), "\n")
   cat("  Backups: ", unlist(object$backup_ids), "\n")
+  cat("  Tags: ", paste0(unlist(object$tags), collapse = ", "), "\n")
 }
 
 make_list <- function(y){

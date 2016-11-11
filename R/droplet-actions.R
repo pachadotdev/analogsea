@@ -1,15 +1,16 @@
 #' Create a new droplet.
 #'
-#' There are defaults for each of size, image, and region so that a quick one-liner with one
-#' parameter is possible: simply specify the name of the droplet and your'e up and running.
+#' There are defaults for each of size, image, and region so that a quick
+#' one-liner with one parameter is possible: simply specify the name of the
+#' droplet and your'e up and running.
 #'
 #' @export
 #' @param name (character) Name of the droplet. The human-readable string you
 #'   wish to use when displaying the Droplet name. The name, if set to a domain
-#'   name managed in the DigitalOcean DNS management system, will configure a PTR
-#'   record for the Droplet. The name set during creation will also determine
-#'   the hostname for the Droplet in its internal configuration. Default: picks
-#'   a random name from \code{\link{words}} if none supplied.
+#'   name managed in the DigitalOcean DNS management system, will configure a
+#'   PTR record for the Droplet. The name set during creation will also
+#'   determine the hostname for the Droplet in its internal configuration.
+#'   Default: picks a random name from \code{\link{words}} if none supplied.
 #' @param size (character) Size slug identifier. See \code{\link{sizes}()} for
 #'   a complete list. Default: 512mb, the smallest
 #' @param image (character/numeric) The image ID of a public or private image,
@@ -25,7 +26,10 @@
 #'   See \code{\link{keys}()} for a list of the keys that you've added.
 #'   Default: NULL.
 #' @param private_networking (logical) Use private networking. Private
-#'   networking is currently only available in certain regions. Default: FALSE
+#'   networking is currently only available in certain regions.
+#'   Default: \code{FALSE}
+#' @param tags (character) A vector of tag names to apply to the Droplet after
+#'   it is created. Tag names can either be existing or new tags.
 #' @param backups (logical) Enable backups. A boolean indicating whether
 #'   automated backups should be enabled for the droplet. Automated backups can
 #'   only be enabled when the droplet is created, and cost extra.
@@ -39,28 +43,42 @@
 #'   user metadata. Setting this is best practice: the built-in templates
 #'   use security best practices (disabling root log-in, security autoupdates)
 #'   to make it harder to hack your droplet.
-#' @param wait If \code{TRUE} (default), wait until droplet has been initialised and
-#'   is ready for use. If set to \code{FALSE} we return a droplet object right away
-#'   after droplet creation request has been sent. Note that there won't be an IP
-#'   address in the object yet. Note that waiting means we ping the DigitalOcean
-#'   API to check on the status of your droplet, which uses up your API requests.
-#'   The option \code{do.wait_time} can be set to any positive integer to
-#'   determine how many seconds between pings. The default is 1 sec. Note that if
-#'   you are creating droplets in a loop, parallel or otherwise, set
-#'   \code{do.wait_time} within the loop instead of outside of it.
+#' @param wait If \code{TRUE} (default), wait until droplet has been
+#' initialised and is ready for use. If set to \code{FALSE} we return a
+#' droplet object right away after droplet creation request has been sent.
+#' Note that there won't be an IP address in the object yet. Note that
+#' waiting means we ping the DigitalOcean API to check on the status of your
+#' droplet, which uses up your API requests. The option \code{do.wait_time}
+#' can be set to any positive integer to determine how many seconds between
+#' pings. The default is 1 sec. Note that if you are creating droplets in a
+#' loop, parallel or otherwise, set \code{do.wait_time} within the loop
+#' instead of outside of it.
 #'
 #' @param ... Additional options passed down to \code{\link[httr]{POST}}
 #'
-#' @details Note that if you exit the R session or kill the function call after it's
-#' in waiting process (the string of ...), the droplet creation will continue.
+#' @details Note that if you exit the R session or kill the function call
+#' after it's in waiting process (the string of ...), the droplet creation
+#' will continue.
 #'
 #' @return A droplet object
 #'
 #' @examples \dontrun{
+#' # by default we give your droplet a name
 #' droplet_create()
+#'
+#' # you can set your own droplet name
 #' droplet_create('droppinit')
-#' droplet_create(name="newdrop", size = '512mb', image = 'ubuntu-14-04-x64', region = 'sfo1')
+#'
+#' # set name, size, image, and region
+#' droplet_create(name="newdrop", size = '512mb', image = 'ubuntu-14-04-x64',
+#'   region = 'sfo1')
+#'
+#' # use an ssh key
 #' droplet_create(ssh_keys=89103)
+#'
+#' # add tags
+#' (d <- droplet_create(tags = c('venus', 'mars')))
+#' summary(d)
 #' }
 droplet_create <- function(name = random_name(),
                         size = getOption("do_size", "512mb"),
@@ -69,7 +87,9 @@ droplet_create <- function(name = random_name(),
                         ssh_keys = getOption("do_ssh_keys", NULL),
                         backups = getOption("do_backups", NULL),
                         ipv6 = getOption("do_ipv6", NULL),
-                        private_networking = getOption("do_private_networking", NULL),
+                        private_networking =
+                          getOption("do_private_networking", NULL),
+                        tags = NULL,
                         user_data = NULL,
                         cloud_config = NULL,
                         wait = TRUE,
@@ -102,6 +122,7 @@ droplet_create <- function(name = random_name(),
                    backups = unbox(backups),
                    ipv6 = unbox(ipv6),
                    private_networking = unbox(private_networking),
+                   tags = I(tags),
                    user_data = unbox(user_data)
                  ), ...
   )
@@ -126,7 +147,8 @@ random_name <- function(){
 
 capwords <- function(s, strict = FALSE, onlyfirst = FALSE) {
   cap <- function(s) paste(toupper(substring(s, 1, 1)), {
-    s <- substring(s,2); if (strict) tolower(s) else s}, sep = "", collapse = " " )
+    s <- substring(s,2); if (strict) tolower(s) else s}, sep = "",
+    collapse = " " )
   if (!onlyfirst) {
     sapply(strsplit(s, split = " "), cap, USE.NAMES = !is.null(names(s)))
   } else {
@@ -316,15 +338,17 @@ droplet_action <- function(action, droplet, ...) {
 #' \describe{
 #' \item{resize}{Resize a specific droplet to a different size. This will
 #'   affect the number of processors and memory allocated to the droplet.}
-#' \item{rebuild}{Reinstall a droplet with a default image. This is useful if you want
-#'   to start again but retain the same IP address for your droplet.}
+#' \item{rebuild}{Reinstall a droplet with a default image. This is useful
+#'   if you want to start again but retain the same IP address for your
+#'   droplet.}
 #' \item{rename}{Change the droplet name}
 #' \item{change_kernel}{Change kernel ID.}
 #' }
 #'
 #' @inheritParams droplet_delete
 #' @param size (character) Size slug (name) of the image size. See \code{sizes}
-#' @details Beware: \code{droplet_resize()} does not seem to work, see \code{resize()}
+#' @details Beware: \code{droplet_resize()} does not seem to work, see
+#' \code{resize()}
 #' @examples \dontrun{
 #' droplets()[[1]] %>% droplet_rename(name='newname')
 #' }
@@ -339,7 +363,8 @@ droplet_resize <- function(droplet, size, ...) {
 
 #' @export
 #' @rdname droplet_modify
-#' @param image (optional) The image ID of the backup image that you would like to restore.
+#' @param image (optional) The image ID of the backup image that you would
+#' like to restore.
 droplet_rebuild <- function(droplet, image, ...) {
   droplet_action("rebuild", droplet, image = jsonlite::unbox(image), ...)
 }
@@ -372,10 +397,12 @@ droplet_change_kernel <- function(droplet, kernel, ...) {
 #'   sure you have backed up any necessary information prior to restore.}
 #' }
 #'
-#' @param droplet A droplet number or the result from a call to \code{droplets()}
+#' @param droplet A droplet number or the result from a call to
+#' \code{droplets()}
 #' @param name (character) Optional. Name of the new snapshot you want to
-#'   create. If not set, the  snapshot name will default to the current date/time
-#' @param image (optional) The image ID of the backup image that you would like to restore.
+#' create. If not set, the  snapshot name will default to the current date/time
+#' @param image (optional) The image ID of the backup image that you would like
+#' to restore.
 #' @param ... Additional options passed down to \code{\link[httr]{POST}}
 #' @examples \dontrun{
 #' d <- droplet_create()
@@ -459,7 +486,7 @@ droplet_upgrades_list <- function(...) do_GET('droplet_upgrades', ...)
 #' }
 droplet_actions <- function(droplet, actionid = NULL, ...) {
   droplet <- as.droplet(droplet)
-  path <- if(is.null(actionid))
+  path <- if (is.null(actionid))
     sprintf('droplets/%s/actions', droplet$id)
   else
     sprintf('droplets/%s/actions/%s', droplet$id, actionid)
