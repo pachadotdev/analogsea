@@ -6,9 +6,9 @@
   toset <- !(names(op.do) %in% names(op))
   if (any(toset)) options(op.do[toset])
 
-  data("words")
-  data("adjectives")
-  data("nouns")
+  utils::data("words")
+  utils::data("adjectives")
+  utils::data("nouns")
 
   invisible()
 }
