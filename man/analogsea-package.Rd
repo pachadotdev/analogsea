@@ -2,8 +2,8 @@
 % Please edit documentation in R/analogsea-package.R
 \docType{package}
 \name{analogsea-package}
-\alias{analogsea}
 \alias{analogsea-package}
+\alias{analogsea}
 \title{R client for Digital Ocean}
 \description{
 This package is an R client for Digital Ocean's RESTful API,
@@ -37,6 +37,7 @@ create the droplet with an SSH key with the \code{ssh_keys} parameter.
 If you don't you can still interact with the droplet via the Digital
 Ocean API, but you can't access the droplet over SSH.
 }
+
 \author{
 Scott Chamberlain \email{myrmecocystus@gmail.com}
 
@@ -47,4 +48,3 @@ Winston Chang \email{winston@stdout.org}
 Bob Rudis \email{bob@rudis.net}
 }
 \keyword{package}
-

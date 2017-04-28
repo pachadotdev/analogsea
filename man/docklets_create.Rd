@@ -81,4 +81,3 @@ docklets_create(names = c('drop1', 'drop2'))
 docklets_create(names = c('drop3', 'drop4'))
 }
 }
-

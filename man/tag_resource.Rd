@@ -34,4 +34,3 @@ tag_resource("stuffthings", resources = list(list(resource_id = d$id,
   resource_type = "droplet")))
 }
 }
-

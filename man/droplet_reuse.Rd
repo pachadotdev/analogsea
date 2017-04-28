@@ -34,4 +34,3 @@ droplet_reuse(name = 'hadleyverse1', size = "1gb")
 droplet_reuse(name = 'tablesandchairs')
 }
 }
-

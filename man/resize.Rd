@@ -35,4 +35,3 @@ d # current size is 512mb
 d \%>\% resize(size = "2gb")
 }
 }
-

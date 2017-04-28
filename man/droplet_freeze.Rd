@@ -41,4 +41,3 @@ droplet_create(region = 'nyc3') \%>\% droplet_freeze()
 droplet_thaw(image='chiromantical-1412718795', region='nyc3')
 }
 }
-

@@ -30,4 +30,3 @@ account:
 
 Using \code{DO_PAT} is recommended.
 }
-

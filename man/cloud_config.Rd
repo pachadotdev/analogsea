@@ -29,4 +29,3 @@ cat(cloud_config("ubuntu"))
 }
 }
 \keyword{internal}
-

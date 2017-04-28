@@ -102,4 +102,3 @@ droplets_create(names = c('drop3', 'drop4'))
 invisible(lapply(d, summary))
 }
 }
-

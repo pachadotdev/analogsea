@@ -28,4 +28,3 @@ tag_resource(name = "pluto", resource_id = d$id)
 droplet_do_actions(name = "pluto", type = "power_on")
 }
 }
-

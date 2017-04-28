@@ -18,4 +18,3 @@ Wait for a droplet to be ready.
 droplet_create() \%>\% droplet_wait()
 }
 }
-

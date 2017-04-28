@@ -25,4 +25,3 @@ Get all the available sizes that can be used to create a droplet.
 sizes()
 }
 }
-

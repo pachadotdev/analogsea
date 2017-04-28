@@ -24,4 +24,3 @@ Rename a tag
 tag_rename("helloworld", "hellohello")
 }
 }
-

@@ -21,4 +21,3 @@ d <- droplet_create()
 droplet_actions(d)[[1]]$id \%>\% action()
 }
 }
-

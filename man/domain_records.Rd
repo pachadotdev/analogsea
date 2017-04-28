@@ -2,12 +2,12 @@
 % Please edit documentation in R/domain-records.R
 \name{as.domain_record}
 \alias{as.domain_record}
-\alias{as.domain_record.domain_record}
 \alias{as.domain_record.list}
+\alias{as.domain_record.domain_record}
 \alias{as.url.domain_record}
+\alias{domain_records}
 \alias{domain_record_create}
 \alias{domain_record_delete}
-\alias{domain_records}
 \title{List, create and delete domain records.}
 \usage{
 as.domain_record(x, domain)
@@ -63,4 +63,3 @@ domain_records(d)
 domain_record_delete(dr)
 }
 }
-

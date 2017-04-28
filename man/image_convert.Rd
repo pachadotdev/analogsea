@@ -22,4 +22,3 @@ img <- images(TRUE)[[1]]
 # image_convert(img)
 }
 }
-

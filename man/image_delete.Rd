@@ -29,4 +29,3 @@ image_delete(5620385)
 # lapply(images(TRUE), image_delete)
 }
 }
-

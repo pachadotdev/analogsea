@@ -23,4 +23,3 @@ image_transfer(image=images(TRUE)[[1]], region='nyc2')
 image_transfer(image=images(TRUE)[[1]], region='ams2')
 }
 }
-

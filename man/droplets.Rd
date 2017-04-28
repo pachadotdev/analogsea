@@ -33,4 +33,3 @@ tag_resource(name = "stuffthings", resource_id = d$id,
 droplets(tag = "stuffthings")
 }
 }
-

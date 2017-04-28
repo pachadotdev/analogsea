@@ -21,4 +21,3 @@ Get list of regions and their metadata
 regions()
 }
 }
-

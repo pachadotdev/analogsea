@@ -108,4 +108,3 @@ droplet_create(ssh_keys=89103)
 summary(d)
 }
 }
-

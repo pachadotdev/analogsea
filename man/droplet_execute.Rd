@@ -37,4 +37,3 @@ results$numbers
 droplet_delete(d)
 }
 }
-

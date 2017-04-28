@@ -22,4 +22,3 @@ Delete a tag
 tag_delete(name = "helloworld")
 }
 }
-

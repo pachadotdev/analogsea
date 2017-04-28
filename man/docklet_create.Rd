@@ -2,17 +2,17 @@
 % Please edit documentation in R/docklet.R
 \name{docklet_create}
 \alias{docklet_create}
-\alias{docklet_docker}
-\alias{docklet_images}
 \alias{docklet_ps}
+\alias{docklet_images}
 \alias{docklet_pull}
+\alias{docklet_run}
+\alias{docklet_stop}
 \alias{docklet_rm}
+\alias{docklet_docker}
 \alias{docklet_rstudio}
 \alias{docklet_rstudio_addusers}
-\alias{docklet_run}
-\alias{docklet_shinyapp}
 \alias{docklet_shinyserver}
-\alias{docklet_stop}
+\alias{docklet_shinyapp}
 \title{Docklets: docker on droplets.}
 \usage{
 docklet_create(name = random_name(), size = getOption("do_size", "1gb"),
@@ -197,4 +197,3 @@ d \%>\% droplet_upload(path2, "/srv/shinyapps/mpg") # then go to browser
 \seealso{
 \code{\link{docklets_create}}
 }
-

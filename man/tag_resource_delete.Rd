@@ -36,4 +36,3 @@ tag_resource_delete(name = "stuffthings", resource_id = d$id,
   resource_type = "droplet")
 }
 }
-

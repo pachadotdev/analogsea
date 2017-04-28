@@ -2,16 +2,16 @@
 % Please edit documentation in R/droplet-actions.R
 \name{droplet_action}
 \alias{droplet_action}
-\alias{droplet_disable_backups}
-\alias{droplet_enable_backups}
-\alias{droplet_enable_ipv6}
-\alias{droplet_enable_private_networking}
+\alias{droplet_reboot}
 \alias{droplet_power_cycle}
+\alias{droplet_shutdown}
 \alias{droplet_power_off}
 \alias{droplet_power_on}
-\alias{droplet_reboot}
 \alias{droplet_reset_password}
-\alias{droplet_shutdown}
+\alias{droplet_enable_ipv6}
+\alias{droplet_enable_private_networking}
+\alias{droplet_enable_backups}
+\alias{droplet_disable_backups}
 \alias{droplet_upgrade}
 \title{Perform various actions on a droplet.}
 \usage{
@@ -79,4 +79,3 @@ d \%>\% droplet_enable_backups()
 d \%>\% summary
 }
 }
-

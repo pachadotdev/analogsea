@@ -3,11 +3,11 @@
 \name{debian}
 \alias{debian}
 \alias{debian_add_swap}
-\alias{debian_apt_get_install}
-\alias{debian_apt_get_update}
 \alias{debian_install_r}
 \alias{debian_install_rstudio}
 \alias{debian_install_shiny}
+\alias{debian_apt_get_update}
+\alias{debian_apt_get_install}
 \alias{install_r_package}
 \title{Helpers for managing a debian droplets.}
 \usage{
@@ -60,4 +60,3 @@ d \%>\% install_r_package("RCurl")
 droplet_delete(d)
 }
 }
-

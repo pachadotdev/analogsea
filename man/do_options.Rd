@@ -59,4 +59,3 @@ getOption('do_image')
 getOption('do_region')
 }
 }
-
