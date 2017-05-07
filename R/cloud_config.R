@@ -23,7 +23,7 @@ cloud_config <- function(name, ssh_keys = NULL) {
   config <- yaml::yaml.load_file(path)
 
   # Insert keys
-  ssh_keys <- lapply(standardise_keys(ssh_keys), as.key)
+  ssh_keys <- lapply(standardise_keys(ssh_keys), as.sshkey)
   public <- pluck(ssh_keys, "public_key", "character")
 
   config$users[[1]]$`ssh-authorized-keys` <- public
