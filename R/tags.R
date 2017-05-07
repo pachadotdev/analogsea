@@ -27,17 +27,16 @@ tag_delete <- function(name, ...) {
 
 #' Rename a tag
 #'
+#' THIS FUNCTION IS DEFUNCT
+#'
 #' @export
-#' @param name (character) Name of the tag
-#' @param name_new (character) New name of the tag
-#' @param ... Additional options passed down to \code{\link[httr]{PUT}}
-#' @return A tag object
-#' @examples \dontrun{
-#' tag_rename("helloworld", "hellohello")
-#' }
-tag_rename <- function(name, name_new, ...) {
-  as.tag(do_PUT(url = paste0('tags/', name), body = list(name = name_new),
-                encode = NULL, ...))
+#' @rdname tag_rename-defunct
+#' @keywords internal
+tag_rename <- function(...) {
+  .Defunct(
+    package = "analogsea",
+    msg = "DigitalOcean removed this functionality from their API"
+  )
 }
 
 #' Tag a resource
