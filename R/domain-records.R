@@ -114,7 +114,7 @@ domain_record_update <- function(domain_record, type = NULL, name = NULL,
                 body = list(type = type, data = data, name = name,
                             priority = priority, port = port, ttl = ttl,
                             weight = weight),
-                encode = "multipart", verbose())
+                encode = "multipart", ...)
   as.domain_record(res, domain = domain)
 }
 
