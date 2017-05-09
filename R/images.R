@@ -82,7 +82,7 @@ as.url.image <- function(x, ...) {
 #'
 #' @export
 #' @param image An image to modify.
-#' @param name (characer) New name for image.
+#' @param name (character) New name for image.
 #' @param ... Options passed on to httr::GET. Must be named, see examples.
 #' @examples \dontrun{
 #' image_delete(5620385)

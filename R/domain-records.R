@@ -52,7 +52,7 @@ as.url.domain_record <- function(x, ...) {
 #' defines the time frame that clients can cache queried information before
 #' a refresh should be requested. If not set, default is 1800
 #' @param weight (integer) Required for 'SRV' records
-#' @param domain_record A domain record, or anythingn coercable to one
+#' @param domain_record A domain record, or anything coercible to one
 #' @param domain_record_id (numeric/integer) A domain record ID
 #' @param x Domain record.
 #' @param ... Further args passed on the curl call to the web.

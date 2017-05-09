@@ -61,7 +61,7 @@ a refresh should be requested. If not set, default is 1800}
 
 \item{weight}{(integer) Required for 'SRV' records}
 
-\item{domain_record}{A domain record, or anythingn coercable to one}
+\item{domain_record}{A domain record, or anything coercible to one}
 }
 \description{
 List, create, update, and delete domain records.

@@ -3,7 +3,7 @@
 #' @export
 #' @param droplet A droplet, or object that can be coerced to a droplet
 #'   by \code{\link{as.droplet}}.
-#' @param code Code to excute on a droplet.
+#' @param code Code to execute on a droplet.
 #' @param verbose (logical) Print messages. Default: \code{TRUE}
 #' @details Assumes that the droplet has R installed.
 #' @examples \dontrun{

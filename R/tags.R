@@ -16,7 +16,7 @@ tag_create <- function(name, ...) {
 #' @export
 #' @param name (character) Name of the tag
 #' @param ... Additional options passed down to \code{\link[httr]{DELETE}}
-#' @return nothing, if succesful
+#' @return nothing, if successful
 #' @examples \dontrun{
 #' tag_delete(name = "helloworld")
 #' }
