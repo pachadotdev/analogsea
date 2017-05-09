@@ -14,7 +14,7 @@ image_rename(image, name, ...)
 
 \item{...}{Options passed on to httr::GET. Must be named, see examples.}
 
-\item{name}{(characer) New name for image.}
+\item{name}{(character) New name for image.}
 }
 \description{
 There is no way to restore a deleted image so be careful and ensure your

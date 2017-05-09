@@ -47,7 +47,7 @@ Attach a volume to a droplet
 }
 \details{
 Note that there is a way to attach a volume to or remove from a
-droplet by name, but we only support doing this by ID. Howevever, as
+droplet by name, but we only support doing this by ID. However, as
 the user, all you need to do is make a volume class object via
 \code{\link{as.volume}} and pass it to \code{volume_attach} or
 \code{volume_detach}, which is pretty darn easy.
