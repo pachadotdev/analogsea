@@ -25,10 +25,12 @@ domain_records(domain, ...)
 domain_record(domain, domain_record_id, ...)
 
 domain_record_create(domain, type, name = NULL, data = NULL,
-  priority = NULL, port = NULL, ttl = NULL, weight = NULL, ...)
+  priority = NULL, port = NULL, ttl = NULL, weight = NULL,
+  flags = NULL, tag = NULL, ...)
 
 domain_record_update(domain_record, type = NULL, name = NULL, data = NULL,
-  priority = NULL, port = NULL, ttl = NULL, weight = NULL, ...)
+  priority = NULL, port = NULL, ttl = NULL, weight = NULL,
+  flags = NULL, tag = NULL, ...)
 
 domain_record_delete(domain_record, ...)
 }
@@ -60,6 +62,12 @@ defines the time frame that clients can cache queried information before
 a refresh should be requested. If not set, default is 1800}
 
 \item{weight}{(integer) Required for 'SRV' records}
+
+\item{flags}{(integer) An unsigned integer between 0-255 used for
+CAA records}
+
+\item{tag}{(character) The parameter tag for CAA records. Valid values are
+"issue", "wildissue", or "iodef"}
 
 \item{domain_record}{A domain record, or anything coercible to one}
 }
