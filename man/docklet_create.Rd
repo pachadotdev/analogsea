@@ -24,7 +24,7 @@ docklet_create(name = random_name(), size = getOption("do_size", "1gb"),
 
 docklet_ps(droplet, all = TRUE, ssh_user = "root")
 
-docklet_images(droplet, ssh_user = "root")
+docklet_images(droplet, all = TRUE, ssh_user = "root")
 
 docklet_pull(droplet, repo, ssh_user = "root")
 
@@ -111,7 +111,7 @@ combined and applied to docker statement.}
 \item{droplet}{A droplet, or something that can be coerced to a droplet by
 \code{\link{as.droplet}}.}
 
-\item{all}{(logical) List all containers. Default: \code{TRUE}}
+\item{all}{(logical) List all containers or images. Default: \code{TRUE}}
 
 \item{ssh_user}{(character) User account for ssh commands against droplet.
 Default: root}
@@ -170,14 +170,20 @@ and the port is the port you set in the function call.
 
 \examples{
 \dontrun{
-e <- docklet_create()
-d \%>\%
-  docklet_pull("eddelbuettel/ubuntu-r-base") \%>\%
-  docklet_images()
+d <- docklet_create()
+d \%>\% docklet_pull("dockerpinata/sqlite")
 d \%>\% docklet_images()
 
-d \%>\% docklet_run("eddelbuettel/ubuntu-r-base", "R --version", rm = TRUE)
+# sqlite
+d \%>\% docklet_run("dockerpinata/sqlite", "sqlite3 --version", rm = TRUE)
 d \%>\% docklet_ps()
+
+# cowsay
+d \%>\% docklet_pull("chuanwen/cowsay")
+d \%>\% docklet_run("chuanwen/cowsay", rm = TRUE)
+
+# docker images
+d \%>\% docklet_images()
 
 # Run a docklet containing rstudio
 d \%>\% docklet_rstudio()

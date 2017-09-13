@@ -13,7 +13,7 @@
 #' @inheritParams droplet_create
 #' @param droplet A droplet, or something that can be coerced to a droplet by
 #'   \code{\link{as.droplet}}.
-#' @param all (logical) List all containers. Default: \code{TRUE}
+#' @param all (logical) List all containers or images. Default: \code{TRUE}
 #' @param repo (character) Docker name, can be local to the Droplet or remote,
 #' e.g., \code{rocker/rstudio}
 #' @param rm (logical) Automatically remove the container when it exits.
@@ -53,14 +53,20 @@
 #'
 #' @examples
 #' \dontrun{
-#' e <- docklet_create()
-#' d %>%
-#'   docklet_pull("eddelbuettel/ubuntu-r-base") %>%
-#'   docklet_images()
+#' d <- docklet_create()
+#' d %>% docklet_pull("dockerpinata/sqlite")
 #' d %>% docklet_images()
 #'
-#' d %>% docklet_run("eddelbuettel/ubuntu-r-base", "R --version", rm = TRUE)
+#' # sqlite
+#' d %>% docklet_run("dockerpinata/sqlite", "sqlite3 --version", rm = TRUE)
 #' d %>% docklet_ps()
+#'
+#' # cowsay
+#' d %>% docklet_pull("chuanwen/cowsay")
+#' d %>% docklet_run("chuanwen/cowsay", rm = TRUE)
+#'
+#' # docker images
+#' d %>% docklet_images()
 #'
 #' # Run a docklet containing rstudio
 #' d %>% docklet_rstudio()
@@ -123,8 +129,8 @@ docklet_ps <- function(droplet, all = TRUE, ssh_user = "root") {
 
 #' @export
 #' @rdname docklet_create
-docklet_images <- function(droplet, ssh_user = "root") {
-  docklet_docker(droplet, "images", ssh_user = ssh_user)
+docklet_images <- function(droplet, all = TRUE, ssh_user = "root") {
+  docklet_docker(droplet, "images", if (all) "-a", ssh_user = ssh_user)
 }
 
 #' @export
@@ -162,7 +168,7 @@ docklet_rm <- function(droplet, container, ssh_user = "root") {
 #' @rdname docklet_create
 docklet_docker <- function(droplet, cmd, args = NULL, docker_args = NULL,
                            ssh_user = "root") {
-  args <- paste(args, collapse = "")
+  args <- paste(args, collapse = " ")
   droplet_ssh(
     droplet,
     user = ssh_user,
