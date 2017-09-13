@@ -24,12 +24,13 @@
 #'   vector of key ids, or NULL, to use all keys in your account. Accounts
 #'   with the corresponding private key will be able to log in to the droplet.
 #'   See \code{\link{keys}()} for a list of the keys that you've added.
-#'   Default: NULL.
+#'   Default: list()
 #' @param private_networking (logical) Use private networking. Private
 #'   networking is currently only available in certain regions.
 #'   Default: \code{FALSE}
 #' @param tags (character) A vector of tag names to apply to the Droplet after
 #'   it is created. Tag names can either be existing or new tags.
+#'   Default: list()
 #' @param backups (logical) Enable backups. A boolean indicating whether
 #'   automated backups should be enabled for the droplet. Automated backups can
 #'   only be enabled when the droplet is created, and cost extra.
@@ -84,12 +85,12 @@ droplet_create <- function(name = random_name(),
                         size = getOption("do_size", "512mb"),
                         image = getOption("do_image", "ubuntu-14-04-x64"),
                         region = getOption("do_region", "sfo1"),
-                        ssh_keys = getOption("do_ssh_keys", NULL),
+                        ssh_keys = getOption("do_ssh_keys", list()),
                         backups = getOption("do_backups", NULL),
                         ipv6 = getOption("do_ipv6", NULL),
                         private_networking =
                           getOption("do_private_networking", NULL),
-                        tags = NULL,
+                        tags = list(),
                         user_data = NULL,
                         cloud_config = NULL,
                         wait = TRUE,

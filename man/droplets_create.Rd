@@ -36,7 +36,7 @@ Default: sfo1}
 vector of key ids, or NULL, to use all keys in your account. Accounts
 with the corresponding private key will be able to log in to the droplet.
 See \code{\link{keys}()} for a list of the keys that you've added.
-Default: NULL.}
+Default: list()}
 
 \item{backups}{(logical) Enable backups. A boolean indicating whether
 automated backups should be enabled for the droplet. Automated backups can
@@ -51,7 +51,8 @@ networking is currently only available in certain regions.
 Default: \code{FALSE}}
 
 \item{tags}{(character) A vector of tag names to apply to the Droplet after
-it is created. Tag names can either be existing or new tags.}
+it is created. Tag names can either be existing or new tags.
+Default: list()}
 
 \item{user_data}{(character) Gets passed to the droplet at boot time. Not
 all regions have this enabled, and is not used by all images.}

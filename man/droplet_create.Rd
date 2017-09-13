@@ -7,10 +7,11 @@
 droplet_create(name = random_name(), size = getOption("do_size", "512mb"),
   image = getOption("do_image", "ubuntu-14-04-x64"),
   region = getOption("do_region", "sfo1"),
-  ssh_keys = getOption("do_ssh_keys", NULL),
+  ssh_keys = getOption("do_ssh_keys", list()),
   backups = getOption("do_backups", NULL), ipv6 = getOption("do_ipv6",
   NULL), private_networking = getOption("do_private_networking", NULL),
-  tags = NULL, user_data = NULL, cloud_config = NULL, wait = TRUE, ...)
+  tags = list(), user_data = NULL, cloud_config = NULL, wait = TRUE,
+  ...)
 }
 \arguments{
 \item{name}{(character) Name of the droplet. The human-readable string you
@@ -36,7 +37,7 @@ Default: sfo1}
 vector of key ids, or NULL, to use all keys in your account. Accounts
 with the corresponding private key will be able to log in to the droplet.
 See \code{\link{keys}()} for a list of the keys that you've added.
-Default: NULL.}
+Default: list()}
 
 \item{backups}{(logical) Enable backups. A boolean indicating whether
 automated backups should be enabled for the droplet. Automated backups can
@@ -51,7 +52,8 @@ networking is currently only available in certain regions.
 Default: \code{FALSE}}
 
 \item{tags}{(character) A vector of tag names to apply to the Droplet after
-it is created. Tag names can either be existing or new tags.}
+it is created. Tag names can either be existing or new tags.
+Default: list()}
 
 \item{user_data}{(character) Gets passed to the droplet at boot time. Not
 all regions have this enabled, and is not used by all images.}

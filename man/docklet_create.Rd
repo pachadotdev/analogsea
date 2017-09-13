@@ -17,10 +17,10 @@
 \usage{
 docklet_create(name = random_name(), size = getOption("do_size", "1gb"),
   region = getOption("do_region", "sfo1"),
-  ssh_keys = getOption("do_ssh_keys", NULL),
+  ssh_keys = getOption("do_ssh_keys", list()),
   backups = getOption("do_backups", NULL), ipv6 = getOption("do_ipv6",
   NULL), private_networking = getOption("do_private_networking", NULL),
-  tags = NULL, wait = TRUE, image = "docker", ...)
+  tags = list(), wait = TRUE, image = "docker", ...)
 
 docklet_ps(droplet, all = TRUE, ssh_user = "root")
 
@@ -70,7 +70,7 @@ Default: sfo1}
 vector of key ids, or NULL, to use all keys in your account. Accounts
 with the corresponding private key will be able to log in to the droplet.
 See \code{\link{keys}()} for a list of the keys that you've added.
-Default: NULL.}
+Default: list()}
 
 \item{backups}{(logical) Enable backups. A boolean indicating whether
 automated backups should be enabled for the droplet. Automated backups can
@@ -85,7 +85,8 @@ networking is currently only available in certain regions.
 Default: \code{FALSE}}
 
 \item{tags}{(character) A vector of tag names to apply to the Droplet after
-it is created. Tag names can either be existing or new tags.}
+it is created. Tag names can either be existing or new tags.
+Default: list()}
 
 \item{wait}{If \code{TRUE} (default), wait until droplet has been
 initialised and is ready for use. If set to \code{FALSE} we return a
@@ -153,12 +154,23 @@ Default: FALSE}
 
 \item{path}{(character) Path to a directory with Shiny app files}
 }
+\value{
+all functions return a droplet
+}
 \description{
 Docklets: docker on droplets.
 }
+\section{URLs}{
+
+If you need to figure out the URL for your RStudio or Shiny server
+instance, you can construct like \code{http://<ip address>:<port>} where
+IP address can most likely be found like \code{d$networks$v4[[1]]$ip_address}
+and the port is the port you set in the function call.
+}
+
 \examples{
 \dontrun{
-d <- docklet_create()
+e <- docklet_create()
 d \%>\%
   docklet_pull("eddelbuettel/ubuntu-r-base") \%>\%
   docklet_images()

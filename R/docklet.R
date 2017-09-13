@@ -42,9 +42,18 @@
 #' Default: FALSE
 #' @param path (character) Path to a directory with Shiny app files
 #' @seealso \code{\link{docklets_create}}
+#'
+#' @return all functions return a droplet
+#'
+#' @section URLs:
+#' If you need to figure out the URL for your RStudio or Shiny server
+#' instance, you can construct like \code{http://<ip address>:<port>} where
+#' IP address can most likely be found like \code{d$networks$v4[[1]]$ip_address}
+#' and the port is the port you set in the function call.
+#'
 #' @examples
 #' \dontrun{
-#' d <- docklet_create()
+#' e <- docklet_create()
 #' d %>%
 #'   docklet_pull("eddelbuettel/ubuntu-r-base") %>%
 #'   docklet_images()
@@ -82,12 +91,12 @@
 docklet_create <- function(name = random_name(),
                            size = getOption("do_size", "1gb"),
                            region = getOption("do_region", "sfo1"),
-                           ssh_keys = getOption("do_ssh_keys", NULL),
+                           ssh_keys = getOption("do_ssh_keys", list()),
                            backups = getOption("do_backups", NULL),
                            ipv6 = getOption("do_ipv6", NULL),
                            private_networking =
                              getOption("do_private_networking", NULL),
-                           tags = NULL,
+                           tags = list(),
                            wait = TRUE,
                            image = "docker",
                            ...) {
@@ -194,7 +203,7 @@ docklet_rstudio <- function(droplet,
     browseURL(url)
   }
 
-  invisible(url)
+  invisible(droplet)
 }
 
 #' @export
@@ -252,7 +261,7 @@ docklet_shinyserver <- function(droplet,
     browseURL(url)
   }
 
-  invisible(url)
+  invisible(droplet)
 }
 
 #' @export
