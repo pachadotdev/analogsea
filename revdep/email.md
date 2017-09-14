@@ -1,6 +1,6 @@
 Hi,
 
-This is an automated email to let you know about the release of {{{ my_package }}}, which I'll submit to CRAN on ({{{ date }}}).
+This is an automated email to let you know about the release of {{{ my_package }}}, which I'll submit to CRAN on {{{ date }}}.
 
 To check for potential problems, I ran `R CMD check` on your package {{{your_package}}} ({{{your_version}}}).
 
@@ -29,6 +29,5 @@ It looks like everything is ok, so you don't need to take any action, but you mi
 
 If you have any questions about this email, please feel free to respond directly.
 
-Regards,
-
+Best,
 {{{ me }}}
