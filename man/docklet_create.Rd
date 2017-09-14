@@ -185,6 +185,13 @@ d \%>\% docklet_run("chuanwen/cowsay", rm = TRUE)
 # docker images
 d \%>\% docklet_images()
 
+# install various R versions via Rocker
+d \%>\% docklet_pull("rocker/r-base")
+d \%>\% docklet_pull("rocker/r-devel")
+d \%>\% docklet_pull("rocker/r-ver:3.2")
+d \%>\% docklet_run("rocker/r-ver:3.2", "R --version", rm = TRUE)
+d \%>\% docklet_run("rocker/r-ver:3.2", "Rscript -e '2 + 3'", rm = TRUE)
+
 # Run a docklet containing rstudio
 d \%>\% docklet_rstudio()
 
