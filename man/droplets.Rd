@@ -28,8 +28,8 @@ droplets(per_page = 2, page = 2)
 # list droplets by tag
 tag_create(name = "stuffthings")
 d <- droplet_create()
-tag_resource(name = "stuffthings", resource_id = d$id, resource_type = "droplet")
+tag_resource(name = "stuffthings", resource_id = d$id,
+  resource_type = "droplet")
 droplets(tag = "stuffthings")
 }
 }
-

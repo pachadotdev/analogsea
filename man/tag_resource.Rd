@@ -28,8 +28,9 @@ Tag a resource
 \examples{
 \dontrun{
 d <- droplet_create()
-tag_resource(name = "stuffthings", resource_id = d$id, resource_type = "droplet")
-tag_resource("stuffthings", resources = list(list(resource_id = d$id, resource_type = "droplet")))
+tag_resource(name = "stuffthings", resource_id = d$id,
+  resource_type = "droplet")
+tag_resource("stuffthings", resources = list(list(resource_id = d$id,
+  resource_type = "droplet")))
 }
 }
-

@@ -10,7 +10,8 @@ resize(droplet, delete_original = TRUE, ...)
 \item{droplet}{A droplet, or something that can be coerced to a droplet by
 \code{\link{as.droplet}}.}
 
-\item{delete_original}{(logical) Delete original droplet. Default: \code{TRUE}}
+\item{delete_original}{(logical) Delete original droplet. Default:
+\code{TRUE}}
 
 \item{...}{Named options passed on to \code{\link{droplet_create}}.}
 }
@@ -34,4 +35,3 @@ d # current size is 512mb
 d \%>\% resize(size = "2gb")
 }
 }
-

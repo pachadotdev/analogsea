@@ -3,7 +3,8 @@
 #' @export
 #' @param droplet A droplet, or something that can be coerced to a droplet by
 #'   \code{\link{as.droplet}}.
-#' @param delete_original (logical) Delete original droplet. Default: \code{TRUE}
+#' @param delete_original (logical) Delete original droplet. Default:
+#' \code{TRUE}
 #' @param ... Named options passed on to \code{\link{droplet_create}}.
 #' @return A droplet
 #' @details Note that you can not resize a droplet while it is powered on.

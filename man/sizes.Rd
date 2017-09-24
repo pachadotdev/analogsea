@@ -14,7 +14,8 @@ sizes(page = 1, per_page = 25, ...)
 \item{...}{Named options passed on to \code{\link[httr]{GET}}.}
 }
 \value{
-A data.frame with available sizes (RAM, disk, no. CPU's) and their costs
+A data.frame with available sizes (RAM, disk, no. CPU's) and
+their costs
 }
 \description{
 Get all the available sizes that can be used to create a droplet.
@@ -24,4 +25,3 @@ Get all the available sizes that can be used to create a droplet.
 sizes()
 }
 }
-

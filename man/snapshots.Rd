@@ -2,9 +2,9 @@
 % Please edit documentation in R/snapshots.R
 \name{as.snapshot}
 \alias{as.snapshot}
+\alias{snapshots}
 \alias{snapshot}
 \alias{snapshot_delete}
-\alias{snapshots}
 \title{Snapshot operations}
 \usage{
 as.snapshot(x)
@@ -62,4 +62,3 @@ snapshot_delete(res[[2]]$name)
 lapply(snapshots(), snapshot_delete)
 }
 }
-

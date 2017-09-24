@@ -20,4 +20,3 @@ List all available kernels for a droplet.
 droplets()[[1]] \%>\% droplet_kernels_list
 }
 }
-

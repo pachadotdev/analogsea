@@ -2,7 +2,8 @@
 #'
 #' @export
 #' @inheritParams droplets
-#' @return A data.frame with available sizes (RAM, disk, no. CPU's) and their costs
+#' @return A data.frame with available sizes (RAM, disk, no. CPU's) and
+#' their costs
 #' @param ... Named options passed on to \code{\link[httr]{GET}}.
 #' @examples \dontrun{
 #' sizes()
@@ -12,7 +13,8 @@ sizes <- function(page = 1, per_page = 25, ...) {
   sizes <- res$sizes
 
   data.frame(
-    slug = vapply(pluck(sizes, "slug"), function(x) if (is.null(x)) "" else x, character(1)),
+    slug = vapply(
+    pluck(sizes, "slug"), function(x) if (is.null(x)) "" else x, character(1)),
     memory = pluck(sizes, "memory", numeric(1)),
     vcpus = pluck(sizes, "vcpus", numeric(1)),
     disk = pluck(sizes, "disk", numeric(1)),
@@ -20,7 +22,8 @@ sizes <- function(page = 1, per_page = 25, ...) {
     price_monthly = pluck(sizes, "price_monthly", numeric(1)),
     price_hourly = pluck(sizes, "price_hourly", numeric(1)),
     available = pluck(sizes, "available", logical(1)),
-    region = vapply(sizes, function(x) paste0(sort(unlist(x$regions) %||% ""), collapse = ", "),
+    region = vapply(sizes, function(x) paste0(sort(unlist(x$regions) %||% ""),
+                                              collapse = ", "),
       character(1)),
     stringsAsFactors = FALSE
   )

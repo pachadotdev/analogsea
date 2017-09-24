@@ -9,15 +9,15 @@ docklets_create(names = NULL, size = getOption("do_size", "1gb"),
   ssh_keys = getOption("do_ssh_keys", NULL),
   backups = getOption("do_backups", NULL), ipv6 = getOption("do_ipv6",
   NULL), private_networking = getOption("do_private_networking", NULL),
-  wait = TRUE, image = "docker", ...)
+  tags = NULL, wait = TRUE, image = "docker", ...)
 }
 \arguments{
-\item{names}{(character) Names of the droplets. The human-readable string you
-wish to use when displaying the Droplet name. The name, if set to a domain
-name managed in the DigitalOcean DNS management system, will configure a PTR
-record for the Droplet. The name set during creation will also determine
-the hostname for the Droplet in its internal configuration. Default: picks
-a random name from \code{\link{words}} if none supplied.}
+\item{names}{(character) Names of the droplets. The human-readable string
+you wish to use when displaying the Droplet name. The name, if set to
+a domain name managed in the DigitalOcean DNS management system, will
+configure a PTR record for the Droplet. The name set during creation will
+also determine the hostname for the Droplet in its internal configuration.
+Default: picks a random name from \code{\link{words}} if none supplied.}
 
 \item{size}{(character) Size slug identifier. See \code{\link{sizes}()} for
 a complete list. Default: 512mb, the smallest}
@@ -30,7 +30,7 @@ Default: sfo1}
 vector of key ids, or NULL, to use all keys in your account. Accounts
 with the corresponding private key will be able to log in to the droplet.
 See \code{\link{keys}()} for a list of the keys that you've added.
-Default: NULL.}
+Default: list()}
 
 \item{backups}{(logical) Enable backups. A boolean indicating whether
 automated backups should be enabled for the droplet. Automated backups can
@@ -41,17 +41,23 @@ Default: FALSE}
 droplet.}
 
 \item{private_networking}{(logical) Use private networking. Private
-networking is currently only available in certain regions. Default: FALSE}
+networking is currently only available in certain regions.
+Default: \code{FALSE}}
 
-\item{wait}{If \code{TRUE} (default), wait until droplet has been initialised and
-is ready for use. If set to \code{FALSE} we return a droplet object right away
-after droplet creation request has been sent. Note that there won't be an IP
-address in the object yet. Note that waiting means we ping the DigitalOcean
-API to check on the status of your droplet, which uses up your API requests.
-The option \code{do.wait_time} can be set to any positive integer to
-determine how many seconds between pings. The default is 1 sec. Note that if
-you are creating droplets in a loop, parallel or otherwise, set
-\code{do.wait_time} within the loop instead of outside of it.}
+\item{tags}{(character) A vector of tag names to apply to the Droplet after
+it is created. Tag names can either be existing or new tags.
+Default: list()}
+
+\item{wait}{If \code{TRUE} (default), wait until droplet has been
+initialised and is ready for use. If set to \code{FALSE} we return a
+droplet object right away after droplet creation request has been sent.
+Note that there won't be an IP address in the object yet. Note that
+waiting means we ping the DigitalOcean API to check on the status of your
+droplet, which uses up your API requests. The option \code{do.wait_time}
+can be set to any positive integer to determine how many seconds between
+pings. The default is 1 sec. Note that if you are creating droplets in a
+loop, parallel or otherwise, set \code{do.wait_time} within the loop
+instead of outside of it.}
 
 \item{image}{(character/numeric) The image ID of a public or private image,
 or the unique slug identifier for a public image. This image will be the
@@ -76,4 +82,3 @@ docklets_create(names = c('drop1', 'drop2'))
 docklets_create(names = c('drop3', 'drop4'))
 }
 }
-

@@ -2,12 +2,12 @@
 % Please edit documentation in R/volumes.R
 \name{as.volume}
 \alias{as.volume}
+\alias{volumes}
 \alias{volume}
 \alias{volume_create}
-\alias{volume_delete}
 \alias{volume_snapshot_create}
 \alias{volume_snapshots}
-\alias{volumes}
+\alias{volume_delete}
 \title{Block storage operations}
 \usage{
 as.volume(x)
@@ -102,4 +102,3 @@ volume_delete(res[[1]]$name)
 lapply(volumes(), volume_delete)
 }
 }
-

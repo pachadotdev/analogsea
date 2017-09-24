@@ -3,13 +3,14 @@
 \docType{data}
 \name{nouns}
 \alias{nouns}
-\title{Nouns to use for seeding random word selection when name not given for a droplet}
+\title{Nouns to use for seeding random word selection when name not given
+for a droplet}
 \description{
-Nouns to use for seeding random word selection when name not given for a droplet
+Nouns to use for seeding random word selection when name not given
+for a droplet
 }
 \details{
 A vector of 1000 nouns From the GitHub repo
 \url{https://github.com/dariusk/corpora} - the data is licensed CC0.
 }
 \keyword{data}
-

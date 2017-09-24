@@ -1,7 +1,7 @@
 ## Test environments
 
-* local OS X install, R 3.3.1
-* ubuntu 12.04 (on travis-ci), R 3.3.1
+* local OS X install, R 3.4.1 patched
+* ubuntu 12.04 (on travis-ci), R 3.4.1
 * win-builder (devel and release)
 
 ## R CMD check results
@@ -11,16 +11,18 @@
  License components with restrictions and base license permitting such:
      MIT + file LICENSE
    File 'LICENSE':
-     YEAR: 2016
+     YEAR: 2017
      COPYRIGHT HOLDER: Scott Chamberlain; RStudio
 
 ## Reverse dependencies
 
-There are no reverse dependencies.
+I have run R CMD check on the 1 reverse dependency. (Summary at https://github.com/sckott/analogsea/blob/master/revdep/README.md). No problems were found. The maintainer was notified of the release.
 
 ---
 
-This release includes many new functions, and a number of bug fixes.
+This release includes some new functions and some changed
+function names, as well as a number of small fixes and
+improvements.
 
 Thanks!
 Scott Chamberlain

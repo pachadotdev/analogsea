@@ -3,13 +3,14 @@
 \docType{data}
 \name{adjectives}
 \alias{adjectives}
-\title{Adjectives to use for seeding random word selection when name not given for a droplet}
+\title{Adjectives to use for seeding random word selection when name not given
+for a droplet}
 \description{
-Adjectives to use for seeding random word selection when name not given for a droplet
+Adjectives to use for seeding random word selection when name not given
+for a droplet
 }
 \details{
 A vector of 999 adjectives. From the GitHub repo
 \url{https://github.com/dariusk/corpora} - the data is licensed CC0.
 }
 \keyword{data}
-

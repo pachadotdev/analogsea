@@ -22,4 +22,3 @@ droplets_cost("FatedSpaghetti")
 droplets_cost(11877599)
 }
 }
-

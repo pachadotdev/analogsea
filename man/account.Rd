@@ -17,4 +17,3 @@ Get account information
 account()
 }
 }
-

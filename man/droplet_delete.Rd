@@ -40,4 +40,3 @@ droplets(tag = "foobar")
 droplet_delete(tag = "foobar")
 }
 }
-

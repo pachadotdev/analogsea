@@ -14,8 +14,8 @@ tag_resource_delete(name, resource_id = NULL, resource_type = "droplet",
 
 \item{resource_type}{(character) only "droplet" for now. Default: "droplet"}
 
-\item{resources}{(list) instead of \code{resource_id} and \code{resource_type}
-you can pass in a list to this parameter. see examples}
+\item{resources}{(list) instead of \code{resource_id} and
+\code{resource_type} you can pass in a list to this parameter. see examples}
 
 \item{...}{Additional options passed down to \code{\link[httr]{DELETE}}}
 }
@@ -28,10 +28,11 @@ Untag a resource
 \examples{
 \dontrun{
 d <- droplet_create()
-tag_resource(name = "stuffthings", resource_id = d$id, resource_type = "droplet")
+tag_resource(name = "stuffthings", resource_id = d$id,
+  resource_type = "droplet")
 ## same as this because only allowed resource type right now is "droplet"
 # tag_resource(name = "stuffthings", resource_id = d$id)
-tag_resource_delete(name = "stuffthings", resource_id = d$id, resource_type = "droplet")
+tag_resource_delete(name = "stuffthings", resource_id = d$id,
+  resource_type = "droplet")
 }
 }
-

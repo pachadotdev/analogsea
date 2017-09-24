@@ -17,4 +17,3 @@ List all droplets that are scheduled to be upgraded.
 droplet_upgrades_list()
 }
 }
-

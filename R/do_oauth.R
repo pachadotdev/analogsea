@@ -37,7 +37,8 @@ do_oauth <- function(app = do_app, reauth = FALSE) {
     endpt <- httr::oauth_endpoint(
       NULL, "authorize", "token",
       base_url = "https://cloud.digitalocean.com/v1/oauth")
-    token <- httr::oauth2.0_token(endpt, app, scope = c("read", "write"), cache = !reauth)
+    token <- httr::oauth2.0_token(endpt, app, scope = c("read", "write"),
+                                  cache = !reauth)
 
     auth_config <- httr::config(token = token)
   }

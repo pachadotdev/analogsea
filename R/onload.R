@@ -5,6 +5,5 @@
   )
   toset <- !(names(op.do) %in% names(op))
   if (any(toset)) options(op.do[toset])
-
   invisible()
 }

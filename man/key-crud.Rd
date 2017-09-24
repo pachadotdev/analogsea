@@ -3,8 +3,8 @@
 \name{key-crud}
 \alias{key-crud}
 \alias{key_create}
-\alias{key_delete}
 \alias{key_rename}
+\alias{key_delete}
 \title{Create, update, and delete ssh keys.}
 \usage{
 key_create(name, public_key, ...)
@@ -32,4 +32,3 @@ k <- key_rename(k, "new_name")
 key_delete(k)
 }
 }
-

@@ -9,9 +9,9 @@ droplet_do_actions(name, type, ...)
 \arguments{
 \item{name}{(character) Name of the tag. Required.}
 
-\item{type}{(character) action type, one of 'power_cycle', 'power_on', 'power_off',
-'shutdown', 'enable_private_networking', 'enable_ipv6', 'enable_backups',
-'disable_backups', or 'snapshot'. Required.}
+\item{type}{(character) action type, one of 'power_cycle', 'power_on',
+'power_off', 'shutdown', 'enable_private_networking', 'enable_ipv6',
+'enable_backups', 'disable_backups', or 'snapshot'. Required.}
 
 \item{...}{Additional options passed down to \code{\link[httr]{POST}}}
 }
@@ -28,4 +28,3 @@ tag_resource(name = "pluto", resource_id = d$id)
 droplet_do_actions(name = "pluto", type = "power_on")
 }
 }
-

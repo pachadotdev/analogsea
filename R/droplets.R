@@ -14,11 +14,13 @@
 #' # list droplets by tag
 #' tag_create(name = "stuffthings")
 #' d <- droplet_create()
-#' tag_resource(name = "stuffthings", resource_id = d$id, resource_type = "droplet")
+#' tag_resource(name = "stuffthings", resource_id = d$id,
+#'   resource_type = "droplet")
 #' droplets(tag = "stuffthings")
 #' }
 droplets <- function(..., page = 1, per_page = 25, tag = NULL) {
-  res <- do_GET("droplets", query = list(page = page, per_page = per_page, tag_name = tag), ...)
+  res <- do_GET("droplets", query = list(page = page, per_page = per_page,
+                                         tag_name = tag), ...)
   droplets <- lapply(res$droplets, structure, class = "droplet")
   setNames(droplets, vapply(res$droplets, function(x) x$name, character(1)))
 }

@@ -10,7 +10,7 @@ droplet_execute(droplet, code, verbose = TRUE)
 \item{droplet}{A droplet, or object that can be coerced to a droplet
 by \code{\link{as.droplet}}.}
 
-\item{code}{Code to excute on a droplet.}
+\item{code}{Code to execute on a droplet.}
 
 \item{verbose}{(logical) Print messages. Default: \code{TRUE}}
 }
@@ -37,4 +37,3 @@ results$numbers
 droplet_delete(d)
 }
 }
-

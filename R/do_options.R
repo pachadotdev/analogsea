@@ -3,23 +3,25 @@
 #' This function sets options and prints them so you know what options are set.
 #'
 #' @export
-#' @param size (optional) A Digital Ocean size slug name, e.g. '1gb'. Saved in options
-#' as 'do_size'
-#' @param image (optional) A Digital Ocean image name, e.g., 'ubuntu-14-04-x64'. Saved in
-#' options as 'do_image'
-#' @param region (optional) A Digital Ocean region name, e.g., 'nyc1'. Saved in options
-#' as 'do_region'
-#' @param ssh_keys (optional) One or more ssh key id numbers or fingerprints. Put many in
-#' a list or vector. Saved in options as 'do_ssh_keys'
-#' @param private_networking (optional) A logical, whether to use private networking or not.
-#' Saved in options as 'do_private_networking'
-#' @param backups (optional) A logical, whether to enable backups. Automated backups can
-#' only be enabled when the Droplet is created. Saved in options as 'do_backups'
-#' @param ipv6 (optional) A boolean indicating whether IPv6 is enabled on the Droplet.
-#' Saved in options as 'do_ipv6'
-#' @param unset (optional) A boolean. If TRUE, unsets options so as to use defaults in
-#' \code{\link{droplet_create}}. If \code{FALSE} (default) your options are used in
-#' \code{\link{droplet_create}}.
+#' @param size (optional) A Digital Ocean size slug name, e.g. '1gb'. Saved in
+#' options as 'do_size'
+#' @param image (optional) A Digital Ocean image name, e.g., 'ubuntu-14-04-x64'.
+#' Saved in options as 'do_image'
+#' @param region (optional) A Digital Ocean region name, e.g., 'nyc1'. Saved
+#' in options as 'do_region'
+#' @param ssh_keys (optional) One or more ssh key id numbers or fingerprints.
+#' Put many in a list or vector. Saved in options as 'do_ssh_keys'
+#' @param private_networking (optional) A logical, whether to use private
+#' networking or not. Saved in options as 'do_private_networking'
+#' @param backups (optional) A logical, whether to enable backups. Automated
+#' backups can only be enabled when the Droplet is created. Saved in options
+#' as 'do_backups'
+#' @param ipv6 (optional) A boolean indicating whether IPv6 is enabled on
+#' the Droplet. Saved in options as 'do_ipv6'
+#' @param unset (optional) A boolean. If TRUE, unsets options so as to use
+#' defaults in
+#' \code{\link{droplet_create}}. If \code{FALSE} (default) your options are
+#' used in \code{\link{droplet_create}}.
 #'
 #' @details
 #' These options are read and used by \code{\link{droplet_create}}.

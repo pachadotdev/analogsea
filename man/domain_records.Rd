@@ -2,13 +2,15 @@
 % Please edit documentation in R/domain-records.R
 \name{as.domain_record}
 \alias{as.domain_record}
-\alias{as.domain_record.domain_record}
 \alias{as.domain_record.list}
+\alias{as.domain_record.domain_record}
 \alias{as.url.domain_record}
-\alias{domain_record_create}
-\alias{domain_record_delete}
 \alias{domain_records}
-\title{List, create and delete domain records.}
+\alias{domain_record}
+\alias{domain_record_create}
+\alias{domain_record_update}
+\alias{domain_record_delete}
+\title{List, create, update, and delete domain records.}
 \usage{
 as.domain_record(x, domain)
 
@@ -20,47 +22,77 @@ as.domain_record(x, domain)
 
 domain_records(domain, ...)
 
+domain_record(domain, domain_record_id, ...)
+
 domain_record_create(domain, type, name = NULL, data = NULL,
-  priority = NULL, port = NULL, weight = NULL, ...)
+  priority = NULL, port = NULL, ttl = NULL, weight = NULL,
+  flags = NULL, tag = NULL, ...)
+
+domain_record_update(domain_record, type = NULL, name = NULL, data = NULL,
+  priority = NULL, port = NULL, ttl = NULL, weight = NULL,
+  flags = NULL, tag = NULL, ...)
 
 domain_record_delete(domain_record, ...)
 }
 \arguments{
 \item{x}{Domain record.}
 
-\item{domain}{(domain) Required. Domain Name (e.g. domain.com), specifies 
+\item{domain}{(domain) Required. Domain Name (e.g. domain.com), specifies
 the domain for which to create a record.}
 
 \item{...}{Further args passed on the curl call to the web.}
 
-\item{type}{(character) Required. The type of record you would like to 
+\item{domain_record_id}{(numeric/integer) A domain record ID}
+
+\item{type}{(character) Required. The type of record you would like to
 create. 'A', 'CNAME', 'NS', 'TXT', 'MX' or 'SRV'}
 
-\item{name}{(character) The host name, alias, or service being defined by 
+\item{name}{(character) The host name, alias, or service being defined by
 the record. Required for 'A', 'CNAME', 'TXT' and 'SRV' records}
 
-\item{data}{(character) Variable data depending on record type. Required 
+\item{data}{(character) Variable data depending on record type. Required
 for 'A', 'AAAA', 'CNAME', 'MX', 'TXT', 'SRV', and 'NS' records}
 
 \item{priority}{(integer) Required for 'SRV' and 'MX' records}
 
 \item{port}{(integer) Required for 'SRV' records}
 
+\item{ttl}{(numeric/integer) Time to live for the record, in seconds. This
+defines the time frame that clients can cache queried information before
+a refresh should be requested. If not set, default is 1800}
+
 \item{weight}{(integer) Required for 'SRV' records}
 
-\item{domain_record}{A domain record.}
+\item{flags}{(integer) An unsigned integer between 0-255 used for
+CAA records}
+
+\item{tag}{(character) The parameter tag for CAA records. Valid values are
+"issue", "wildissue", or "iodef"}
+
+\item{domain_record}{A domain record, or anything coercible to one}
 }
 \description{
-List, create and delete domain records.
+List, create, update, and delete domain records.
 }
 \examples{
 \dontrun{
-d <- domains()[[1]]
-domain_records(d)
+# list domains, then get domain records
+(d <- domains()[[1]])
+(rec <- domain_records(d))
 
-dr <- domain_record_create(d, "TXT", data = "Hi Mom!")
-domain_records(d)
+# create a domain
+dom <- domain_create('tablesandchairsbunnies.info', '107.170.220.59')
+## list domain records
+domain_records(dom)
+
+# create a domain record
+dr <- domain_record_create(dom, "CNAME", name = "helloworld", data = "@")
+domain_record(dom, dr$id)
+
+# update a domain record
+dru <- domain_record_update(domain_record = dr, name = "blog")
+
+# delete a domain record
 domain_record_delete(dr)
 }
 }
-

@@ -8,6 +8,9 @@ r:
   - release
   - devel
 
+github_packages:
+  - jimhester/covr
+
 after_success:
   - Rscript -e 'covr::codecov()'
 

@@ -15,4 +15,3 @@ rate_limit()
 }
 }
 \keyword{internal}
-

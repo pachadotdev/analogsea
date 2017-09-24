@@ -21,4 +21,3 @@ Retrieve an action associated with a particular image id.
 image_actions(5710271, 31221438)
 }
 }
-

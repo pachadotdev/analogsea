@@ -2,46 +2,46 @@ key_url <- function(key = NULL) {
   url("account", "keys", key)
 }
 #' @export
-as.url.key <- function(x, ...) {
+as.url.sshkey <- function(x, ...) {
   key_url(x$id)
 }
 
 #' List your ssh keys, or get a single key
 #'
 #' @export
-#' @param x For \code{key} the numeric id. For \code{as.key}, a number (the id),
-#'   a string (the name), or a key.
+#' @param x For \code{key} the numeric id. For \code{as.sshkey}, a number
+#' (the id), a string (the name), or a key.
 #' @inheritParams droplets
 #' @examples \dontrun{
 #' keys()
-#' as.key(328037)
-#' as.key("hadley")
+#' as.sshkey(328037)
+#' as.sshkey("hadley")
 #' }
 keys <- function(..., page = 1, per_page = 25) {
   res <- do_GET(key_url(), query = list(page = page, per_page = per_page), ...)
-  as.key(res)
+  as.sshkey(res)
 }
 
 #' @rdname keys
 #' @export
 key <- function(x, ...) {
-  as.key(do_GET(key_url(x), ...))
+  as.sshkey(do_GET(key_url(x), ...))
 }
 
 #' @rdname keys
 #' @export
-as.key <- function(x) UseMethod("as.key")
+as.sshkey <- function(x) UseMethod("as.sshkey")
 #' @export
-as.key.list <- function(x) list_to_object(x, "ssh_key", class = "key")
+as.sshkey.list <- function(x) list_to_object(x, "ssh_key", class = "sshkey")
 #' @export
-as.key.numeric <- function(x) key(x)
+as.sshkey.numeric <- function(x) key(x)
 #' @export
-as.key.character <- function(x) keys()[[x]]
+as.sshkey.character <- function(x) keys()[[x]]
 #' @export
-as.key.key <- function(x) x
+as.sshkey.sshkey <- function(x) x
 
 #' @export
-print.key <- function(x, ...) {
+print.sshkey <- function(x, ...) {
   cat("<key> ", x$name, " (", x$id, ")", "\n", sep = "")
   cat("  Fingerprint: ", x$fingerprint, "\n", sep = "")
 }
@@ -67,20 +67,20 @@ key_create <- function(name, public_key, ...) {
     name = name,
     public_key = public_key
   ), ...)
-  as.key(res)
+  as.sshkey(res)
 }
 
 #' @rdname key-crud
 #' @export
 key_rename <- function(key, name, ...) {
-  key <- as.key(key)
-  as.key(do_PUT(key, query = list(name = name), ...))
+  key <- as.sshkey(key)
+  as.sshkey(do_PUT(key, query = list(name = name), ...))
 }
 
 #' @rdname key-crud
 #' @export
 key_delete <- function(key, ...) {
-  key <- as.key(key)
+  key <- as.sshkey(key)
   do_DELETE(key, ...)
 }
 
@@ -107,7 +107,7 @@ standardise_keys <- function(ssh_keys = NULL) {
     names <- pluck(ssh_keys, "name", character(1))
     message("Using default ssh keys: ", paste0(names, collapse = ", "))
   } else if (is.character(ssh_keys)) {
-    ssh_keys <- lapply(ssh_keys, as.key)
+    ssh_keys <- lapply(ssh_keys, as.sshkey)
   } else {
     stop("Unknown specification for ssh_keys", call. = FALSE)
   }

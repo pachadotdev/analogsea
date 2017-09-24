@@ -12,7 +12,7 @@ tag_delete(name, ...)
 \item{...}{Additional options passed down to \code{\link[httr]{DELETE}}}
 }
 \value{
-nothing, if succesful
+nothing, if successful
 }
 \description{
 Delete a tag
@@ -22,4 +22,3 @@ Delete a tag
 tag_delete(name = "helloworld")
 }
 }
-

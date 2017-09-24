@@ -23,4 +23,3 @@ droplet_actions(2428384)
 droplet_actions(2428384, actionid=31223385)
 }
 }
-

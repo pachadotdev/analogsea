@@ -2,8 +2,8 @@
 % Please edit documentation in R/images.R
 \name{as.image}
 \alias{as.image}
-\alias{image}
 \alias{images}
+\alias{image}
 \title{Get list of images and their metadata, or a single image}
 \usage{
 as.image(x)
@@ -53,4 +53,3 @@ images(per_page = 3)
 images(per_page = 3, page = 2)
 }
 }
-

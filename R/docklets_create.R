@@ -19,7 +19,9 @@ docklets_create <- function(names = NULL,
                            ssh_keys = getOption("do_ssh_keys", NULL),
                            backups = getOption("do_backups", NULL),
                            ipv6 = getOption("do_ipv6", NULL),
-                           private_networking = getOption("do_private_networking", NULL),
+                           private_networking =
+                             getOption("do_private_networking", NULL),
+                           tags = NULL,
                            wait = TRUE,
                            image = "docker",
                            ...) {
@@ -32,6 +34,7 @@ docklets_create <- function(names = NULL,
     backups = backups,
     ipv6 = ipv6,
     private_networking = private_networking,
+    tags = tags,
     wait = wait,
     ...
   )
