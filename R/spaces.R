@@ -2,12 +2,41 @@ spaces_base <- "nyc3.digitaloceanspaces.com"
 
 check_space_access <- function(spaces_key) {
   tmp <- if (is.null(spaces_key)) Sys.getenv("DO_SPACES_ACCESS_KEY") else spaces_key
-  if (tmp == "") stop("Need a digital ocean spaces access key defined in your session") else tmp
+  if (tmp == "") stop("Need a digital ocean spaces access key defined in your session", call. = FALSE) else tmp
 }
 
 check_space_secret <- function(spaces_secret) {
   tmp <- if (is.null(spaces_secret)) Sys.getenv("DO_SPACES_SECRET_KEY") else spaces_secret
-  if (tmp == "") stop("Need a digital ocean spaces access key defined in your session") else tmp
+  if (tmp == "") stop("Need a digital ocean spaces access key defined in your session", call. = FALSE) else tmp
+}
+
+#' @param x Object to coerce to a space
+#' @export
+#' @rdname spaces
+as.space <- function(x) UseMethod("as.space")
+#' @export
+as.space.space <- function(x) x
+
+#' @export
+print.space <- function(x, ...) {
+  cat("<space>", x$Name, "\n", sep = "")
+  cat("  Created at: ", x$CreationDate, "\n")
+}
+
+#' @export
+summary.space <- function(object, ...) {
+  space_info <- space_info(name = object$Name, ...)
+
+  # obtain total size used by space
+  size <- space_size(space_info)
+
+  # obtain number of files in space
+  n_files <- space_files(space_info)
+
+  cat("<space_detail>", object$Name, "\n", sep = "")
+  cat("  Size (GB):    ", size, "\n")
+  cat("  Files:        ", n_files, "\n", sep = "")
+  cat("  Created at:   ", object$CreationDate, "\n")
 }
 
 #' Spaces storage operations
@@ -18,62 +47,91 @@ check_space_secret <- function(spaces_secret) {
 #'  \item{space_create}{Create a new space}
 #' }
 #'
-#' @param name (character) Name of the new space. Required.
-#' @param object (character) Name of the object you want to either save
-#'   to a space or load from a space.
-#' @param envir R environment to either save objects from or load objects
-#'   into.  Default is \code{parent.frame()} from which the function is called.
+#' @param name (character) Space name.
 #' @param spaces_key (character) String containing a spaces access key. If
-#'   missing, defaults to value stored in an environment variable \dQuote{DO_SPACES_ACCESS_KEY}.
+#'   missing, defaults to value stored in an environment variable \code{DO_SPACES_ACCESS_KEY}.
 #' @param spaces_secret (character) String containing the secret associated
 #'   with the spaces key. If missing, defaults to value stored in an environment
-#'   variable \dQuote{DO_SPACES_SECRET_KEY}.
-#' @param acl Access level to set for the space.  Choices are \dQuote{private}, meaning
-#'   only you will be able to list files in the space, or \dQuote{public}, meaning
-#'   anyone can list the files in your space.  Default is \dQuote{private}.
-#' @param ... Additional arguments passed down to \code{aws.s3} functions.
+#'   variable \code{DO_SPACES_SECRET_KEY}.
+#' @param ... Additional arguments passed down to \code{\link[aws.s3]{bucketlist}},
+#'   \code{\link[aws.s3]{get_bucket}}, \code{\link[aws.s3]{put_bucket}} functions.
 
-#' List all spaces in your digital ocean account
 #' @importFrom aws.s3 bucketlist
 #' @export
-spaces <- function(spaces_key = NULL, spaces_secret = NULL, ...) {
+#' @rdname spaces
+spaces_GET <- function(spaces_key = NULL, spaces_secret = NULL, ...) {
+
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)
 
-  bucketlist(region = NULL,
-             key = spaces_key,
-             secret = spaces_secret,
-             base_url = spaces_base)
+  res <- aws.s3::s3HTTP(verb = "GET",
+                        region = NULL,
+                        key = spaces_key,
+                        secret = spaces_secret,
+                        base_url = spaces_base,
+                        ...)
+
+  return(res)
 }
 
-#' List the contents of a space
+#' @export
+#' @rdname spaces
+spaces <- function(spaces_key = NULL, spaces_secret = NULL, ...) {
+
+  res <- spaces_GET(spaces_key = spaces_key, spaces_secret = spaces_secret, ...)
+  spaces <- lapply(res$Buckets, structure, class = "space")
+  setNames(spaces, vapply(res$Buckets, function(x) x$Name, character(1)))
+}
+
 #' @importFrom aws.s3 get_bucket
 #' @export
-space <- function(name, spaces_key = NULL, spaces_secret = NULL, ...) {
+#' @rdname spaces
+space_info <- function(name, spaces_key = NULL, spaces_secret = NULL, ...) {
   if (is.null(name)) stop("Please specify the space name")
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)
 
-  get_bucket(name,
-             region = NULL,
-             check_region = FALSE,
-             key = spaces_key,
-             secret = spaces_secret,
-             base_url = spaces_base)
+  space_info <- get_bucket(name,
+                           region = NULL,
+                           check_region = FALSE,
+                           key = spaces_key,
+                           secret = spaces_secret,
+                           base_url = spaces_base,
+                           max = Inf,
+                           ...)
+
+  return(space_info)
+}
+
+space_size <- function(space_info) {
+  # grab the sizes from each file (unit is bytes)
+  sizes <- vapply(space_info, function(x) x$Size, numeric(1))
+
+  # compute total size (convert to gb)
+  sum(sizes) * 1e-09
+}
+
+space_files <- function(space_info) {
+  # remove entries with size 0 (those are nested directories)
+  length(lapply(space_info, function(x) x[x$Size > 0]))
 }
 
 #' Create a new space
 #' @importFrom aws.s3 put_bucket
 #' @export
-space_create <- function(name, acl = "private", spaces_key = NULL, spaces_secret = NULL, ...) {
+#' @rdname spaces
+space_create <- function(name, spaces_key = NULL, spaces_secret = NULL, ...) {
   if (is.null(name)) stop("Please specify the space name")
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)
 
-  put_bucket(name,
+  res <- put_bucket(name,
              region = NULL,
              acl = acl,
              key = spaces_key,
              secret = spaces_secret,
-             base_url = spaces_base)
+             base_url = spaces_base,
+             ...)
+
+  if (res) message(sprintf("New space %s created successfully"))
 }
