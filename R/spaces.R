@@ -16,6 +16,8 @@ check_space_secret <- function(spaces_secret) {
 as.space <- function(x) UseMethod("as.space")
 #' @export
 as.space.space <- function(x) x
+#' @export
+as.space.character <- function(x) spaces()[[x]]
 
 #' @export
 print.space <- function(x, ...) {
@@ -57,8 +59,7 @@ summary.space <- function(object, ...) {
 #'   \code{\link[aws.s3]{get_bucket}}, \code{\link[aws.s3]{put_bucket}} functions.
 
 #' @importFrom aws.s3 bucketlist
-#' @export
-#' @rdname spaces
+#' @keywords internal
 spaces_GET <- function(spaces_key = NULL, spaces_secret = NULL, ...) {
 
   spaces_key <- check_space_access(spaces_key)
