@@ -2,43 +2,19 @@
 % Please edit documentation in R/spaces.R
 \name{as.space}
 \alias{as.space}
-\alias{spaces_GET}
 \alias{spaces}
-\alias{space_info}
 \alias{space_create}
-\title{Spaces storage operations}
+\title{Create a new space}
 \usage{
 as.space(x)
 
-spaces_GET(spaces_key = NULL, spaces_secret = NULL, ...)
-
 spaces(spaces_key = NULL, spaces_secret = NULL, ...)
-
-space_info(name, spaces_key = NULL, spaces_secret = NULL, ...)
 
 space_create(name, spaces_key = NULL, spaces_secret = NULL, ...)
 }
 \arguments{
 \item{x}{Object to coerce to a space}
-
-\item{spaces_key}{(character) String containing a spaces access key. If
-missing, defaults to value stored in an environment variable \code{DO_SPACES_ACCESS_KEY}.}
-
-\item{spaces_secret}{(character) String containing the secret associated
-with the spaces key. If missing, defaults to value stored in an environment
-variable \code{DO_SPACES_SECRET_KEY}.}
-
-\item{...}{Additional arguments passed down to \code{\link[aws.s3]{bucketlist}},
-\code{\link[aws.s3]{get_bucket}}, \code{\link[aws.s3]{put_bucket}} functions.}
-
-\item{name}{(character) Space name.}
 }
 \description{
-\describe{
- \item{space}{List space contents}
- \item{spaces}{List spaces in your digital ocean account}
- \item{space_create}{Create a new space}
-}
-
 Create a new space
 }
