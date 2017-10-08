@@ -36,16 +36,15 @@ summary.space <- function(object, ...) {
   n_files <- space_files(space_info)
 
   cat("<space_detail>", object$Name, "\n", sep = "")
-  cat("  Size (GB):    ", size, "\n")
+  cat("  Size (GB):    ", size, "\n", sep = "")
   cat("  Files:        ", n_files, "\n", sep = "")
-  cat("  Created at:   ", object$CreationDate, "\n")
+  cat("  Created at:   ", object$CreationDate, "\n", sep = "")
 }
 
 #' Spaces storage operations
 #'
 #' \describe{
-#'  \item{space}{List space contents}
-#'  \item{spaces}{List spaces in your digital ocean account}
+#'  \item{spaces}{Retrieve all spaces in your digital ocean account}
 #'  \item{space_create}{Create a new space}
 #' }
 #'
@@ -56,7 +55,21 @@ summary.space <- function(object, ...) {
 #'   with the spaces key. If missing, defaults to value stored in an environment
 #'   variable \code{DO_SPACES_SECRET_KEY}.
 #' @param ... Additional arguments passed down to \code{\link[aws.s3]{bucketlist}},
-#'   \code{\link[aws.s3]{get_bucket}}, \code{\link[aws.s3]{put_bucket}} functions.
+#'   \code{\link[aws.s3]{get_bucket}}, \code{\link[aws.s3]{put_bucket}} functions
+#'   from the \code{aws.s3} package.
+#' @examples \dontrun{
+#' # list spaces
+#' spaces()
+#'
+#' # obtain spaces as a list of space objects
+#' res <- spaces()
+#'
+#' # print space summary using a space object
+#' summary(res[['my_space_name']])
+#'
+#' # create a new space
+#' space_create('new_space_name')
+#' }
 
 #' @importFrom aws.s3 bucketlist
 #' @keywords internal
