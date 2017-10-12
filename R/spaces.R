@@ -92,6 +92,18 @@ spaces_GET <- function(spaces_key = NULL, spaces_secret = NULL, ...) {
 #' @rdname spaces
 spaces <- function(spaces_key = NULL, spaces_secret = NULL, ...) {
   res <- spaces_GET(spaces_key = spaces_key, spaces_secret = spaces_secret, ...)
+
+  # when only one space is present, res$Buckets only contains the Name and
+  # CreationDate.  If more than one space is present, then each space will
+  # have a Bucket list object with the Name and CreationDate
+  if (identical(names(res$Buckets), c("Name", "CreationDate"))) {
+    res$Buckets <- list(
+      Bucket = list(
+        Name = res$Buckets$Name,
+        CreationDate = res$Buckets$CreationDate
+      )
+    )
+  }
   sp <- lapply(res$Buckets, structure, class = "space")
   setNames(sp, vapply(res$Buckets, function(x) x$Name, character(1)))
 }
