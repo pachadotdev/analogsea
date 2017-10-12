@@ -149,10 +149,6 @@ space_create <- function(name, spaces_key = NULL, spaces_secret = NULL, ...) {
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)
 
-  # check if space name already exists in user's account
-  spaces_existing <- spaces()
-  if (name %in% names(spaces_existing)) stop(sprintf("A space named %s already exists in your account. Please use a different name.", name), call. = FALSE)
-
   res <- put_bucket(name,
              region = NULL,
              key = spaces_key,
