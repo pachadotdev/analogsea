@@ -92,8 +92,8 @@ spaces_GET <- function(spaces_key = NULL, spaces_secret = NULL, ...) {
 #' @rdname spaces
 spaces <- function(spaces_key = NULL, spaces_secret = NULL, ...) {
   res <- spaces_GET(spaces_key = spaces_key, spaces_secret = spaces_secret, ...)
-  spaces <- lapply(res$Buckets, structure, class = "space")
-  setNames(spaces, vapply(res$Buckets, function(x) x$Name, character(1)))
+  sp <- lapply(res$Buckets, structure, class = "space")
+  setNames(sp, vapply(res$Buckets, function(x) x$Name, character(1)))
 }
 
 #' @importFrom aws.s3 get_bucket
