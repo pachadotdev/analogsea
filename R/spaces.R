@@ -1,13 +1,27 @@
 spaces_base <- "nyc3.digitaloceanspaces.com"
 
 check_space_access <- function(spaces_key) {
-  tmp <- if (is.null(spaces_key)) Sys.getenv("DO_SPACES_ACCESS_KEY") else spaces_key
-  if (tmp == "") stop("Need a digital ocean spaces access key defined in your session", call. = FALSE) else tmp
+  tmp <- ifelse(is.null(spaces_key),
+                Sys.getenv("DO_SPACES_ACCESS_KEY"),
+                spaces_key)
+  if (tmp == "") {
+    stop("Need a digital ocean spaces access key defined in your session",
+         call. = FALSE)
+  } else {
+    tmp
+  }
 }
 
 check_space_secret <- function(spaces_secret) {
-  tmp <- if (is.null(spaces_secret)) Sys.getenv("DO_SPACES_SECRET_KEY") else spaces_secret
-  if (tmp == "") stop("Need a digital ocean spaces access key defined in your session", call. = FALSE) else tmp
+  tmp <- ifelse(is.null(spaces_secret),
+                Sys.getenv("DO_SPACES_SECRET_KEY"),
+                spaces_secret)
+  if (tmp == "") {
+    stop("Need a digital ocean spaces secret key defined in your session",
+         call. = FALSE)
+  } else {
+    tmp
+  }
 }
 
 #' @param x Object to coerce to a space
@@ -50,7 +64,8 @@ summary.space <- function(object, ...) {
 #'
 #' @param name (character) Space name.
 #' @param spaces_key (character) String containing a spaces access key. If
-#'   missing, defaults to value stored in an environment variable \code{DO_SPACES_ACCESS_KEY}.
+#'   missing, defaults to value stored in an environment variable
+#'   \code{DO_SPACES_ACCESS_KEY}.
 #' @param spaces_secret (character) String containing the secret associated
 #'   with the spaces key. If missing, defaults to value stored in an environment
 #'   variable \code{DO_SPACES_SECRET_KEY}.
