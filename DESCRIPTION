@@ -23,7 +23,8 @@ Imports:
     httr (>= 1.2.0),
     jsonlite (>= 1.1),
     magrittr,
-    yaml
+    yaml,
+    aws.s3 (>= 0.3.3)
 Suggests:
     roxygen2 (>= 6.0.1),
     testthat,
