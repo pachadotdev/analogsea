@@ -61,7 +61,7 @@ summary.space <- function(object, ...) {
 #'  \item{spaces}{Retrieve all spaces in your digital ocean account}
 #'  \item{space_create}{Create a new space}
 #' }
-#'
+#' @name spaces
 #' @param name (character) Space name.
 #' @param spaces_key (character) String containing a spaces access key. If
 #'   missing, defaults to value stored in an environment variable
