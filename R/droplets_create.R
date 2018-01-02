@@ -49,7 +49,7 @@ droplets_create <- function(names = NULL,
   ssh_keys <- standardise_keys(ssh_keys)
   if (length(ssh_keys) == 0) {
     warning("You have not specified any ssh_keys. This is NOT recommended.",
-      " (You will receive an email with the root password in a few minutes",
+      " You will receive an email with the root password in a few minutes",
             call. = FALSE)
   }
 
