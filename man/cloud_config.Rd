@@ -13,7 +13,7 @@ cloud_config(name, ssh_keys = NULL)
 vector of key ids, or NULL, to use all keys in your account. Accounts
 with the corresponding private key will be able to log in to the droplet.
 See \code{\link{keys}()} for a list of the keys that you've added.
-Default: list()}
+Default: NULL}
 }
 \value{
 A string. (Can't return yaml because the \code{yaml} package

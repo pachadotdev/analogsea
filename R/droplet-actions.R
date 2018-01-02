@@ -24,7 +24,7 @@
 #'   vector of key ids, or NULL, to use all keys in your account. Accounts
 #'   with the corresponding private key will be able to log in to the droplet.
 #'   See \code{\link{keys}()} for a list of the keys that you've added.
-#'   Default: list()
+#'   Default: NULL
 #' @param private_networking (logical) Use private networking. Private
 #'   networking is currently only available in certain regions.
 #'   Default: \code{FALSE}
@@ -85,7 +85,7 @@ droplet_create <- function(name = random_name(),
                         size = getOption("do_size", "512mb"),
                         image = getOption("do_image", "ubuntu-14-04-x64"),
                         region = getOption("do_region", "sfo1"),
-                        ssh_keys = getOption("do_ssh_keys", list()),
+                        ssh_keys = getOption("do_ssh_keys", NULL),
                         backups = getOption("do_backups", NULL),
                         ipv6 = getOption("do_ipv6", NULL),
                         private_networking =
