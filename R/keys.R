@@ -106,11 +106,12 @@ standardise_keys <- function(ssh_keys = NULL) {
 
     names <- pluck(ssh_keys, "name", character(1))
     message("Using default ssh keys: ", paste0(names, collapse = ", "))
-  } else if (is.character(ssh_keys)) {
+  } else if (is.character(ssh_keys) || is.list(ssh_keys)) {
     ssh_keys <- lapply(ssh_keys, as.sshkey)
   } else {
     stop("Unknown specification for ssh_keys", call. = FALSE)
   }
 
+  ssh_keys <- ascompact(ssh_keys)
   unname(pluck(ssh_keys, "id", integer(1)))
 }
