@@ -1,7 +1,7 @@
 ## Test environments
 
-* local OS X install, R 3.4.1 patched
-* ubuntu 12.04 (on travis-ci), R 3.4.1
+* local OS X install, R 3.4.3 patched
+* ubuntu 12.04 (on travis-ci), R 3.4.3
 * win-builder (devel and release)
 
 ## R CMD check results
@@ -11,7 +11,7 @@
  License components with restrictions and base license permitting such:
      MIT + file LICENSE
    File 'LICENSE':
-     YEAR: 2017
+     YEAR: 2018
      COPYRIGHT HOLDER: Scott Chamberlain; RStudio
 
 ## Reverse dependencies
