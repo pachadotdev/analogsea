@@ -4,7 +4,7 @@
 ^appveyor\.yml$
 ^\.httr-oauth$
 ^cran-comments\.md$
-^CONDUCT\.md$
+^CODE_OF_CONDUCT\.md$
 revdep
 .github
 
