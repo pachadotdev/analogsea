@@ -413,7 +413,7 @@ spaces_put_acl <- function(object, space, body, spaces_key = NULL, spaces_secret
 #' @param spaces_secret (character) String containing the secret associated
 #'   with the spaces key. If missing, defaults to value stored in an environment
 #'   variable \code{DO_SPACES_SECRET_KEY}.
-#' @param ... Additional argument passed to \code{\link[aws.s3]{delete_objects}}
+#' @param ... Additional argument passed to \code{\link[aws.s3]{delete_object}}
 #'
 #' @return TRUE if successful, otherwise an object of class aws_error details if not.
 #' @export
