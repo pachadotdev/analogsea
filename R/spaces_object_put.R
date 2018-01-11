@@ -4,12 +4,7 @@
 #' @param object (character) The key for the new Object. Defaults to the
 #' basename of the \code{path} returned by \code{\link{basename}}.
 #' @param space (character) The Space to upload the Object to
-#' @param spaces_key (character) String containing a spaces access key. If
-#'   missing, defaults to value stored in an environment variable
-#'   \code{DO_SPACES_ACCESS_KEY}.
-#' @param spaces_secret (character) String containing the secret associated
-#'   with the spaces key. If missing, defaults to value stored in an environment
-#'   variable \code{DO_SPACES_SECRET_KEY}.
+#' @template spaces_args
 #' @param ... Additional argument passed to \code{\link[aws.s3]{put_object}}
 #'
 #' @return \code{TRUE} of \code{FALSE} dependong on whether the Object was
@@ -21,11 +16,13 @@
 #'
 #' @examples
 #' \dontrun{
-#' spaces_object_put("./some-file.txt", "my-object", "my-space")
+#' # You can create a space and then upload a file to it
+#' space_create("my-space")
+#' spaces_object_put("some-file.txt", "my-object", "my-space")
 #'
-#' # Let the function choose an Object key automatically based on the file's
-#' # basename
-#' spaces_object_put("./some-file.txt", space = "my-space")
+#' # You can also let the function choose an Object key automatically based on
+#' # the file's basename
+#' spaces_object_put("another-file.txt", space = "my-space")
 #' }
 spaces_object_put <- function(file,
                               object = basename(file),

@@ -4,12 +4,7 @@
 #' @param to_object (character) The key for the copied Object. Defaults to the same key as the Object being copied.
 #' @param from_space (character) The Space the Object being copied is found in
 #' @param to_space (character) The Space to copy the Object to
-#' @param spaces_key (character) String containing a spaces access key. If
-#'   missing, defaults to value stored in an environment variable
-#'   \code{DO_SPACES_ACCESS_KEY}.
-#' @param spaces_secret (character) String containing the secret associated
-#'   with the spaces key. If missing, defaults to value stored in an environment
-#'   variable \code{DO_SPACES_SECRET_KEY}.
+#' @template spaces_args
 #' @param ... Additional argument passed to \code{\link[aws.s3]{copy_object}}
 #'
 #' @return If successful, information about the copied Object

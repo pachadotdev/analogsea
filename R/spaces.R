@@ -63,12 +63,7 @@ summary.space <- function(object, ...) {
 #' }
 #' @name spaces
 #' @param name (character) Space name.
-#' @param spaces_key (character) String containing a spaces access key. If
-#'   missing, defaults to value stored in an environment variable
-#'   \code{DO_SPACES_ACCESS_KEY}.
-#' @param spaces_secret (character) String containing the secret associated
-#'   with the spaces key. If missing, defaults to value stored in an environment
-#'   variable \code{DO_SPACES_SECRET_KEY}.
+#' @template spaces_args
 #' @param ... Additional arguments passed down to \code{\link[aws.s3]{bucketlist}},
 #'   \code{\link[aws.s3]{get_bucket}}, \code{\link[aws.s3]{put_bucket}} functions
 #'   from the \code{aws.s3} package.

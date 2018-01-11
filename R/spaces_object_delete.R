@@ -2,12 +2,7 @@
 #'
 #' @param object (character) The Object to delete
 #' @param space (character) The Space to delete the Object from
-#' @param spaces_key (character) String containing a spaces access key. If
-#'   missing, defaults to value stored in an environment variable
-#'   \code{DO_SPACES_ACCESS_KEY}.
-#' @param spaces_secret (character) String containing the secret associated
-#'   with the spaces key. If missing, defaults to value stored in an environment
-#'   variable \code{DO_SPACES_SECRET_KEY}.
+#' @template spaces_args
 #' @param ... Additional argument passed to \code{\link[aws.s3]{delete_object}}
 #'
 #' @return \code{TRUE} if successful, otherwise an object of class aws_error

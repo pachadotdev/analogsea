@@ -3,12 +3,7 @@
 #' @param object (character) The Object to set the ACL on
 #' @param space (character) The Space the Object is found in
 #' @param body (character) The XML-formatted ACL
-#' @param spaces_key (character) String containing a spaces access key. If
-#'   missing, defaults to value stored in an environment variable
-#'   \code{DO_SPACES_ACCESS_KEY}.
-#' @param spaces_secret (character) String containing the secret associated
-#'   with the spaces key. If missing, defaults to value stored in an environment
-#'   variable \code{DO_SPACES_SECRET_KEY}.
+#' @template spaces_args
 #' @param ... Additional argument passed to \code{\link[aws.s3]{put_acl}}
 #'
 #' @return \code{TRUE} or \code{FALSE} depending on whether the ACL was successfully set
