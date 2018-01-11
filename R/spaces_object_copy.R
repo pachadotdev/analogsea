@@ -20,12 +20,18 @@
 #'
 #' @examples
 #' \dontrun{
-#' spaces_object_copy("my-object", "copied-object", "my-space", "another-space")
+#' # First, create two Spaces and an Object in the first space
+#' space_create("primary-space")
+#' space_create("secondary-space")
+#' spaces_object_put("some-file.txt", space = "primary-space")
 #'
-#' # Copy over the Object with the same key
+#' # You can then copy the object from one space to another
+#' spaces_object_copy("my-object", "copied-object", "primary_space", "secondary-space")
+#'
+#' # And you can also copy over the Object with the same key
 #' spaces_object_copy("my-object",
-#'                    from_space = "my-space",
-#'                    to_space = "another-space")
+#'                    from_space = "primary-space",
+#'                    to_space = "secondary-space")
 #' }
 spaces_object_copy <- function(from_object,
                                to_object = from_object,

@@ -31,7 +31,11 @@ Delete an Object from a Space
 }
 \examples{
 \dontrun{
-spaces_object_put("./some-file.txt", "my-object", "my-space")
+# First, create a Space and upload an Object to it
+space_create("my-space")
+spaces_object_put("some-file.txt", "my-object", "my-space")
+
+# You can delete an Object by key
 spaces_object_delete("my-object", "my-space")
 }
 }

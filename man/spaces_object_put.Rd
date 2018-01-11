@@ -34,11 +34,13 @@ Upload an Object to a Space
 }
 \examples{
 \dontrun{
-spaces_object_put("./some-file.txt", "my-object", "my-space")
+# You can create a space and then upload a file to it
+space_create("my-space")
+spaces_object_put("some-file.txt", "my-object", "my-space")
 
-# Let the function choose an Object key automatically based on the file's
-# basename
-spaces_object_put("./some-file.txt", space = "my-space")
+# You can also let the function choose an Object key automatically based on
+# the file's basename
+spaces_object_put("another-file.txt", space = "my-space")
 }
 }
 \references{

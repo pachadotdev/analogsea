@@ -15,13 +15,20 @@
 #' @export
 #'
 #' @references \url{https://developers.digitalocean.com/documentation/
+#' spaces/#acls}
+#' @references \url{https://developers.digitalocean.com/documentation/
 #' spaces/#set-object-acls}
 #'
 #' @examples
 #' \dontrun{
-#' # Get an ACL for an Object
-#' acl <- spaces_acl_get("my-object", "my-space")
-#' # Modify ACL and then run:
+#' # First, create a Space and upload an Object to it
+#' space_create("my-space")
+#' spaces_object_put("some-file.txt", space = "my-space")
+#'
+#' # You can get a copy of the ACL
+#' acl <- spaces_acl_get("some-file.txt", "my-space") %>% read_xml()
+#'
+#' # Modify it as needed, then update it
 #' spaces_acl_put("my-object", "my-space", acl)
 #' }
 spaces_acl_put <- function(object,

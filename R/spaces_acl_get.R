@@ -14,11 +14,19 @@
 #' @export
 #'
 #' @references \url{https://developers.digitalocean.com/documentation/
+#' spaces/#acls}
+#' @references \url{https://developers.digitalocean.com/documentation/
 #' spaces/#get-object-acls}
 #'
 #' @examples
 #' \dontrun{
-#' spaces_acl_get("my-object", "my-space")
+#' # First, create a Space and upload an Object to it
+#' space_create("my-space")
+#' spaces_object_put("some-file.txt", space = "my-space")
+#'
+#' # You can get an ACL for your Object
+#' acl <- spaces_acl_get("some-file.txt", "my-space")
+#' acl
 #' }
 spaces_acl_get <- function(object,
                            space,

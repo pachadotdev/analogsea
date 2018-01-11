@@ -30,12 +30,14 @@ Retrieve an Object from a Space
 }
 \examples{
 \dontrun{
-spaces_object_put("./some-file.txt", "my-object", "my-space")
+# First, create a space and then upload a file to it
+space_create("my-space")
+spaces_object_put("some-file.txt", "my-object", "my-space")
 
-# Get back the response as text
+# You can get back the Object as text
 rawToChar(spaces_object_get("my-object", "my-space"))
 
-# Get back the raw response
+# Or you can get back the raw response
 spaces_object_get("my-object", "my-space")
 }
 }

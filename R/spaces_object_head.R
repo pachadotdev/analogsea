@@ -18,7 +18,11 @@
 #'
 #' @examples
 #' \dontrun{
-#' spaces_object_put("./some-file.txt", "my-object", "my-space")
+#' # First, create a space and then upload a file to it
+#' space_create("my-space")
+#' spaces_object_put("some-file.txt", "my-object", "my-space")
+#'
+#' # You can get information about an Object
 #' spaces_object_head("my-object", "my-space")
 #' }
 spaces_object_head <- function(object,

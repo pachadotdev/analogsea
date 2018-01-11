@@ -29,10 +29,19 @@ Retrieve an Object's Access Control List (ACL)
 }
 \examples{
 \dontrun{
-spaces_acl_get("my-object", "my-space")
+# First, create a Space and upload an Object to it
+space_create("my-space")
+spaces_object_put("some-file.txt", space = "my-space")
+
+# You can get an ACL for your Object
+acl <- spaces_acl_get("some-file.txt", "my-space")
+acl
 }
 }
 \references{
+\url{https://developers.digitalocean.com/documentation/
+spaces/#acls}
+
 \url{https://developers.digitalocean.com/documentation/
 spaces/#get-object-acls}
 }
