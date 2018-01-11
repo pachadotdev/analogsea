@@ -279,6 +279,10 @@ spaces_head_object <- function(object, space, spaces_key = NULL, spaces_secret =
 #' spaces_put_object("./some-file.txt", space = "my-space")
 #' }
 spaces_put_object <- function(file, object = basename(file), space, spaces_key = NULL, spaces_secret = NULL, ...) {
+  if (!file.exists(file)) {
+    stop("No file exists at the path \"", file, "\".", call. = FALSE)
+  }
+
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)
 
