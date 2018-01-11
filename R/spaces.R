@@ -241,14 +241,15 @@ spaces_head_object <- function(object, space, spaces_key = NULL, spaces_secret =
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)
 
-  aws.s3::head_object(object,
-                      space,
-                      check_region = FALSE,
-                      key = spaces_key,
-                      secret = spaces_secret,
-                      base_url = spaces_base,
-                      ...)
+  response <- aws.s3::head_object(object,
+                                  space,
+                                  check_region = FALSE,
+                                  key = spaces_key,
+                                  secret = spaces_secret,
+                                  base_url = spaces_base,
+                                  ...)
 
+  attributes(response)
 }
 
 #' Upload an Object to a Space
