@@ -10,6 +10,8 @@ Authors@R: c(
     person("Hadley", "Wickham", role = "aut", email = "hadley@rstudio.com"),
     person("Winston", "Chang", role = "aut", email = "winston@stdout.org"),
     person("Bob", "Rudis", role = "ctb", email = "bob@rudis.net"),
+    person("Bryce", "Mecum", role = "ctb", email = "brycemecum@gmail.com",
+           comment = c("ORCID" = "0000-0002-0381-3766")),
     person("RStudio", role = "cph")
     )
 License: MIT + file LICENSE
