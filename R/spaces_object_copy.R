@@ -15,16 +15,25 @@
 #' @return If successful, information about the copied Object
 #' @export
 #'
-#' @references \url{https://developers.digitalocean.com/documentation/spaces/#copy-object}
+#' @references \url{https://developers.digitalocean.com/documentation/
+#' spaces/#copy-object}
 #'
 #' @examples
 #' \dontrun{
 #' spaces_object_copy("my-object", "copied-object", "my-space", "another-space")
 #'
 #' # Copy over the Object with the same key
-#' spaces_object_copy("my-object",  from_space = "my-space", to_space = "another-space")
+#' spaces_object_copy("my-object",
+#'                    from_space = "my-space",
+#'                    to_space = "another-space")
 #' }
-spaces_object_copy <- function(from_object, to_object = from_object, from_space, to_space, spaces_key = NULL, spaces_secret = NULL, ...) {
+spaces_object_copy <- function(from_object,
+                               to_object = from_object,
+                               from_space,
+                               to_space,
+                               spaces_key = NULL,
+                               spaces_secret = NULL,
+                               ...) {
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)
 

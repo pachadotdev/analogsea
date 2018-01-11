@@ -1,7 +1,8 @@
 #' Upload an Object to a Space
 #'
 #' @param file (character) The path to the file to upload.
-#' @param object (character) The key for the new Object. Defaults to the basename of the \code{path} returned by \code{\link{basename}}.
+#' @param object (character) The key for the new Object. Defaults to the
+#' basename of the \code{path} returned by \code{\link{basename}}.
 #' @param space (character) The Space to upload the Object to
 #' @param spaces_key (character) String containing a spaces access key. If
 #'   missing, defaults to value stored in an environment variable
@@ -14,7 +15,8 @@
 #' @return TRUE of FALSE dependong on whether the Object was uploaded
 #' @export
 #'
-#' @references \url{https://developers.digitalocean.com/documentation/spaces/#object}
+#' @references \url{https://developers.digitalocean.com/documentation/
+#' spaces/#object}
 #'
 #' @examples
 #' \dontrun{
@@ -24,7 +26,12 @@
 #' # basename
 #' spaces_object_put("./some-file.txt", space = "my-space")
 #' }
-spaces_object_put <- function(file, object = basename(file), space, spaces_key = NULL, spaces_secret = NULL, ...) {
+spaces_object_put <- function(file,
+                              object = basename(file),
+                              space,
+                              spaces_key = NULL,
+                              spaces_secret = NULL,
+                              ...) {
   if (!file.exists(file)) {
     stop("No file exists at the path \"", file, "\".", call. = FALSE)
   }

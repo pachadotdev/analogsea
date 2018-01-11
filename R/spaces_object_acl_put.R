@@ -14,7 +14,8 @@
 #' @return TRUE or FALSE depending on whether the ACL was successfully set
 #' @export
 #'
-#' @references \url{https://developers.digitalocean.com/documentation/spaces/#set-object-acls}
+#' @references \url{https://developers.digitalocean.com/documentation/
+#' spaces/#set-object-acls}
 #'
 #' @examples
 #' \dontrun{
@@ -23,7 +24,12 @@
 #' # Modify ACL and then run:
 #' spaces_object_acl_put("my-object", "my-space", acl)
 #' }
-spaces_object_acl_put <- function(object, space, body, spaces_key = NULL, spaces_secret = NULL, ...) {
+spaces_object_acl_put <- function(object,
+                                  space,
+                                  body,
+                                  spaces_key = NULL,
+                                  spaces_secret = NULL,
+                                  ...) {
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)
 

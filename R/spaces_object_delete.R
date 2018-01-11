@@ -14,14 +14,19 @@
 #'  not.
 #' @export
 #'
-#' @references \url{https://developers.digitalocean.com/documentation/spaces/#delete-object}
+#' @references \url{https://developers.digitalocean.com/documentation/
+#' spaces/#delete-object}
 #'
 #' @examples
 #' \dontrun{
 #' spaces_object_put("./some-file.txt", "my-object", "my-space")
 #' spaces_object_delete("my-object", "my-space")
 #' }
-spaces_object_delete <- function(object, space, spaces_key = NULL, spaces_secret = NULL, ...) {
+spaces_object_delete <- function(object,
+                                 space,
+                                 spaces_key = NULL,
+                                 spaces_secret = NULL,
+                                 ...) {
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)
 

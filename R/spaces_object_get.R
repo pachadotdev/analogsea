@@ -13,7 +13,8 @@
 #' @return The raw response body of the request
 #' @export
 #'
-#' @references \url{https://developers.digitalocean.com/documentation/spaces/#get-object}
+#' @references \url{https://developers.digitalocean.com/documentation/
+#' spaces/#get-object}
 #'
 #' @examples
 #' \dontrun{
@@ -25,7 +26,11 @@
 #' # Get back the raw response
 #' spaces_object_get("my-object", "my-space")
 #' }
-spaces_object_get <- function(object, space, spaces_key = NULL, spaces_secret = NULL, ...) {
+spaces_object_get <- function(object,
+                              space,
+                              spaces_key = NULL,
+                              spaces_secret = NULL,
+                              ...) {
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)
 

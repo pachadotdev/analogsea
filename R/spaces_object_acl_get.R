@@ -13,13 +13,18 @@
 #' @return The Object's ACL (as an XML string)
 #' @export
 #'
-#' @references \url{https://developers.digitalocean.com/documentation/spaces/#get-object-acls}
+#' @references \url{https://developers.digitalocean.com/documentation/
+#' spaces/#get-object-acls}
 #'
 #' @examples
 #' \dontrun{
 #' spaces_object_acl_get("my-object", "my-space")
 #' }
-spaces_object_acl_get <- function(object, space, spaces_key = NULL, spaces_secret = NULL, ...) {
+spaces_object_acl_get <- function(object,
+                                  space,
+                                  spaces_key = NULL,
+                                  spaces_secret = NULL,
+                                  ...) {
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)
 
