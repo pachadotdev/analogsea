@@ -23,8 +23,8 @@ variable \code{DO_SPACES_SECRET_KEY}.}
 \item{...}{Additional argument passed to \code{\link[aws.s3]{delete_object}}}
 }
 \value{
-TRUE if successful, otherwise an object of class aws_error details if
- not.
+\code{TRUE} if successful, otherwise an object of class aws_error
+details if not.
 }
 \description{
 Delete an Object from a Space

@@ -11,7 +11,7 @@
 #'   variable \code{DO_SPACES_SECRET_KEY}.
 #' @param ... Additional argument passed to \code{\link[aws.s3]{put_acl}}
 #'
-#' @return TRUE or FALSE depending on whether the ACL was successfully set
+#' @return \code{TRUE} or \code{FALSE} depending on whether the ACL was successfully set
 #' @export
 #'
 #' @references \url{https://developers.digitalocean.com/documentation/

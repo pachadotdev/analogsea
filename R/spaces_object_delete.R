@@ -10,8 +10,8 @@
 #'   variable \code{DO_SPACES_SECRET_KEY}.
 #' @param ... Additional argument passed to \code{\link[aws.s3]{delete_object}}
 #'
-#' @return TRUE if successful, otherwise an object of class aws_error details if
-#'  not.
+#' @return \code{TRUE} if successful, otherwise an object of class aws_error
+#' details if not.
 #' @export
 #'
 #' @references \url{https://developers.digitalocean.com/documentation/

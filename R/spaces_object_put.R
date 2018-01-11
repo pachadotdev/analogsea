@@ -12,7 +12,8 @@
 #'   variable \code{DO_SPACES_SECRET_KEY}.
 #' @param ... Additional argument passed to \code{\link[aws.s3]{put_object}}
 #'
-#' @return TRUE of FALSE dependong on whether the Object was uploaded
+#' @return \code{TRUE} of \code{FALSE} dependong on whether the Object was
+#' uploaded
 #' @export
 #'
 #' @references \url{https://developers.digitalocean.com/documentation/

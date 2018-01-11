@@ -26,7 +26,8 @@ variable \code{DO_SPACES_SECRET_KEY}.}
 \item{...}{Additional argument passed to \code{\link[aws.s3]{put_object}}}
 }
 \value{
-TRUE of FALSE dependong on whether the Object was uploaded
+\code{TRUE} of \code{FALSE} dependong on whether the Object was
+uploaded
 }
 \description{
 Upload an Object to a Space

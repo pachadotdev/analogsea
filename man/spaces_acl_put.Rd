@@ -25,7 +25,7 @@ variable \code{DO_SPACES_SECRET_KEY}.}
 \item{...}{Additional argument passed to \code{\link[aws.s3]{put_acl}}}
 }
 \value{
-TRUE or FALSE depending on whether the ACL was successfully set
+\code{TRUE} or \code{FALSE} depending on whether the ACL was successfully set
 }
 \description{
 Set an Object's Access Control List (ACL)
