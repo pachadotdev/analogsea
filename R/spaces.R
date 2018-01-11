@@ -196,6 +196,11 @@ space_create <- function(name, spaces_key = NULL, spaces_secret = NULL, ...) {
 #' @examples
 #' \dontrun{
 #' spaces_put_object("./some-file.txt", "my-object", "my-space")
+#'
+#' # Get back the response as text
+#' rawToChar(spaces_get_object("my-object", "my-space"))
+#'
+#' # Get back the raw response
 #' spaces_get_object("my-object", "my-space")
 #' }
 spaces_get_object <- function(object, space, spaces_key = NULL, spaces_secret = NULL, ...) {
