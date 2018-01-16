@@ -2,7 +2,8 @@
 #'
 #' @param object (character) The Object to set the ACL on
 #' @param space (character) The Space the Object is found in
-#' @param body (character) The XML-formatted ACL
+#' @param body (character) The XML-formatted ACL. Can optionally be an
+#' \code{xml_document} if the \code{xml2} package is installed.
 #' @template spaces_args
 #' @param ... Additional argument passed to \code{\link[aws.s3]{put_acl}}
 #'
@@ -34,6 +35,17 @@ spaces_acl_put <- function(object,
                            ...) {
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)
+
+  #' If the 'body' arg is an 'xml_document', convert it to character before
+  #' sending the request
+  if (inherits(body, "xml_document")) {
+    if (!requireNamespace("xml2")) {
+      stop("Couldn't convert 'body' to a character vector because the 'xml2' ",
+           "package is not installed. Install it and try again.", call. = FALSE)
+    }
+
+    body <- xml2:::as.character.xml_document(body)
+  }
 
   aws.s3::put_acl(object,
                   space,

@@ -4,7 +4,8 @@
 \alias{spaces_acl_get}
 \title{Retrieve an Object's Access Control List (ACL)}
 \usage{
-spaces_acl_get(object, space, spaces_key = NULL, spaces_secret = NULL, ...)
+spaces_acl_get(object, space, spaces_key = NULL, spaces_secret = NULL,
+  warn_xml2 = TRUE, ...)
 }
 \arguments{
 \item{object}{(character) The Object to get the ACL on}
@@ -18,6 +19,9 @@ missing, defaults to value stored in an environment variable
 \item{spaces_secret}{(character) String containing the secret associated
 with the spaces key. If missing, defaults to value stored in an environment
 variable \code{DO_SPACES_SECRET_KEY}.}
+
+\item{warn_xml2}{(logical) Whether to warn if the xml2 package is not
+installed. Defaults to TRUE.}
 
 \item{...}{Additional argument passed to \code{\link[aws.s3]{get_acl}}}
 }

@@ -12,7 +12,8 @@ spaces_acl_put(object, space, body, spaces_key = NULL, spaces_secret = NULL,
 
 \item{space}{(character) The Space the Object is found in}
 
-\item{body}{(character) The XML-formatted ACL}
+\item{body}{(character) The XML-formatted ACL. Can optionally be an
+\code{xml_document} if the \code{xml2} package is installed.}
 
 \item{spaces_key}{(character) String containing a spaces access key. If
 missing, defaults to value stored in an environment variable
@@ -42,6 +43,8 @@ acl <- spaces_acl_get("some-file.txt", "my-space") \%>\% read_xml()
 # Modify it as needed, then update it
 spaces_acl_put("my-object", "my-space", acl)
 }
+If the 'body' arg is an 'xml_document', convert it to character before
+sending the request
 }
 \references{
 \url{https://developers.digitalocean.com/documentation/
