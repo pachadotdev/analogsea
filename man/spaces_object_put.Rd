@@ -41,6 +41,10 @@ spaces_object_put("some-file.txt", "my-object", "my-space")
 # You can also let the function choose an Object key automatically based on
 # the file's basename
 spaces_object_put("another-file.txt", space = "my-space")
+
+# You can also perform a multipart upload
+# Note: This doesn't work at the moment but should in the future
+spaces_object_put("some-file.txt", "my-object", "my-space", multipart = TRUE)
 }
 }
 \references{
