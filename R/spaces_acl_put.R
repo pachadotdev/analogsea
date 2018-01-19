@@ -44,7 +44,7 @@ spaces_acl_put <- function(object,
            "package is not installed. Install it and try again.", call. = FALSE)
     }
 
-    body <- xml2:::as.character.xml_document(body)
+    body <- as.character(body)
   }
 
   aws.s3::put_acl(object,
