@@ -36,8 +36,8 @@ spaces_acl_put <- function(object,
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)
 
-  #' If the 'body' arg is an 'xml_document', convert it to character before
-  #' sending the request
+  # If the 'body' arg is an 'xml_document', convert it to character before
+  # sending the request
   if (inherits(body, "xml_document")) {
     if (!requireNamespace("xml2")) {
       stop("Couldn't convert 'body' to a character vector because the 'xml2' ",

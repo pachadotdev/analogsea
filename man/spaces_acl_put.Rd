@@ -43,8 +43,6 @@ acl <- spaces_acl_get("some-file.txt", "my-space") \%>\% read_xml()
 # Modify it as needed, then update it
 spaces_acl_put("my-object", "my-space", acl)
 }
-If the 'body' arg is an 'xml_document', convert it to character before
-sending the request
 }
 \references{
 \url{https://developers.digitalocean.com/documentation/
