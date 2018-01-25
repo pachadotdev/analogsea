@@ -38,10 +38,19 @@ space_create("my-space")
 spaces_object_put("some-file.txt", space = "my-space")
 
 # You can get a copy of the ACL
-acl <- spaces_acl_get("some-file.txt", "my-space") \%>\% read_xml()
+acl <- spaces_acl_get("some-file.txt", "my-space")
 
-# Modify it as needed, then update it
-spaces_acl_put("my-object", "my-space", acl)
+# Then, after you've modified it, you can update the ACL
+spaces_acl_put("some-file.txt", "my-space", acl)
+
+# If you have the xml2 package, install you can modify it entirely in R and
+# send the \\code{xml_document} directly instead of a character string
+# (as above)
+if (requireNamespace("xml2")) {
+  acl <- xml2::read_xml(acl)
+  # Do your modifications here
+  spaces_acl_put("some-file.txt", "my-space", acl)
+}
 }
 }
 \references{
