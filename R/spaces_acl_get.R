@@ -42,16 +42,16 @@ spaces_acl_get <- function(object,
                               base_url = spaces_base,
                               ...)
 
-  # if (!requireNamespace("xml2")) {
-  #   if (warn_xml2) {
-  #     message("Install the 'xml2' package to automatically return the ACL as",
-  #             "an 'xml_document' rather than a character vector.")
-  #   }
-  #
-  #   return(response)
-  # } else {
-  #   return(xml2::read_xml(response))
-  # }
+  if (!requireNamespace("xml2")) {
+    if (warn_xml2) {
+      message("Install the 'xml2' package to automatically return the ACL as",
+              "an 'xml_document' rather than a character vector.")
+    }
+
+    return(response)
+  } else {
+    return(xml2::read_xml(response))
+  }
 
   response
 }
