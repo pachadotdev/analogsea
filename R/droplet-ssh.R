@@ -15,6 +15,12 @@
 #' @param verbose If TRUE, will print command before executing it.
 #' @param overwrite If TRUE, then overwrite destination files if they already
 #'   exist.
+#' @details With the chang to package \pkg{ssh}, we create ssh session objects
+#' (C pointers) internally, and cache them, then look them up in the cache 
+#' based on combination of user and IP address. That is, there's separate 
+#' sessions for each user for the same IP address.
+#' 
+#' ssh sessions are cleaned up at the end of your R session.
 #' @return On success, the droplet (invisibly). On failure, throws an error.
 #' @examples
 #' \dontrun{
@@ -34,13 +40,25 @@
 #'
 #' tmp <- tempfile()
 #' saveRDS(mtcars, tmp)
-#' d %>% droplet_upload(tmp, "mtcars2.rds")
+#' d %>% droplet_upload(tmp, ".")
 #'
 #' tmp2 <- tempdir()
 #' d %>% droplet_download("mtcars2.rds", tmp2)
 #' mtcars2 <- readRDS(tmp2)
 #'
 #' stopifnot(all.equal(mtcars, mtcars2))
+#' 
+#' 
+#' ## another upload/download example
+#' tmp <- tempfile(fileext = ".txt")
+#' writeLines("foo bar", tmp)
+#' readLines(tmp)
+#' d %>% droplet_upload(tmp, ".")
+#'
+#' tmp2 <- tempdir()
+#' unlink(tmp)
+#' d %>% droplet_download("file112aa80926ce.txt", tmp2)
+#' readLines(file.path(tmp2, "file112aa80926ce.txt"))
 #' }
 #' @export
 droplet_ssh <- function(droplet, ..., user = "root", verbose = FALSE) {
@@ -63,60 +81,11 @@ droplet_upload <- function(droplet, local, remote, user = "root", verbose = FALS
 droplet_download <- function(droplet, remote, local, user = "root",
                              verbose = FALSE, overwrite = FALSE) {
   droplet <- as.droplet(droplet)
-
-  # local <- normalizePath(local, mustWork = FALSE)
-
-  # if (file.exists(local) && file.info(local)$isdir) {
-  #   # If `local` exists and is a dir, then just put the result in that directory
-  #   local_dir <- local
-  #   need_rename <- FALSE
-
-  # } else {
-  #   # If `local` isn't an existing directory, put the result in the parent
-  #   local_dir <- dirname(local)
-  #   need_rename <- TRUE
-  # }
-
-  # # A temp dir for the downloaded file(s)
-  # local_tempdir <- tempfile("download", local_dir)
-  # local_tempfile <- file.path(local_tempdir, basename(remote))
-
-  # if (need_rename) {
-  #   # Rename to local name
-  #   dest <- file.path(local_dir, basename(local))
-  # } else {
-  #   # Keep original name
-  #   dest <- file.path(local_dir, basename(remote))
-  # }
-
-  # if (file.exists(dest) && !overwrite) {
-  #   stop("Destination file already exists.")
-  # }
-
-  # dir.create(local_tempdir)
-
-  # # Rename the downloaded files when we exit
-  # on.exit({
-  #   if (file.exists(dest)) unlink(dest, recursive = TRUE)
-  #   file.rename(local_tempfile, dest)
-  #   unlink(local_tempdir, recursive = TRUE)
-  # })
-
-  # This ssh's to the remote machine, tars the file(s), and sends it to the
-  # local host where it is untarred.
-  # cmd <- paste0(
-  #   "ssh ", ssh_options(),
-  #   " ", user, "@", droplet_ip(droplet), " ",
-  #   sprintf("'cd %s && tar cz %s'", dirname(remote), basename(remote)),
-  #   " | ",
-  #   sprintf("(cd %s && tar xz)", local_tempdir)
-  # )
-
-  # do_ssh(droplet, cmd, user, verbose = verbose)
   do_scp(droplet, local, remote, user, scp = "download", verbose = verbose)
 }
 
 
+# helpers ---------------------
 droplet_ip <- function(x) {
   v4 <- x$network$v4
   if (length(v4) == 0) {
@@ -127,7 +96,6 @@ droplet_ip <- function(x) {
   v4[[1]]$ip_address
 }
 
-
 droplet_ip_safe <- function(x) {
   res <- tryCatch(droplet_ip(x), error = function(e) e)
   if (inherits(res, "simpleError")) 'droplet likely not up yet' else res
@@ -135,19 +103,14 @@ droplet_ip_safe <- function(x) {
 
 do_ssh <- function(droplet, cmd, user, verbose = FALSE) {
   mssg(verbose, cmd)
-  user_ip <- sprintf("%s@%s", user, droplet_ip(droplet))
-  # cat(user_ip, sep = "\n")
+  user_ip <- sprintf("%s@%s", user, droplet_ip_safe(droplet))
   if (user_ip %in% ls(envir = analogsea_sessions)) {
-    # cat("session found", sep = "\n")
     session <- get(user_ip, envir = analogsea_sessions)
   } else {
-    # cat("session not found, creating it now", sep = "\n")
     session <- ssh::ssh_connect(user_ip)
     assign(user_ip, session, envir = analogsea_sessions)
   }
-  # cat("running ssh_exec_wait", sep = "\n")
   out <- ssh::ssh_exec_wait(session = session, command = cmd)
-  # cat(rawToChar(out$stdout))
   if (out != 0) {
     stop("ssh failed\n", cmd, call. = FALSE)
   }
@@ -158,18 +121,14 @@ do_ssh <- function(droplet, cmd, user, verbose = FALSE) {
 do_scp <- function(droplet, local, remote, user, 
   scp = "upload", verbose = FALSE) {
 
-  # mssg(verbose, cmd)
-  user_ip <- sprintf("%s@%s", user, droplet_ip(droplet))
-  # cat(user_ip, sep = "\n")
+  mssg(verbose, cmd)
+  user_ip <- sprintf("%s@%s", user, droplet_ip_safe(droplet))
   if (user_ip %in% ls(envir = analogsea_sessions)) {
-    # cat("session found", sep = "\n")
     session <- get(user_ip, envir = analogsea_sessions)
   } else {
-    # cat("session not found, creating it now", sep = "\n")
     session <- ssh::ssh_connect(user_ip)
     assign(user_ip, session, envir = analogsea_sessions)
   }
-  # cat("running ssh_exec_wait", sep = "\n")
   if (scp == "upload") cat(ssh::scp_upload(session = session, 
     files = local, to = remote, verbose = TRUE), sep = "\n")
   if (scp == "download") cat(ssh::scp_download(session = session, 
