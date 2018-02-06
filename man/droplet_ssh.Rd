@@ -45,7 +45,7 @@ everything inside the directory will also be downloaded.
 d <- droplet_create() \%>\% droplet_wait()
 
 # Upgrade system packages
-d \%>\%
+d \%>\% 
   droplet_ssh("apt-get update") \%>\%
   droplet_ssh("sudo apt-get upgrade -y --force-yes") \%>\%
   droplet_ssh("apt-get autoremove -y")
@@ -58,10 +58,10 @@ d \%>\%
 
 tmp <- tempfile()
 saveRDS(mtcars, tmp)
-d \%>\% droplet_upload(tmp, "mtcars.rds")
+d \%>\% droplet_upload(tmp, "mtcars2.rds")
 
-tmp2 <- tempfile()
-d \%>\% droplet_download("mtcars.rds", tmp2)
+tmp2 <- tempdir()
+d \%>\% droplet_download("mtcars2.rds", tmp2)
 mtcars2 <- readRDS(tmp2)
 
 stopifnot(all.equal(mtcars, mtcars2))
