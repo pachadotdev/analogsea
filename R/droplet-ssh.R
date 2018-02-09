@@ -12,14 +12,15 @@
 #'   \code{&&} so that execution will halt after the first failure.
 #' @param user User name. Defaults to "root".
 #' @param local,remote Local and remote paths.
+#' @param keyfile Optional private key file.
 #' @param verbose If TRUE, will print command before executing it.
 #' @param overwrite If TRUE, then overwrite destination files if they already
 #'   exist.
 #' @details With the chang to package \pkg{ssh}, we create ssh session objects
-#' (C pointers) internally, and cache them, then look them up in the cache 
-#' based on combination of user and IP address. That is, there's separate 
+#' (C pointers) internally, and cache them, then look them up in the cache
+#' based on combination of user and IP address. That is, there's separate
 #' sessions for each user for the same IP address.
-#' 
+#'
 #' ssh sessions are cleaned up at the end of your R session.
 #' @return On success, the droplet (invisibly). On failure, throws an error.
 #' @examples
@@ -27,7 +28,7 @@
 #' d <- droplet_create() %>% droplet_wait()
 #'
 #' # Upgrade system packages
-#' d %>% 
+#' d %>%
 #'   droplet_ssh("apt-get update") %>%
 #'   droplet_ssh("sudo apt-get upgrade -y --force-yes") %>%
 #'   droplet_ssh("apt-get autoremove -y")
@@ -47,8 +48,8 @@
 #' mtcars2 <- readRDS(tmp2)
 #'
 #' stopifnot(all.equal(mtcars, mtcars2))
-#' 
-#' 
+#'
+#'
 #' ## another upload/download example
 #' tmp <- tempfile(fileext = ".txt")
 #' writeLines("foo bar", tmp)
@@ -61,12 +62,12 @@
 #' readLines(file.path(tmp2, "file112aa80926ce.txt"))
 #' }
 #' @export
-droplet_ssh <- function(droplet, ..., user = "root", verbose = FALSE) {
+droplet_ssh <- function(droplet, ..., user = "root", keyfile = NULL, verbose = FALSE) {
   droplet <- as.droplet(droplet)
 
   lines <- paste(c(...), collapse = " \\\n&& ")
   if (lines == "") stop("Provide commands", call. = FALSE)
-  do_ssh(droplet, lines, user, verbose = verbose)
+  do_ssh(droplet, lines, user, keyfile = keyfile, verbose = verbose)
 }
 
 #' @export
@@ -101,13 +102,13 @@ droplet_ip_safe <- function(x) {
   if (inherits(res, "simpleError")) 'droplet likely not up yet' else res
 }
 
-do_ssh <- function(droplet, cmd, user, verbose = FALSE) {
+do_ssh <- function(droplet, cmd, user, keyfile = NULL, verbose = FALSE) {
   mssg(verbose, cmd)
   user_ip <- sprintf("%s@%s", user, droplet_ip_safe(droplet))
   if (user_ip %in% ls(envir = analogsea_sessions)) {
     session <- get(user_ip, envir = analogsea_sessions)
   } else {
-    session <- ssh::ssh_connect(user_ip)
+    session <- ssh::ssh_connect(user_ip, keyfile)
     assign(user_ip, session, envir = analogsea_sessions)
   }
   out <- ssh::ssh_exec_wait(session = session, command = cmd)
@@ -118,7 +119,7 @@ do_ssh <- function(droplet, cmd, user, verbose = FALSE) {
   invisible(droplet)
 }
 
-do_scp <- function(droplet, local, remote, user, 
+do_scp <- function(droplet, local, remote, user,
   scp = "upload", verbose = FALSE) {
 
   mssg(verbose, cmd)
@@ -129,9 +130,9 @@ do_scp <- function(droplet, local, remote, user,
     session <- ssh::ssh_connect(user_ip)
     assign(user_ip, session, envir = analogsea_sessions)
   }
-  if (scp == "upload") cat(ssh::scp_upload(session = session, 
+  if (scp == "upload") cat(ssh::scp_upload(session = session,
     files = local, to = remote, verbose = TRUE), sep = "\n")
-  if (scp == "download") cat(ssh::scp_download(session = session, 
+  if (scp == "download") cat(ssh::scp_download(session = session,
     files = remote, to = local, verbose = TRUE), sep = "\n")
   invisible(droplet)
 }
