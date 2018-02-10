@@ -13,6 +13,9 @@
 #' @param user User name. Defaults to "root".
 #' @param local,remote Local and remote paths.
 #' @param keyfile Optional private key file.
+#' @param passwd Optional passphrase or callback function for authentication.
+#'   Refer to the \code{\link[ssh]{ssh_connect}} documentation for more
+#'   details.
 #' @param verbose If TRUE, will print command before executing it.
 #' @param overwrite If TRUE, then overwrite destination files if they already
 #'   exist.
@@ -62,12 +65,12 @@
 #' readLines(file.path(tmp2, "file112aa80926ce.txt"))
 #' }
 #' @export
-droplet_ssh <- function(droplet, ..., user = "root", keyfile = NULL, verbose = FALSE) {
+droplet_ssh <- function(droplet, ..., user = "root", keyfile = NULL, passwd = NULL, verbose = FALSE) {
   droplet <- as.droplet(droplet)
 
   lines <- paste(c(...), collapse = " \\\n&& ")
   if (lines == "") stop("Provide commands", call. = FALSE)
-  do_ssh(droplet, lines, user, keyfile = keyfile, verbose = verbose)
+  do_ssh(droplet, lines, user, keyfile = keyfile, passwd = passwd, verbose = verbose)
 }
 
 #' @export
@@ -102,7 +105,7 @@ droplet_ip_safe <- function(x) {
   if (inherits(res, "simpleError")) 'droplet likely not up yet' else res
 }
 
-do_ssh <- function(droplet, cmd, user, keyfile = NULL, verbose = FALSE) {
+do_ssh <- function(droplet, cmd, user, keyfile = NULL, passwd = NULL, verbose = FALSE) {
   mssg(verbose, cmd)
   user_ip <- sprintf("%s@%s", user, droplet_ip_safe(droplet))
   if (user_ip %in% ls(envir = analogsea_sessions)) {

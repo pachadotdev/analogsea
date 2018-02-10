@@ -6,7 +6,8 @@
 \alias{droplet_download}
 \title{Remotely execute ssh code, upload & download files.}
 \usage{
-droplet_ssh(droplet, ..., user = "root", keyfile = NULL, verbose = FALSE)
+droplet_ssh(droplet, ..., user = "root", keyfile = NULL, passwd = NULL,
+  verbose = FALSE)
 
 droplet_upload(droplet, local, remote, user = "root", verbose = FALSE)
 
@@ -23,6 +24,10 @@ droplet_download(droplet, remote, local, user = "root", verbose = FALSE,
 \item{user}{User name. Defaults to "root".}
 
 \item{keyfile}{Optional private key file.}
+
+\item{passwd}{Optional passphrase or callback function for authentication.
+Refer to the \code{\link[ssh]{ssh_connect}} documentation for more
+details.}
 
 \item{verbose}{If TRUE, will print command before executing it.}
 
