@@ -6,7 +6,8 @@
 \alias{droplet_download}
 \title{Remotely execute ssh code, upload & download files.}
 \usage{
-droplet_ssh(droplet, ..., user = "root", verbose = FALSE)
+droplet_ssh(droplet, ..., user = "root", keyfile = NULL, passwd = NULL,
+  verbose = FALSE)
 
 droplet_upload(droplet, local, remote, user = "root", verbose = FALSE)
 
@@ -21,6 +22,12 @@ droplet_download(droplet, remote, local, user = "root", verbose = FALSE,
 \code{&&} so that execution will halt after the first failure.}
 
 \item{user}{User name. Defaults to "root".}
+
+\item{keyfile}{Optional private key file.}
+
+\item{passwd}{Optional passphrase or callback function for authentication.
+Refer to the \code{\link[ssh]{ssh_connect}} documentation for more
+details.}
 
 \item{verbose}{If TRUE, will print command before executing it.}
 
@@ -41,8 +48,8 @@ Uploads and downloads are recursive, so if you specify a directory,
 everything inside the directory will also be downloaded.
 
 With the chang to package \pkg{ssh}, we create ssh session objects
-(C pointers) internally, and cache them, then look them up in the cache 
-based on combination of user and IP address. That is, there's separate 
+(C pointers) internally, and cache them, then look them up in the cache
+based on combination of user and IP address. That is, there's separate
 sessions for each user for the same IP address.
 
 ssh sessions are cleaned up at the end of your R session.
@@ -52,7 +59,7 @@ ssh sessions are cleaned up at the end of your R session.
 d <- droplet_create() \%>\% droplet_wait()
 
 # Upgrade system packages
-d \%>\% 
+d \%>\%
   droplet_ssh("apt-get update") \%>\%
   droplet_ssh("sudo apt-get upgrade -y --force-yes") \%>\%
   droplet_ssh("apt-get autoremove -y")
