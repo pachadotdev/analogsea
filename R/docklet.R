@@ -93,13 +93,13 @@
 #' docklet_create() %>% docklet_shinyserver()
 #'
 #' # Spin up a Shiny server with an app (opens in default browser)
-#' d <- docklet_create()
+#' d <- docklet_create(); d <- droplet(d$id)
 #' path <- system.file("examples", "widgets", package = "analogsea")
 #' d %>% docklet_shinyapp(path)
 #' ## uploading more apps - use droplet_upload, then navigate in browser
 #' ### if you try to use docklet_shinyapp again on the same droplet, it will error
 #' path2 <- system.file("examples", "mpg", package = "analogsea")
-#' d %>% droplet_upload(path2, "/srv/shinyapps/mpg") # then go to browser
+#' d %>% droplet_upload(path2, "/srv/shinyapps") # then go to browser
 #' }
 docklet_create <- function(name = random_name(),
                            size = getOption("do_size", "1gb"),
@@ -199,7 +199,7 @@ docklet_rstudio <- function(droplet,
   docklet_pull(droplet, img, ssh_user)
   docklet_run(droplet,
     " -d",
-    " -p ", port, ":8787",
+    " -p ", paste0(port, ":8787"),
     cn(" -v ", volume),
     cn(" -w", dir),
     " -e USER=", user,
@@ -238,7 +238,7 @@ docklet_rstudio_addusers <- function(droplet,
   # spin up new container with users
   docklet_run(droplet,
               " -d",
-              " -p ", port, ":8787",
+              " -p ", paste0(port, ":8787"),
               " -e USER=", user,
               " -e PASSWORD=", password,
               " ", img,
@@ -260,7 +260,7 @@ docklet_shinyserver <- function(droplet,
   docklet_pull(droplet, img, ssh_user)
   docklet_run(droplet,
               " -d",
-              " -p ", port, ":3838",
+              " -p ", paste0(port, ":3838"),
               cn(" -v ", volume),
               cn(" -w", dir),
               " ",
@@ -289,7 +289,7 @@ docklet_shinyapp <- function(droplet,
   droplet <- as.droplet(droplet)
   # move files to server
   droplet_ssh(droplet, "mkdir -p /srv/shinyapps")
-  droplet_upload(droplet, path, paste0("/srv/shinyapps/", basename(path)))
+  droplet_upload(droplet, path, "/srv/shinyapps/")
   # spin up shiny server
   docklet_shinyserver(
     droplet, img, port, volume = '/srv/shinyapps/:/srv/shiny-server/',

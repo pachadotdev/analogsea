@@ -210,13 +210,13 @@ d \%>\% docklet_shinyserver()
 docklet_create() \%>\% docklet_shinyserver()
 
 # Spin up a Shiny server with an app (opens in default browser)
-d <- docklet_create()
+d <- docklet_create(); d <- droplet(d$id)
 path <- system.file("examples", "widgets", package = "analogsea")
 d \%>\% docklet_shinyapp(path)
 ## uploading more apps - use droplet_upload, then navigate in browser
 ### if you try to use docklet_shinyapp again on the same droplet, it will error
 path2 <- system.file("examples", "mpg", package = "analogsea")
-d \%>\% droplet_upload(path2, "/srv/shinyapps/mpg") # then go to browser
+d \%>\% droplet_upload(path2, "/srv/shinyapps") # then go to browser
 }
 }
 \seealso{
