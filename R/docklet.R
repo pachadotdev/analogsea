@@ -142,20 +142,25 @@ docklet_images <- function(droplet, all = TRUE, ssh_user = "root") {
 
 #' @export
 #' @rdname docklet_create
-docklet_pull <- function(droplet, repo, ssh_user = "root") {
-  docklet_docker(droplet, "pull", repo, ssh_user = ssh_user)
+docklet_pull <- function(droplet, repo, ssh_user = "root", keyfile = NULL, 
+  passwd = NULL) {
+
+  docklet_docker(droplet, "pull", repo, ssh_user = ssh_user, 
+    keyfile = keyfile, passwd = passwd)
 }
 
 #' @export
 #' @rdname docklet_create
 docklet_run <- function(droplet, ..., rm = FALSE, name = NULL,
-                        ssh_user = "root") {
+                        ssh_user = "root", keyfile = NULL, passwd = NULL) {
   docklet_docker(droplet,
     "run", c(
-    if (rm) " --rm",
-    if (!is.null(name)) paste0(" --name=", name),
-    ...
-  ), ssh_user = ssh_user)
+      if (rm) " --rm",
+      if (!is.null(name)) paste0(" --name=", name),
+      ...
+    ), 
+    ssh_user = ssh_user, keyfile = keyfile, passwd = passwd
+  )
 }
 
 #' @export
@@ -174,11 +179,11 @@ docklet_rm <- function(droplet, container, ssh_user = "root") {
 #' @export
 #' @rdname docklet_create
 docklet_docker <- function(droplet, cmd, args = NULL, docker_args = NULL,
-                           ssh_user = "root") {
+                           ssh_user = "root", keyfile = NULL, passwd = NULL) {
   args <- paste(args, collapse = " ")
   droplet_ssh(
     droplet,
-    user = ssh_user,
+    user = ssh_user, keyfile = keyfile, passwd = passwd,
     paste(c("docker", docker_args, cmd, args), collapse = " "))
 }
 
@@ -193,21 +198,25 @@ docklet_rstudio <- function(droplet,
                             dir = '',
                             browse = TRUE,
                             add_users = FALSE,
-                            ssh_user = "root") {
+                            ssh_user = "root",
+                            keyfile = NULL,
+                            ssh_passwd = NULL) {
   droplet <- as.droplet(droplet)
 
-  docklet_pull(droplet, img, ssh_user)
+  docklet_pull(droplet, img, ssh_user, keyfile = keyfile, passwd = passwd)
   docklet_run(droplet,
     " -d",
     " -p ", paste0(port, ":8787"),
     cn(" -v ", volume),
     cn(" -w", dir),
-    " -e USER=", user,
-    " -e PASSWORD=", password,
-    " -e EMAIL=", email, " ",
+    paste0(" -e USER=", user),
+    paste0(" -e PASSWORD=", password),
+    paste0(" -e EMAIL=", email), " ",
     img,
     ifelse(add_users, ' bash -c "add-students && supervisord" ', ' '),
-    ssh_user = ssh_user
+    ssh_user = ssh_user,
+    keyfile = keyfile, 
+    passwd = ssh_passwd
   )
 
   url <- sprintf("http://%s:%s/", droplet_ip(droplet), port)
