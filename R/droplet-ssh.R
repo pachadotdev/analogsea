@@ -110,6 +110,10 @@ do_ssh <- function(droplet, cmd, user, keyfile = NULL, passwd = NULL, verbose = 
   user_ip <- sprintf("%s@%s", user, droplet_ip_safe(droplet))
   if (user_ip %in% ls(envir = analogsea_sessions)) {
     session <- get(user_ip, envir = analogsea_sessions)
+    if (!ssh::ssh_info(session=session)$connected) {
+      session <- ssh::ssh_connect(user_ip, keyfile)
+      assign(user_ip, session, envir = analogsea_sessions)
+    }
   } else {
     session <- ssh::ssh_connect(user_ip, keyfile)
     assign(user_ip, session, envir = analogsea_sessions)
