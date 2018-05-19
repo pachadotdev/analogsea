@@ -2,7 +2,7 @@
 #'
 #' There are defaults for each of size, image, and region so that a quick
 #' one-liner with one parameter is possible: simply specify the name of the
-#' droplet and your'e up and running.
+#' droplet and you're up and running.
 #'
 #' @export
 #' @param names (character) Names of the droplets. The human-readable string
@@ -32,8 +32,8 @@
 #' invisible(lapply(d, summary))
 #' }
 droplets_create <- function(names = NULL,
-                           size = getOption("do_size", "512mb"),
-                           image = getOption("do_image", "ubuntu-14-04-x64"),
+                           size = getOption("do_size", "s-1vcpu-1gb"),
+                           image = getOption("do_image", "ubuntu-16-04-x64"),
                            region = getOption("do_region", "sfo1"),
                            ssh_keys = getOption("do_ssh_keys", NULL),
                            backups = getOption("do_backups", NULL),

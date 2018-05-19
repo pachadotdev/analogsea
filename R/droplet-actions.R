@@ -12,11 +12,11 @@
 #'   determine the hostname for the Droplet in its internal configuration.
 #'   Default: picks a random name from \code{\link{words}} if none supplied.
 #' @param size (character) Size slug identifier. See \code{\link{sizes}()} for
-#'   a complete list. Default: 512mb, the smallest
+#'   a complete list. Default: s-1vcpu-1gb, the smallest
 #' @param image (character/numeric) The image ID of a public or private image,
 #'   or the unique slug identifier for a public image. This image will be the
 #'   base image for your droplet. See \code{\link{images}()} for a complete
-#'   list. Default: ubuntu-14-04-x64
+#'   list. Default: ubuntu-16-04-x64
 #' @param region (character) The unique slug identifier for the region that you
 #'   wish to deploy in. See \code{\link{regions}()} for a complete list.
 #'   Default: sfo1
@@ -82,8 +82,8 @@
 #' summary(d)
 #' }
 droplet_create <- function(name = random_name(),
-                        size = getOption("do_size", "512mb"),
-                        image = getOption("do_image", "ubuntu-14-04-x64"),
+                        size = getOption("do_size", "s-1vcpu-1gb"),
+                        image = getOption("do_image", "ubuntu-16-04-x64"),
                         region = getOption("do_region", "sfo1"),
                         ssh_keys = getOption("do_ssh_keys", NULL),
                         backups = getOption("do_backups", NULL),
