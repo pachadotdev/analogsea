@@ -32,3 +32,13 @@ do_system2 <- function(droplet, cmd, verbose = FALSE) {
   mssg(verbose, cmd)
   system(cmd, intern = TRUE)
 }
+
+# FIXME: remove me, hold-over from before using ssh pkg
+ssh_options <- function() {  
+  opts <- c( 
+    BatchMode = "yes", 
+    StrictHostKeyChecking = "no",  
+    UserKnownHostsFile = file.path(tempdir(), "hosts") 
+  )  
+  paste0("-o ", names(opts), "=", opts, collapse = " ")  
+}

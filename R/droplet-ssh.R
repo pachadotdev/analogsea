@@ -132,7 +132,6 @@ do_ssh <- function(droplet, cmd, user, keyfile = NULL, ssh_passwd = NULL, verbos
 do_scp <- function(droplet, local, remote, user,
   scp = "upload", keyfile = NULL, ssh_passwd = NULL, verbose = FALSE) {
 
-  mssg(verbose, cmd)
   user_ip <- sprintf("%s@%s", user, droplet_ip_safe(droplet))
   if (user_ip %in% ls(envir = analogsea_sessions)) {
     session <- get(user_ip, envir = analogsea_sessions)
