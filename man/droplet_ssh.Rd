@@ -6,13 +6,14 @@
 \alias{droplet_download}
 \title{Remotely execute ssh code, upload & download files.}
 \usage{
-droplet_ssh(droplet, ..., user = "root", keyfile = NULL, passwd = NULL,
-  verbose = FALSE)
+droplet_ssh(droplet, ..., user = "root", keyfile = NULL,
+  ssh_passwd = NULL, verbose = FALSE)
 
-droplet_upload(droplet, local, remote, user = "root", verbose = FALSE)
+droplet_upload(droplet, local, remote, user = "root", keyfile = NULL,
+  ssh_passwd = NULL, verbose = FALSE)
 
-droplet_download(droplet, remote, local, user = "root", verbose = FALSE,
-  overwrite = FALSE)
+droplet_download(droplet, remote, local, user = "root", keyfile = NULL,
+  ssh_passwd = NULL, verbose = FALSE, overwrite = FALSE)
 }
 \arguments{
 \item{droplet}{A droplet, or something that can be coerced to a droplet by
@@ -25,7 +26,7 @@ droplet_download(droplet, remote, local, user = "root", verbose = FALSE,
 
 \item{keyfile}{Optional private key file.}
 
-\item{passwd}{Optional passphrase or callback function for authentication.
+\item{ssh_passwd}{Optional passphrase or callback function for authentication.
 Refer to the \code{\link[ssh]{ssh_connect}} documentation for more
 details.}
 

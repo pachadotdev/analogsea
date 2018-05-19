@@ -27,17 +27,17 @@ docklet_ps(droplet, all = TRUE, ssh_user = "root")
 docklet_images(droplet, all = TRUE, ssh_user = "root")
 
 docklet_pull(droplet, repo, ssh_user = "root", keyfile = NULL,
-  passwd = NULL)
+  ssh_passwd = NULL)
 
 docklet_run(droplet, ..., rm = FALSE, name = NULL, ssh_user = "root",
-  keyfile = NULL, passwd = NULL)
+  keyfile = NULL, ssh_passwd = NULL)
 
 docklet_stop(droplet, container, ssh_user = "root")
 
 docklet_rm(droplet, container, ssh_user = "root")
 
 docklet_docker(droplet, cmd, args = NULL, docker_args = NULL,
-  ssh_user = "root", keyfile = NULL, passwd = NULL)
+  ssh_user = "root", keyfile = NULL, ssh_passwd = NULL)
 
 docklet_rstudio(droplet, user = "rstudio", password = "rstudio",
   email = "rstudio@example.com", img = "rocker/rstudio", port = "8787",
@@ -120,6 +120,11 @@ Default: root}
 
 \item{repo}{(character) Docker name, can be local to the Droplet or remote,
 e.g., \code{rocker/rstudio}}
+
+\item{keyfile}{Optional private key file.}
+
+\item{ssh_passwd}{Optional passphrase or callback function for authentication.
+Refer to the \code{\link[ssh]{ssh_connect}} documentation for more details.}
 
 \item{rm}{(logical) Automatically remove the container when it exits.
 Default: \code{FALSE}}

@@ -41,6 +41,9 @@
 #' @param add_users (logical) Add users or not when installing RStudio server.
 #' Default: FALSE
 #' @param path (character) Path to a directory with Shiny app files
+#' @param keyfile Optional private key file.
+#' @param ssh_passwd Optional passphrase or callback function for authentication.
+#' Refer to the \code{\link[ssh]{ssh_connect}} documentation for more details.
 #' @seealso \code{\link{docklets_create}}
 #'
 #' @return all functions return a droplet
@@ -143,23 +146,23 @@ docklet_images <- function(droplet, all = TRUE, ssh_user = "root") {
 #' @export
 #' @rdname docklet_create
 docklet_pull <- function(droplet, repo, ssh_user = "root", keyfile = NULL, 
-  passwd = NULL) {
+  ssh_passwd = NULL) {
 
   docklet_docker(droplet, "pull", repo, ssh_user = ssh_user, 
-    keyfile = keyfile, passwd = passwd)
+    keyfile = keyfile, ssh_passwd = ssh_passwd)
 }
 
 #' @export
 #' @rdname docklet_create
 docklet_run <- function(droplet, ..., rm = FALSE, name = NULL,
-                        ssh_user = "root", keyfile = NULL, passwd = NULL) {
+                        ssh_user = "root", keyfile = NULL, ssh_passwd = NULL) {
   docklet_docker(droplet,
     "run", c(
       if (rm) " --rm",
       if (!is.null(name)) paste0(" --name=", name),
       ...
     ), 
-    ssh_user = ssh_user, keyfile = keyfile, passwd = passwd
+    ssh_user = ssh_user, keyfile = keyfile, ssh_passwd = ssh_passwd
   )
 }
 
@@ -179,11 +182,11 @@ docklet_rm <- function(droplet, container, ssh_user = "root") {
 #' @export
 #' @rdname docklet_create
 docklet_docker <- function(droplet, cmd, args = NULL, docker_args = NULL,
-                           ssh_user = "root", keyfile = NULL, passwd = NULL) {
+                           ssh_user = "root", keyfile = NULL, ssh_passwd = NULL) {
   args <- paste(args, collapse = " ")
   droplet_ssh(
     droplet,
-    user = ssh_user, keyfile = keyfile, passwd = passwd,
+    user = ssh_user, keyfile = keyfile, ssh_passwd = ssh_passwd,
     paste(c("docker", docker_args, cmd, args), collapse = " "))
 }
 
@@ -203,7 +206,7 @@ docklet_rstudio <- function(droplet,
                             ssh_passwd = NULL) {
   droplet <- as.droplet(droplet)
 
-  docklet_pull(droplet, img, ssh_user, keyfile = keyfile, passwd = passwd)
+  docklet_pull(droplet, img, ssh_user, keyfile = keyfile, ssh_passwd = ssh_passwd)
   docklet_run(droplet,
     " -d",
     " -p ", paste0(port, ":8787"),
@@ -216,7 +219,7 @@ docklet_rstudio <- function(droplet,
     ifelse(add_users, ' bash -c "add-students && supervisord" ', ' '),
     ssh_user = ssh_user,
     keyfile = keyfile, 
-    passwd = ssh_passwd
+    ssh_passwd = ssh_passwd
   )
 
   url <- sprintf("http://%s:%s/", droplet_ip(droplet), port)
