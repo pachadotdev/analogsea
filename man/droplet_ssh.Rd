@@ -6,12 +6,14 @@
 \alias{droplet_download}
 \title{Remotely execute ssh code, upload & download files.}
 \usage{
-droplet_ssh(droplet, ..., user = "root", verbose = FALSE)
+droplet_ssh(droplet, ..., user = "root", keyfile = NULL,
+  ssh_passwd = NULL, verbose = FALSE)
 
-droplet_upload(droplet, local, remote, user = "root", verbose = FALSE)
+droplet_upload(droplet, local, remote, user = "root", keyfile = NULL,
+  ssh_passwd = NULL, verbose = FALSE)
 
-droplet_download(droplet, remote, local, user = "root", verbose = FALSE,
-  overwrite = FALSE)
+droplet_download(droplet, remote, local, user = "root", keyfile = NULL,
+  ssh_passwd = NULL, verbose = FALSE, overwrite = FALSE)
 }
 \arguments{
 \item{droplet}{A droplet, or something that can be coerced to a droplet by
@@ -21,6 +23,12 @@ droplet_download(droplet, remote, local, user = "root", verbose = FALSE,
 \code{&&} so that execution will halt after the first failure.}
 
 \item{user}{User name. Defaults to "root".}
+
+\item{keyfile}{Optional private key file.}
+
+\item{ssh_passwd}{Optional passphrase or callback function for authentication.
+Refer to the \code{\link[ssh]{ssh_connect}} documentation for more
+details.}
 
 \item{verbose}{If TRUE, will print command before executing it.}
 
@@ -39,6 +47,13 @@ the droplet.
 \details{
 Uploads and downloads are recursive, so if you specify a directory,
 everything inside the directory will also be downloaded.
+
+With the chang to package \pkg{ssh}, we create ssh session objects
+(C pointers) internally, and cache them, then look them up in the cache
+based on combination of user and IP address. That is, there's separate
+sessions for each user for the same IP address.
+
+ssh sessions are cleaned up at the end of your R session.
 }
 \examples{
 \dontrun{
@@ -58,12 +73,24 @@ d \%>\%
 
 tmp <- tempfile()
 saveRDS(mtcars, tmp)
-d \%>\% droplet_upload(tmp, "mtcars.rds")
+d \%>\% droplet_upload(tmp, ".")
 
-tmp2 <- tempfile()
-d \%>\% droplet_download("mtcars.rds", tmp2)
+tmp2 <- tempdir()
+d \%>\% droplet_download("mtcars2.rds", tmp2)
 mtcars2 <- readRDS(tmp2)
 
 stopifnot(all.equal(mtcars, mtcars2))
+
+
+## another upload/download example
+tmp <- tempfile(fileext = ".txt")
+writeLines("foo bar", tmp)
+readLines(tmp)
+d \%>\% droplet_upload(tmp, ".")
+
+tmp2 <- tempdir()
+unlink(tmp)
+d \%>\% droplet_download("file112aa80926ce.txt", tmp2)
+readLines(file.path(tmp2, "file112aa80926ce.txt"))
 }
 }

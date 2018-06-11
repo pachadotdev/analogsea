@@ -3,6 +3,12 @@ sudo: false
 cache: packages
 warnings_are_errors: true
 
+addons:
+  apt:
+    packages:
+    - libssh-dev
+    - libapparmor-dev
+
 r:
   - oldrel
   - release
