@@ -4,7 +4,7 @@ certificate_url <- function(certificate = NULL) {
 
 #' @param x Object to coerce to an certificate
 #' @export
-#' @rdname firewalls
+#' @rdname certificates
 as.certificate <- function(x) UseMethod("as.certificate")
 #' @export
 as.certificate.list <- function(x) list_to_object(x, "certificate")
@@ -16,12 +16,22 @@ as.certificate.character <- function(x) certificate(x)
 #' Get list of certificate and their metadata, or a single certificate
 #'
 #' @export
-#' @param id (numeric) certificate id.
+#' @param id (numeric) certificate id
 #' @param name (character) a certificate name
-#' @param inbound_rules (list) inbound rules
-#' @param outbound_rules (list) outbound rules
-#' @param droplet_ids (numeric/integer) droplet ids
-#' @param tags (character) tag strings
+#' @param type (character) a string representing the type of certificate. 
+#' The value should be "custom" for a user-uploaded certificate or 
+#' "lets_encrypt" for one automatically generated with Let's Encrypt. 
+#' If not provided, "custom" will be assumed by default.
+#' @param private_key (character) the contents of a PEM-formatted private-key 
+#' corresponding to the SSL certificate
+#' @param leaf_certificate (character) the contents of a PEM-formatted public 
+#' SSL certificate
+#' @param certificate_chain (character) the full PEM-formatted trust chain 
+#' between the certificate authority's certificate and your domain's 
+#' SSL certificate
+#' @param dns_names (character) a vector of fully qualified domain names 
+#' (FQDNs) for which the certificate will be issued. The domains must be 
+#' managed using DigitalOcean's DNS
 #' @inheritParams droplets
 #' @examples \dontrun{
 #' # list certificates
@@ -39,14 +49,14 @@ certificates <- function(page = 1, per_page = 25, ...) {
 }
 
 #' @export
-#' @rdname firewalls
+#' @rdname certificates
 certificate <- function(id, ...) {
   res <- do_GET(certificate_url(id), ...)
   as.certificate(res)
 }
 
 #' @export
-#' @rdname firewalls
+#' @rdname certificates
 certificate_create <- function(name, type, private_key = NULL, 
   leaf_certificate = NULL, certificate_chain = NULL, 
   dns_names = NULL, ...) {

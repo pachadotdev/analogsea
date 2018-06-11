@@ -4,7 +4,7 @@
 \alias{docklets_create}
 \title{Docklets: docker on droplets - create many docklets}
 \usage{
-docklets_create(names = NULL, size = getOption("do_size", "1gb"),
+docklets_create(names = NULL, size = getOption("do_size", "s-1vcpu-2gb"),
   region = getOption("do_region", "sfo1"),
   ssh_keys = getOption("do_ssh_keys", NULL),
   backups = getOption("do_backups", NULL), ipv6 = getOption("do_ipv6",

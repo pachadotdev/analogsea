@@ -15,8 +15,8 @@
 \alias{docklet_shinyapp}
 \title{Docklets: docker on droplets.}
 \usage{
-docklet_create(name = random_name(), size = getOption("do_size", "1gb"),
-  region = getOption("do_region", "sfo1"),
+docklet_create(name = random_name(), size = getOption("do_size",
+  "s-1vcpu-2gb"), region = getOption("do_region", "sfo1"),
   ssh_keys = getOption("do_ssh_keys", NULL),
   backups = getOption("do_backups", NULL), ipv6 = getOption("do_ipv6",
   NULL), private_networking = getOption("do_private_networking", NULL),
@@ -63,7 +63,7 @@ determine the hostname for the Droplet in its internal configuration.
 Default: picks a random name from \code{\link{words}} if none supplied.}
 
 \item{size}{(character) Size slug identifier. See \code{\link{sizes}()} for
-a complete list. Default: s-1vcpu-1gb, the smallest}
+a complete list. Default: s-1vcpu-2gb}
 
 \item{region}{(character) The unique slug identifier for the region that you
 wish to deploy in. See \code{\link{regions}()} for a complete list.
@@ -126,6 +126,8 @@ e.g., \code{rocker/rstudio}}
 
 \item{ssh_passwd}{Optional passphrase or callback function for authentication.
 Refer to the \code{\link[ssh]{ssh_connect}} documentation for more details.}
+
+\item{verbose}{If TRUE, will print command before executing it.}
 
 \item{rm}{(logical) Automatically remove the container when it exits.
 Default: \code{FALSE}}

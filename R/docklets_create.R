@@ -14,7 +14,7 @@
 #' docklets_create(names = c('drop3', 'drop4'))
 #' }
 docklets_create <- function(names = NULL,
-                           size = getOption("do_size", "1gb"),
+                           size = getOption("do_size", "s-1vcpu-2gb"),
                            region = getOption("do_region", "sfo1"),
                            ssh_keys = getOption("do_ssh_keys", NULL),
                            backups = getOption("do_backups", NULL),

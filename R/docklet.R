@@ -11,6 +11,8 @@
 #' @export
 #'
 #' @inheritParams droplet_create
+#' @param size (character) Size slug identifier. See \code{\link{sizes}()} for
+#'   a complete list. Default: s-1vcpu-2gb
 #' @param droplet A droplet, or something that can be coerced to a droplet by
 #'   \code{\link{as.droplet}}.
 #' @param all (logical) List all containers or images. Default: \code{TRUE}
@@ -44,6 +46,7 @@
 #' @param keyfile Optional private key file.
 #' @param ssh_passwd Optional passphrase or callback function for authentication.
 #' Refer to the \code{\link[ssh]{ssh_connect}} documentation for more details.
+#' @param verbose If TRUE, will print command before executing it.
 #' @seealso \code{\link{docklets_create}}
 #'
 #' @return all functions return a droplet
@@ -106,7 +109,7 @@
 #' d %>% droplet_upload(path2, "/srv/shinyapps") # then go to browser
 #' }
 docklet_create <- function(name = random_name(),
-                           size = getOption("do_size", "1gb"),
+                           size = getOption("do_size", "s-1vcpu-2gb"),
                            region = getOption("do_region", "sfo1"),
                            ssh_keys = getOption("do_ssh_keys", NULL),
                            backups = getOption("do_backups", NULL),

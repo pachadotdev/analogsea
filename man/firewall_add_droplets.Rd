@@ -14,7 +14,7 @@ firewall_remove_droplets(id, droplet_ids, ...)
 
 \item{droplet_ids}{(integer/numeric) a vector of droplet ids}
 
-\item{...}{Options passed on to httr::DELETE}
+\item{...}{Options passed on to httr::POST or httr::DELETE}
 }
 \description{
 Add/remove droplets to a firewall

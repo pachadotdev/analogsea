@@ -103,7 +103,7 @@ firewall_delete <- function(id, ...) {
 #' @export
 #' @param id (character) A firewall id (not the name) to delete
 #' @param droplet_ids (integer/numeric) a vector of droplet ids
-#' @param ... Options passed on to httr::DELETE
+#' @param ... Options passed on to httr::POST or httr::DELETE
 #' @examples \dontrun{
 #' drops <- droplets_create()
 #' drop_ids <- vapply(drops, "[[", numeric(1), "id")
@@ -136,8 +136,8 @@ firewall_remove_droplets <- function(id, droplet_ids, ...) {
 #'
 #' @export
 #' @param id (character) A firewall id (not the name) to delete
-#' @param droplet_ids (integer/numeric) a vector of droplet ids
-#' @param ... Options passed on to httr::DELETE
+#' @param tags (character) tag strings
+#' @param ... Options passed on to httr::POST or httr::DELETE
 #' @examples \dontrun{
 #' drops <- droplets_create()
 #' drop_ids <- vapply(drops, "[[", numeric(1), "id")

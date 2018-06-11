@@ -12,9 +12,9 @@ firewall_remove_tags(id, tags, ...)
 \arguments{
 \item{id}{(character) A firewall id (not the name) to delete}
 
-\item{...}{Options passed on to httr::DELETE}
+\item{tags}{(character) tag strings}
 
-\item{droplet_ids}{(integer/numeric) a vector of droplet ids}
+\item{...}{Options passed on to httr::POST or httr::DELETE}
 }
 \description{
 Add/remove tags to a firewall
