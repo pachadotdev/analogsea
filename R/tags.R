@@ -8,7 +8,9 @@
 #' tag_create(name = "venus")
 #' }
 tag_create <- function(name, ...) {
-  as.tag(do_POST(url = 'tags', body = list(name = name), encode = NULL, ...))
+  as.tag(
+    do_POST(url = 'tags', body = list(name = name), ...)
+  )
 }
 
 #' Delete a tag
