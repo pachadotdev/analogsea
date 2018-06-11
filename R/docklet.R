@@ -88,6 +88,7 @@
 #' ## This adds 100 users to the instance, with username/passwords
 #' ## following pattern user1/user1 ... through 100
 #' d <- docklet_create()
+#' d <- droplet(d$id)
 #' d %>% docklet_rstudio() %>% docklet_rstudio_addusers()
 #'
 #' # Spin up a Shiny server (opens in default browser)
@@ -146,23 +147,25 @@ docklet_images <- function(droplet, all = TRUE, ssh_user = "root") {
 #' @export
 #' @rdname docklet_create
 docklet_pull <- function(droplet, repo, ssh_user = "root", keyfile = NULL, 
-  ssh_passwd = NULL) {
+  ssh_passwd = NULL, verbose = FALSE) {
 
   docklet_docker(droplet, "pull", repo, ssh_user = ssh_user, 
-    keyfile = keyfile, ssh_passwd = ssh_passwd)
+    keyfile = keyfile, ssh_passwd = ssh_passwd, verbose = verbose)
 }
 
 #' @export
 #' @rdname docklet_create
 docklet_run <- function(droplet, ..., rm = FALSE, name = NULL,
-                        ssh_user = "root", keyfile = NULL, ssh_passwd = NULL) {
+  ssh_user = "root", keyfile = NULL, ssh_passwd = NULL, verbose = FALSE) {
+
   docklet_docker(droplet,
     "run", c(
       if (rm) " --rm",
       if (!is.null(name)) paste0(" --name=", name),
       ...
     ), 
-    ssh_user = ssh_user, keyfile = keyfile, ssh_passwd = ssh_passwd
+    ssh_user = ssh_user, keyfile = keyfile, ssh_passwd = ssh_passwd, 
+    verbose = verbose
   )
 }
 
@@ -182,31 +185,27 @@ docklet_rm <- function(droplet, container, ssh_user = "root") {
 #' @export
 #' @rdname docklet_create
 docklet_docker <- function(droplet, cmd, args = NULL, docker_args = NULL,
-                           ssh_user = "root", keyfile = NULL, ssh_passwd = NULL) {
+  ssh_user = "root", keyfile = NULL, ssh_passwd = NULL, verbose = FALSE) {
+
   args <- paste(args, collapse = " ")
   droplet_ssh(
     droplet,
     user = ssh_user, keyfile = keyfile, ssh_passwd = ssh_passwd,
-    paste(c("docker", docker_args, cmd, args), collapse = " "))
+    paste(c("docker", docker_args, cmd, args), collapse = " "), 
+    verbose = verbose)
 }
 
 #' @export
 #' @rdname docklet_create
-docklet_rstudio <- function(droplet,
-                            user = 'rstudio', password = 'rstudio',
-                            email = 'rstudio@example.com',
-                            img = 'rocker/rstudio',
-                            port = '8787',
-                            volume = '',
-                            dir = '',
-                            browse = TRUE,
-                            add_users = FALSE,
-                            ssh_user = "root",
-                            keyfile = NULL,
-                            ssh_passwd = NULL) {
+docklet_rstudio <- function(droplet, user = 'rstudio', password = 'rstudio',
+  email = 'rstudio@example.com', img = 'rocker/rstudio', port = '8787',
+  volume = '', dir = '', browse = TRUE, add_users = FALSE,
+  ssh_user = "root", keyfile = NULL, ssh_passwd = NULL, verbose = FALSE) {
+
   droplet <- as.droplet(droplet)
 
-  docklet_pull(droplet, img, ssh_user, keyfile = keyfile, ssh_passwd = ssh_passwd)
+  docklet_pull(droplet, img, ssh_user, keyfile = keyfile, 
+    ssh_passwd = ssh_passwd, verbose = verbose)
   docklet_run(droplet,
     " -d",
     " -p ", paste0(port, ":8787"),
@@ -234,13 +233,15 @@ docklet_rstudio <- function(droplet,
 #' @export
 #' @rdname docklet_create
 docklet_rstudio_addusers <- function(droplet,
-                                     user = 'rstudio', password = 'rstudio',
-                                     img = 'rocker/rstudio',
-                                     port = '8787') {
+  user = 'rstudio', password = 'rstudio', img = 'rocker/rstudio',
+  port = '8787', ssh_user = "root", keyfile = NULL, ssh_passwd = NULL, 
+  verbose = FALSE) {
+
   droplet <- as.droplet(droplet)
 
   # check if rstudio container already running, shut down if up
-  cons <- docklet_ps_data(droplet)
+  cons <- docklet_ps_data(droplet, ssh_user = ssh_user, 
+    keyfile = keyfile, ssh_passwd = ssh_passwd, verbose = verbose)
   id <- cons[ grep("rocker/rstudio:latest", cons$image), "container.id" ]
   if (length(id) > 0) {
     docklet_stop(droplet, container = id)
@@ -248,13 +249,15 @@ docklet_rstudio_addusers <- function(droplet,
   }
 
   # spin up new container with users
-  docklet_run(droplet,
-              " -d",
-              " -p ", paste0(port, ":8787"),
-              " -e USER=", user,
-              " -e PASSWORD=", password,
-              " ", img,
-              ' bash -c "add-students && supervisord"'
+  docklet_run(
+    droplet,
+    " -d",
+    " -p ", paste0(port, ":8787"),
+    paste0(" -e USER=", user),
+    paste0(" -e PASSWORD=", password),
+    " ", img,
+    ' bash -c "add-students && supervisord"',
+    verbose = verbose
   )
 }
 

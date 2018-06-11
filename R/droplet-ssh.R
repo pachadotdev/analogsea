@@ -114,11 +114,19 @@ do_ssh <- function(droplet, cmd, user, keyfile = NULL, ssh_passwd = NULL, verbos
   if (user_ip %in% ls(envir = analogsea_sessions)) {
     session <- get(user_ip, envir = analogsea_sessions)
     if (!ssh::ssh_info(session=session)$connected) {
-      session <- ssh::ssh_connect(user_ip, keyfile, ssh_passwd)
+      session <- if (is.null(ssh_passwd)) {
+        ssh::ssh_connect(user_ip, keyfile)
+      } else {
+        ssh::ssh_connect(user_ip, keyfile, ssh_passwd)
+      }
       assign(user_ip, session, envir = analogsea_sessions)
     }
   } else {
-    session <- ssh::ssh_connect(user_ip, keyfile, ssh_passwd)
+    session <- if (is.null(ssh_passwd)) {
+      ssh::ssh_connect(user_ip, keyfile)
+    } else {
+      ssh::ssh_connect(user_ip, keyfile, ssh_passwd)
+    }
     assign(user_ip, session, envir = analogsea_sessions)
   }
   out <- ssh::ssh_exec_wait(session = session, command = cmd)
@@ -136,7 +144,11 @@ do_scp <- function(droplet, local, remote, user,
   if (user_ip %in% ls(envir = analogsea_sessions)) {
     session <- get(user_ip, envir = analogsea_sessions)
   } else {
-    session <- ssh::ssh_connect(user_ip, keyfile, ssh_passwd)
+    session <- if (is.null(ssh_passwd)) {
+      ssh::ssh_connect(user_ip, keyfile)
+    } else {
+      ssh::ssh_connect(user_ip, keyfile, ssh_passwd)
+    }
     assign(user_ip, session, envir = analogsea_sessions)
   }
   if (scp == "upload") cat(ssh::scp_upload(session = session,
