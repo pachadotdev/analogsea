@@ -49,5 +49,4 @@ spaces_object_put <- function(file,
                      secret = spaces_secret,
                      base_url = spaces_base,
                      ...)
-
 }

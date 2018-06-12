@@ -40,5 +40,4 @@ spaces_object_delete <- function(object,
                         secret = spaces_secret,
                         base_url = spaces_base,
                         ...)
-
 }
