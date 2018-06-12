@@ -47,5 +47,4 @@ spaces_object_copy <- function(from_object,
                       secret = spaces_secret,
                       base_url = spaces_base,
                       ...)
-
 }

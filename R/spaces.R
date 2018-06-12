@@ -151,10 +151,15 @@ space_files <- function(space_info) {
 }
 
 #' Create a new space
+#'
+#' This function is not implemented yet. A working implementation is planned in
+#' future releases of this package.
+#'
 #' @importFrom aws.s3 put_bucket
-#' @export
 #' @rdname spaces
 space_create <- function(name, spaces_key = NULL, spaces_secret = NULL, ...) {
+  stop("This function is not implemented yet.", call. = FALSE)
+
   if (is.null(name)) stop("Please specify the space name")
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)

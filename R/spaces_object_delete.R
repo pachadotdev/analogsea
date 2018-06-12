@@ -1,5 +1,8 @@
 #' Delete an Object from a Space
 #'
+#' This function is not implemented yet. A working implementation is planned in
+#' future releases of this package.
+#'
 #' @param object (character) The Object to delete
 #' @param space (character) The Space to delete the Object from
 #' @template spaces_args
@@ -7,7 +10,6 @@
 #'
 #' @return \code{TRUE} if successful, otherwise an object of class aws_error
 #' details if not.
-#' @export
 #'
 #' @references \url{https://developers.digitalocean.com/documentation/
 #' spaces/#delete-object}
@@ -26,6 +28,8 @@ spaces_object_delete <- function(object,
                                  spaces_key = NULL,
                                  spaces_secret = NULL,
                                  ...) {
+  stop("This function is not implemented yet.", call. = FALSE)
+
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)
 
@@ -36,5 +40,4 @@ spaces_object_delete <- function(object,
                         secret = spaces_secret,
                         base_url = spaces_base,
                         ...)
-
 }
