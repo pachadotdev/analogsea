@@ -27,7 +27,8 @@ variable \code{DO_SPACES_SECRET_KEY}.}
 details if not.
 }
 \description{
-Delete an Object from a Space
+This function is not implemented yet. A working implementation is planned in
+future releases of this package.
 }
 \examples{
 \dontrun{

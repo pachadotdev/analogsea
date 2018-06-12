@@ -39,7 +39,8 @@ from the \code{aws.s3} package.}
  \item{space_create}{Create a new space}
 }
 
-Create a new space
+This function is not implemented yet. A working implementation is planned in
+future releases of this package.
 }
 \examples{
 \dontrun{
