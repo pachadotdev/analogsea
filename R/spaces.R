@@ -183,6 +183,8 @@ space_files <- function(space_info) {
 #'
 #' @importFrom aws.s3 put_bucket
 #' @rdname spaces
+#'
+#' @return (character) The name of the created Space.
 space_create <- function(name,
                          spaces_region = NULL,
                          spaces_key = NULL,
