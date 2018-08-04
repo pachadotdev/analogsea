@@ -1,11 +1,23 @@
-spaces_base <- "nyc3.digitaloceanspaces.com"
+spaces_base <- "digitaloceanspaces.com"
+
+check_space_region <- function(spaces_region) {
+  tmp <- ifelse(is.null(spaces_region),
+                Sys.getenv("DO_SPACES_REGION"),
+                spaces_region)
+  if (tmp == "") {
+    stop("Need a digital ocean spaces region in your session. e.g. Sys.setenv(\"DO_SPACES_REGION\"=\"nyc3\")",
+         call. = FALSE)
+  } else {
+    tmp
+  }
+}
 
 check_space_access <- function(spaces_key) {
   tmp <- ifelse(is.null(spaces_key),
                 Sys.getenv("DO_SPACES_ACCESS_KEY"),
                 spaces_key)
   if (tmp == "") {
-    stop("Need a digital ocean spaces access key defined in your session",
+    stop("Need a digital ocean spaces access key defined in your session. e.g. Sys.setenv(\"DO_SPACES_ACCESS_KEY\"=\"{YOUR_KEY}\")",
          call. = FALSE)
   } else {
     tmp
@@ -17,7 +29,7 @@ check_space_secret <- function(spaces_secret) {
                 Sys.getenv("DO_SPACES_SECRET_KEY"),
                 spaces_secret)
   if (tmp == "") {
-    stop("Need a digital ocean spaces secret key defined in your session",
+    stop("Need a digital ocean spaces secret key defined in your session. e.g. Sys.setenv(\"DO_SPACES_SECRET_KEY\"=\"{YOUR_SECRET}\")",
          call. = FALSE)
   } else {
     tmp
@@ -83,13 +95,16 @@ summary.space <- function(object, ...) {
 
 #' @importFrom aws.s3 bucketlist
 #' @keywords internal
-spaces_GET <- function(spaces_key = NULL, spaces_secret = NULL, ...) {
+spaces_GET <- function(spaces_region = NULL,
+                       spaces_key = NULL,
+                       spaces_secret = NULL, ...) {
 
+  spaces_region <- check_space_region(spaces_region)
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)
 
   res <- aws.s3::s3HTTP(verb = "GET",
-                        region = NULL,
+                        region = spaces_region,
                         key = spaces_key,
                         secret = spaces_secret,
                         base_url = spaces_base,
@@ -100,8 +115,13 @@ spaces_GET <- function(spaces_key = NULL, spaces_secret = NULL, ...) {
 
 #' @export
 #' @rdname spaces
-spaces <- function(spaces_key = NULL, spaces_secret = NULL, ...) {
-  res <- spaces_GET(spaces_key = spaces_key, spaces_secret = spaces_secret, ...)
+spaces <- function(spaces_region = NULL,
+                   spaces_key = NULL,
+                   spaces_secret = NULL, ...) {
+  res <- spaces_GET(spaces_region = spaces_region,
+                    spaces_key = spaces_key,
+                    spaces_secret = spaces_secret,
+                    ...)
 
   # when only one space is present, res$Buckets only contains the Name and
   # CreationDate.  If more than one space is present, then each space will
@@ -120,13 +140,19 @@ spaces <- function(spaces_key = NULL, spaces_secret = NULL, ...) {
 
 #' @importFrom aws.s3 get_bucket
 #' @keywords internal
-space_info <- function(name, spaces_key = NULL, spaces_secret = NULL, ...) {
+space_info <- function(name,
+                       spaces_region = NULL,
+                       spaces_key = NULL,
+                       spaces_secret = NULL,
+                       ...) {
   if (is.null(name)) stop("Please specify the space name")
+
+  spaces_region <- check_space_region(spaces_region)
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)
 
   space_info <- get_bucket(name,
-                           region = NULL,
+                           region = spaces_region,
                            check_region = FALSE,
                            key = spaces_key,
                            secret = spaces_secret,
@@ -157,15 +183,21 @@ space_files <- function(space_info) {
 #'
 #' @importFrom aws.s3 put_bucket
 #' @rdname spaces
-space_create <- function(name, spaces_key = NULL, spaces_secret = NULL, ...) {
   stop("This function is not implemented yet.", call. = FALSE)
+space_create <- function(name,
+                         spaces_region = NULL,
+                         spaces_key = NULL,
+                         spaces_secret = NULL,
+                         ...) {
 
   if (is.null(name)) stop("Please specify the space name")
+
+  spaces_region <- check_space_region(spaces_region)
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)
 
   res <- put_bucket(name,
-                    region = NULL,
+                    region = spaces_region,
                     key = spaces_key,
                     secret = spaces_secret,
                     base_url = spaces_base,
