@@ -567,3 +567,57 @@ Delete a domain name, returns nothing if delete is successful
 ```r
 domain(dom) %>% domain_delete()
 ```
+
+## Spaces and Objects
+
+As of Septemnber of 2017, Digital Ocean provides a way to store files in a manner similar to Amazon's S3 called [Spaces](https://www.digitalocean.com/products/spaces/).
+In fact, the features supported by Spaces are nearly the same as S3 as DigitalOcean modeled their API after Amazon's.
+If you're familiar with the [aws.s3](https://cran.r-project.org/web/packages/aws.s3/index.html) package, you'll feel right at home.
+
+To get started using Spaces with `analogsea`, you first need to set three environmental variables.
+The first two are your Spaces API access key and secret:
+
+```r
+Sys.setenv("DO_SPACES_ACCESS_KEY"="{YOUR_KEY_HERE}",
+           "DO_SPACES_SECRET_KEY"="{YOUR_SECRET_HERE")
+```
+Note: You can generate and manage these keys in the [API section](https://cloud.digitalocean.com/account/api/) of your Digital Ocean control panel.
+
+The third is for the region you'll be creating Spaces in.
+DigitalOcean separates spaces by geographic region, similar to Amazon S3.
+
+```r
+Sys.setenv("DO_SPACES_REGION"="nyc3")
+```
+
+Now you're all set to create Spaces and working with Objects.
+
+
+### Creating and Deleting Spaces
+To create a new Space, simply run:
+
+```r
+space_create("my-space")
+```
+
+If we decide we no longer want this space, we can delete it in a similar fashion:
+
+```r
+space_delete("my-space")
+```
+
+### Creating Objects in Spaces
+
+To upload a file to the space we created earily, `my-space`, we use `spaces_object_put()`:
+
+```r
+spaces_object_put("my-large-file.csv", "my-space")
+```
+
+To verify that our upload succeeded, we can easily list the contents of our Space:
+
+```r
+space_list("my-space")
+```
+
+There are a handful of other handy functions that map onto the official [Digital Ocean Spaces API](https://developers.digitalocean.com/documentation/spaces/#introduction) included with `analogsea`.
