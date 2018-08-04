@@ -4,13 +4,17 @@
 \alias{spaces_acl_get}
 \title{Retrieve an Object's Access Control List (ACL)}
 \usage{
-spaces_acl_get(object, space, spaces_key = NULL, spaces_secret = NULL,
-  warn_xml2 = TRUE, ...)
+spaces_acl_get(object, space, spaces_region = NULL, spaces_key = NULL,
+  spaces_secret = NULL, warn_xml2 = TRUE, ...)
 }
 \arguments{
 \item{object}{(character) The Object to get the ACL on}
 
 \item{space}{(character) The Space the Object is found in}
+
+\item{spaces_region}{(character) String containing a spaces region. If
+missing, defaults to value stored in an environment variable
+\code{DO_SPACES_REGION}.}
 
 \item{spaces_key}{(character) String containing a spaces access key. If
 missing, defaults to value stored in an environment variable

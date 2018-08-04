@@ -4,13 +4,17 @@
 \alias{spaces_object_delete}
 \title{Delete an Object from a Space}
 \usage{
-spaces_object_delete(object, space, spaces_key = NULL, spaces_secret = NULL,
-  ...)
+spaces_object_delete(object, space, spaces_region = NULL, spaces_key = NULL,
+  spaces_secret = NULL, ...)
 }
 \arguments{
 \item{object}{(character) The Object to delete}
 
 \item{space}{(character) The Space to delete the Object from}
+
+\item{spaces_region}{(character) String containing a spaces region. If
+missing, defaults to value stored in an environment variable
+\code{DO_SPACES_REGION}.}
 
 \item{spaces_key}{(character) String containing a spaces access key. If
 missing, defaults to value stored in an environment variable

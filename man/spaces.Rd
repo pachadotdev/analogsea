@@ -6,18 +6,28 @@
 \alias{spaces_GET}
 \alias{spaces}
 \alias{space_create}
+\alias{space_delete}
 \title{Spaces storage operations}
 \usage{
 as.space(x)
 
-spaces_GET(spaces_key = NULL, spaces_secret = NULL, ...)
+spaces_GET(spaces_region = NULL, spaces_key = NULL, spaces_secret = NULL,
+  ...)
 
-spaces(spaces_key = NULL, spaces_secret = NULL, ...)
+spaces(spaces_region = NULL, spaces_key = NULL, spaces_secret = NULL, ...)
 
-space_create(name, spaces_key = NULL, spaces_secret = NULL, ...)
+space_create(name, spaces_region = NULL, spaces_key = NULL,
+  spaces_secret = NULL, ...)
+
+space_delete(name, spaces_region = NULL, spaces_key = NULL,
+  spaces_secret = NULL, ...)
 }
 \arguments{
 \item{x}{Object to coerce to a space}
+
+\item{spaces_region}{(character) String containing a spaces region. If
+missing, defaults to value stored in an environment variable
+\code{DO_SPACES_REGION}.}
 
 \item{spaces_key}{(character) String containing a spaces access key. If
 missing, defaults to value stored in an environment variable
@@ -33,14 +43,20 @@ from the \code{aws.s3} package.}
 
 \item{name}{(character) Space name.}
 }
+\value{
+(character) The name of the created Space.
+
+(character) The name of the created Space.
+}
 \description{
 \describe{
  \item{spaces}{Retrieve all spaces in your digital ocean account}
  \item{space_create}{Create a new space}
 }
 
-This function is not implemented yet. A working implementation is planned in
-future releases of this package.
+Create a new space
+
+Delete an existing Space
 }
 \examples{
 \dontrun{
