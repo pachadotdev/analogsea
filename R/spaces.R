@@ -183,7 +183,6 @@ space_files <- function(space_info) {
 #'
 #' @importFrom aws.s3 put_bucket
 #' @rdname spaces
-  stop("This function is not implemented yet.", call. = FALSE)
 space_create <- function(name,
                          spaces_region = NULL,
                          spaces_key = NULL,
@@ -201,6 +200,7 @@ space_create <- function(name,
                     key = spaces_key,
                     secret = spaces_secret,
                     base_url = spaces_base,
+                    location_constraint = NULL,
                     ...)
 
   if (res) message(sprintf("New space %s created successfully", name))
