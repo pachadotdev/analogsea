@@ -176,10 +176,44 @@ space_files <- function(space_info) {
   length(lapply(space_info, function(x) x[x$Size > 0]))
 }
 
-#' Create a new space
+#' List a Spaces contents
 #'
-#' This function is not implemented yet. A working implementation is planned in
-#' future releases of this package.
+#' @param name (character) The Space's name
+#' @param ... Additional arguments passed to \code{\link[aws.s3]{get_bucket_df}}
+#' @template spaces_args
+#' @importFrom aws.s3 get_bucket_df
+#'
+#' @return (data.frame) The Spaces contents as a \code{data.frame}
+#' @export
+#' @examples
+#' \dontrun{
+#' # List the contents of the space "example"
+#' space_list("example")
+#' }
+space_list <- function(name,
+                       spaces_region = NULL,
+                       spaces_key = NULL,
+                       spaces_secret = NULL,
+                       ...) {
+  if (is.null(name)) stop("Please specify the space name")
+
+  spaces_region <- check_space_region(spaces_region)
+  spaces_key <- check_space_access(spaces_key)
+  spaces_secret <- check_space_secret(spaces_secret)
+
+  space_info <- aws.s3:::get_bucket_df(name,
+                                       region = spaces_region,
+                                       check_region = FALSE,
+                                       key = spaces_key,
+                                       secret = spaces_secret,
+                                       base_url = spaces_base,
+                                       max = Inf,
+                                       ...)
+
+  return(space_info)
+}
+
+#' Create a new space
 #'
 #' @importFrom aws.s3 put_bucket
 #' @rdname spaces
@@ -206,4 +240,31 @@ space_create <- function(name,
                     ...)
 
   if (res) message(sprintf("New space %s created successfully", name))
+
+  invisible(name)
+}
+
+#' Delete an existing Space
+#'
+#' @importFrom aws.s3 delete_bucket
+#' @rdname spaces
+#'
+#' @return (character) The name of the created Space.
+space_delete <- function(name,
+                         spaces_region = NULL,
+                         spaces_key = NULL,
+                         spaces_secret = NULL,
+                         ...) {
+
+  spaces_region <- check_space_region(spaces_region)
+  spaces_key <- check_space_access(spaces_key)
+  spaces_secret <- check_space_secret(spaces_secret)
+
+  res <- delete_bucket(name,
+                       region = spaces_region,
+                       key = spaces_key,
+                       secret = spaces_secret,
+                       base_url = spaces_base,
+                       ...)
+
 }
