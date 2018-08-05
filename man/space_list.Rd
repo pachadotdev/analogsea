@@ -2,7 +2,7 @@
 % Please edit documentation in R/spaces.R
 \name{space_list}
 \alias{space_list}
-\title{List a Spaces contents}
+\title{List the Objects in a Space}
 \usage{
 space_list(name, spaces_region = NULL, spaces_key = NULL,
   spaces_secret = NULL, ...)
@@ -28,7 +28,7 @@ variable \code{DO_SPACES_SECRET_KEY}.}
 (data.frame) The Spaces contents as a \code{data.frame}
 }
 \description{
-List a Spaces contents
+List the Objects in a Space
 }
 \examples{
 \dontrun{
