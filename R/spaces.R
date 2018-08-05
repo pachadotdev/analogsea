@@ -4,7 +4,7 @@ spaces_base <- "digitaloceanspaces.com"
 #'
 #' DigitalOcean provides support for storing files (Objects) in Spaces. This is
 #' useful for storing related files for fast access, sharing, etc. See the
-#' \link[official documentation]{https://developers.digitalocean.com/documentation/spaces/}
+#' \url{https://developers.digitalocean.com/documentation/spaces/}
 #' for more information.
 #'
 #' @param space (character) The name of the Space
@@ -24,7 +24,6 @@ spaces_base <- "digitaloceanspaces.com"
 #'
 #' # Create a new space
 #' space_create("new_space_name")
-#' }
 #'
 #' # Create an Object in a Space
 #' spaces_object_put("some_file", "new_space_name")
@@ -34,6 +33,7 @@ spaces_base <- "digitaloceanspaces.com"
 #'
 #' # Delete a Space (can only be done on an empty Space)
 #' space_delete("new_space_name")
+#' }
 #'
 NULL
 
@@ -133,6 +133,12 @@ summary.space <- function(object, ...) {
   cat("  Created at:   ", object$CreationDate, "\n", sep = "")
 }
 
+#' Internal helper method to get information about a Space
+#'
+#' @template spaces_args
+#' @param ... Additional arguments to \code{\link[aws.s3]{s3HTTP}}
+#'
+#' @return The raw S3 response, or throws an error
 spaces_GET <- function(spaces_region = NULL,
                        spaces_key = NULL,
                        spaces_secret = NULL, ...) {
@@ -141,14 +147,13 @@ spaces_GET <- function(spaces_region = NULL,
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)
 
-  res <- aws.s3::s3HTTP(verb = "GET",
-                        region = spaces_region,
-                        key = spaces_key,
-                        secret = spaces_secret,
-                        base_url = spaces_base,
-                        ...)
+  aws.s3::s3HTTP(verb = "GET",
+                 region = spaces_region,
+                 key = spaces_key,
+                 secret = spaces_secret,
+                 base_url = spaces_base,
+                 ...)
 
-  return(res)
 }
 
 

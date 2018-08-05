@@ -11,7 +11,7 @@
 \description{
 DigitalOcean provides support for storing files (Objects) in Spaces. This is
 useful for storing related files for fast access, sharing, etc. See the
-\link[official documentation]{https://developers.digitalocean.com/documentation/spaces/}
+\url{https://developers.digitalocean.com/documentation/spaces/}
 for more information.
 }
 \examples{
@@ -27,7 +27,6 @@ summary(res[["my_space_name"]])
 
 # Create a new space
 space_create("new_space_name")
-}
 
 # Create an Object in a Space
 spaces_object_put("some_file", "new_space_name")
@@ -37,5 +36,6 @@ spaces_object_delete("some_file", "new_space_name")
 
 # Delete a Space (can only be done on an empty Space)
 space_delete("new_space_name")
+}
 
 }
