@@ -201,7 +201,7 @@ space_list <- function(name,
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)
 
-  space_info <- aws.s3:::get_bucket_df(name,
+  space_info <- aws.s3::get_bucket_df(name,
                                        region = spaces_region,
                                        check_region = FALSE,
                                        key = spaces_key,
