@@ -268,3 +268,47 @@ space_delete <- function(name,
                        ...)
 
 }
+
+#' Get the region of a Space
+#'
+#' @param name (character) The name of the Space
+#' @param ... Additional arguments passed to \code{\link[aws.s3]{s3HTTP}}
+#' @template spaces_args
+#'
+#' @return (character) The region the Space is in
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Create a space and get its location
+#' sp <- create_space("my-space")
+#' space_location(sp)
+#' }
+space_location <- function(name,
+                           spaces_region = NULL,
+                           spaces_key = NULL,
+                           spaces_secret = NULL,
+                           ...) {
+  spaces_region <- check_space_region(spaces_region)
+  spaces_key <- check_space_access(spaces_key)
+  spaces_secret <- check_space_secret(spaces_secret)
+
+  r <- aws.s3::s3HTTP("GET",
+                      name,
+                      query = list(location = ""),
+                      region = spaces_region,
+                      key = spaces_key,
+                      secret = spaces_secret,
+                      base_url = spaces_base,
+                      ...)
+
+  # Stop now with an error if things don't look righta
+  if (!is.list(r) && length(r) >= 1 && !is.character(r[[1]])) {
+    stop(paste0("Something went wrong with the request to get the region for ",
+                "the Space '",
+                name,
+                "'."))
+  }
+
+  r[[1]]
+}
