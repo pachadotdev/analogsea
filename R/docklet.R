@@ -29,7 +29,7 @@
 #' @param args (character) Docker args
 #' @param docker_args (character) Docker args
 #' @param user (character) User name. Default: \code{"rstudio"}
-#' @param password (character) Password. Default: \code{"rstudio"}
+#' @param password (character) Password. Default: \code{"server"}
 #' @param email (character) Password. Default: \code{"rstudio@@example.com"}
 #' @param img (character) Docker image (not a DigitalOcean image). Default:
 #' \code{'rocker/rstudio'}
@@ -200,7 +200,7 @@ docklet_docker <- function(droplet, cmd, args = NULL, docker_args = NULL,
 
 #' @export
 #' @rdname docklet_create
-docklet_rstudio <- function(droplet, user = 'rstudio', password = 'rstudio',
+docklet_rstudio <- function(droplet, user = 'rstudio', password = 'server',
   email = 'rstudio@example.com', img = 'rocker/rstudio', port = '8787',
   volume = '', dir = '', browse = TRUE, add_users = FALSE,
   ssh_user = "root", keyfile = NULL, ssh_passwd = NULL, verbose = FALSE) {
@@ -236,7 +236,7 @@ docklet_rstudio <- function(droplet, user = 'rstudio', password = 'rstudio',
 #' @export
 #' @rdname docklet_create
 docklet_rstudio_addusers <- function(droplet,
-  user = 'rstudio', password = 'rstudio', img = 'rocker/rstudio',
+  user = 'rstudio', password = 'server', img = 'rocker/rstudio',
   port = '8787', ssh_user = "root", keyfile = NULL, ssh_passwd = NULL, 
   verbose = FALSE) {
 
