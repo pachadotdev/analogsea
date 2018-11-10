@@ -30,7 +30,7 @@
 #' @param docker_args (character) Docker args
 #' @param user (character) User name. Default: \code{"rstudio"}
 #' @param password (character) Password. Default: \code{"server"}
-#' @param email (character) Password. Default: \code{"rstudio@@example.com"}
+#' @param email (character) E-mail address. Default: \code{"rstudio@@example.com"}
 #' @param img (character) Docker image (not a DigitalOcean image). Default:
 #' \code{'rocker/rstudio'}
 #' @param port (character) Port. Default: \code{8787}
