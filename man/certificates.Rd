@@ -13,8 +13,9 @@ certificates(page = 1, per_page = 25, ...)
 
 certificate(id, ...)
 
-certificate_create(name, type, private_key = NULL, leaf_certificate = NULL,
-  certificate_chain = NULL, dns_names = NULL, ...)
+certificate_create(name, type, private_key = NULL,
+  leaf_certificate = NULL, certificate_chain = NULL,
+  dns_names = NULL, ...)
 }
 \arguments{
 \item{x}{Object to coerce to an certificate}

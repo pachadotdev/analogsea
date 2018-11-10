@@ -28,9 +28,9 @@ domain_record_create(domain, type, name = NULL, data = NULL,
   priority = NULL, port = NULL, ttl = NULL, weight = NULL,
   flags = NULL, tag = NULL, ...)
 
-domain_record_update(domain_record, type = NULL, name = NULL, data = NULL,
-  priority = NULL, port = NULL, ttl = NULL, weight = NULL,
-  flags = NULL, tag = NULL, ...)
+domain_record_update(domain_record, type = NULL, name = NULL,
+  data = NULL, priority = NULL, port = NULL, ttl = NULL,
+  weight = NULL, flags = NULL, tag = NULL, ...)
 
 domain_record_delete(domain_record, ...)
 }

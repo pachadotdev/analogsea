@@ -33,4 +33,4 @@ Suggests:
     testthat,
     knitr,
     xml2
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0

@@ -4,8 +4,8 @@
 \alias{spaces_object_put}
 \title{Upload an Object to a Space}
 \usage{
-spaces_object_put(file, object = basename(file), space, spaces_key = NULL,
-  spaces_secret = NULL, ...)
+spaces_object_put(file, object = basename(file), space,
+  spaces_key = NULL, spaces_secret = NULL, ...)
 }
 \arguments{
 \item{file}{(character) The path to the file to upload.}

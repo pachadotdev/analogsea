@@ -4,8 +4,9 @@
 \alias{do_options}
 \title{Set Digital Ocean options including ssh keys, etc.}
 \usage{
-do_options(size = NULL, image = NULL, region = NULL, ssh_keys = NULL,
-  private_networking = NULL, backups = NULL, ipv6 = NULL, unset = FALSE)
+do_options(size = NULL, image = NULL, region = NULL,
+  ssh_keys = NULL, private_networking = NULL, backups = NULL,
+  ipv6 = NULL, unset = FALSE)
 }
 \arguments{
 \item{size}{(optional) A Digital Ocean size slug name, e.g. '1gb'. Saved in
