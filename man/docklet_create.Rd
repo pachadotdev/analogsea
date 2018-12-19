@@ -40,16 +40,14 @@ docklet_docker(droplet, cmd, args = NULL, docker_args = NULL,
   ssh_user = "root", keyfile = NULL, ssh_passwd = NULL,
   verbose = FALSE)
 
-docklet_rstudio(droplet, user = "rstudio", password = "server",
-  email = "rstudio@example.com", img = "rocker/rstudio",
-  port = "8787", volume = "", dir = "", browse = TRUE,
-  add_users = FALSE, ssh_user = "root", keyfile = NULL,
-  ssh_passwd = NULL, verbose = FALSE)
+docklet_rstudio(droplet, user, password, email = "rstudio@example.com",
+  img = "rocker/rstudio", port = "8787", volume = "", dir = "",
+  browse = TRUE, add_users = FALSE, ssh_user = "root",
+  keyfile = NULL, ssh_passwd = NULL, verbose = FALSE)
 
-docklet_rstudio_addusers(droplet, user = "rstudio",
-  password = "server", img = "rocker/rstudio", port = "8787",
-  ssh_user = "root", keyfile = NULL, ssh_passwd = NULL,
-  verbose = FALSE)
+docklet_rstudio_addusers(droplet, user, password, img = "rocker/rstudio",
+  port = "8787", ssh_user = "root", keyfile = NULL,
+  ssh_passwd = NULL, verbose = FALSE)
 
 docklet_shinyserver(droplet, img = "rocker/shiny", port = "3838",
   volume = "", dir = "", browse = TRUE, ssh_user = "root")
@@ -144,9 +142,9 @@ to be unique)}
 
 \item{docker_args}{(character) Docker args}
 
-\item{user}{(character) User name. Default: \code{"rstudio"}}
+\item{user}{(character) User name. required.}
 
-\item{password}{(character) Password. Default: \code{"server"}}
+\item{password}{(character) Password. required. can not be 'rstudio'}
 
 \item{email}{(character) E-mail address. Default: \code{"rstudio@example.com"}}
 

@@ -28,8 +28,8 @@
 #' @param cmd (character) A docker command (e.g., \code{"run"})
 #' @param args (character) Docker args
 #' @param docker_args (character) Docker args
-#' @param user (character) User name. Default: \code{"rstudio"}
-#' @param password (character) Password. Default: \code{"server"}
+#' @param user (character) User name. required.
+#' @param password (character) Password. required. can not be 'rstudio'
 #' @param email (character) E-mail address. Default: \code{"rstudio@@example.com"}
 #' @param img (character) Docker image (not a DigitalOcean image). Default:
 #' \code{'rocker/rstudio'}
@@ -200,11 +200,14 @@ docklet_docker <- function(droplet, cmd, args = NULL, docker_args = NULL,
 
 #' @export
 #' @rdname docklet_create
-docklet_rstudio <- function(droplet, user = 'rstudio', password = 'server',
+docklet_rstudio <- function(droplet, user, password,
   email = 'rstudio@example.com', img = 'rocker/rstudio', port = '8787',
   volume = '', dir = '', browse = TRUE, add_users = FALSE,
   ssh_user = "root", keyfile = NULL, ssh_passwd = NULL, verbose = FALSE) {
 
+  if (missing(user)) stop("'user' is required")
+  if (missing(password)) stop("'password' is required")
+  if (password == "rstudio") stop("supply a 'password' other than 'rstudio'")
   droplet <- as.droplet(droplet)
 
   docklet_pull(droplet, img, ssh_user, keyfile = keyfile, 
@@ -235,11 +238,13 @@ docklet_rstudio <- function(droplet, user = 'rstudio', password = 'server',
 
 #' @export
 #' @rdname docklet_create
-docklet_rstudio_addusers <- function(droplet,
-  user = 'rstudio', password = 'server', img = 'rocker/rstudio',
-  port = '8787', ssh_user = "root", keyfile = NULL, ssh_passwd = NULL, 
-  verbose = FALSE) {
+docklet_rstudio_addusers <- function(droplet, user, password, 
+  img = 'rocker/rstudio', port = '8787', ssh_user = "root", keyfile = NULL, 
+  ssh_passwd = NULL, verbose = FALSE) {
 
+  if (missing(user)) stop("'user' is required")
+  if (missing(password)) stop("'password' is required")
+  if (password == "rstudio") stop("supply a 'password' other than 'rstudio'")
   droplet <- as.droplet(droplet)
 
   # check if rstudio container already running, shut down if up

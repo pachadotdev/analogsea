@@ -4,7 +4,7 @@ Description: Provides a set of functions for interacting with the 'Digital
     Ocean' API at <https://developers.digitalocean.com/documentation/v2>, including
     creating images, destroying them, rebooting, getting details on regions, and
     available images.
-Version: 0.6.5.9113
+Version: 0.6.6.9110
 Authors@R: c(
     person("Scott", "Chamberlain", role = c("aut", "cre"), email = "myrmecocystus@gmail.com"),
     person("Hadley", "Wickham", role = "aut", email = "hadley@rstudio.com"),
@@ -33,4 +33,4 @@ Suggests:
     testthat,
     knitr,
     xml2
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
