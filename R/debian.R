@@ -44,7 +44,7 @@ debian_install_r <- function(droplet) {
 #' @param password Default password for Rstudio.
 #' @param version Version of rstudio to install.
 #' @export
-debian_install_rstudio <- function(droplet, user = "rstudio", password = "rstudio",
+debian_install_rstudio <- function(droplet, user = "rstudio", password = "server",
                                    version = "0.99.484") {
   droplet %>%
     debian_apt_get_install("gdebi-core", "libapparmor1") %>%

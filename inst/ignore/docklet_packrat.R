@@ -13,7 +13,7 @@
 #' d %>% docklet_packrat(".")
 #' }
 docklet_packrat <- function(droplet, project, user = 'rstudio',
-                            password = 'rstudio', verbose = TRUE) {
+                            password = 'server', verbose = TRUE) {
   if (!requireNamespace("packrat", quietly = TRUE)) {
     stop("Please install packrat", call. = FALSE)
   }

@@ -40,14 +40,14 @@ docklet_docker(droplet, cmd, args = NULL, docker_args = NULL,
   ssh_user = "root", keyfile = NULL, ssh_passwd = NULL,
   verbose = FALSE)
 
-docklet_rstudio(droplet, user = "rstudio", password = "rstudio",
+docklet_rstudio(droplet, user = "rstudio", password = "server",
   email = "rstudio@example.com", img = "rocker/rstudio",
   port = "8787", volume = "", dir = "", browse = TRUE,
   add_users = FALSE, ssh_user = "root", keyfile = NULL,
   ssh_passwd = NULL, verbose = FALSE)
 
 docklet_rstudio_addusers(droplet, user = "rstudio",
-  password = "rstudio", img = "rocker/rstudio", port = "8787",
+  password = "server", img = "rocker/rstudio", port = "8787",
   ssh_user = "root", keyfile = NULL, ssh_passwd = NULL,
   verbose = FALSE)
 
@@ -146,9 +146,9 @@ to be unique)}
 
 \item{user}{(character) User name. Default: \code{"rstudio"}}
 
-\item{password}{(character) Password. Default: \code{"rstudio"}}
+\item{password}{(character) Password. Default: \code{"server"}}
 
-\item{email}{(character) Password. Default: \code{"rstudio@example.com"}}
+\item{email}{(character) E-mail address. Default: \code{"rstudio@example.com"}}
 
 \item{img}{(character) Docker image (not a DigitalOcean image). Default:
 \code{'rocker/rstudio'}}
