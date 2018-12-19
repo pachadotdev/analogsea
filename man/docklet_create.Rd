@@ -37,16 +37,19 @@ docklet_stop(droplet, container, ssh_user = "root")
 docklet_rm(droplet, container, ssh_user = "root")
 
 docklet_docker(droplet, cmd, args = NULL, docker_args = NULL,
-  ssh_user = "root", keyfile = NULL, ssh_passwd = NULL, verbose = FALSE)
+  ssh_user = "root", keyfile = NULL, ssh_passwd = NULL,
+  verbose = FALSE)
 
 docklet_rstudio(droplet, user = "rstudio", password = "rstudio",
-  email = "rstudio@example.com", img = "rocker/rstudio", port = "8787",
-  volume = "", dir = "", browse = TRUE, add_users = FALSE,
-  ssh_user = "root", keyfile = NULL, ssh_passwd = NULL, verbose = FALSE)
+  email = "rstudio@example.com", img = "rocker/rstudio",
+  port = "8787", volume = "", dir = "", browse = TRUE,
+  add_users = FALSE, ssh_user = "root", keyfile = NULL,
+  ssh_passwd = NULL, verbose = FALSE)
 
-docklet_rstudio_addusers(droplet, user = "rstudio", password = "rstudio",
-  img = "rocker/rstudio", port = "8787", ssh_user = "root",
-  keyfile = NULL, ssh_passwd = NULL, verbose = FALSE)
+docklet_rstudio_addusers(droplet, user = "rstudio",
+  password = "rstudio", img = "rocker/rstudio", port = "8787",
+  ssh_user = "root", keyfile = NULL, ssh_passwd = NULL,
+  verbose = FALSE)
 
 docklet_shinyserver(droplet, img = "rocker/shiny", port = "3838",
   volume = "", dir = "", browse = TRUE, ssh_user = "root")

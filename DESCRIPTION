@@ -29,8 +29,8 @@ Imports:
     aws.s3 (>= 0.3.3),
     ssh
 Suggests:
-    roxygen2 (>= 6.0.1),
+    roxygen2 (>= 6.1.1),
     testthat,
     knitr,
     xml2
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1

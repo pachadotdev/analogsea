@@ -4,8 +4,8 @@
 \alias{spaces_object_delete}
 \title{Delete an Object from a Space}
 \usage{
-spaces_object_delete(object, space, spaces_key = NULL, spaces_secret = NULL,
-  ...)
+spaces_object_delete(object, space, spaces_key = NULL,
+  spaces_secret = NULL, ...)
 }
 \arguments{
 \item{object}{(character) The Object to delete}

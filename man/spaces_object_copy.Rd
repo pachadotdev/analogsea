@@ -4,8 +4,8 @@
 \alias{spaces_object_copy}
 \title{Copy an Object from one Space to another}
 \usage{
-spaces_object_copy(from_object, to_object = from_object, from_space, to_space,
-  spaces_key = NULL, spaces_secret = NULL, ...)
+spaces_object_copy(from_object, to_object = from_object, from_space,
+  to_space, spaces_key = NULL, spaces_secret = NULL, ...)
 }
 \arguments{
 \item{from_object}{(character) The Object to copy}

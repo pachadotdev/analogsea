@@ -4,8 +4,8 @@
 \alias{spaces_object_head}
 \title{Get information about an Object}
 \usage{
-spaces_object_head(object, space, spaces_key = NULL, spaces_secret = NULL,
-  ...)
+spaces_object_head(object, space, spaces_key = NULL,
+  spaces_secret = NULL, ...)
 }
 \arguments{
 \item{object}{(character) The Object to get information about}

@@ -4,7 +4,6 @@
 \alias{as.space}
 \alias{spaces}
 \alias{spaces_GET}
-\alias{spaces}
 \alias{space_create}
 \title{Spaces storage operations}
 \usage{
