@@ -79,7 +79,9 @@ droplet_upload <- function(droplet, local, remote, user = "root", keyfile = NULL
   ssh_passwd = NULL, verbose = FALSE) {
 
   droplet <- as.droplet(droplet)
-  do_scp(droplet, local, remote, user, keyfile, ssh_passwd, verbose = verbose)
+  do_scp(droplet, local, remote, user, 
+    keyfile = keyfile, ssh_passwd = ssh_passwd, 
+    verbose = verbose)
 }
 
 #' @export
@@ -88,7 +90,8 @@ droplet_download <- function(droplet, remote, local, user = "root",
   keyfile = NULL, ssh_passwd = NULL, verbose = FALSE, overwrite = FALSE) {
 
   droplet <- as.droplet(droplet)
-  do_scp(droplet, local, remote, user, scp = "download", keyfile, ssh_passwd, verbose = verbose)
+  do_scp(droplet, local, remote, user, scp = "download", 
+    keyfile, ssh_passwd, verbose = verbose)
 }
 
 
