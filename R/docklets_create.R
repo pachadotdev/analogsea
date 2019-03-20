@@ -4,6 +4,7 @@
 #' @inheritParams droplet_create
 #' @inheritParams droplets_create
 #' @return Two or more droplet objects
+#' @template dropid
 #' @examples
 #' \dontrun{
 #' # if no names given, creates two droplets with random names

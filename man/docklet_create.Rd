@@ -179,6 +179,14 @@ IP address can most likely be found like \code{d$networks$v4[[1]]$ip_address}
 and the port is the port you set in the function call.
 }
 
+\section{Missing droplet ID}{
+
+If you get a droplet object back without an IP address, the IP 
+address was not assigned when the payload was returned by DigitalOcean. 
+Simply run `d <- droplet(d$id)` to update your droplet object and the IP
+address will populate.
+}
+
 \examples{
 \dontrun{
 d <- docklet_create()

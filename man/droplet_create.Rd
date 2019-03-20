@@ -90,6 +90,14 @@ Note that if you exit the R session or kill the function call
 after it's in waiting process (the string of ...), the droplet creation
 will continue.
 }
+\section{Missing droplet ID}{
+
+If you get a droplet object back without an IP address, the IP 
+address was not assigned when the payload was returned by DigitalOcean. 
+Simply run `d <- droplet(d$id)` to update your droplet object and the IP
+address will populate.
+}
+
 \examples{
 \dontrun{
 # by default we give your droplet a name

@@ -56,7 +56,8 @@
 #' instance, you can construct like \code{http://<ip address>:<port>} where
 #' IP address can most likely be found like \code{d$networks$v4[[1]]$ip_address}
 #' and the port is the port you set in the function call.
-#'
+#' @template dropid
+#' 
 #' @examples
 #' \dontrun{
 #' d <- docklet_create()
