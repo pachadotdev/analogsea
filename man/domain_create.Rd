@@ -10,12 +10,12 @@ domain_create(name, ip_address, ...)
 domain_delete(domain, ...)
 }
 \arguments{
-\item{name}{(character) Required. The domain name to add to the 
-DigitalOcean DNS management interface. The name must be unique in 
-DigitalOcean's DNS system. The request will fail if the name has already 
+\item{name}{(character) Required. The domain name to add to the
+DigitalOcean DNS management interface. The name must be unique in
+DigitalOcean's DNS system. The request will fail if the name has already
 been taken.}
 
-\item{ip_address}{(character) Required. An IP address for the domain's 
+\item{ip_address}{(character) Required. An IP address for the domain's
 initial A record.}
 
 \item{...}{Further args passed on the curl call to the web.}

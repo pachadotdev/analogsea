@@ -13,22 +13,22 @@ droplet_thaw(image, ...)
 \item{droplet}{A droplet, or something that can be coerced to a droplet by
 \code{\link{as.droplet}}.}
 
-\item{name}{Name for the image to be created, or to be used to create a 
+\item{name}{Name for the image to be created, or to be used to create a
 new droplet. Defaults to name of the droplet.}
 
-\item{...}{For freeze, further args passed on to 
- \code{\link{droplet_snapshot}}; thaw, args passed on to 
+\item{...}{For freeze, further args passed on to
+\code{\link{droplet_snapshot}}; thaw, args passed on to
 \code{\link{droplet_create}}.}
 
 \item{image}{Image to thaw into a droplet.}
 }
 \value{
-\code{droplet_freeze} accepts a droplet as first 
-  argument, and returns an image; \code{droplet_thaw} does the opposite:
-  it accepts an image as first argument, and returns a droplet.
+\code{droplet_freeze} accepts a droplet as first
+argument, and returns an image; \code{droplet_thaw} does the opposite:
+it accepts an image as first argument, and returns a droplet.
 }
 \description{
-Freeze powers off the droplet, snapshots to create an image, and deletes the 
+Freeze powers off the droplet, snapshots to create an image, and deletes the
 droplet. Thaw performs the inverse: it takes an image and turns it into
 a running droplet.
 }

@@ -31,9 +31,9 @@ snapshot_delete(snapshot, ...)
 }
 \description{
 \describe{
- \item{snapshot}{retrieve a snapshot}
- \item{snapshots}{list snapshots, all, droplets, or volumes}
- \item{snapshot_delete}{delete a snapshot}
+\item{snapshot}{retrieve a snapshot}
+\item{snapshots}{list snapshots, all, droplets, or volumes}
+\item{snapshot_delete}{delete a snapshot}
 }
 }
 \examples{

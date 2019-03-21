@@ -4,7 +4,8 @@
 \alias{spaces}
 \title{List all Spaces.}
 \usage{
-spaces(spaces_region = NULL, spaces_key = NULL, spaces_secret = NULL, ...)
+spaces(spaces_region = NULL, spaces_key = NULL, spaces_secret = NULL,
+  ...)
 }
 \arguments{
 \item{spaces_region}{(character) String containing a spaces region. If

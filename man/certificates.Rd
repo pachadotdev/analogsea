@@ -31,23 +31,23 @@ certificate_create(name, type, private_key = NULL,
 
 \item{name}{(character) a certificate name}
 
-\item{type}{(character) a string representing the type of certificate. 
-The value should be "custom" for a user-uploaded certificate or 
-"lets_encrypt" for one automatically generated with Let's Encrypt. 
+\item{type}{(character) a string representing the type of certificate.
+The value should be "custom" for a user-uploaded certificate or
+"lets_encrypt" for one automatically generated with Let's Encrypt.
 If not provided, "custom" will be assumed by default.}
 
-\item{private_key}{(character) the contents of a PEM-formatted private-key 
+\item{private_key}{(character) the contents of a PEM-formatted private-key
 corresponding to the SSL certificate}
 
-\item{leaf_certificate}{(character) the contents of a PEM-formatted public 
+\item{leaf_certificate}{(character) the contents of a PEM-formatted public
 SSL certificate}
 
-\item{certificate_chain}{(character) the full PEM-formatted trust chain 
-between the certificate authority's certificate and your domain's 
+\item{certificate_chain}{(character) the full PEM-formatted trust chain
+between the certificate authority's certificate and your domain's
 SSL certificate}
 
-\item{dns_names}{(character) a vector of fully qualified domain names 
-(FQDNs) for which the certificate will be issued. The domains must be 
+\item{dns_names}{(character) a vector of fully qualified domain names
+(FQDNs) for which the certificate will be issued. The domains must be
 managed using DigitalOcean's DNS}
 }
 \description{

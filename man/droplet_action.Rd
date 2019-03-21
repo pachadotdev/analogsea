@@ -49,21 +49,22 @@ These droplet actions have no further arguments.
 \details{
 \describe{
 \item{reboot}{This method allows you to reboot a droplet. This is
-  the preferred method to use if a server is not responding}
+the preferred method to use if a server is not responding}
 \item{powercycle}{This method allows you to power cycle a droplet.
-   This will turn off the droplet and then turn it back on.}
+This will turn off the droplet and then turn it back on.}
 \item{shutdown}{Shutdown a running droplet. The droplet will remain in
-  your account and you will continue to be charged for it.}
+your account and you will continue to be charged for it.}
 \item{power_off}{Shutdown a running droplet. The droplet will remain in
-  your account and you will continue to be charged for it.}
+your account and you will continue to be charged for it.}
 \item{reset_password}{This method will reset the root password for a
-  droplet. Please be aware that this will reboot the droplet to allow
-  resetting the password.}
+droplet. Please be aware that this will reboot the droplet to allow
+resetting the password.}
 \item{enable_ipv6}{Enable IPv6 networking on an existing droplet (within
-  a region that has IPv6 available).}
+a region that has IPv6 available).}
 \item{enable_private_networking}{Enable private networking on an existing
-  droplet (within a region that has private networking available)}
+droplet (within a region that has private networking available)}
 \item{disable_backups}{Disables backups for a droplet.}
+\item{enable_backups}{Enables backups for a droplet.}
 \item{power_on}{Turn on a droplet that's turned off.}
 }
 }

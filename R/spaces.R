@@ -242,6 +242,7 @@ space_list <- function(name,
 
 #' Create a new Space
 #'
+#' @export
 #' @param name (character) The name of the new Space
 #' @template spaces_args
 #' @param ... Additional arguments to \code{\link[aws.s3]{put_bucket}}
@@ -273,6 +274,7 @@ space_create <- function(name,
 
 #' Delete a Space
 #'
+#' @export
 #' @param name (character) The name of the new Space
 #' @template spaces_args
 #' @param ... Additional arguments to \code{\link[aws.s3]{put_bucket}}

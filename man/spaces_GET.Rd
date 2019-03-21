@@ -4,8 +4,8 @@
 \alias{spaces_GET}
 \title{Internal helper method to get information about a Space}
 \usage{
-spaces_GET(spaces_region = NULL, spaces_key = NULL, spaces_secret = NULL,
-  ...)
+spaces_GET(spaces_region = NULL, spaces_key = NULL,
+  spaces_secret = NULL, ...)
 }
 \arguments{
 \item{spaces_region}{(character) String containing a spaces region. If

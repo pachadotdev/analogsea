@@ -240,6 +240,7 @@ droplet_delete <- function(droplet = NULL, tag = NULL, ...) {
 #' \item{enable_private_networking}{Enable private networking on an existing
 #'   droplet (within a region that has private networking available)}
 #' \item{disable_backups}{Disables backups for a droplet.}
+#' \item{enable_backups}{Enables backups for a droplet.}
 #' \item{power_on}{Turn on a droplet that's turned off.}
 #' }
 #' @inheritParams droplet_delete

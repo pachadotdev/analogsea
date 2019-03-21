@@ -17,7 +17,7 @@ Default: NULL}
 }
 \value{
 A string. (Can't return yaml because the \code{yaml} package
-  strips off comments, and the first comment is extremely important.)
+strips off comments, and the first comment is extremely important.)
 }
 \description{
 This takes a template stored in \code{inst/cloudconfig} and inserts

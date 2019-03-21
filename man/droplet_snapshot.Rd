@@ -30,13 +30,13 @@ to restore.}
 \description{
 \describe{
 \item{snapshot}{Take a snapshot of the droplet once it has been powered
-  off, which can later be restored or used to create a new droplet from
-  the same image. Please be aware this may cause a reboot.}
+off, which can later be restored or used to create a new droplet from
+the same image. Please be aware this may cause a reboot.}
 \item{snapshots_list}{List available snapshots}
 \item{backups_list}{List available snapshots}
 \item{restore}{Restore a droplet with a previous image or snapshot.
-  This will be a mirror copy of the image or snapshot to your droplet. Be
-  sure you have backed up any necessary information prior to restore.}
+This will be a mirror copy of the image or snapshot to your droplet. Be
+sure you have backed up any necessary information prior to restore.}
 }
 }
 \examples{

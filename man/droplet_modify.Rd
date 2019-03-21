@@ -37,10 +37,10 @@ These methods allow you to modify existing droplets.
 \details{
 \describe{
 \item{resize}{Resize a specific droplet to a different size. This will
-  affect the number of processors and memory allocated to the droplet.}
+affect the number of processors and memory allocated to the droplet.}
 \item{rebuild}{Reinstall a droplet with a default image. This is useful
-  if you want to start again but retain the same IP address for your
-  droplet.}
+if you want to start again but retain the same IP address for your
+droplet.}
 \item{rename}{Change the droplet name}
 \item{change_kernel}{Change kernel ID.}
 }

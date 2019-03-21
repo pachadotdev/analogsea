@@ -3,6 +3,7 @@
 #' This function is not implemented yet. A working implementation is planned in
 #' future releases of this package.
 #'
+#' @export
 #' @param object (character) The Object to delete
 #' @param space (character) The Space to delete the Object from
 #' @template spaces_args

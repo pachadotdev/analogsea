@@ -52,12 +52,12 @@ from which to create the volume. Should not be specified with a region_id.}
 }
 \description{
 \describe{
- \item{volume}{get a single volume}
- \item{volumes}{list volumes}
- \item{volume_create}{create a volume}
- \item{volume_snapshot_create}{create a snapshot of a volume}
- \item{volume_snapshots}{list snapshots for a volume}
- \item{volume_delete}{delete a volume}
+\item{volume}{get a single volume}
+\item{volumes}{list volumes}
+\item{volume_create}{create a volume}
+\item{volume_snapshot_create}{create a snapshot of a volume}
+\item{volume_snapshots}{list snapshots for a volume}
+\item{volume_delete}{delete a volume}
 }
 }
 \details{

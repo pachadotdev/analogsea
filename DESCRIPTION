@@ -4,7 +4,7 @@ Description: Provides a set of functions for interacting with the 'Digital
     Ocean' API at <https://developers.digitalocean.com/documentation/v2>, including
     creating images, destroying them, rebooting, getting details on regions, and
     available images.
-Version: 0.6.6.9310
+Version: 0.6.6.9313
 Authors@R: c(
     person("Scott", "Chamberlain", role = c("aut", "cre"), email = "myrmecocystus@gmail.com"),
     person("Hadley", "Wickham", role = "aut", email = "hadley@rstudio.com"),
@@ -20,6 +20,7 @@ BugReports: https://github.com/sckott/analogsea/issues
 LazyData: yes
 VignetteBuilder: knitr
 Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
 Imports:
     stats,
     utils,

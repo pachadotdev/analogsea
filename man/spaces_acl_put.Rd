@@ -4,8 +4,8 @@
 \alias{spaces_acl_put}
 \title{Set an Object's Access Control List (ACL)}
 \usage{
-spaces_acl_put(object, space, body, spaces_region = NULL, spaces_key = NULL,
-  spaces_secret = NULL, ...)
+spaces_acl_put(object, space, body, spaces_region = NULL,
+  spaces_key = NULL, spaces_secret = NULL, ...)
 }
 \arguments{
 \item{object}{(character) The Object to set the ACL on}
