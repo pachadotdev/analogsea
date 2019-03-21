@@ -25,11 +25,11 @@
 #' }
 spaces_object_delete <- function(object,
                                  space,
+                                 spaces_region = NULL,
                                  spaces_key = NULL,
                                  spaces_secret = NULL,
                                  ...) {
-  stop("This function is not implemented yet.", call. = FALSE)
-
+  spaces_region <- check_space_region(spaces_region)
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)
 
@@ -37,6 +37,7 @@ spaces_object_delete <- function(object,
                         space,
                         check_region = FALSE,
                         key = spaces_key,
+                        region = spaces_region,
                         secret = spaces_secret,
                         base_url = spaces_base,
                         ...)

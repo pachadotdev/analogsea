@@ -4,8 +4,8 @@
 \alias{spaces_object_copy}
 \title{Copy an Object from one Space to another}
 \usage{
-spaces_object_copy(from_object, to_object = from_object, from_space,
-  to_space, spaces_key = NULL, spaces_secret = NULL, ...)
+spaces_object_copy(from_object, to_object = from_object, from_space, to_space,
+  spaces_region = NULL, spaces_key = NULL, spaces_secret = NULL, ...)
 }
 \arguments{
 \item{from_object}{(character) The Object to copy}
@@ -15,6 +15,10 @@ spaces_object_copy(from_object, to_object = from_object, from_space,
 \item{from_space}{(character) The Space the Object being copied is found in}
 
 \item{to_space}{(character) The Space to copy the Object to}
+
+\item{spaces_region}{(character) String containing a spaces region. If
+missing, defaults to value stored in an environment variable
+\code{DO_SPACES_REGION}.}
 
 \item{spaces_key}{(character) String containing a spaces access key. If
 missing, defaults to value stored in an environment variable

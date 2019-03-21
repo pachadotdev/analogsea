@@ -1,3 +1,6 @@
+#' @param spaces_region (character) String containing a spaces region. If
+#'   missing, defaults to value stored in an environment variable
+#'   \code{DO_SPACES_REGION}.
 #' @param spaces_key (character) String containing a spaces access key. If
 #'   missing, defaults to value stored in an environment variable
 #'   \code{DO_SPACES_ACCESS_KEY}.

@@ -5,7 +5,7 @@
 \title{Upload an Object to a Space}
 \usage{
 spaces_object_put(file, object = basename(file), space,
-  spaces_key = NULL, spaces_secret = NULL, ...)
+  spaces_region = NULL, spaces_key = NULL, spaces_secret = NULL, ...)
 }
 \arguments{
 \item{file}{(character) The path to the file to upload.}
@@ -14,6 +14,10 @@ spaces_object_put(file, object = basename(file), space,
 basename of the \code{path} returned by \code{\link{basename}}.}
 
 \item{space}{(character) The Space to upload the Object to}
+
+\item{spaces_region}{(character) String containing a spaces region. If
+missing, defaults to value stored in an environment variable
+\code{DO_SPACES_REGION}.}
 
 \item{spaces_key}{(character) String containing a spaces access key. If
 missing, defaults to value stored in an environment variable
@@ -43,7 +47,6 @@ spaces_object_put("some-file.txt", "my-object", "my-space")
 spaces_object_put("another-file.txt", space = "my-space")
 
 # You can also perform a multipart upload
-# Note: This doesn't work at the moment but should in the future
 spaces_object_put("some-file.txt", "my-object", "my-space", multipart = TRUE)
 }
 }

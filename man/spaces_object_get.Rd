@@ -4,13 +4,17 @@
 \alias{spaces_object_get}
 \title{Retrieve an Object from a Space}
 \usage{
-spaces_object_get(object, space, spaces_key = NULL,
+spaces_object_get(object, space, spaces_region = NULL, spaces_key = NULL,
   spaces_secret = NULL, ...)
 }
 \arguments{
 \item{object}{(character) The Object to get}
 
 \item{space}{(character) The Space the Object is found in}
+
+\item{spaces_region}{(character) String containing a spaces region. If
+missing, defaults to value stored in an environment variable
+\code{DO_SPACES_REGION}.}
 
 \item{spaces_key}{(character) String containing a spaces access key. If
 missing, defaults to value stored in an environment variable

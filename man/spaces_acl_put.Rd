@@ -4,7 +4,7 @@
 \alias{spaces_acl_put}
 \title{Set an Object's Access Control List (ACL)}
 \usage{
-spaces_acl_put(object, space, body, spaces_key = NULL,
+spaces_acl_put(object, space, body, spaces_region = NULL, spaces_key = NULL,
   spaces_secret = NULL, ...)
 }
 \arguments{
@@ -14,6 +14,10 @@ spaces_acl_put(object, space, body, spaces_key = NULL,
 
 \item{body}{(character) The XML-formatted ACL. Can optionally be an
 \code{xml_document} if the \code{xml2} package is installed.}
+
+\item{spaces_region}{(character) String containing a spaces region. If
+missing, defaults to value stored in an environment variable
+\code{DO_SPACES_REGION}.}
 
 \item{spaces_key}{(character) String containing a spaces access key. If
 missing, defaults to value stored in an environment variable
