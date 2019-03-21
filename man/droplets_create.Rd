@@ -4,13 +4,14 @@
 \alias{droplets_create}
 \title{Create many new droplets.}
 \usage{
-droplets_create(names = NULL, size = getOption("do_size", "s-1vcpu-1gb"),
-  image = getOption("do_image", "ubuntu-16-04-x64"),
+droplets_create(names = NULL, size = getOption("do_size",
+  "s-1vcpu-1gb"), image = getOption("do_image", "ubuntu-16-04-x64"),
   region = getOption("do_region", "sfo1"),
   ssh_keys = getOption("do_ssh_keys", NULL),
   backups = getOption("do_backups", NULL), ipv6 = getOption("do_ipv6",
   NULL), private_networking = getOption("do_private_networking", NULL),
-  tags = NULL, user_data = NULL, cloud_config = NULL, wait = TRUE, ...)
+  tags = NULL, user_data = NULL, cloud_config = NULL, wait = TRUE,
+  ...)
 }
 \arguments{
 \item{names}{(character) Names of the droplets. The human-readable string
@@ -89,6 +90,14 @@ Note that if you exit the R session or kill the function call
 after it's in waiting process (the string of ...), the droplet creation
 will continue.
 }
+\section{Missing droplet ID}{
+
+If you get a droplet object back without an IP address, the IP 
+address was not assigned when the payload was returned by DigitalOcean. 
+Simply run `d <- droplet(d$id)` to update your droplet object and the IP
+address will populate.
+}
+
 \examples{
 \dontrun{
 # if no names given, creates two droplets with random names

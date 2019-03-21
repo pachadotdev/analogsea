@@ -60,6 +60,7 @@
 #' @details Note that if you exit the R session or kill the function call
 #' after it's in waiting process (the string of ...), the droplet creation
 #' will continue.
+#' @template dropid
 #'
 #' @return A droplet object
 #'

@@ -4,12 +4,12 @@
 \alias{docklets_create}
 \title{Docklets: docker on droplets - create many docklets}
 \usage{
-docklets_create(names = NULL, size = getOption("do_size", "s-1vcpu-2gb"),
-  region = getOption("do_region", "sfo1"),
+docklets_create(names = NULL, size = getOption("do_size",
+  "s-1vcpu-2gb"), region = getOption("do_region", "sfo1"),
   ssh_keys = getOption("do_ssh_keys", NULL),
   backups = getOption("do_backups", NULL), ipv6 = getOption("do_ipv6",
   NULL), private_networking = getOption("do_private_networking", NULL),
-  tags = NULL, wait = TRUE, image = "docker", ...)
+  tags = NULL, wait = TRUE, image = "docker-18-04", ...)
 }
 \arguments{
 \item{names}{(character) Names of the droplets. The human-readable string
@@ -72,6 +72,14 @@ Two or more droplet objects
 \description{
 Docklets: docker on droplets - create many docklets
 }
+\section{Missing droplet ID}{
+
+If you get a droplet object back without an IP address, the IP 
+address was not assigned when the payload was returned by DigitalOcean. 
+Simply run `d <- droplet(d$id)` to update your droplet object and the IP
+address will populate.
+}
+
 \examples{
 \dontrun{
 # if no names given, creates two droplets with random names

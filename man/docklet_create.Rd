@@ -20,7 +20,7 @@ docklet_create(name = random_name(), size = getOption("do_size",
   ssh_keys = getOption("do_ssh_keys", NULL),
   backups = getOption("do_backups", NULL), ipv6 = getOption("do_ipv6",
   NULL), private_networking = getOption("do_private_networking", NULL),
-  tags = list(), wait = TRUE, image = "docker", ...)
+  tags = list(), wait = TRUE, image = "docker-18-04", ...)
 
 docklet_ps(droplet, all = TRUE, ssh_user = "root")
 
@@ -37,16 +37,17 @@ docklet_stop(droplet, container, ssh_user = "root")
 docklet_rm(droplet, container, ssh_user = "root")
 
 docklet_docker(droplet, cmd, args = NULL, docker_args = NULL,
-  ssh_user = "root", keyfile = NULL, ssh_passwd = NULL, verbose = FALSE)
+  ssh_user = "root", keyfile = NULL, ssh_passwd = NULL,
+  verbose = FALSE)
 
-docklet_rstudio(droplet, user = "rstudio", password = "rstudio",
-  email = "rstudio@example.com", img = "rocker/rstudio", port = "8787",
-  volume = "", dir = "", browse = TRUE, add_users = FALSE,
-  ssh_user = "root", keyfile = NULL, ssh_passwd = NULL, verbose = FALSE)
-
-docklet_rstudio_addusers(droplet, user = "rstudio", password = "rstudio",
-  img = "rocker/rstudio", port = "8787", ssh_user = "root",
+docklet_rstudio(droplet, user, password, email = "rstudio@example.com",
+  img = "rocker/rstudio", port = "8787", volume = "", dir = "",
+  browse = TRUE, add_users = FALSE, ssh_user = "root",
   keyfile = NULL, ssh_passwd = NULL, verbose = FALSE)
+
+docklet_rstudio_addusers(droplet, user, password, img = "rocker/rstudio",
+  port = "8787", ssh_user = "root", keyfile = NULL,
+  ssh_passwd = NULL, verbose = FALSE)
 
 docklet_shinyserver(droplet, img = "rocker/shiny", port = "3838",
   volume = "", dir = "", browse = TRUE, ssh_user = "root")
@@ -141,11 +142,11 @@ to be unique)}
 
 \item{docker_args}{(character) Docker args}
 
-\item{user}{(character) User name. Default: \code{"rstudio"}}
+\item{user}{(character) User name. required.}
 
-\item{password}{(character) Password. Default: \code{"rstudio"}}
+\item{password}{(character) Password. required. can not be 'rstudio'}
 
-\item{email}{(character) Password. Default: \code{"rstudio@example.com"}}
+\item{email}{(character) E-mail address. Default: \code{"rstudio@example.com"}}
 
 \item{img}{(character) Docker image (not a DigitalOcean image). Default:
 \code{'rocker/rstudio'}}
@@ -176,6 +177,14 @@ If you need to figure out the URL for your RStudio or Shiny server
 instance, you can construct like \code{http://<ip address>:<port>} where
 IP address can most likely be found like \code{d$networks$v4[[1]]$ip_address}
 and the port is the port you set in the function call.
+}
+
+\section{Missing droplet ID}{
+
+If you get a droplet object back without an IP address, the IP 
+address was not assigned when the payload was returned by DigitalOcean. 
+Simply run `d <- droplet(d$id)` to update your droplet object and the IP
+address will populate.
 }
 
 \examples{

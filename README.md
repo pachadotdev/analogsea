@@ -129,7 +129,7 @@ docklet_create() %>%
   docklet_rstudio()
 ```
 
-This will install R, RStudio Server and it's dependencies. It will automatically pop open the RStudio server instance in your default browser, with default `username/password` of `rstudio/rstudio`.
+This will install R, RStudio Server and it's dependencies. It will automatically pop open the RStudio server instance in your default browser, with default `username/password` of `rstudio/server`.
 
 
 ## Meta
