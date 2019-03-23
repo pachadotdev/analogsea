@@ -126,7 +126,7 @@ as.space.space <- function(x) x
 #' @export
 as.space.character <- function(x) spaces()[[x]]
 #' @export
-as.character.space <- function (x) x$Name
+as.character.space <- function (x, ...) x$Name
 
 #' @export
 print.space <- function(x, ...) {
