@@ -17,7 +17,7 @@ space_size(space)
 Get the total size of all Objects in a Space
 }
 \examples{
-\dontrun {
+\dontrun{
 # First, create a new Space
 new_space <- space_create("new space name")
 

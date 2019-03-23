@@ -5,7 +5,7 @@
 #' @return (numeric) The total of size of all Objects in the space in GiB.
 #' @export
 #' @examples
-#' \dontrun {
+#' \dontrun{
 #' # First, create a new Space
 #' new_space <- space_create("new space name")
 #'

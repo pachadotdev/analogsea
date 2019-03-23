@@ -12,6 +12,18 @@ space_object_head(object, space, spaces_region = NULL,
 
 \item{space}{The Space of \code{object}. A Space, or the name of the Space as a string.}
 
+\item{spaces_region}{(character) String containing a spaces region. If
+missing, defaults to value stored in an environment variable
+\code{DO_SPACES_REGION}.}
+
+\item{spaces_key}{(character) String containing a spaces access key. If
+missing, defaults to value stored in an environment variable
+\code{DO_SPACES_ACCESS_KEY}.}
+
+\item{spaces_secret}{(character) String containing the secret associated
+with the spaces key. If missing, defaults to value stored in an environment
+variable \code{DO_SPACES_SECRET_KEY}.}
+
 \item{...}{Additional argument passed to \code{\link[aws.s3]{head_object}}}
 }
 \value{

@@ -39,17 +39,17 @@ Operations on spaces:
 
 Objects:
 \itemize{
-\item \code{\link[=spaces_object_copy]{spaces_object_copy()}}: Copy an Object from one Space to another
-\item \code{\link[=spaces_object_get]{spaces_object_get()}}: Retrieve an Object from a Space
-\item \code{\link[=spaces_object_head]{spaces_object_head()}}: Get information about an Object
-\item \code{\link[=spaces_object_put]{spaces_object_put()}}: Upload an Object to a Space
-\item \code{\link[=spaces_object_delete]{spaces_object_delete()}}: Delete an Object from a Space
+\item \code{\link[=space_object_copy]{space_object_copy()}}: Copy an Object from one Space to another
+\item \code{\link[=space_object_get]{space_object_get()}}: Retrieve an Object from a Space
+\item \code{\link[=space_object_head]{space_object_head()}}: Get information about an Object
+\item \code{\link[=space_object_put]{space_object_put()}}: Upload an Object to a Space
+\item \code{\link[=space_object_delete]{space_object_delete()}}: Delete an Object from a Space
 }
 
 Access Control List's:
 \itemize{
-\item \code{\link[=spaces_acl_get]{spaces_acl_get()}}: Retrieve an Object's Access Control List (ACL)
-\item \code{\link[=spaces_acl_put]{spaces_acl_put()}}: Set an Object's Access Control List (ACL)
+\item \code{\link[=space_acl_get]{space_acl_get()}}: Retrieve an Object's Access Control List (ACL)
+\item \code{\link[=space_acl_put]{space_acl_put()}}: Set an Object's Access Control List (ACL)
 }
 }
 

@@ -3,6 +3,7 @@
 #' @param object (character) The Object to get information about
 #' @param space The Space of \code{object}. A Space, or the name of the Space as a string.
 #' @param ... Additional argument passed to \code{\link[aws.s3]{head_object}}
+#' @template spaces_args
 #'
 #' @return A list of headers associated with the Object
 #' @export
