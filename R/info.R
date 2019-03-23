@@ -142,14 +142,14 @@ NULL
 #'
 #' Objects:
 #'
-#' - [spaces_object_copy()]: Copy an Object from one Space to another
-#' - [spaces_object_get()]: Retrieve an Object from a Space
-#' - [spaces_object_head()]: Get information about an Object
-#' - [spaces_object_put()]: Upload an Object to a Space
-#' - [spaces_object_delete()]: Delete an Object from a Space
+#' - [space_object_copy()]: Copy an Object from one Space to another
+#' - [space_object_get()]: Retrieve an Object from a Space
+#' - [space_object_head()]: Get information about an Object
+#' - [space_object_put()]: Upload an Object to a Space
+#' - [space_object_delete()]: Delete an Object from a Space
 #'
 #' Access Control List's:
 #'
-#' - [spaces_acl_get()]: Retrieve an Object's Access Control List (ACL)
-#' - [spaces_acl_put()]: Set an Object's Access Control List (ACL)
+#' - [space_acl_get()]: Retrieve an Object's Access Control List (ACL)
+#' - [space_acl_put()]: Set an Object's Access Control List (ACL)
 NULL
