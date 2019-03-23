@@ -2,7 +2,7 @@
 % Please edit documentation in R/spaces_object_delete.R
 \name{spaces_object_delete}
 \alias{spaces_object_delete}
-\title{Delete an Object from a Space}
+\title{Delete an Object from a space}
 \usage{
 spaces_object_delete(object, space, spaces_region = NULL,
   spaces_key = NULL, spaces_secret = NULL, ...)
@@ -10,7 +10,7 @@ spaces_object_delete(object, space, spaces_region = NULL,
 \arguments{
 \item{object}{(character) The Object to delete}
 
-\item{space}{(character) The Space to delete the Object from}
+\item{space}{The Space of \code{object}. A Space, or the name of the Space as a string.}
 
 \item{spaces_region}{(character) String containing a spaces region. If
 missing, defaults to value stored in an environment variable

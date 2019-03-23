@@ -2,7 +2,7 @@
 % Please edit documentation in R/spaces_object_put.R
 \name{spaces_object_put}
 \alias{spaces_object_put}
-\title{Upload an Object to a Space}
+\title{Upload an Object to a space}
 \usage{
 spaces_object_put(file, object = basename(file), space,
   spaces_region = NULL, spaces_key = NULL, spaces_secret = NULL, ...)
@@ -13,7 +13,7 @@ spaces_object_put(file, object = basename(file), space,
 \item{object}{(character) The key for the new Object. Defaults to the
 basename of the \code{path} returned by \code{\link{basename}}.}
 
-\item{space}{(character) The Space to upload the Object to}
+\item{space}{The Space of \code{object}. A Space, or the name of the Space as a string.}
 
 \item{spaces_region}{(character) String containing a spaces region. If
 missing, defaults to value stored in an environment variable
@@ -34,11 +34,11 @@ variable \code{DO_SPACES_SECRET_KEY}.}
 uploaded
 }
 \description{
-Upload an Object to a Space
+Upload an Object to a space
 }
 \examples{
 \dontrun{
-# You can create a space and then upload a file to it
+# You can create a Space and then upload a file to it
 space_create("my-space")
 spaces_object_put("some-file.txt", "my-object", "my-space")
 

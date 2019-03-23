@@ -4,11 +4,12 @@
 \alias{space_location}
 \title{Get the region of a Space}
 \usage{
-space_location(name, spaces_region = NULL, spaces_key = NULL,
+space_location(space, spaces_region = NULL, spaces_key = NULL,
   spaces_secret = NULL, ...)
 }
 \arguments{
-\item{name}{(character) The name of the Space}
+\item{space}{A Space, or something that can be coerced to a Space by
+\code{\link{as.space}}.}
 
 \item{spaces_region}{(character) String containing a spaces region. If
 missing, defaults to value stored in an environment variable
@@ -32,8 +33,12 @@ Get the region of a Space
 }
 \examples{
 \dontrun{
-# Create a space and get its location
+# Create a Space and get its location
 sp <- create_space("my-space")
 space_location(sp)
 }
+}
+\references{
+\url{https://developers.digitalocean.com/documentation/spaces/
+#get-bucket-location}
 }

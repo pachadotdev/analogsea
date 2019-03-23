@@ -4,10 +4,11 @@
 \alias{space_files}
 \title{Get number of Objects in a Space}
 \usage{
-space_files(space_info)
+space_files(space)
 }
 \arguments{
-\item{space_info}{(space) A Space object.}
+\item{space}{A Space, or something that can be coerced to a Space by
+\code{\link{as.space}}.}
 }
 \value{
 (numeric) The number of files in the Space.

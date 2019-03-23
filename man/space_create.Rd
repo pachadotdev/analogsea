@@ -30,3 +30,14 @@ variable \code{DO_SPACES_SECRET_KEY}.}
 \description{
 Create a new Space
 }
+\examples{
+\dontrun{
+# Create a new Space
+# (Names must be unique within region)
+space_create("new_space_name")
+}
+}
+\references{
+\url{https://developers.digitalocean.com/documentation/spaces/
+#create-a-bucket}
+}

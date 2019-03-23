@@ -110,9 +110,9 @@
 #' container
 NULL
 
-#' @title Functions for spaces
-#' 
-#' @description There's many functions for working with spaces.
+#' @title Functions for paces
+#'
+#' @description There's many functions for working with Spaces.
 #' Here's a breakdown of what they all do.
 #'
 #' @name spaces_functions
@@ -124,32 +124,32 @@ NULL
 #' <https://developers.digitalocean.com/documentation/spaces/>
 #'
 #' @section Functions:
-#' 
-#' The main functions for creating/deleting spaces:
-#'  
+#'
+#' The main functions for creating/deleting Spaces:
+#'
 #' - [space_create()]: Create a Space
 #' - [space_delete()]: Delete a Space
-#' 
+#'
 #' Operations on spaces:
 #'
-#' - [as.space()]: Coerce an object to a Space
+#' - [as.space()]: Coerce an Object to a Space
 #' - [summary()]: Get a summary of a Space object
 #' - [space_location()]: Get the region of a Space
 #' - [spaces()]: List all spaces
-#' 
+#' - [space_size()]: Get the total size of all Objects in a Space
+#' - [space_list()]: List the Objects in a Space
+#' - [space_files()]: Get number of Objects in a Space
+#'
 #' Objects:
-#' 
+#'
 #' - [spaces_object_copy()]: Copy an Object from one Space to another
 #' - [spaces_object_get()]: Retrieve an Object from a Space
 #' - [spaces_object_head()]: Get information about an Object
 #' - [spaces_object_put()]: Upload an Object to a Space
 #' - [spaces_object_delete()]: Delete an Object from a Space
-#' - [space_size()]: Get the size of all Objects in a Space
-#' - [space_list()]: List the objects in a Space
-#' - [space_files()]: Get number of objects in a Space
-#' 
+#'
 #' Access Control List's:
-#' 
+#'
 #' - [spaces_acl_get()]: Retrieve an Object's Access Control List (ACL)
 #' - [spaces_acl_put()]: Set an Object's Access Control List (ACL)
 NULL

@@ -2,7 +2,7 @@
 % Please edit documentation in R/spaces_object_get.R
 \name{spaces_object_get}
 \alias{spaces_object_get}
-\title{Retrieve an Object from a Space}
+\title{Retrieve an Object from a space}
 \usage{
 spaces_object_get(object, space, spaces_region = NULL,
   spaces_key = NULL, spaces_secret = NULL, ...)
@@ -10,7 +10,7 @@ spaces_object_get(object, space, spaces_region = NULL,
 \arguments{
 \item{object}{(character) The Object to get}
 
-\item{space}{(character) The Space the Object is found in}
+\item{space}{The Space \code{object} is in. A Space, or the name of the Space as a string.}
 
 \item{spaces_region}{(character) String containing a spaces region. If
 missing, defaults to value stored in an environment variable
@@ -30,11 +30,11 @@ variable \code{DO_SPACES_SECRET_KEY}.}
 The raw response body of the request
 }
 \description{
-Retrieve an Object from a Space
+Retrieve an Object from a space
 }
 \examples{
 \dontrun{
-# First, create a space and then upload a file to it
+# First, create a Space and then upload a file to it
 space_create("my-space")
 spaces_object_put("some-file.txt", "my-object", "my-space")
 

@@ -10,7 +10,7 @@ spaces_acl_get(object, space, spaces_region = NULL, spaces_key = NULL,
 \arguments{
 \item{object}{(character) The Object to get the ACL on}
 
-\item{space}{(character) The Space the Object is found in}
+\item{space}{The Space of \code{object}. A space, or the name of the Space as a string.}
 
 \item{spaces_region}{(character) String containing a spaces region. If
 missing, defaults to value stored in an environment variable

@@ -2,7 +2,7 @@
 % Please edit documentation in R/spaces_object_copy.R
 \name{spaces_object_copy}
 \alias{spaces_object_copy}
-\title{Copy an Object from one Space to another}
+\title{Copy an object from one Space to another}
 \usage{
 spaces_object_copy(from_object, to_object = from_object, from_space,
   to_space, spaces_region = NULL, spaces_key = NULL,
@@ -13,9 +13,9 @@ spaces_object_copy(from_object, to_object = from_object, from_space,
 
 \item{to_object}{(character) The key for the copied Object. Defaults to the same key as the Object being copied.}
 
-\item{from_space}{(character) The Space the Object being copied is found in}
+\item{from_space}{The Space the object being copied is found in. A space, or the name of the Space as a string.}
 
-\item{to_space}{(character) The Space to copy the Object to}
+\item{to_space}{The Space to copy the object to. A space, or the name of the Space as a string.}
 
 \item{spaces_region}{(character) String containing a spaces region. If
 missing, defaults to value stored in an environment variable
@@ -35,16 +35,16 @@ variable \code{DO_SPACES_SECRET_KEY}.}
 If successful, information about the copied Object
 }
 \description{
-Copy an Object from one Space to another
+Copy an object from one Space to another
 }
 \examples{
 \dontrun{
-# First, create two Spaces and an Object in the first space
+# First, create two spaces and an Object in the first space
 space_create("primary-space")
 space_create("secondary-space")
 spaces_object_put("some-file.txt", space = "primary-space")
 
-# You can then copy the object from one space to another
+# You can then copy the object from one Space to another
 spaces_object_copy("my-object", "copied-object", "primary_space", "secondary-space")
 
 # And you can also copy over the Object with the same key

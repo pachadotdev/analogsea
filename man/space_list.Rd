@@ -4,11 +4,12 @@
 \alias{space_list}
 \title{List the Objects in a Space}
 \usage{
-space_list(name, spaces_region = NULL, spaces_key = NULL,
+space_list(space, spaces_region = NULL, spaces_key = NULL,
   spaces_secret = NULL, ...)
 }
 \arguments{
-\item{name}{(character) The Space's name}
+\item{space}{A Space, or something that can be coerced to a Space by
+\code{\link{as.space}}.}
 
 \item{spaces_region}{(character) String containing a spaces region. If
 missing, defaults to value stored in an environment variable
@@ -32,7 +33,11 @@ List the Objects in a Space
 }
 \examples{
 \dontrun{
-# List the contents of the space "example"
+# List the contents of the Space "example"
 space_list("example")
 }
+}
+\references{
+\url{https://developers.digitalocean.com/documentation/spaces/
+#list-bucket-contents}
 }
