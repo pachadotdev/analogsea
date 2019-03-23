@@ -1,8 +1,7 @@
 #' Get information about an Object
 #'
 #' @param object (character) The Object to get information about
-#' @param space (character) The Space the Object is found in
-#' @template spaces_args
+#' @param space The Space of \code{object}. A Space, or the name of the Space as a string.
 #' @param ... Additional argument passed to \code{\link[aws.s3]{head_object}}
 #'
 #' @return A list of headers associated with the Object
@@ -13,7 +12,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' # First, create a space and then upload a file to it
+#' # First, create a Space and then upload a file to it
 #' space_create("my-space")
 #' spaces_object_put("some-file.txt", "my-object", "my-space")
 #'
@@ -26,6 +25,8 @@ spaces_object_head <- function(object,
                                spaces_key = NULL,
                                spaces_secret = NULL,
                                ...) {
+  space <- as.character(space)
+
   spaces_region <- check_space_region(spaces_region)
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)

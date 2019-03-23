@@ -4,25 +4,34 @@
 \alias{spaces_info}
 \title{DigitalOcean Spaces}
 \arguments{
-\item{space}{(character) The name of the Space}
+\item{space}{A Space, or the name of the Space as a string.}
 
 \item{object}{(character) The name of the Object}
 }
 \description{
 DigitalOcean provides support for storing files (Objects) in Spaces. This is
-useful for storing related files for fast access, sharing, etc. See the
+useful for storing related files for fast access, sharing, etc. See
 \url{https://developers.digitalocean.com/documentation/spaces/}
 for more information.
+}
+\details{
+In order to get started using the Spaces API, you'll need to generate a new
+"Spaces access key" in the API section of your DigitalOcean control panel and
+set the key and its secret as environmental variables via
+\code{\link{Sys.setenv}}. Set the access key to \code{DO_SPACES_ACCESS_KEY}
+and its secret to \code{DO_SPACES_SECRET_KEY}. After that, set your region to
+\code{DO_SPACES_REGION} (e.g., nyc3). Alternatively, you can pass this
+information as arguments to whichever Spaces API functions you're using.
 }
 \examples{
 \dontrun{
 # List Spaces
 spaces()
 
-# Obtain Spaces as a list of space objects
+# Obtain Spaces as a list of Space objects
 res <- spaces()
 
-# Print space summary using a space object
+# Print Space summary using a Space object
 summary(res[["my_space_name"]])
 
 # Create a new space

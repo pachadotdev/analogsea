@@ -3,11 +3,19 @@ spaces_base <- "digitaloceanspaces.com"
 #' DigitalOcean Spaces
 #'
 #' DigitalOcean provides support for storing files (Objects) in Spaces. This is
-#' useful for storing related files for fast access, sharing, etc. See the
+#' useful for storing related files for fast access, sharing, etc. See
 #' \url{https://developers.digitalocean.com/documentation/spaces/}
 #' for more information.
 #'
-#' @param space (character) The name of the Space
+#' In order to get started using the Spaces API, you'll need to generate a new
+#' "Spaces access key" in the API section of your DigitalOcean control panel and
+#' set the key and its secret as environmental variables via
+#' \code{\link{Sys.setenv}}. Set the access key to \code{DO_SPACES_ACCESS_KEY}
+#' and its secret to \code{DO_SPACES_SECRET_KEY}. After that, set your region to
+#' \code{DO_SPACES_REGION} (e.g., nyc3). Alternatively, you can pass this
+#' information as arguments to whichever Spaces API functions you're using.
+#'
+#' @param space A Space, or the name of the Space as a string.
 #' @param object (character) The name of the Object
 #'
 #' @name spaces_info
@@ -16,10 +24,10 @@ spaces_base <- "digitaloceanspaces.com"
 #' # List Spaces
 #' spaces()
 #'
-#' # Obtain Spaces as a list of space objects
+#' # Obtain Spaces as a list of Space objects
 #' res <- spaces()
 #'
-#' # Print space summary using a space object
+#' # Print Space summary using a Space object
 #' summary(res[["my_space_name"]])
 #'
 #' # Create a new space
@@ -78,6 +86,13 @@ check_space_secret <- function(spaces_secret) {
 #' @param ... Additional arguments to \code{\link{spaces_GET}}
 #' @return (list)  A list of Spaces. Can be empty.
 #' @export
+#' @references \url{https://developers.digitalocean.com/documentation/spaces
+#' /#get-object}
+#' @examples
+#' \dontrun{
+#' # List all of your Spaces
+#' spaces()
+#' }
 spaces <- function(spaces_region = NULL,
                    spaces_key = NULL,
                    spaces_secret = NULL, ...) {
@@ -110,6 +125,8 @@ as.space <- function(x) UseMethod("as.space")
 as.space.space <- function(x) x
 #' @export
 as.space.character <- function(x) spaces()[[x]]
+#' @export
+as.character.space <- function (x) x$Name
 
 #' @export
 print.space <- function(x, ...) {
@@ -164,7 +181,7 @@ space_info <- function(name,
                        spaces_key = NULL,
                        spaces_secret = NULL,
                        ...) {
-  if (is.null(name)) stop("Please specify the space name")
+  name <- as.character(name)
 
   spaces_region <- check_space_region(spaces_region)
   spaces_key <- check_space_access(spaces_key)
@@ -182,12 +199,30 @@ space_info <- function(name,
   return(space_info)
 }
 
-#' Get the size of all Objects in a Space
+#' Get the total size of all Objects in a Space
 #'
-#' @param space_info (space) A Space object.
+#' @param space A Space, or something that can be coerced to a Space by
+#'   \code{\link{as.space}}.
 #' @return (numeric) The total of size of all Objects in the space in GiB.
 #' @export
-space_size <- function(space_info) {
+#' @examples
+#' \dontrun {
+#' # First, create a new Space
+#' new_space <- space_create("new space name")
+#'
+#' # Should be zero
+#' space_size(new_space)
+#'
+#' # Upload a file
+#' spaces_object_put("somefile", new_space)
+#'
+#' # Should no longer be zero
+#' space_size(new_space)
+#' }
+space_size <- function(space) {
+  space <- as.space(space)
+  space_info <- space_info(space)
+
   # grab the sizes from each file (unit is bytes)
   sizes <- vapply(space_info, function(x) x$Size, numeric(1))
 
@@ -196,33 +231,40 @@ space_size <- function(space_info) {
 }
 
 #' Get number of Objects in a Space
-#' @param space_info (space) A Space object.
+#' @param space A Space, or something that can be coerced to a Space by
+#'   \code{\link{as.space}}.
 #' @return (numeric) The number of files in the Space.
 #' @export
-space_files <- function(space_info) {
+space_files <- function(space) {
+  space <- as.space(space)
+  space_info <- space_info(space)
+
   # remove entries with size 0 (those are nested directories)
   length(lapply(space_info, function(x) x[x$Size > 0]))
 }
 
 #' List the Objects in a Space
 #'
-#' @param name (character) The Space's name
+#' @param space A Space, or something that can be coerced to a Space by
+#'   \code{\link{as.space}}.
 #' @param ... Additional arguments passed to \code{\link[aws.s3]{get_bucket_df}}
 #' @template spaces_args
 #'
 #' @return (data.frame) The Spaces contents as a \code{data.frame}
 #' @export
+#' @references \url{https://developers.digitalocean.com/documentation/spaces/
+#' #list-bucket-contents}
 #' @examples
 #' \dontrun{
-#' # List the contents of the space "example"
+#' # List the contents of the Space "example"
 #' space_list("example")
 #' }
-space_list <- function(name,
+space_list <- function(space,
                        spaces_region = NULL,
                        spaces_key = NULL,
                        spaces_secret = NULL,
                        ...) {
-  if (is.null(name)) stop("Please specify the space name")
+  name <- as.character(space)
 
   spaces_region <- check_space_region(spaces_region)
   spaces_key <- check_space_access(spaces_key)
@@ -247,14 +289,19 @@ space_list <- function(name,
 #' @template spaces_args
 #' @param ... Additional arguments to \code{\link[aws.s3]{put_bucket}}
 #' @return (character) The name of the created Space.
+#' @references \url{https://developers.digitalocean.com/documentation/spaces/
+#' #create-a-bucket}
+#' @examples
+#' \dontrun{
+#' # Create a new Space
+#' # (Names must be unique within region)
+#' space_create("new_space_name")
+#' }
 space_create <- function(name,
                          spaces_region = NULL,
                          spaces_key = NULL,
                          spaces_secret = NULL,
                          ...) {
-
-  if (is.null(name)) stop("Please specify the space name")
-
   spaces_region <- check_space_region(spaces_region)
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)
@@ -267,7 +314,7 @@ space_create <- function(name,
                             location_constraint = NULL,
                             ...)
 
-  if (res) message(sprintf("New space %s created successfully", name))
+  if (res) message(sprintf("New Space %s created successfully.", name))
 
   invisible(name)
 }
@@ -275,15 +322,27 @@ space_create <- function(name,
 #' Delete a Space
 #'
 #' @export
-#' @param name (character) The name of the new Space
+#' @param space A Space, or something that can be coerced to a Space by
+#'   \code{\link{as.space}}.
 #' @template spaces_args
 #' @param ... Additional arguments to \code{\link[aws.s3]{put_bucket}}
 #' @return (character) The name of the created Space.
-space_delete <- function(name,
+#' @references \url{https://developers.digitalocean.com/documentation/spaces/
+#' #delete-a-buckets}
+#' @examples
+#' \dontrun{
+#' # First, create a Space
+#' space_create("new_space_name")
+#'
+#' # The we can delete it
+#' space_delete("new_space_name")
+#' }
+space_delete <- function(space,
                          spaces_region = NULL,
                          spaces_key = NULL,
                          spaces_secret = NULL,
                          ...) {
+  space <- as.space(space)
 
   spaces_region <- check_space_region(spaces_region)
   spaces_key <- check_space_access(spaces_key)
@@ -300,24 +359,29 @@ space_delete <- function(name,
 
 #' Get the region of a Space
 #'
-#' @param name (character) The name of the Space
+#' @param space A Space, or something that can be coerced to a Space by
+#'   \code{\link{as.space}}.
 #' @param ... Additional arguments passed to \code{\link[aws.s3]{s3HTTP}}
 #' @template spaces_args
 #'
 #' @return (character) The region the Space is in
 #' @export
 #'
+#' @references \url{https://developers.digitalocean.com/documentation/spaces/
+#' #get-bucket-location}
 #' @examples
 #' \dontrun{
-#' # Create a space and get its location
+#' # Create a Space and get its location
 #' sp <- create_space("my-space")
 #' space_location(sp)
 #' }
-space_location <- function(name,
+space_location <- function(space,
                            spaces_region = NULL,
                            spaces_key = NULL,
                            spaces_secret = NULL,
                            ...) {
+  name <- as.character(space)
+
   spaces_region <- check_space_region(spaces_region)
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)

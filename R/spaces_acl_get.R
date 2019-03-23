@@ -1,7 +1,7 @@
 #' Retrieve an Object's Access Control List (ACL)
 #'
 #' @param object (character) The Object to get the ACL on
-#' @param space (character) The Space the Object is found in
+#' @param space The Space of \code{object}. A space, or the name of the Space as a string.
 #' @template spaces_args
 #' @param warn_xml2 (logical) Whether to warn if the xml2 package is not
 #' installed. Defaults to TRUE.
@@ -32,6 +32,8 @@ spaces_acl_get <- function(object,
                            spaces_secret = NULL,
                            warn_xml2 = TRUE,
                            ...) {
+  space <- as.character(space)
+
   spaces_region <- check_space_region(spaces_region)
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)

@@ -1,11 +1,11 @@
-#' Delete an Object from a Space
+#' Delete an Object from a space
 #'
 #' This function is not implemented yet. A working implementation is planned in
 #' future releases of this package.
 #'
 #' @export
 #' @param object (character) The Object to delete
-#' @param space (character) The Space to delete the Object from
+#' @param space The Space of \code{object}. A Space, or the name of the Space as a string.
 #' @template spaces_args
 #' @param ... Additional argument passed to \code{\link[aws.s3]{delete_object}}
 #'
@@ -30,6 +30,8 @@ spaces_object_delete <- function(object,
                                  spaces_key = NULL,
                                  spaces_secret = NULL,
                                  ...) {
+  space <- as.character(space)
+
   spaces_region <- check_space_region(spaces_region)
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)

@@ -2,16 +2,32 @@
 % Please edit documentation in R/spaces.R
 \name{space_size}
 \alias{space_size}
-\title{Get the size of all Objects in a Space}
+\title{Get the total size of all Objects in a Space}
 \usage{
-space_size(space_info)
+space_size(space)
 }
 \arguments{
-\item{space_info}{(space) A Space object.}
+\item{space}{A Space, or something that can be coerced to a Space by
+\code{\link{as.space}}.}
 }
 \value{
 (numeric) The total of size of all Objects in the space in GiB.
 }
 \description{
-Get the size of all Objects in a Space
+Get the total size of all Objects in a Space
+}
+\examples{
+\dontrun {
+# First, create a new Space
+new_space <- space_create("new space name")
+
+# Should be zero
+space_size(new_space)
+
+# Upload a file
+spaces_object_put("somefile", new_space)
+
+# Should no longer be zero
+space_size(new_space)
+}
 }

@@ -10,7 +10,7 @@ spaces_acl_put(object, space, body, spaces_region = NULL,
 \arguments{
 \item{object}{(character) The Object to set the ACL on}
 
-\item{space}{(character) The Space the Object is found in}
+\item{space}{The Space of \code{object}. A space, or the name of the Space as a string.}
 
 \item{body}{(character) The XML-formatted ACL. Can optionally be an
 \code{xml_document} if the \code{xml2} package is installed.}

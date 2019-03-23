@@ -2,9 +2,9 @@
 % Please edit documentation in R/info.R
 \name{spaces_functions}
 \alias{spaces_functions}
-\title{Functions for spaces}
+\title{Functions for paces}
 \description{
-There's many functions for working with spaces.
+There's many functions for working with Spaces.
 Here's a breakdown of what they all do.
 }
 \section{Documentation}{
@@ -20,7 +20,7 @@ Here's a breakdown of what they all do.
 \section{Functions}{
 
 
-The main functions for creating/deleting spaces:
+The main functions for creating/deleting Spaces:
 \itemize{
 \item \code{\link[=space_create]{space_create()}}: Create a Space
 \item \code{\link[=space_delete]{space_delete()}}: Delete a Space
@@ -28,10 +28,13 @@ The main functions for creating/deleting spaces:
 
 Operations on spaces:
 \itemize{
-\item \code{\link[=as.space]{as.space()}}: Coerce an object to a Space
+\item \code{\link[=as.space]{as.space()}}: Coerce an Object to a Space
 \item \code{\link[=summary]{summary()}}: Get a summary of a Space object
 \item \code{\link[=space_location]{space_location()}}: Get the region of a Space
 \item \code{\link[=spaces]{spaces()}}: List all spaces
+\item \code{\link[=space_size]{space_size()}}: Get the total size of all Objects in a Space
+\item \code{\link[=space_list]{space_list()}}: List the Objects in a Space
+\item \code{\link[=space_files]{space_files()}}: Get number of Objects in a Space
 }
 
 Objects:
@@ -41,9 +44,6 @@ Objects:
 \item \code{\link[=spaces_object_head]{spaces_object_head()}}: Get information about an Object
 \item \code{\link[=spaces_object_put]{spaces_object_put()}}: Upload an Object to a Space
 \item \code{\link[=spaces_object_delete]{spaces_object_delete()}}: Delete an Object from a Space
-\item \code{\link[=space_size]{space_size()}}: Get the size of all Objects in a Space
-\item \code{\link[=space_list]{space_list()}}: List the objects in a Space
-\item \code{\link[=space_files]{space_files()}}: Get number of objects in a Space
 }
 
 Access Control List's:

@@ -1,7 +1,7 @@
 #' Set an Object's Access Control List (ACL)
 #'
 #' @param object (character) The Object to set the ACL on
-#' @param space (character) The Space the Object is found in
+#' @param space The Space of \code{object}. A space, or the name of the Space as a string.
 #' @param body (character) The XML-formatted ACL. Can optionally be an
 #' \code{xml_document} if the \code{xml2} package is installed.
 #' @template spaces_args
@@ -43,6 +43,8 @@ spaces_acl_put <- function(object,
                            spaces_key = NULL,
                            spaces_secret = NULL,
                            ...) {
+  space <- as.character(space)
+
   spaces_region <- check_space_region(spaces_region)
   spaces_key <- check_space_access(spaces_key)
   spaces_secret <- check_space_secret(spaces_secret)

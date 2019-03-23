@@ -4,11 +4,12 @@
 \alias{space_delete}
 \title{Delete a Space}
 \usage{
-space_delete(name, spaces_region = NULL, spaces_key = NULL,
+space_delete(space, spaces_region = NULL, spaces_key = NULL,
   spaces_secret = NULL, ...)
 }
 \arguments{
-\item{name}{(character) The name of the new Space}
+\item{space}{A Space, or something that can be coerced to a Space by
+\code{\link{as.space}}.}
 
 \item{spaces_region}{(character) String containing a spaces region. If
 missing, defaults to value stored in an environment variable
@@ -29,4 +30,17 @@ variable \code{DO_SPACES_SECRET_KEY}.}
 }
 \description{
 Delete a Space
+}
+\examples{
+\dontrun{
+# First, create a Space
+space_create("new_space_name")
+
+# The we can delete it
+space_delete("new_space_name")
+}
+}
+\references{
+\url{https://developers.digitalocean.com/documentation/spaces/
+#delete-a-buckets}
 }

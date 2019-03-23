@@ -10,19 +10,7 @@ spaces_object_head(object, space, spaces_region = NULL,
 \arguments{
 \item{object}{(character) The Object to get information about}
 
-\item{space}{(character) The Space the Object is found in}
-
-\item{spaces_region}{(character) String containing a spaces region. If
-missing, defaults to value stored in an environment variable
-\code{DO_SPACES_REGION}.}
-
-\item{spaces_key}{(character) String containing a spaces access key. If
-missing, defaults to value stored in an environment variable
-\code{DO_SPACES_ACCESS_KEY}.}
-
-\item{spaces_secret}{(character) String containing the secret associated
-with the spaces key. If missing, defaults to value stored in an environment
-variable \code{DO_SPACES_SECRET_KEY}.}
+\item{space}{The Space of \code{object}. A Space, or the name of the Space as a string.}
 
 \item{...}{Additional argument passed to \code{\link[aws.s3]{head_object}}}
 }
@@ -34,7 +22,7 @@ Get information about an Object
 }
 \examples{
 \dontrun{
-# First, create a space and then upload a file to it
+# First, create a Space and then upload a file to it
 space_create("my-space")
 spaces_object_put("some-file.txt", "my-object", "my-space")
 

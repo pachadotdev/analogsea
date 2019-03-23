@@ -28,3 +28,13 @@ variable \code{DO_SPACES_SECRET_KEY}.}
 \description{
 List all Spaces.
 }
+\examples{
+\dontrun{
+# List all of your Spaces
+spaces()
+}
+}
+\references{
+\url{https://developers.digitalocean.com/documentation/spaces
+/#get-object}
+}

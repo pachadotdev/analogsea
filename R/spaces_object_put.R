@@ -1,9 +1,9 @@
-#' Upload an Object to a Space
+#' Upload an Object to a space
 #'
 #' @param file (character) The path to the file to upload.
 #' @param object (character) The key for the new Object. Defaults to the
 #' basename of the \code{path} returned by \code{\link{basename}}.
-#' @param space (character) The Space to upload the Object to
+#' @param space The Space of \code{object}. A Space, or the name of the Space as a string.
 #' @template spaces_args
 #' @param ... Additional argument passed to \code{\link[aws.s3]{put_object}}
 #'
@@ -16,7 +16,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' # You can create a space and then upload a file to it
+#' # You can create a Space and then upload a file to it
 #' space_create("my-space")
 #' spaces_object_put("some-file.txt", "my-object", "my-space")
 #'
@@ -37,6 +37,8 @@ spaces_object_put <- function(file,
   if (!file.exists(file)) {
     stop("No file exists at the path \"", file, "\".", call. = FALSE)
   }
+
+  space <- as.character(space)
 
   spaces_region <- check_space_region(spaces_region)
   spaces_key <- check_space_access(spaces_key)
