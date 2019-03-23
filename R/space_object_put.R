@@ -28,12 +28,12 @@
 #' spaces_object_put("some-file.txt", "my-object", "my-space", multipart = TRUE)
 #' }
 space_object_put <- function(file,
-                              object = basename(file),
-                              space,
-                              spaces_region = NULL,
-                              spaces_key = NULL,
-                              spaces_secret = NULL,
-                              ...) {
+                             object = basename(file),
+                             space,
+                             spaces_region = NULL,
+                             spaces_key = NULL,
+                             spaces_secret = NULL,
+                             ...) {
   if (!file.exists(file)) {
     stop("No file exists at the path \"", file, "\".", call. = FALSE)
   }
