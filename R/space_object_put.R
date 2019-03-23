@@ -27,7 +27,7 @@
 #' # You can also perform a multipart upload
 #' spaces_object_put("some-file.txt", "my-object", "my-space", multipart = TRUE)
 #' }
-spaces_object_put <- function(file,
+space_object_put <- function(file,
                               object = basename(file),
                               space,
                               spaces_region = NULL,

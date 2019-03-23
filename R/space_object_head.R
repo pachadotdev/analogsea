@@ -19,7 +19,7 @@
 #' # You can get information about an Object
 #' spaces_object_head("my-object", "my-space")
 #' }
-spaces_object_head <- function(object,
+space_object_head <- function(object,
                                space,
                                spaces_region = NULL,
                                spaces_key = NULL,

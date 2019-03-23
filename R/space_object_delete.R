@@ -24,7 +24,7 @@
 #' # You can delete an Object by key
 #' spaces_object_delete("my-object", "my-space")
 #' }
-spaces_object_delete <- function(object,
+space_object_delete <- function(object,
                                  space,
                                  spaces_region = NULL,
                                  spaces_key = NULL,

@@ -25,7 +25,7 @@
 #' acl <- spaces_acl_get("some-file.txt", "my-space")
 #' acl
 #' }
-spaces_acl_get <- function(object,
+space_acl_get <- function(object,
                            space,
                            spaces_region = NULL,
                            spaces_key = NULL,
