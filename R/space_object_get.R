@@ -23,7 +23,7 @@
 #' # Or you can get back the raw response
 #' spaces_object_get("my-object", "my-space")
 #' }
-spaces_object_get <- function(object,
+space_object_get <- function(object,
                               space,
                               spaces_region = NULL,
                               spaces_key = NULL,

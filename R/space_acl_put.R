@@ -36,7 +36,7 @@
 #'   spaces_acl_put("some-file.txt", "my-space", acl)
 #' }
 #' }
-spaces_acl_put <- function(object,
+space_acl_put <- function(object,
                            space,
                            body,
                            spaces_region = NULL,

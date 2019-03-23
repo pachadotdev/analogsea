@@ -28,7 +28,7 @@
 #'                    from_space = "primary-space",
 #'                    to_space = "secondary-space")
 #' }
-spaces_object_copy <- function(from_object,
+space_object_copy <- function(from_object,
                                to_object = from_object,
                                from_space,
                                to_space,
