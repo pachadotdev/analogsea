@@ -26,12 +26,12 @@
 #' acl
 #' }
 space_acl_get <- function(object,
-                           space,
-                           spaces_region = NULL,
-                           spaces_key = NULL,
-                           spaces_secret = NULL,
-                           warn_xml2 = TRUE,
-                           ...) {
+                          space,
+                          spaces_region = NULL,
+                          spaces_key = NULL,
+                          spaces_secret = NULL,
+                          warn_xml2 = TRUE,
+                          ...) {
   space <- as.character(space)
 
   spaces_region <- check_space_region(spaces_region)

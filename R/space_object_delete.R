@@ -25,11 +25,11 @@
 #' spaces_object_delete("my-object", "my-space")
 #' }
 space_object_delete <- function(object,
-                                 space,
-                                 spaces_region = NULL,
-                                 spaces_key = NULL,
-                                 spaces_secret = NULL,
-                                 ...) {
+                                space,
+                                spaces_region = NULL,
+                                spaces_key = NULL,
+                                spaces_secret = NULL,
+                                ...) {
   space <- as.character(space)
 
   spaces_region <- check_space_region(spaces_region)

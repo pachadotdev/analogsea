@@ -29,13 +29,13 @@
 #'                    to_space = "secondary-space")
 #' }
 space_object_copy <- function(from_object,
-                               to_object = from_object,
-                               from_space,
-                               to_space,
-                               spaces_region = NULL,
-                               spaces_key = NULL,
-                               spaces_secret = NULL,
-                               ...) {
+                              to_object = from_object,
+                              from_space,
+                              to_space,
+                              spaces_region = NULL,
+                              spaces_key = NULL,
+                              spaces_secret = NULL,
+                              ...) {
   from_space <- as.character(from_space)
   to_space <- as.character(to_space)
 

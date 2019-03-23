@@ -37,12 +37,12 @@
 #' }
 #' }
 space_acl_put <- function(object,
-                           space,
-                           body,
-                           spaces_region = NULL,
-                           spaces_key = NULL,
-                           spaces_secret = NULL,
-                           ...) {
+                          space,
+                          body,
+                          spaces_region = NULL,
+                          spaces_key = NULL,
+                          spaces_secret = NULL,
+                          ...) {
   space <- as.character(space)
 
   spaces_region <- check_space_region(spaces_region)
