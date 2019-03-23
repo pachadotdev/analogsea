@@ -21,7 +21,7 @@ space_delete <- function(space,
                          spaces_key = NULL,
                          spaces_secret = NULL,
                          ...) {
-  name <- as.space(space)
+  name <- as.character(space)
 
   spaces_region <- check_space_region(spaces_region)
   spaces_key <- check_space_access(spaces_key)
