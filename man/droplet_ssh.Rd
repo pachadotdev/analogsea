@@ -74,10 +74,11 @@ d \%>\%
 tmp <- tempfile()
 saveRDS(mtcars, tmp)
 d \%>\% droplet_upload(tmp, ".")
+d \%>\% droplet_ssh("ls")
 
 tmp2 <- tempdir()
-d \%>\% droplet_download("mtcars2.rds", tmp2)
-mtcars2 <- readRDS(tmp2)
+d \%>\% droplet_download(basename(tmp), tmp2)
+mtcars2 <- readRDS(file.path(tmp2, basename(tmp)))
 
 stopifnot(all.equal(mtcars, mtcars2))
 
@@ -87,10 +88,11 @@ tmp <- tempfile(fileext = ".txt")
 writeLines("foo bar", tmp)
 readLines(tmp)
 d \%>\% droplet_upload(tmp, ".")
+d \%>\% droplet_ssh("ls")
 
 tmp2 <- tempdir()
 unlink(tmp)
-d \%>\% droplet_download("file112aa80926ce.txt", tmp2)
-readLines(file.path(tmp2, "file112aa80926ce.txt"))
+d \%>\% droplet_download(basename(tmp), tmp2)
+readLines(file.path(tmp2, basename(tmp)))
 }
 }

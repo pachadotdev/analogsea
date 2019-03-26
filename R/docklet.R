@@ -61,6 +61,7 @@
 #' @examples
 #' \dontrun{
 #' d <- docklet_create()
+#' d <- droplet(d$id)
 #' d %>% docklet_pull("dockerpinata/sqlite")
 #' d %>% docklet_images()
 #'
@@ -83,7 +84,7 @@
 #' d %>% docklet_run("rocker/r-ver:3.2", "Rscript -e '2 + 3'", rm = TRUE)
 #'
 #' # Run a docklet containing rstudio
-#' d %>% docklet_rstudio()
+#' d %>% docklet_rstudio(user = "foo", password = "bar")
 #'
 #' # Delete a droplet
 #' d %>% droplet_delete()
