@@ -110,7 +110,7 @@
 #' container
 NULL
 
-#' @title Functions for paces
+#' @title Functions for spaces
 #'
 #' @description There's many functions for working with Spaces.
 #' Here's a breakdown of what they all do.
