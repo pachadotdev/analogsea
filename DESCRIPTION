@@ -29,11 +29,10 @@ Imports:
     magrittr,
     yaml,
     aws.s3 (>= 0.3.3),
-    ssh (>= 0.5)
+    ssh (>= 0.6)
 Suggests:
     roxygen2 (>= 6.1.1),
     testthat,
     knitr,
     xml2
-Remotes: ropensci/ssh
 RoxygenNote: 6.1.1
