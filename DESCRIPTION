@@ -4,7 +4,7 @@ Description: Provides a set of functions for interacting with the 'Digital
     Ocean' API at <https://developers.digitalocean.com/documentation/v2>, including
     creating images, destroying them, rebooting, getting details on regions, and
     available images.
-Version: 0.6.6.9313
+Version: 0.6.9.9100
 Authors@R: c(
     person("Scott", "Chamberlain", role = c("aut", "cre"), email = "myrmecocystus@gmail.com"),
     person("Hadley", "Wickham", role = "aut", email = "hadley@rstudio.com"),
@@ -28,7 +28,6 @@ Imports:
     jsonlite (>= 1.1),
     magrittr,
     yaml,
-    aws.s3 (>= 0.3.3),
     ssh (>= 0.6)
 Suggests:
     roxygen2 (>= 6.1.1),

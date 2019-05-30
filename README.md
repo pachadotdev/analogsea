@@ -15,8 +15,6 @@ analogsea
 * OpenCPU (not yet)
 * Use packrat to move a project to a droplet (not yet)
 
-In addition to the Digital Ocean API, this package has functions for working with the DO Spaces API. Spaces are similar to Amazon S3, and in fact follow the same exact programmatic interface, making it easy to interact with one or the other interchangeably. See `?spaces_functions` after loading analogsea.
-
 ## Install
 
 Stable version from CRAN
@@ -132,39 +130,6 @@ docklet_create() %>%
 ```
 
 This will install R, RStudio Server and it's dependencies. It will automatically pop open the RStudio server instance in your default browser, with default `username/password` of `rstudio/server`.
-
-## Spaces
-
-List spaces
-
-```r
-spaces()
-#> named list()
-```
-
-Create a new space
-
-```r
-space_create("new_space_name")
-```
-
-Create an Object in a Space
-
-```r
-spaces_object_put("some_file", "new_space_name")
-```
-
-Delete an Object from a Space
-
-```r
-spaces_object_delete("some_file", "new_space_name")
-```
-
-Delete a Space (can only be done on an empty Space)
-
-```r
-space_delete("new_space_name")
-```
 
 
 ## Meta
