@@ -36,15 +36,6 @@ summary(res[["my_space_name"]])
 
 # Create a new space
 space_create("new_space_name")
-
-# Create an Object in a Space
-spaces_object_put("some_file", "new_space_name")
-
-# Delete an Object from a Space
-spaces_object_delete("some_file", "new_space_name")
-
-# Delete a Space (can only be done on an empty Space)
-space_delete("new_space_name")
 }
 
 }
