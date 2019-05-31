@@ -28,7 +28,8 @@ Imports:
     jsonlite (>= 1.1),
     magrittr,
     yaml,
-    ssh (>= 0.6)
+    ssh (>= 0.6),
+    aws.s3
 Suggests:
     roxygen2 (>= 6.1.1),
     testthat,
