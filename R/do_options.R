@@ -71,8 +71,8 @@ do_options <- function(size = NULL, image = NULL, region = NULL, ssh_keys = NULL
     options(new_opts)
 
   cat("Default options for spinning up a new droplet:", "\n")
-  cat("[size]:     ", getOption("do_size", "not set (Defaults to: 512mb)"), "\n")
-  cat("[image]:    ", getOption("do_image", "not set (Defaults to: ubuntu-14-04-x64)"), "\n")
+  cat("[size]:     ", getOption("do_size", "not set (Defaults to: s-1vcpu-1gb)"), "\n")
+  cat("[image]:    ", getOption("do_image", "not set (Defaults to: ubuntu-18-04-x64)"), "\n")
   cat("[region]:   ", getOption("do_region", "not set (Defaults to: sfo1)"), "\n")
   cat("[ssh keys]: ", getOption("do_ssh_keys"), "\n")
   cat("[private networking]", getOption("do_private_networking"), "\n")

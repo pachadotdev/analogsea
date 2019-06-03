@@ -189,3 +189,16 @@ space_info <- function(name,
 
   return(space_info)
 }
+
+space_size <- function(space_info) {
+  # grab the sizes from each file (unit is bytes)
+  sizes <- vapply(space_info, function(x) x$Size, numeric(1))
+
+  # compute total size (convert to gb)
+  sum(sizes) * 1e-09
+}
+
+space_files <- function(space_info) {
+  # remove entries with size 0 (those are nested directories)
+  length(lapply(space_info, function(x) x[x$Size > 0]))
+}

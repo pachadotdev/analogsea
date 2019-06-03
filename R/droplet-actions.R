@@ -16,7 +16,7 @@
 #' @param image (character/numeric) The image ID of a public or private image,
 #'   or the unique slug identifier for a public image. This image will be the
 #'   base image for your droplet. See \code{\link{images}()} for a complete
-#'   list. Default: ubuntu-16-04-x64
+#'   list. Default: ubuntu-18-04-x64
 #' @param region (character) The unique slug identifier for the region that you
 #'   wish to deploy in. See \code{\link{regions}()} for a complete list.
 #'   Default: sfo1
@@ -84,7 +84,7 @@
 #' }
 droplet_create <- function(name = random_name(),
                         size = getOption("do_size", "s-1vcpu-1gb"),
-                        image = getOption("do_image", "ubuntu-16-04-x64"),
+                        image = getOption("do_image", "ubuntu-18-04-x64"),
                         region = getOption("do_region", "sfo1"),
                         ssh_keys = getOption("do_ssh_keys", NULL),
                         backups = getOption("do_backups", NULL),
