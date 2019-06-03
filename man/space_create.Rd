@@ -37,7 +37,3 @@ Create a new Space
 space_create("new_space_name")
 }
 }
-\references{
-\url{https://developers.digitalocean.com/documentation/spaces/
-#create-a-bucket}
-}

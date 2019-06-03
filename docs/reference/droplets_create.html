@@ -67,7 +67,7 @@ droplet and you're up and running." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">analogsea</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.9.9100</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
       </span>
     </div>
 
@@ -123,7 +123,7 @@ droplet and you're up and running.</p>
     </div>
 
     <pre class="usage"><span class='fu'>droplets_create</span>(<span class='kw'>names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_size"</span>,
-  <span class='st'>"s-1vcpu-1gb"</span>), <span class='kw'>image</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_image"</span>, <span class='st'>"ubuntu-16-04-x64"</span>),
+  <span class='st'>"s-1vcpu-1gb"</span>), <span class='kw'>image</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_image"</span>, <span class='st'>"ubuntu-18-04-x64"</span>),
   <span class='kw'>region</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_region"</span>, <span class='st'>"sfo1"</span>),
   <span class='kw'>ssh_keys</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_ssh_keys"</span>, <span class='kw'>NULL</span>),
   <span class='kw'>backups</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_backups"</span>, <span class='kw'>NULL</span>), <span class='kw'>ipv6</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_ipv6"</span>,
@@ -153,7 +153,7 @@ a complete list. Default: s-1vcpu-1gb, the smallest</p></td>
       <td><p>(character/numeric) The image ID of a public or private image,
 or the unique slug identifier for a public image. This image will be the
 base image for your droplet. See <code><a href='images.html'>images</a>()</code> for a complete
-list. Default: ubuntu-16-04-x64</p></td>
+list. Default: ubuntu-18-04-x64</p></td>
     </tr>
     <tr>
       <th>region</th>

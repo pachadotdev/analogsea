@@ -5,8 +5,6 @@
 #' @template spaces_args
 #' @param ... Additional arguments to \code{\link[aws.s3]{put_bucket}}
 #' @return (character) The name of the created Space.
-#' @references \url{https://developers.digitalocean.com/documentation/spaces/
-#' #create-a-bucket}
 #' @examples
 #' \dontrun{
 #' # Create a new Space

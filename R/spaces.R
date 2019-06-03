@@ -4,7 +4,7 @@ spaces_base <- "digitaloceanspaces.com"
 #'
 #' DigitalOcean provides support for storing files (Objects) in Spaces. This is
 #' useful for storing related files for fast access, sharing, etc. See
-#' \url{https://developers.digitalocean.com/documentation/spaces/}
+#' https://developers.digitalocean.com/documentation/spaces/
 #' for more information.
 #'
 #' In order to get started using the Spaces API, you'll need to generate a new
@@ -77,8 +77,7 @@ check_space_secret <- function(spaces_secret) {
 #' @param ... Additional arguments to \code{\link{spaces_GET}}
 #' @return (list)  A list of Spaces. Can be empty.
 #' @export
-#' @references \url{https://developers.digitalocean.com/documentation/spaces
-#' /#get-object}
+#' @references https://developers.digitalocean.com/documentation/spaces/#get-object
 #' @examples
 #' \dontrun{
 #' # List all of your Spaces

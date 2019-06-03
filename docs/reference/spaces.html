@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Perform various actions on a droplet. — droplet_action • analogsea</title>
+<title>List all Spaces. — spaces • analogsea</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
 
 
-<meta property="og:title" content="Perform various actions on a droplet. — droplet_action" />
+<meta property="og:title" content="List all Spaces. — spaces" />
 
-<meta property="og:description" content="These droplet actions have no further arguments." />
+<meta property="og:description" content="List all Spaces." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -107,87 +107,60 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Perform various actions on a droplet.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/sckott/analogsea/blob/master/R/droplet-actions.R'><code>R/droplet-actions.R</code></a></small>
-    <div class="hidden name"><code>droplet_action.Rd</code></div>
+    <h1>List all Spaces.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/sckott/analogsea/blob/master/R/spaces.R'><code>R/spaces.R</code></a></small>
+    <div class="hidden name"><code>spaces.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>These droplet actions have no further arguments.</p>
+    <p>List all Spaces.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>droplet_reboot</span>(<span class='no'>droplet</span>, <span class='no'>...</span>)
-
-<span class='fu'>droplet_power_cycle</span>(<span class='no'>droplet</span>, <span class='no'>...</span>)
-
-<span class='fu'>droplet_shutdown</span>(<span class='no'>droplet</span>, <span class='no'>...</span>)
-
-<span class='fu'>droplet_power_off</span>(<span class='no'>droplet</span>, <span class='no'>...</span>)
-
-<span class='fu'>droplet_power_on</span>(<span class='no'>droplet</span>, <span class='no'>...</span>)
-
-<span class='fu'>droplet_reset_password</span>(<span class='no'>droplet</span>, <span class='no'>...</span>)
-
-<span class='fu'>droplet_enable_ipv6</span>(<span class='no'>droplet</span>, <span class='no'>...</span>)
-
-<span class='fu'>droplet_enable_private_networking</span>(<span class='no'>droplet</span>, <span class='no'>...</span>)
-
-<span class='fu'>droplet_enable_backups</span>(<span class='no'>droplet</span>, <span class='no'>...</span>)
-
-<span class='fu'>droplet_disable_backups</span>(<span class='no'>droplet</span>, <span class='no'>...</span>)
-
-<span class='fu'>droplet_upgrade</span>(<span class='no'>droplet</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>spaces</span>(<span class='kw'>spaces_region</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>spaces_key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>spaces_secret</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>droplet</th>
-      <td><p>A droplet, or something that can be coerced to a droplet by
-<code><a href='droplet.html'>as.droplet</a></code>.</p></td>
+      <th>spaces_region</th>
+      <td><p>(character) String containing a spaces region. If
+missing, defaults to value stored in an environment variable
+<code>DO_SPACES_REGION</code>.</p></td>
+    </tr>
+    <tr>
+      <th>spaces_key</th>
+      <td><p>(character) String containing a spaces access key. If
+missing, defaults to value stored in an environment variable
+<code>DO_SPACES_ACCESS_KEY</code>.</p></td>
+    </tr>
+    <tr>
+      <th>spaces_secret</th>
+      <td><p>(character) String containing the secret associated
+with the spaces key. If missing, defaults to value stored in an environment
+variable <code>DO_SPACES_SECRET_KEY</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional options passed down to low-level API method.</p></td>
+      <td><p>Additional arguments to <code><a href='spaces_GET.html'>spaces_GET</a></code></p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <dl class='dl-horizontal'>
-<dt>reboot</dt><dd><p>This method allows you to reboot a droplet. This is
-the preferred method to use if a server is not responding</p></dd>
-<dt>powercycle</dt><dd><p>This method allows you to power cycle a droplet.
-This will turn off the droplet and then turn it back on.</p></dd>
-<dt>shutdown</dt><dd><p>Shutdown a running droplet. The droplet will remain in
-your account and you will continue to be charged for it.</p></dd>
-<dt>power_off</dt><dd><p>Shutdown a running droplet. The droplet will remain in
-your account and you will continue to be charged for it.</p></dd>
-<dt>reset_password</dt><dd><p>This method will reset the root password for a
-droplet. Please be aware that this will reboot the droplet to allow
-resetting the password.</p></dd>
-<dt>enable_ipv6</dt><dd><p>Enable IPv6 networking on an existing droplet (within
-a region that has IPv6 available).</p></dd>
-<dt>enable_private_networking</dt><dd><p>Enable private networking on an existing
-droplet (within a region that has private networking available)</p></dd>
-<dt>disable_backups</dt><dd><p>Disables backups for a droplet.</p></dd>
-<dt>enable_backups</dt><dd><p>Enables backups for a droplet.</p></dd>
-<dt>power_on</dt><dd><p>Turn on a droplet that's turned off.</p></dd>
-</dl>
+    <p>(list)  A list of Spaces. Can be empty.</p>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>https://developers.digitalocean.com/documentation/spaces/#get-object</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='droplets.html'>droplets</a></span>()
-<span class='no'>d</span><span class='kw'>[[</span><span class='fl'>1</span>]] <span class='kw'>%&gt;%</span> <span class='fu'>droplet_reboot</span>()
-<span class='no'>d</span><span class='kw'>[[</span><span class='fl'>2</span>]] <span class='kw'>%&gt;%</span> <span class='fu'>droplet_power_cycle</span>()
-
-<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='droplet_create.html'>droplet_create</a></span>()
-<span class='no'>d</span> <span class='kw'>%&gt;%</span> <span class='no'>summary</span>
-<span class='no'>d</span> <span class='kw'>%&gt;%</span> <span class='fu'>droplet_enable_backups</span>()
-<span class='no'>d</span> <span class='kw'>%&gt;%</span> <span class='no'>summary</span>
+<span class='co'># List all of your Spaces</span>
+<span class='fu'>spaces</span>()
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -195,7 +168,9 @@ droplet (within a region that has private networking available)</p></dd>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#details">Details</a></li>
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#references">References</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

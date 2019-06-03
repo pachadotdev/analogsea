@@ -35,6 +35,5 @@ spaces()
 }
 }
 \references{
-\url{https://developers.digitalocean.com/documentation/spaces
-/#get-object}
+https://developers.digitalocean.com/documentation/spaces/#get-object
 }

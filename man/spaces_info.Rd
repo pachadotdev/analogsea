@@ -11,7 +11,7 @@
 \description{
 DigitalOcean provides support for storing files (Objects) in Spaces. This is
 useful for storing related files for fast access, sharing, etc. See
-\url{https://developers.digitalocean.com/documentation/spaces/}
+https://developers.digitalocean.com/documentation/spaces/
 for more information.
 }
 \details{
