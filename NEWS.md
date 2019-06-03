@@ -3,24 +3,23 @@ analogsea 0.7.0
 
 ### NEW FEATURES
 
-* xxx (#xxx)
-* xxx (#xxx)
-* xxx (#xxx)
-* xxx (#xxx)
+* Now using package `ssh` to do ssh operations instead of shelling out via `system`/etc. (#143) (#160) & various fixes for ssh (#154)
+* New functions for working with DO certificates API routes: `certificate`, `certificate_create`, `certificate_delete`, `certificates`, and `as.certificate` (#156)
+* New functions for working with DO firewalls API routes: `firewall`, `firewall_add_droplets`, `firewall_add_tags`, `firewall_create`, `firewall_delete`, `firewall_remove_droplets`, `firewall_remove_tags`, `firewall_update`, `firewalls`, and `as.firewall` (#157)
 
 ### MINOR IMPROVEMENTS
 
-* xxx (#xxx)
-* xxx (#xxx)
-* xxx (#xxx)
-* xxx (#xxx)
+* Changed default droplet size from "1gb" to "s-1vcpu-2gb" (#149) (#152)
+* Changed default droplet image from "ubuntu-14-04-x64" (Ubuntu 14) to "ubuntu-18-04-x64" (Ubuntu 18) (#151)
+* fix `docklet_create()` to use by default the image "docker-18-04" instead of "docker" (#174)
+* Add more documentation for how to deal with droplet object not have the IP address. Happens when the DO API tells R that the droplet is up, but they haven't given us the IP address yet (#166)
+* Package gains new manual page `?droplet_functions` to help the user navigate the many functions for working with the DO API
+* `droplet_ssh` gains new parameters `keyfile` and `ssh_passwd` for specifying the user's optional private key file, and the optional passphrase or callback function for authentication
 
 ### BUG FIXES
 
-* xxx (#xxx)
-* xxx (#xxx)
-* xxx (#xxx)
-* xxx (#xxx)
+* fix to user and password params for `docklet_rstudio()`: at first thanks @nielsaka for (#170) (#171) but then we decided better to go with (#172) and make both params required with no default so the user is forced to set their own values
+* Change default value for `ssh_keys` param in `droplet_create()` and related functions to `NULL` (#144)
 
 
 analogsea 0.6.0
