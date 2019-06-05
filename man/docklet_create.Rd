@@ -126,7 +126,7 @@ e.g., \code{rocker/rstudio}}
 \item{keyfile}{Optional private key file.}
 
 \item{ssh_passwd}{Optional passphrase or callback function for authentication.
-Refer to the \code{\link[ssh]{ssh_connect}} documentation for more details.}
+Refer to the \code{ssh::ssh_connect} documentation for more details.}
 
 \item{verbose}{If TRUE, will print command before executing it.}
 
@@ -223,7 +223,8 @@ d \%>\% droplet_delete()
 ## following pattern user1/user1 ... through 100
 d <- docklet_create()
 d <- droplet(d$id)
-d \%>\% docklet_rstudio() \%>\% docklet_rstudio_addusers()
+d \%>\% docklet_rstudio(user = "foo", password = "bar") \%>\% 
+ docklet_rstudio_addusers(user = "foo", password = "bar")
 
 # Spin up a Shiny server (opens in default browser)
 (d <- docklet_create())

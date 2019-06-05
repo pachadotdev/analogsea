@@ -45,7 +45,7 @@
 #' @param path (character) Path to a directory with Shiny app files
 #' @param keyfile Optional private key file.
 #' @param ssh_passwd Optional passphrase or callback function for authentication.
-#' Refer to the \code{\link[ssh]{ssh_connect}} documentation for more details.
+#' Refer to the \code{ssh::ssh_connect} documentation for more details.
 #' @param verbose If TRUE, will print command before executing it.
 #' @seealso \code{\link{docklets_create}}
 #'
@@ -94,7 +94,8 @@
 #' ## following pattern user1/user1 ... through 100
 #' d <- docklet_create()
 #' d <- droplet(d$id)
-#' d %>% docklet_rstudio() %>% docklet_rstudio_addusers()
+#' d %>% docklet_rstudio(user = "foo", password = "bar") %>% 
+#'  docklet_rstudio_addusers(user = "foo", password = "bar")
 #'
 #' # Spin up a Shiny server (opens in default browser)
 #' (d <- docklet_create())
@@ -192,6 +193,7 @@ docklet_rm <- function(droplet, container, ssh_user = "root") {
 docklet_docker <- function(droplet, cmd, args = NULL, docker_args = NULL,
   ssh_user = "root", keyfile = NULL, ssh_passwd = NULL, verbose = FALSE) {
 
+  check_for_a_pkg("ssh")
   args <- paste(args, collapse = " ")
   droplet_ssh(
     droplet,
@@ -244,6 +246,7 @@ docklet_rstudio_addusers <- function(droplet, user, password,
   img = 'rocker/rstudio', port = '8787', ssh_user = "root", keyfile = NULL, 
   ssh_passwd = NULL, verbose = FALSE) {
 
+  check_for_a_pkg("ssh")
   if (missing(user)) stop("'user' is required")
   if (missing(password)) stop("'password' is required")
   if (password == "rstudio") stop("supply a 'password' other than 'rstudio'")
@@ -311,6 +314,7 @@ docklet_shinyapp <- function(droplet,
                              dir = '',
                              browse = TRUE,
                              ssh_user = "root") {
+  check_for_a_pkg("ssh")
   droplet <- as.droplet(droplet)
   # move files to server
   droplet_ssh(droplet, "mkdir -p /srv/shinyapps")

@@ -22,8 +22,8 @@
 #' droplet_delete(d)
 #' }
 droplet_execute <- function(droplet, code, verbose=TRUE) {
+  check_for_a_pkg("ssh")
   droplet <- as.droplet(droplet)
-
   code <- substitute(code)
   # Remove surrounding `{`
   if (identical(code[[1]], quote(`{`))) {

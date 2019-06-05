@@ -46,5 +46,7 @@ Hadley Wickham \email{hadley@rstudio.com}
 Winston Chang \email{winston@stdout.org}
 
 Bob Rudis \email{bob@rudis.net}
+
+Bryce Mecum \email{brycemecum@gmail.com}
 }
 \keyword{package}

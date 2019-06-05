@@ -17,5 +17,7 @@ I have run R CMD check on the 1 reverse dependency. (Summary at https://github.c
 This release includes a suite of new functions for working with Digital Ocean 
 certificates and firewalls; bug fixes and some minor changes.
 
+ssh package is now in Suggests and used conditionally.
+
 Thanks!
 Scott Chamberlain

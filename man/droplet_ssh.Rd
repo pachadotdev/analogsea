@@ -27,7 +27,7 @@ droplet_download(droplet, remote, local, user = "root", keyfile = NULL,
 \item{keyfile}{Optional private key file.}
 
 \item{ssh_passwd}{Optional passphrase or callback function for authentication.
-Refer to the \code{\link[ssh]{ssh_connect}} documentation for more
+Refer to the \code{ssh::ssh_connect} documentation for more
 details.}
 
 \item{verbose}{If TRUE, will print command before executing it.}
@@ -48,7 +48,7 @@ the droplet.
 Uploads and downloads are recursive, so if you specify a directory,
 everything inside the directory will also be downloaded.
 
-With the chang to package \pkg{ssh}, we create ssh session objects
+With the chang to package \code{ssh}, we create ssh session objects
 (C pointers) internally, and cache them, then look them up in the cache
 based on combination of user and IP address. That is, there's separate
 sessions for each user for the same IP address.

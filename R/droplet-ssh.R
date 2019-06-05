@@ -14,12 +14,12 @@
 #' @param local,remote Local and remote paths.
 #' @param keyfile Optional private key file.
 #' @param ssh_passwd Optional passphrase or callback function for authentication.
-#'   Refer to the \code{\link[ssh]{ssh_connect}} documentation for more
+#'   Refer to the \code{ssh::ssh_connect} documentation for more
 #'   details.
 #' @param verbose If TRUE, will print command before executing it.
 #' @param overwrite If TRUE, then overwrite destination files if they already
 #'   exist.
-#' @details With the chang to package \pkg{ssh}, we create ssh session objects
+#' @details With the chang to package \code{ssh}, we create ssh session objects
 #' (C pointers) internally, and cache them, then look them up in the cache
 #' based on combination of user and IP address. That is, there's separate
 #' sessions for each user for the same IP address.
@@ -68,6 +68,7 @@
 #' }
 #' @export
 droplet_ssh <- function(droplet, ..., user = "root", keyfile = NULL, ssh_passwd = NULL, verbose = FALSE) {
+  check_for_a_pkg("ssh")
   droplet <- as.droplet(droplet)
 
   lines <- paste(c(...), collapse = " \\\n&& ")
@@ -80,6 +81,7 @@ droplet_ssh <- function(droplet, ..., user = "root", keyfile = NULL, ssh_passwd 
 droplet_upload <- function(droplet, local, remote, user = "root", keyfile = NULL, 
   ssh_passwd = NULL, verbose = FALSE) {
 
+  check_for_a_pkg("ssh")
   droplet <- as.droplet(droplet)
   do_scp(droplet, local, remote, user, 
     keyfile = keyfile, ssh_passwd = ssh_passwd, 
@@ -91,6 +93,7 @@ droplet_upload <- function(droplet, local, remote, user = "root", keyfile = NULL
 droplet_download <- function(droplet, remote, local, user = "root",
   keyfile = NULL, ssh_passwd = NULL, verbose = FALSE, overwrite = FALSE) {
 
+  check_for_a_pkg("ssh")
   droplet <- as.droplet(droplet)
   do_scp(droplet, local, remote, user, scp = "download", 
     keyfile, ssh_passwd, verbose = verbose)

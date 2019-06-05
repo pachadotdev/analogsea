@@ -42,6 +42,7 @@
 #' @author Hadley Wickham \email{hadley@@rstudio.com}
 #' @author Winston Chang \email{winston@@stdout.org}
 #' @author Bob Rudis \email{bob@@rudis.net}
+#' @author Bryce Mecum \email{brycemecum@@gmail.com}
 #' @docType package
 #' @keywords package
 NULL

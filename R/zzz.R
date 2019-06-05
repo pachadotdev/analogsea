@@ -61,3 +61,11 @@ cn <- function(x, y) if (nchar(y) == 0) y else paste0(x, y)
 strExtract <- function(str, pattern) regmatches(str, regexpr(pattern, str))
 
 strTrim <- function(str) gsub("^\\s+|\\s+$", "", str)
+
+check_for_a_pkg <- function(x) {
+  if (!requireNamespace(x, quietly = TRUE)) {
+    stop("Please install ", x, call. = FALSE)
+  } else {
+    invisible(TRUE)
+  }
+}
