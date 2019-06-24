@@ -17,7 +17,7 @@
 #' after it's in waiting process (the string of ...), the droplet creation
 #' will continue.
 #' @template dropid
-#' 
+#'
 #' @return Two or more droplet objects
 #'
 #' @examples \dontrun{
@@ -35,7 +35,7 @@
 droplets_create <- function(names = NULL,
                            size = getOption("do_size", "s-1vcpu-1gb"),
                            image = getOption("do_image", "ubuntu-18-04-x64"),
-                           region = getOption("do_region", "sfo1"),
+                           region = getOption("do_region", "sfo2"),
                            ssh_keys = getOption("do_ssh_keys", NULL),
                            backups = getOption("do_backups", NULL),
                            ipv6 = getOption("do_ipv6", NULL),

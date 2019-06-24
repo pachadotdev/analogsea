@@ -472,7 +472,7 @@ You can transfer an image to another region
 
 
 ```r
-image(img$id) %>% image_transfer(region = "sfo1")
+image(img$id) %>% image_transfer(region = "sfo2")
 ```
 
 ## Domains
