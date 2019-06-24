@@ -16,7 +16,7 @@
 \title{Docklets: docker on droplets.}
 \usage{
 docklet_create(name = random_name(), size = getOption("do_size",
-  "s-1vcpu-2gb"), region = getOption("do_region", "sfo1"),
+  "s-1vcpu-2gb"), region = getOption("do_region", "sfo2"),
   ssh_keys = getOption("do_ssh_keys", NULL),
   backups = getOption("do_backups", NULL), ipv6 = getOption("do_ipv6",
   NULL), private_networking = getOption("do_private_networking", NULL),
@@ -68,7 +68,7 @@ a complete list. Default: s-1vcpu-2gb}
 
 \item{region}{(character) The unique slug identifier for the region that you
 wish to deploy in. See \code{\link{regions}()} for a complete list.
-Default: sfo1}
+Default: sfo2}
 
 \item{ssh_keys}{(character) A character vector of key names, an integer
 vector of key ids, or NULL, to use all keys in your account. Accounts
@@ -223,7 +223,7 @@ d \%>\% droplet_delete()
 ## following pattern user1/user1 ... through 100
 d <- docklet_create()
 d <- droplet(d$id)
-d \%>\% docklet_rstudio(user = "foo", password = "bar") \%>\% 
+d \%>\% docklet_rstudio(user = "foo", password = "bar") \%>\%
  docklet_rstudio_addusers(user = "foo", password = "bar")
 
 # Spin up a Shiny server (opens in default browser)
