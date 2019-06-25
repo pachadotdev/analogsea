@@ -49,6 +49,19 @@ as.volume.character <- function(x) {
 #' Default: nyc1
 #' @param snapshot_id (integer) The unique identifier for the volume snapshot
 #' from which to create the volume. Should not be specified with a region_id.
+#' @param filesystem_type (character) The name of the filesystem type to be
+#' used on the volume. When provided, the volume will automatically be
+#' formatted to the specified filesystem type. Currently, the available
+#' options are "ext4" and "xfs". Pre-formatted volumes are automatically
+#' mounted when attached to Ubuntu, Debian, Fedora, Fedora Atomic, and
+#' CentOS Droplets created on or after April 26, 2018. Attaching
+#' pre-formatted volumes to other Droplets is not recommended.
+#' @param filesystem_label (character) The label to be applied to the
+#' filesystem. Labels for ext4 type filesystems may contain 16 characters
+#' while lables for xfs type filesystems are limited to 12 characters.
+#' May only be used in conjunction with filesystem_type.
+#' @param tags (character) tag names to apply to the Volume after it is created.
+#' Tag names can either be existing or new tags.
 #' @param ... Additional options passed down to \code{\link[httr]{GET}},
 #' \code{\link[httr]{POST}}, etc.
 #' @details  note that if you delete a volume, and it has a snapshot, the
@@ -59,7 +72,7 @@ as.volume.character <- function(x) {
 #'
 #' # create a volume
 #' vol1 <- volume_create('testing', 5)
-#' vol2 <- volume_create('foobar', 6)
+#' vol2 <- volume_create('foobar', 6, tags = c('stuff', 'things'))
 #'
 #' # create snapshot of a volume
 #' xx <- volume_snapshot_create(vol2, "howdy")
@@ -108,10 +121,12 @@ volume <- function(volume, ...) {
 #' @export
 #' @rdname volumes
 volume_create <- function(name, size, description = NULL, region = 'nyc1',
-                          snapshot_id = NULL, ...) {
+                          snapshot_id = NULL, filesystem_type = NULL,
+                          filesystem_label = NULL, tags = NULL, ...) {
   body <- ascompact(list(name = name, size_gigabytes = size,
-                         description = description, region = region,
-                         snapshot_id = snapshot_id))
+    description = description, region = region, snapshot_id = snapshot_id,
+    filesystem_type = filesystem_type,
+    filesystem_label = filesystem_label, tags = tags))
   as.volume(do_POST("volumes", ..., body = body))
 }
 
