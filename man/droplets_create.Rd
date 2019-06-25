@@ -10,8 +10,8 @@ droplets_create(names = NULL, size = getOption("do_size",
   ssh_keys = getOption("do_ssh_keys", NULL),
   backups = getOption("do_backups", NULL), ipv6 = getOption("do_ipv6",
   NULL), private_networking = getOption("do_private_networking", NULL),
-  tags = NULL, user_data = NULL, cloud_config = NULL, wait = TRUE,
-  ...)
+  tags = list(), user_data = NULL, cloud_config = NULL,
+  wait = TRUE, ...)
 }
 \arguments{
 \item{names}{(character) Names of the droplets. The human-readable string

@@ -22,7 +22,7 @@ docklets_create <- function(names = NULL,
                            ipv6 = getOption("do_ipv6", NULL),
                            private_networking =
                              getOption("do_private_networking", NULL),
-                           tags = NULL,
+                           tags = list(),
                            wait = TRUE,
                            image = "docker-18-04",
                            ...) {
