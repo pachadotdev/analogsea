@@ -178,6 +178,9 @@ as.tag.character <- function(x) tags()[[x]]
 print.tag <- function(x, ...) {
   cat("<tag> ", x$name, "\n", sep = "")
   cat("  Droplets (n): ", x$resources$droplets$count, "\n", sep = "")
-  cat("  Last tagged droplet: ", x$resources$droplets$last_tagged$id,
-      "\n", sep = "")
+  drop <- x$resources$droplets$last_tagged_uri
+  if (!is.null(drop)) {
+    drop <- strExtract(drop, "[0-9]+$")
+  }
+  cat("  Last tagged droplet: ", drop, "\n", sep = "")
 }
