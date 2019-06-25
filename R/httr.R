@@ -36,6 +36,11 @@ do_PUT <- function(url, ...) {
 }
 #' @export
 #' @rdname httr-verbs
+do_PATCH <- function(url, ...) {
+  do_VERB("PATCH", url, ...)
+}
+#' @export
+#' @rdname httr-verbs
 do_DELETE <- function(url, ...) {
   do_VERB("DELETE", url, ...)
 }

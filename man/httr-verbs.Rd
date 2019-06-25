@@ -5,6 +5,7 @@
 \alias{do_GET}
 \alias{do_POST}
 \alias{do_PUT}
+\alias{do_PATCH}
 \alias{do_DELETE}
 \alias{do_DELETE_body}
 \title{httr wrappers.}
@@ -14,6 +15,8 @@ do_GET(url, ...)
 do_POST(url, ..., body = NULL, encode = "json")
 
 do_PUT(url, ...)
+
+do_PATCH(url, ...)
 
 do_DELETE(url, ...)
 
