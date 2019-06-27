@@ -1,0 +1,205 @@
+{
+  "@context": ["https://doi.org/10.5063/schema/codemeta-2.0", "http://schema.org"],
+  "@type": "SoftwareSourceCode",
+  "identifier": "analogsea",
+  "description": "Provides a set of functions for interacting with the 'Digital\n    Ocean' API at <https://developers.digitalocean.com/documentation/v2>, including\n    creating images, destroying them, rebooting, getting details on regions, and\n    available images.",
+  "name": "analogsea: Interface to 'Digital Ocean'",
+  "codeRepository": "https://github.com/sckott/analogsea",
+  "issueTracker": "https://github.com/sckott/analogsea/issues",
+  "license": "https://spdx.org/licenses/MIT",
+  "version": "0.7.2",
+  "programmingLanguage": {
+    "@type": "ComputerLanguage",
+    "name": "R",
+    "version": "3.6.0",
+    "url": "https://r-project.org"
+  },
+  "runtimePlatform": "R version 3.6.0 Patched (2019-04-30 r76446)",
+  "provider": {
+    "@id": "https://cran.r-project.org",
+    "@type": "Organization",
+    "name": "Comprehensive R Archive Network (CRAN)",
+    "url": "https://cran.r-project.org"
+  },
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Scott",
+      "familyName": "Chamberlain",
+      "email": "myrmecocystus@gmail.com"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Hadley",
+      "familyName": "Wickham",
+      "email": "hadley@rstudio.com"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Winston",
+      "familyName": "Chang",
+      "email": "winston@stdout.org"
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "givenName": "Bob",
+      "familyName": "Rudis",
+      "email": "bob@rudis.net"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Bryce",
+      "familyName": "Mecum",
+      "email": "brycemecum@gmail.com",
+      "@id": "https://orcid.org/0000-0002-0381-3766"
+    }
+  ],
+  "copyrightHolder": [
+    {
+      "@type": "Organization",
+      "name": "RStudio"
+    }
+  ],
+  "funder": {},
+  "maintainer": [
+    {
+      "@type": "Person",
+      "givenName": "Scott",
+      "familyName": "Chamberlain",
+      "email": "myrmecocystus@gmail.com"
+    }
+  ],
+  "softwareSuggestions": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "roxygen2",
+      "name": "roxygen2",
+      "version": ">= 6.1.1",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=roxygen2"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "testthat",
+      "name": "testthat",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=testthat"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "knitr",
+      "name": "knitr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=knitr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "ssh",
+      "name": "ssh",
+      "version": ">= 0.6",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=ssh"
+    }
+  ],
+  "softwareRequirements": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "stats",
+      "name": "stats"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "utils",
+      "name": "utils"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "httr",
+      "name": "httr",
+      "version": ">= 1.2.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=httr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "jsonlite",
+      "name": "jsonlite",
+      "version": ">= 1.1",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=jsonlite"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "magrittr",
+      "name": "magrittr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=magrittr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "yaml",
+      "name": "yaml",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=yaml"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "aws.s3",
+      "name": "aws.s3",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=aws.s3"
+    }
+  ],
+  "releaseNotes": "https://github.com/sckott/analogsea/blob/master/NEWS.md",
+  "readme": "https://github.com/sckott/analogsea/blob/master/README.md",
+  "fileSize": "94.25KB",
+  "contIntegration": ["https://travis-ci.org/sckott/analogsea", "https://ci.appveyor.com/project/sckott/analogsea/branch/master", "https://codecov.io/github/sckott/analogsea?branch=master"],
+  "keywords": ["cloud-computing", "rstats", "droplet", "ssh"]
+}

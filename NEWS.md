@@ -1,3 +1,18 @@
+analogsea 0.7.2
+===============
+
+### NEW FEATURES
+
+* gains new functions to support working with Digital Ocean projects: `as.project`, `as.url.project`, `project`, `projects`, `project_create`, `project_delete`, `project_patch`, and `project_update` (#183)
+
+### MINOR IMPROVEMENTS
+
+* changed default region from 'sfo1' to 'sfo2' throughout package (#180) thanks @patperu
+* `droplets_create` and `docklets_create`: use `list()` instead of `NULL` as default (#181)
+* fixed `print.tag` to use `last_tagged_uri` instead of the defunct `last_tagged$id` (#182)
+* `volume_create()` gains new parameters `filesystem_type`, `filesystem_label`, and `tags` (#184)
+
+
 analogsea 0.7.0
 ===============
 
