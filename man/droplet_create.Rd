@@ -4,14 +4,21 @@
 \alias{droplet_create}
 \title{Create a new droplet.}
 \usage{
-droplet_create(name = random_name(), size = getOption("do_size",
-  "s-1vcpu-1gb"), image = getOption("do_image", "ubuntu-18-04-x64"),
+droplet_create(
+  name = random_name(),
+  size = getOption("do_size", "s-1vcpu-1gb"),
+  image = getOption("do_image", "ubuntu-18-04-x64"),
   region = getOption("do_region", "sfo2"),
   ssh_keys = getOption("do_ssh_keys", NULL),
-  backups = getOption("do_backups", NULL), ipv6 = getOption("do_ipv6",
-  NULL), private_networking = getOption("do_private_networking", NULL),
-  tags = list(), user_data = NULL, cloud_config = NULL,
-  wait = TRUE, ...)
+  backups = getOption("do_backups", NULL),
+  ipv6 = getOption("do_ipv6", NULL),
+  private_networking = getOption("do_private_networking", NULL),
+  tags = list(),
+  user_data = NULL,
+  cloud_config = NULL,
+  wait = TRUE,
+  ...
+)
 }
 \arguments{
 \item{name}{(character) Name of the droplet. The human-readable string you

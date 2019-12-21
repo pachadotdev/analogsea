@@ -20,6 +20,7 @@ BugReports: https://github.com/sckott/analogsea/issues
 LazyData: yes
 VignetteBuilder: knitr
 Encoding: UTF-8
+Language: en-US
 Roxygen: list(markdown = TRUE)
 Imports:
     stats,
@@ -30,8 +31,8 @@ Imports:
     yaml,
     aws.s3
 Suggests:
-    roxygen2 (>= 6.1.1),
+    roxygen2 (>= 7.0.2),
     testthat,
     knitr,
     ssh (>= 0.6)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2

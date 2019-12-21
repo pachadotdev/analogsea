@@ -15,8 +15,12 @@ debian_add_swap(droplet)
 
 debian_install_r(droplet)
 
-debian_install_rstudio(droplet, user = "rstudio", password = "server",
-  version = "0.99.484")
+debian_install_rstudio(
+  droplet,
+  user = "rstudio",
+  password = "server",
+  version = "0.99.484"
+)
 
 debian_install_shiny(droplet, version = "1.4.0.756")
 

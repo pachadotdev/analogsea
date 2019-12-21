@@ -4,8 +4,13 @@
 \alias{tag_resource_delete}
 \title{Untag a resource}
 \usage{
-tag_resource_delete(name, resource_id = NULL,
-  resource_type = "droplet", resources = NULL, ...)
+tag_resource_delete(
+  name,
+  resource_id = NULL,
+  resource_type = "droplet",
+  resources = NULL,
+  ...
+)
 }
 \arguments{
 \item{name}{(character) Name of the tag}

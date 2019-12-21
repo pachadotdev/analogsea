@@ -4,8 +4,13 @@
 \alias{space_create}
 \title{Create a new Space}
 \usage{
-space_create(name, spaces_region = NULL, spaces_key = NULL,
-  spaces_secret = NULL, ...)
+space_create(
+  name,
+  spaces_region = NULL,
+  spaces_key = NULL,
+  spaces_secret = NULL,
+  ...
+)
 }
 \arguments{
 \item{name}{(character) The name of the new Space}

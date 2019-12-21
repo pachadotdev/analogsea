@@ -4,8 +4,15 @@
 \alias{project_patch}
 \title{Update certain aspects of a project}
 \usage{
-project_patch(id, name = NULL, purpose = NULL, description = NULL,
-  is_default = FALSE, environment = NULL, ...)
+project_patch(
+  id,
+  name = NULL,
+  purpose = NULL,
+  description = NULL,
+  is_default = FALSE,
+  environment = NULL,
+  ...
+)
 }
 \arguments{
 \item{id}{project id. to update the default project use "default". required}

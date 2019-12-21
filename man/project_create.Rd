@@ -4,8 +4,7 @@
 \alias{project_create}
 \title{Create a project}
 \usage{
-project_create(name, purpose, description = NULL, environment = NULL,
-  ...)
+project_create(name, purpose, description = NULL, environment = NULL, ...)
 }
 \arguments{
 \item{name}{(character) Name of the project. required}

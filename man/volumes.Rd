@@ -16,9 +16,17 @@ volumes(...)
 
 volume(volume, ...)
 
-volume_create(name, size, description = NULL, region = "nyc1",
-  snapshot_id = NULL, filesystem_type = NULL,
-  filesystem_label = NULL, tags = NULL, ...)
+volume_create(
+  name,
+  size,
+  description = NULL,
+  region = "nyc1",
+  snapshot_id = NULL,
+  filesystem_type = NULL,
+  filesystem_label = NULL,
+  tags = NULL,
+  ...
+)
 
 volume_snapshot_create(volume, name, ...)
 

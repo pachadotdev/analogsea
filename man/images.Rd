@@ -8,8 +8,14 @@
 \usage{
 as.image(x)
 
-images(private = FALSE, type = NULL, page = 1, per_page = 25,
-  public = TRUE, ...)
+images(
+  private = FALSE,
+  type = NULL,
+  page = 1,
+  per_page = 25,
+  public = TRUE,
+  ...
+)
 
 image(id, ...)
 }

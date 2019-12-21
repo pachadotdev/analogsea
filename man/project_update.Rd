@@ -4,8 +4,15 @@
 \alias{project_update}
 \title{Update all aspects of a project}
 \usage{
-project_update(id, name, purpose, description, is_default = FALSE,
-  environment = NULL, ...)
+project_update(
+  id,
+  name,
+  purpose,
+  description,
+  is_default = FALSE,
+  environment = NULL,
+  ...
+)
 }
 \arguments{
 \item{id}{project id. to update the default project use "default". required}

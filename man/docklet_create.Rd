@@ -15,45 +15,107 @@
 \alias{docklet_shinyapp}
 \title{Docklets: docker on droplets.}
 \usage{
-docklet_create(name = random_name(), size = getOption("do_size",
-  "s-1vcpu-2gb"), region = getOption("do_region", "sfo2"),
+docklet_create(
+  name = random_name(),
+  size = getOption("do_size", "s-1vcpu-2gb"),
+  region = getOption("do_region", "sfo2"),
   ssh_keys = getOption("do_ssh_keys", NULL),
-  backups = getOption("do_backups", NULL), ipv6 = getOption("do_ipv6",
-  NULL), private_networking = getOption("do_private_networking", NULL),
-  tags = list(), wait = TRUE, image = "docker-18-04", ...)
+  backups = getOption("do_backups", NULL),
+  ipv6 = getOption("do_ipv6", NULL),
+  private_networking = getOption("do_private_networking", NULL),
+  tags = list(),
+  wait = TRUE,
+  image = "docker-18-04",
+  ...
+)
 
 docklet_ps(droplet, all = TRUE, ssh_user = "root")
 
 docklet_images(droplet, all = TRUE, ssh_user = "root")
 
-docklet_pull(droplet, repo, ssh_user = "root", keyfile = NULL,
-  ssh_passwd = NULL, verbose = FALSE)
+docklet_pull(
+  droplet,
+  repo,
+  ssh_user = "root",
+  keyfile = NULL,
+  ssh_passwd = NULL,
+  verbose = FALSE
+)
 
-docklet_run(droplet, ..., rm = FALSE, name = NULL, ssh_user = "root",
-  keyfile = NULL, ssh_passwd = NULL, verbose = FALSE)
+docklet_run(
+  droplet,
+  ...,
+  rm = FALSE,
+  name = NULL,
+  ssh_user = "root",
+  keyfile = NULL,
+  ssh_passwd = NULL,
+  verbose = FALSE
+)
 
 docklet_stop(droplet, container, ssh_user = "root")
 
 docklet_rm(droplet, container, ssh_user = "root")
 
-docklet_docker(droplet, cmd, args = NULL, docker_args = NULL,
-  ssh_user = "root", keyfile = NULL, ssh_passwd = NULL,
-  verbose = FALSE)
+docklet_docker(
+  droplet,
+  cmd,
+  args = NULL,
+  docker_args = NULL,
+  ssh_user = "root",
+  keyfile = NULL,
+  ssh_passwd = NULL,
+  verbose = FALSE
+)
 
-docklet_rstudio(droplet, user, password, email = "rstudio@example.com",
-  img = "rocker/rstudio", port = "8787", volume = "", dir = "",
-  browse = TRUE, add_users = FALSE, ssh_user = "root",
-  keyfile = NULL, ssh_passwd = NULL, verbose = FALSE)
+docklet_rstudio(
+  droplet,
+  user,
+  password,
+  email = "rstudio@example.com",
+  img = "rocker/rstudio",
+  port = "8787",
+  volume = "",
+  dir = "",
+  browse = TRUE,
+  add_users = FALSE,
+  ssh_user = "root",
+  keyfile = NULL,
+  ssh_passwd = NULL,
+  verbose = FALSE
+)
 
-docklet_rstudio_addusers(droplet, user, password, img = "rocker/rstudio",
-  port = "8787", ssh_user = "root", keyfile = NULL,
-  ssh_passwd = NULL, verbose = FALSE)
+docklet_rstudio_addusers(
+  droplet,
+  user,
+  password,
+  img = "rocker/rstudio",
+  port = "8787",
+  ssh_user = "root",
+  keyfile = NULL,
+  ssh_passwd = NULL,
+  verbose = FALSE
+)
 
-docklet_shinyserver(droplet, img = "rocker/shiny", port = "3838",
-  volume = "", dir = "", browse = TRUE, ssh_user = "root")
+docklet_shinyserver(
+  droplet,
+  img = "rocker/shiny",
+  port = "3838",
+  volume = "",
+  dir = "",
+  browse = TRUE,
+  ssh_user = "root"
+)
 
-docklet_shinyapp(droplet, path, img = "rocker/shiny", port = "80",
-  dir = "", browse = TRUE, ssh_user = "root")
+docklet_shinyapp(
+  droplet,
+  path,
+  img = "rocker/shiny",
+  port = "80",
+  dir = "",
+  browse = TRUE,
+  ssh_user = "root"
+)
 }
 \arguments{
 \item{name}{(character) Name of the droplet. The human-readable string you

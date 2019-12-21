@@ -4,12 +4,19 @@
 \alias{docklets_create}
 \title{Docklets: docker on droplets - create many docklets}
 \usage{
-docklets_create(names = NULL, size = getOption("do_size",
-  "s-1vcpu-2gb"), region = getOption("do_region", "sfo2"),
+docklets_create(
+  names = NULL,
+  size = getOption("do_size", "s-1vcpu-2gb"),
+  region = getOption("do_region", "sfo2"),
   ssh_keys = getOption("do_ssh_keys", NULL),
-  backups = getOption("do_backups", NULL), ipv6 = getOption("do_ipv6",
-  NULL), private_networking = getOption("do_private_networking", NULL),
-  tags = list(), wait = TRUE, image = "docker-18-04", ...)
+  backups = getOption("do_backups", NULL),
+  ipv6 = getOption("do_ipv6", NULL),
+  private_networking = getOption("do_private_networking", NULL),
+  tags = list(),
+  wait = TRUE,
+  image = "docker-18-04",
+  ...
+)
 }
 \arguments{
 \item{names}{(character) Names of the droplets. The human-readable string

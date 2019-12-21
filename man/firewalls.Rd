@@ -14,11 +14,23 @@ firewalls(page = 1, per_page = 25, ...)
 
 firewall(id, ...)
 
-firewall_create(name, inbound_rules, outbound_rules, droplet_ids = NULL,
-  tags = NULL, ...)
+firewall_create(
+  name,
+  inbound_rules,
+  outbound_rules,
+  droplet_ids = NULL,
+  tags = NULL,
+  ...
+)
 
-firewall_update(name, inbound_rules, outbound_rules, droplet_ids = NULL,
-  tags = NULL, ...)
+firewall_update(
+  name,
+  inbound_rules,
+  outbound_rules,
+  droplet_ids = NULL,
+  tags = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{Object to coerce to an firewall.}
