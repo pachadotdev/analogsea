@@ -10,3 +10,4 @@ revdep
 man-roxygen
 docs
 ^codemeta\.json$
+^Makefile$
