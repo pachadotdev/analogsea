@@ -4,7 +4,7 @@ Description: Provides a set of functions for interacting with the 'Digital
     Ocean' API at <https://developers.digitalocean.com/documentation/v2>, including
     creating images, destroying them, rebooting, getting details on regions, and
     available images.
-Version: 0.7.2
+Version: 0.7.2.91
 Authors@R: c(
     person("Scott", "Chamberlain", role = c("aut", "cre"), email = "myrmecocystus@gmail.com"),
     person("Hadley", "Wickham", role = "aut", email = "hadley@rstudio.com"),
