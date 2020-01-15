@@ -2,7 +2,6 @@
 #'
 #' @export
 #' @param ... Options passed down to \code{\link[httr]{GET}}
-#' @inheritParams droplets
 #' @examples \dontrun{
 #' account()
 #' }
