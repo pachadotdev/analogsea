@@ -12,7 +12,9 @@
 DigitalOcean provides support for storing files (Objects) in Spaces. This is
 useful for storing related files for fast access, sharing, etc. See
 https://developers.digitalocean.com/documentation/spaces/
-for more information.
+for more information. The \code{aws.s3} package is required to use \code{analogsea}'s
+Spaces functionality so be sure to install it with
+\code{install.packages("aws.s3")} prior to continuing.
 }
 \details{
 In order to get started using the Spaces API, you'll need to generate a new
