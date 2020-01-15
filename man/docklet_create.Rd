@@ -241,6 +241,24 @@ IP address can most likely be found like \code{d$networks$v4[[1]]$ip_address}
 and the port is the port you set in the function call.
 }
 
+\section{Managing Docker containers from R}{
+
+There's a few things to be note about managing Docker containers from
+analogsea:
+\itemize{
+\item To see running containers run \code{docklet_ps(d)}
+\item To get get logs run \code{droplet_ssh(d, "docker logs <container ID>")}
+\item To get a continuous feed of the logs run
+\code{droplet_ssh(d, "docker logs -f <container ID>")}
+\item Do not use \verb{docker exec -ti} as you do not want an interactive session -
+it will not work from within R. If you log into your DigitalOcean droplet
+you can do \verb{docker exec -ti}
+\item To install R package dependencies for a Shiny app, or similar, run
+\verb{droplet_ssh(d, "docker exec <ID> R -e 'install.packages(\\"pkg-name\\")'")}
+where \code{d} is your droplet object and \verb{<ID>} is the docker container ID
+}
+}
+
 \section{Missing droplet ID}{
 
 If you get a droplet object back without an IP address, the IP

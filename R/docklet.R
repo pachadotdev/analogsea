@@ -56,6 +56,22 @@
 #' instance, you can construct like \code{http://<ip address>:<port>} where
 #' IP address can most likely be found like \code{d$networks$v4[[1]]$ip_address}
 #' and the port is the port you set in the function call.
+#' 
+#' @section Managing Docker containers from R:
+#' There's a few things to be note about managing Docker containers from
+#' analogsea:
+#' 
+#' - To see running containers run `docklet_ps(d)`
+#' - To get get logs run `droplet_ssh(d, "docker logs <container ID>")`
+#' - To get a continuous feed of the logs run
+#' `droplet_ssh(d, "docker logs -f <container ID>")`
+#' - Do not use `docker exec -ti` as you do not want an interactive session -
+#' it will not work from within R. If you log into your DigitalOcean droplet
+#' you can do `docker exec -ti`
+#' - To install R package dependencies for a Shiny app, or similar, run
+#' `droplet_ssh(d, "docker exec <ID> R -e 'install.packages(\"pkg-name\")'")`
+#' where `d` is your droplet object and `<ID>` is the docker container ID
+#'  
 #' @template dropid
 #'
 #' @examples
