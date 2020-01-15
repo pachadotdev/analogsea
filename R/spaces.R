@@ -5,7 +5,9 @@ spaces_base <- "digitaloceanspaces.com"
 #' DigitalOcean provides support for storing files (Objects) in Spaces. This is
 #' useful for storing related files for fast access, sharing, etc. See
 #' https://developers.digitalocean.com/documentation/spaces/
-#' for more information.
+#' for more information. The `aws.s3` package is required to use `analogsea`'s
+#' Spaces functionality so be sure to install it with
+#' `install.packages("aws.s3")` prior to continuing.
 #'
 #' In order to get started using the Spaces API, you'll need to generate a new
 #' "Spaces access key" in the API section of your DigitalOcean control panel and
@@ -86,6 +88,8 @@ check_space_secret <- function(spaces_secret) {
 spaces <- function(spaces_region = NULL,
                    spaces_key = NULL,
                    spaces_secret = NULL, ...) {
+  check_for_a_pkg("aws.s3")
+
   res <- spaces_GET(spaces_region = spaces_region,
                     spaces_key = spaces_key,
                     spaces_secret = spaces_secret,

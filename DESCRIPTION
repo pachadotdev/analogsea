@@ -28,11 +28,11 @@ Imports:
     httr (>= 1.2.0),
     jsonlite (>= 1.1),
     magrittr,
-    yaml,
-    aws.s3
+    yaml
 Suggests:
     roxygen2 (>= 7.0.2),
     testthat,
     knitr,
-    ssh (>= 0.6)
+    ssh (>= 0.6),
+    aws.s3
 RoxygenNote: 7.0.2
