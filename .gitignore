@@ -4,3 +4,8 @@ tests/testthat/keys.R
 .httr-oauth
 .Rhistory
 droplet_remote.R
+revdep/checks.noindex
+revdep/data.sqlite
+revdep/library.noindex
+revdep/checks
+revdep/library
