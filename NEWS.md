@@ -1,3 +1,19 @@
+analogsea 0.8.0
+===============
+
+### Spaces
+
+The following were partly introduced in previous versions, partly worked on for this version:
+
+* clean up spaces code: consistent terminology, rearrange code so its easier to find, all `spaces_*` functions renamed to `space_*` (#175) (#176)
+* add high level documentation object `?info` with details on droplet focused functions and spaces focused functions (#150)
+* Functions for working with DigitalOcean Spaces have been partly introduced in previous releases, and various fixes have been made in this version (#136) (#138) (#146) (#161) (#165)
+
+### MINOR IMPROVEMENTS
+
+* `aws.s3` has been orphaned; moved `aws.s3` to Suggests, use is now conditional (#188) (#189)
+* add new section to `docklet_create()` manual file _Managing Docker containers from R_, with notes about managing Docker containers from R (#179)
+
 analogsea 0.7.2
 ===============
 

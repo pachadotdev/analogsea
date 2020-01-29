@@ -1,5 +1,8 @@
 {
-  "@context": ["https://doi.org/10.5063/schema/codemeta-2.0", "http://schema.org"],
+  "@context": [
+    "https://doi.org/10.5063/schema/codemeta-2.0",
+    "http://schema.org"
+  ],
   "@type": "SoftwareSourceCode",
   "identifier": "analogsea",
   "description": "Provides a set of functions for interacting with the 'Digital\n    Ocean' API at <https://developers.digitalocean.com/documentation/v2>, including\n    creating images, destroying them, rebooting, getting details on regions, and\n    available images.",
@@ -7,14 +10,14 @@
   "codeRepository": "https://github.com/sckott/analogsea",
   "issueTracker": "https://github.com/sckott/analogsea/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.7.2",
+  "version": "0.8.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.6.0",
+    "version": "3.6.2",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.6.0 Patched (2019-04-30 r76446)",
+  "runtimePlatform": "R version 3.6.2 Patched (2020-01-25 r77715)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -26,7 +29,8 @@
       "@type": "Person",
       "givenName": "Scott",
       "familyName": "Chamberlain",
-      "email": "myrmecocystus@gmail.com"
+      "email": "myrmecocystus@gmail.com",
+      "@id": "https://orcid.org/0000-0003-1444-9135"
     },
     {
       "@type": "Person",
@@ -68,23 +72,11 @@
       "@type": "Person",
       "givenName": "Scott",
       "familyName": "Chamberlain",
-      "email": "myrmecocystus@gmail.com"
+      "email": "myrmecocystus@gmail.com",
+      "@id": "https://orcid.org/0000-0003-1444-9135"
     }
   ],
   "softwareSuggestions": [
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "roxygen2",
-      "name": "roxygen2",
-      "version": ">= 6.1.1",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=roxygen2"
-    },
     {
       "@type": "SoftwareApplication",
       "identifier": "testthat",
@@ -121,6 +113,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=ssh"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "aws.s3",
+      "name": "aws.s3",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=aws.s3"
     }
   ],
   "softwareRequirements": [
@@ -183,23 +187,16 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=yaml"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "aws.s3",
-      "name": "aws.s3",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=aws.s3"
     }
   ],
   "releaseNotes": "https://github.com/sckott/analogsea/blob/master/NEWS.md",
   "readme": "https://github.com/sckott/analogsea/blob/master/README.md",
-  "fileSize": "94.25KB",
+  "fileSize": "95.353KB",
   "contIntegration": ["https://travis-ci.org/sckott/analogsea", "https://ci.appveyor.com/project/sckott/analogsea/branch/master", "https://codecov.io/github/sckott/analogsea?branch=master"],
-  "keywords": ["cloud-computing", "rstats", "droplet", "ssh"]
+  "keywords": [
+    "cloud-computing",
+    "rstats",
+    "droplet",
+    "ssh"
+  ]
 }

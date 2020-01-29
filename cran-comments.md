@@ -1,7 +1,7 @@
 ## Test environments
 
-* local OS X install, R 3.6.0 patched
-* ubuntu 14.04 (on travis-ci), R 3.6.0
+* local OS X install, R 3.6.2 patched
+* ubuntu 16.04 (on travis-ci), R 3.6.2
 * win-builder (devel and release)
 
 ## R CMD check results
@@ -14,8 +14,7 @@ I have run R CMD check on the 1 reverse dependency. (Summary at https://github.c
 
 ---
 
-This release includes a suite of new functions for working with Digital Ocean projectts; and some minor changes.
-
+This release includes somes fixes and docs improvements, including moving the orphaned package aws.s3 to Suggests and using it conditionally.
 
 Thanks!
 Scott Chamberlain
