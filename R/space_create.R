@@ -3,7 +3,7 @@
 #' @export
 #' @param name (character) The name of the new Space
 #' @template spaces_args
-#' @param ... Additional arguments to \code{\link[aws.s3]{put_bucket}}
+#' @param ... Additional arguments to `aws.s3::put_bucket`
 #' @return (character) The name of the created Space.
 #' @examples
 #' \dontrun{

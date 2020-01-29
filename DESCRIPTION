@@ -4,9 +4,11 @@ Description: Provides a set of functions for interacting with the 'Digital
     Ocean' API at <https://developers.digitalocean.com/documentation/v2>, including
     creating images, destroying them, rebooting, getting details on regions, and
     available images.
-Version: 0.7.9.92
+Version: 0.8.0
 Authors@R: c(
-    person("Scott", "Chamberlain", role = c("aut", "cre"), email = "myrmecocystus@gmail.com"),
+    person("Scott", "Chamberlain", role = c("aut", "cre"),
+        email = "myrmecocystus@gmail.com",
+        comment = c(ORCID="0000-0003-1444-9135")),
     person("Hadley", "Wickham", role = "aut", email = "hadley@rstudio.com"),
     person("Winston", "Chang", role = "aut", email = "winston@stdout.org"),
     person("Bob", "Rudis", role = "ctb", email = "bob@rudis.net"),
@@ -30,7 +32,6 @@ Imports:
     magrittr,
     yaml
 Suggests:
-    roxygen2 (>= 7.0.2),
     testthat,
     knitr,
     ssh (>= 0.6),

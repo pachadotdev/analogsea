@@ -147,7 +147,7 @@ summary.space <- function(object, ...) {
 #' Internal helper method to get information about a Space
 #'
 #' @template spaces_args
-#' @param ... Additional arguments to \code{\link[aws.s3]{s3HTTP}}
+#' @param ... Additional arguments to `aws.s3::s3HTTP`
 #'
 #' @return The raw S3 response, or throws an error
 spaces_GET <- function(spaces_region = NULL,

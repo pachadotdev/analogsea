@@ -26,7 +26,10 @@ install.packages("analogsea")
 Development version from GitHub
 
 ```r
-devtools::install_github("sckott/analogsea")
+remotes::install_github("sckott/analogsea")
+```
+
+```r
 library("analogsea")
 ```
 

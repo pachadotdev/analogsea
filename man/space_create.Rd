@@ -27,7 +27,7 @@ missing, defaults to value stored in an environment variable
 with the spaces key. If missing, defaults to value stored in an environment
 variable \code{DO_SPACES_SECRET_KEY}.}
 
-\item{...}{Additional arguments to \code{\link[aws.s3]{put_bucket}}}
+\item{...}{Additional arguments to \code{aws.s3::put_bucket}}
 }
 \value{
 (character) The name of the created Space.
