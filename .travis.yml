@@ -1,7 +1,5 @@
 language: r
-sudo: false
 cache: packages
-warnings_are_errors: true
 
 addons:
   apt:
@@ -9,16 +7,18 @@ addons:
     - libssh-dev
     - libapparmor-dev
 
-r:
-  - oldrel
-  - release
-  - devel
+matrix:
+  include:
+    - r: release
+      env: R_CODECOV=true
+    - r: devel
+      env: _R_CHECK_LENGTH_1_LOGIC2_=TRUE
 
-github_packages:
-  - jimhester/covr
+r_binary_packages:
+  - covr
 
 after_success:
-  - Rscript -e 'covr::codecov()'
+  - if [[ "${R_CODECOV}" ]]; then R -e 'covr::codecov()'; fi
 
 secure:
   "auH9vehj7OMqodPC1CZ92DsubAzNFi+TxDGVbAlbZQ6w0uwco2PeW/xa0K5a/xsSOGoUtpkU6uD27YxJatIyTez8TNd/r5BXplhrx2rwGlTfgXPG0SWSNYZOAfwiS21CVfwZfGSUD7tfQ+2gpRJKFDqGHVcfkJSxxuGQUfUlhb4="
