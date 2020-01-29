@@ -8,11 +8,13 @@
 
 <title>Docklets: docker on droplets. — docklet_create • analogsea</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -32,10 +34,11 @@
 
 
 
-<meta property="og:title" content="Docklets: docker on droplets. — docklet_create" />
 
+<meta property="og:title" content="Docklets: docker on droplets. — docklet_create" />
 <meta property="og:description" content="Docklets: docker on droplets." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -47,6 +50,7 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -65,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">analogsea</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
       </span>
     </div>
 
@@ -87,7 +91,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/sckott/analogsea">
@@ -102,6 +105,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -113,51 +117,111 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Docklets: docker on droplets.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>docklet_create</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'>random_name</span>(), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_size"</span>,
-  <span class='st'>"s-1vcpu-2gb"</span>), <span class='kw'>region</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_region"</span>, <span class='st'>"sfo1"</span>),
+    <pre class="usage"><span class='fu'>docklet_create</span>(
+  <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'>random_name</span>(),
+  <span class='kw'>size</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_size"</span>, <span class='st'>"s-1vcpu-2gb"</span>),
+  <span class='kw'>region</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_region"</span>, <span class='st'>"sfo2"</span>),
   <span class='kw'>ssh_keys</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_ssh_keys"</span>, <span class='kw'>NULL</span>),
-  <span class='kw'>backups</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_backups"</span>, <span class='kw'>NULL</span>), <span class='kw'>ipv6</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_ipv6"</span>,
-  <span class='kw'>NULL</span>), <span class='kw'>private_networking</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_private_networking"</span>, <span class='kw'>NULL</span>),
-  <span class='kw'>tags</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>wait</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>image</span> <span class='kw'>=</span> <span class='st'>"docker-18-04"</span>, <span class='no'>...</span>)
+  <span class='kw'>backups</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_backups"</span>, <span class='kw'>NULL</span>),
+  <span class='kw'>ipv6</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_ipv6"</span>, <span class='kw'>NULL</span>),
+  <span class='kw'>private_networking</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_private_networking"</span>, <span class='kw'>NULL</span>),
+  <span class='kw'>tags</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  <span class='kw'>wait</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>image</span> <span class='kw'>=</span> <span class='st'>"docker-18-04"</span>,
+  <span class='no'>...</span>
+)
 
 <span class='fu'>docklet_ps</span>(<span class='no'>droplet</span>, <span class='kw'>all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ssh_user</span> <span class='kw'>=</span> <span class='st'>"root"</span>)
 
 <span class='fu'>docklet_images</span>(<span class='no'>droplet</span>, <span class='kw'>all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ssh_user</span> <span class='kw'>=</span> <span class='st'>"root"</span>)
 
-<span class='fu'>docklet_pull</span>(<span class='no'>droplet</span>, <span class='no'>repo</span>, <span class='kw'>ssh_user</span> <span class='kw'>=</span> <span class='st'>"root"</span>, <span class='kw'>keyfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ssh_passwd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>docklet_pull</span>(
+  <span class='no'>droplet</span>,
+  <span class='no'>repo</span>,
+  <span class='kw'>ssh_user</span> <span class='kw'>=</span> <span class='st'>"root"</span>,
+  <span class='kw'>keyfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ssh_passwd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
-<span class='fu'>docklet_run</span>(<span class='no'>droplet</span>, <span class='no'>...</span>, <span class='kw'>rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ssh_user</span> <span class='kw'>=</span> <span class='st'>"root"</span>,
-  <span class='kw'>keyfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ssh_passwd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>docklet_run</span>(
+  <span class='no'>droplet</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ssh_user</span> <span class='kw'>=</span> <span class='st'>"root"</span>,
+  <span class='kw'>keyfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ssh_passwd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
 <span class='fu'>docklet_stop</span>(<span class='no'>droplet</span>, <span class='no'>container</span>, <span class='kw'>ssh_user</span> <span class='kw'>=</span> <span class='st'>"root"</span>)
 
 <span class='fu'>docklet_rm</span>(<span class='no'>droplet</span>, <span class='no'>container</span>, <span class='kw'>ssh_user</span> <span class='kw'>=</span> <span class='st'>"root"</span>)
 
-<span class='fu'>docklet_docker</span>(<span class='no'>droplet</span>, <span class='no'>cmd</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>docker_args</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ssh_user</span> <span class='kw'>=</span> <span class='st'>"root"</span>, <span class='kw'>keyfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ssh_passwd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>docklet_docker</span>(
+  <span class='no'>droplet</span>,
+  <span class='no'>cmd</span>,
+  <span class='kw'>args</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>docker_args</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ssh_user</span> <span class='kw'>=</span> <span class='st'>"root"</span>,
+  <span class='kw'>keyfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ssh_passwd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
-<span class='fu'>docklet_rstudio</span>(<span class='no'>droplet</span>, <span class='no'>user</span>, <span class='no'>password</span>, <span class='kw'>email</span> <span class='kw'>=</span> <span class='st'>"rstudio@example.com"</span>,
-  <span class='kw'>img</span> <span class='kw'>=</span> <span class='st'>"rocker/rstudio"</span>, <span class='kw'>port</span> <span class='kw'>=</span> <span class='st'>"8787"</span>, <span class='kw'>volume</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>browse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>add_users</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ssh_user</span> <span class='kw'>=</span> <span class='st'>"root"</span>,
-  <span class='kw'>keyfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ssh_passwd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>docklet_rstudio</span>(
+  <span class='no'>droplet</span>,
+  <span class='no'>user</span>,
+  <span class='no'>password</span>,
+  <span class='kw'>email</span> <span class='kw'>=</span> <span class='st'>"rstudio@example.com"</span>,
+  <span class='kw'>img</span> <span class='kw'>=</span> <span class='st'>"rocker/rstudio"</span>,
+  <span class='kw'>port</span> <span class='kw'>=</span> <span class='st'>"8787"</span>,
+  <span class='kw'>volume</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>browse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>add_users</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ssh_user</span> <span class='kw'>=</span> <span class='st'>"root"</span>,
+  <span class='kw'>keyfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ssh_passwd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
-<span class='fu'>docklet_rstudio_addusers</span>(<span class='no'>droplet</span>, <span class='no'>user</span>, <span class='no'>password</span>, <span class='kw'>img</span> <span class='kw'>=</span> <span class='st'>"rocker/rstudio"</span>,
-  <span class='kw'>port</span> <span class='kw'>=</span> <span class='st'>"8787"</span>, <span class='kw'>ssh_user</span> <span class='kw'>=</span> <span class='st'>"root"</span>, <span class='kw'>keyfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ssh_passwd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>docklet_rstudio_addusers</span>(
+  <span class='no'>droplet</span>,
+  <span class='no'>user</span>,
+  <span class='no'>password</span>,
+  <span class='kw'>img</span> <span class='kw'>=</span> <span class='st'>"rocker/rstudio"</span>,
+  <span class='kw'>port</span> <span class='kw'>=</span> <span class='st'>"8787"</span>,
+  <span class='kw'>ssh_user</span> <span class='kw'>=</span> <span class='st'>"root"</span>,
+  <span class='kw'>keyfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ssh_passwd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
-<span class='fu'>docklet_shinyserver</span>(<span class='no'>droplet</span>, <span class='kw'>img</span> <span class='kw'>=</span> <span class='st'>"rocker/shiny"</span>, <span class='kw'>port</span> <span class='kw'>=</span> <span class='st'>"3838"</span>,
-  <span class='kw'>volume</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>browse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ssh_user</span> <span class='kw'>=</span> <span class='st'>"root"</span>)
+<span class='fu'>docklet_shinyserver</span>(
+  <span class='no'>droplet</span>,
+  <span class='kw'>img</span> <span class='kw'>=</span> <span class='st'>"rocker/shiny"</span>,
+  <span class='kw'>port</span> <span class='kw'>=</span> <span class='st'>"3838"</span>,
+  <span class='kw'>volume</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>browse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>ssh_user</span> <span class='kw'>=</span> <span class='st'>"root"</span>
+)
 
-<span class='fu'>docklet_shinyapp</span>(<span class='no'>droplet</span>, <span class='no'>path</span>, <span class='kw'>img</span> <span class='kw'>=</span> <span class='st'>"rocker/shiny"</span>, <span class='kw'>port</span> <span class='kw'>=</span> <span class='st'>"80"</span>,
-  <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>browse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ssh_user</span> <span class='kw'>=</span> <span class='st'>"root"</span>)</pre>
-    
+<span class='fu'>docklet_shinyapp</span>(
+  <span class='no'>droplet</span>,
+  <span class='no'>path</span>,
+  <span class='kw'>img</span> <span class='kw'>=</span> <span class='st'>"rocker/shiny"</span>,
+  <span class='kw'>port</span> <span class='kw'>=</span> <span class='st'>"80"</span>,
+  <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>browse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>ssh_user</span> <span class='kw'>=</span> <span class='st'>"root"</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -179,7 +243,7 @@ a complete list. Default: s-1vcpu-2gb</p></td>
       <th>region</th>
       <td><p>(character) The unique slug identifier for the region that you
 wish to deploy in. See <code><a href='regions.html'>regions</a>()</code> for a complete list.
-Default: sfo1</p></td>
+Default: sfo2</p></td>
     </tr>
     <tr>
       <th>ssh_keys</th>
@@ -236,7 +300,7 @@ list. Default: ubuntu-18-04-x64</p></td>
     <tr>
       <th>...</th>
       <td><p>For <code>docklet_create</code>, additional options passed down to
-<code><a href='https://rdrr.io/pkg/httr/man/POST.html'>POST</a></code>. For <code>docklet_run</code>, additional arguments
+<code><a href='https://httr.r-lib.org/reference/POST.html'>POST</a></code>. For <code>docklet_run</code>, additional arguments
 combined and applied to docker statement.</p></td>
     </tr>
     <tr>
@@ -265,7 +329,7 @@ e.g., <code>rocker/rstudio</code></p></td>
     <tr>
       <th>ssh_passwd</th>
       <td><p>Optional passphrase or callback function for authentication.
-Refer to the <code><a href='https://rdrr.io/pkg/ssh/man/ssh.html'>ssh_connect</a></code> documentation for more details.</p></td>
+Refer to the <code><a href='https://rdrr.io/pkg/ssh/man/ssh.html'>ssh::ssh_connect</a></code> documentation for more details.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -337,34 +401,50 @@ Default: FALSE</p></td>
       <td><p>(character) Path to a directory with Shiny app files</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>all functions return a droplet</p>
-    
     <h2 class="hasAnchor" id="urls"><a class="anchor" href="#urls"></a>URLs</h2>
 
     
-    <p>If you need to figure out the URL for your RStudio or Shiny server
+
+<p>If you need to figure out the URL for your RStudio or Shiny server
 instance, you can construct like <code>http://&lt;ip address&gt;:&lt;port&gt;</code> where
 IP address can most likely be found like <code>d$networks$v4[[1]]$ip_address</code>
 and the port is the port you set in the function call.</p>
+    <h2 class="hasAnchor" id="managing-docker-containers-from-r"><a class="anchor" href="#managing-docker-containers-from-r"></a>Managing Docker containers from R</h2>
+
     
+
+<p>There's a few things to be note about managing Docker containers from
+analogsea:</p><ul>
+<li><p>To see running containers run <code>docklet_ps(d)</code></p></li>
+<li><p>To get get logs run <code><a href='droplet_ssh.html'>droplet_ssh(d, "docker logs &lt;container ID&gt;")</a></code></p></li>
+<li><p>To get a continuous feed of the logs run
+<code><a href='droplet_ssh.html'>droplet_ssh(d, "docker logs -f &lt;container ID&gt;")</a></code></p></li>
+<li><p>Do not use <code>docker exec -ti</code> as you do not want an interactive session -
+it will not work from within R. If you log into your DigitalOcean droplet
+you can do <code>docker exec -ti</code></p></li>
+<li><p>To install R package dependencies for a Shiny app, or similar, run
+<code>droplet_ssh(d, "docker exec &lt;ID&gt; R -e 'install.packages(\"pkg-name\")'")</code>
+where <code>d</code> is your droplet object and <code>&lt;ID&gt;</code> is the docker container ID</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="missing-droplet-id"><a class="anchor" href="#missing-droplet-id"></a>Missing droplet ID</h2>
 
     
-    <p>If you get a droplet object back without an IP address, the IP
+
+<p>If you get a droplet object back without an IP address, the IP
 address was not assigned when the payload was returned by DigitalOcean.
 Simply run <code>d &lt;- droplet(d$id)</code> to update your droplet object and the IP
 address will populate.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='docklets_create.html'>docklets_create</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'>docklet_create</span>()
 <span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='droplet.html'>droplet</a></span>(<span class='no'>d</span>$<span class='no'>id</span>)
 <span class='no'>d</span> <span class='kw'>%&gt;%</span> <span class='fu'>docklet_pull</span>(<span class='st'>"dockerpinata/sqlite"</span>)
@@ -399,7 +479,8 @@ address will populate.</p>
 <span class='co'>## following pattern user1/user1 ... through 100</span>
 <span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'>docklet_create</span>()
 <span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='droplet.html'>droplet</a></span>(<span class='no'>d</span>$<span class='no'>id</span>)
-<span class='no'>d</span> <span class='kw'>%&gt;%</span> <span class='fu'>docklet_rstudio</span>() <span class='kw'>%&gt;%</span> <span class='fu'>docklet_rstudio_addusers</span>()
+<span class='no'>d</span> <span class='kw'>%&gt;%</span> <span class='fu'>docklet_rstudio</span>(<span class='kw'>user</span> <span class='kw'>=</span> <span class='st'>"foo"</span>, <span class='kw'>password</span> <span class='kw'>=</span> <span class='st'>"bar"</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'>docklet_rstudio_addusers</span>(<span class='kw'>user</span> <span class='kw'>=</span> <span class='st'>"foo"</span>, <span class='kw'>password</span> <span class='kw'>=</span> <span class='st'>"bar"</span>)
 
 <span class='co'># Spin up a Shiny server (opens in default browser)</span>
 (<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'>docklet_create</span>())
@@ -414,26 +495,23 @@ address will populate.</p>
 <span class='co'>### if you try to use docklet_shinyapp again on the same droplet, it will error</span>
 <span class='no'>path2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"examples"</span>, <span class='st'>"mpg"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"analogsea"</span>)
 <span class='no'>d</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='droplet_ssh.html'>droplet_upload</a></span>(<span class='no'>path2</span>, <span class='st'>"/srv/shinyapps"</span>) <span class='co'># then go to browser</span>
-<span class='co'># }</span></pre>
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#urls">URLs</a></li>
-
+      <li><a href="#managing-docker-containers-from-r">Managing Docker containers from R</a></li>
       <li><a href="#missing-droplet-id">Missing droplet ID</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -441,13 +519,16 @@ address will populate.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

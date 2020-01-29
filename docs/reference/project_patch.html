@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pipe operator — %&gt;% • analogsea</title>
+<title>Update certain aspects of a project — project_patch • analogsea</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Pipe operator — %&gt;%" />
-<meta property="og:description" content="Pipe operator" />
+<meta property="og:title" content="Update certain aspects of a project — project_patch" />
+<meta property="og:description" content="Update certain aspects of a project" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -111,23 +111,69 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pipe operator</h1>
-    <small class="dont-index">Source: <a href='https://github.com/sckott/analogsea/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
-    <div class="hidden name"><code>pipe.Rd</code></div>
+    <h1>Update certain aspects of a project</h1>
+    <small class="dont-index">Source: <a href='https://github.com/sckott/analogsea/blob/master/R/projects.R'><code>R/projects.R</code></a></small>
+    <div class="hidden name"><code>project_patch.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Pipe operator</p>
+    <p>Update certain aspects of a project</p>
     </div>
 
-    <pre class="usage"><span class='no'>lhs</span> <span class='kw'>%&gt;%</span> <span class='no'>rhs</span></pre>
+    <pre class="usage"><span class='fu'>project_patch</span>(
+  <span class='no'>id</span>,
+  <span class='kw'>name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>purpose</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>description</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>is_default</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>environment</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>
+)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>id</th>
+      <td><p>project id. to update the default project use "default". required</p></td>
+    </tr>
+    <tr>
+      <th>name</th>
+      <td><p>(character) Name of the project. required</p></td>
+    </tr>
+    <tr>
+      <th>purpose</th>
+      <td><p>(character) The purpose of the project. The maximum length
+is 255 characters. For examples of valid purposes, see the "Purposes"
+section. required</p></td>
+    </tr>
+    <tr>
+      <th>description</th>
+      <td><p>(character) The description of the project. The maximum
+length is 255 characters. optional</p></td>
+    </tr>
+    <tr>
+      <th>is_default</th>
+      <td><p>(logical) If <code>TRUE</code>, all resources will be added to this
+project if no project is specified. default: <code>FALSE</code></p></td>
+    </tr>
+    <tr>
+      <th>environment</th>
+      <td><p>(character) The environment of the project's resources.
+optional</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional options passed down to <code><a href='https://httr.r-lib.org/reference/POST.html'>POST</a></code></p></td>
+    </tr>
+    </table>
 
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
     </ul>
 
   </div>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pipe operator — %&gt;% • analogsea</title>
+<title>Get list of projects and their metadata, or a single project — as.project • analogsea</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Pipe operator — %&gt;%" />
-<meta property="og:description" content="Pipe operator" />
+<meta property="og:title" content="Get list of projects and their metadata, or a single project — as.project" />
+<meta property="og:description" content="Get list of projects and their metadata, or a single project" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -111,23 +111,59 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pipe operator</h1>
-    <small class="dont-index">Source: <a href='https://github.com/sckott/analogsea/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
-    <div class="hidden name"><code>pipe.Rd</code></div>
+    <h1>Get list of projects and their metadata, or a single project</h1>
+    <small class="dont-index">Source: <a href='https://github.com/sckott/analogsea/blob/master/R/projects.R'><code>R/projects.R</code></a></small>
+    <div class="hidden name"><code>projects.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Pipe operator</p>
+    <p>Get list of projects and their metadata, or a single project</p>
     </div>
 
-    <pre class="usage"><span class='no'>lhs</span> <span class='kw'>%&gt;%</span> <span class='no'>rhs</span></pre>
+    <pre class="usage"><span class='fu'>as.project</span>(<span class='no'>x</span>)
+
+<span class='fu'>projects</span>(<span class='kw'>page</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>per_page</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+
+<span class='fu'>project</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='no'>...</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>Object to coerce to a project.</p></td>
+    </tr>
+    <tr>
+      <th>page</th>
+      <td><p>Page to return. Default: 1.</p></td>
+    </tr>
+    <tr>
+      <th>per_page</th>
+      <td><p>Number of results per page. Default: 25.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments passed down to low-level API function
+(<code>do_*</code>)</p></td>
+    </tr>
+    <tr>
+      <th>id</th>
+      <td><p>(character) project id, default: "default"</p></td>
+    </tr>
+    </table>
 
 
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'>projects</span>()
+<span class='fu'>project</span>(<span class='st'>"f9597f51-6fb0-492c-866d-bc67bff6d409"</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>

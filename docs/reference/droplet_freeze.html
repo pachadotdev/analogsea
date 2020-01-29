@@ -8,11 +8,13 @@
 
 <title>Freeze/thaw droplets. — droplet_freeze • analogsea</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -32,12 +34,13 @@
 
 
 
-<meta property="og:title" content="Freeze/thaw droplets. — droplet_freeze" />
 
+<meta property="og:title" content="Freeze/thaw droplets. — droplet_freeze" />
 <meta property="og:description" content="Freeze powers off the droplet, snapshots to create an image, and deletes the
 droplet. Thaw performs the inverse: it takes an image and turns it into
 a running droplet." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -49,6 +52,7 @@ a running droplet." />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -67,7 +71,7 @@ a running droplet." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">analogsea</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
       </span>
     </div>
 
@@ -89,7 +93,6 @@ a running droplet." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/sckott/analogsea">
@@ -104,6 +107,7 @@ a running droplet." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -115,17 +119,15 @@ a running droplet." />
     </div>
 
     <div class="ref-description">
-    
     <p>Freeze powers off the droplet, snapshots to create an image, and deletes the
 droplet. Thaw performs the inverse: it takes an image and turns it into
 a running droplet.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>droplet_freeze</span>(<span class='no'>droplet</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='no'>droplet</span>$<span class='no'>name</span>, <span class='no'>...</span>)
 
 <span class='fu'>droplet_thaw</span>(<span class='no'>image</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -150,35 +152,33 @@ new droplet. Defaults to name of the droplet.</p></td>
       <td><p>Image to thaw into a droplet.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>droplet_freeze</code> accepts a droplet as first
 argument, and returns an image; <code>droplet_thaw</code> does the opposite:
 it accepts an image as first argument, and returns a droplet.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'># freeze</span>
 <span class='fu'><a href='droplet_create.html'>droplet_create</a></span>(<span class='kw'>region</span> <span class='kw'>=</span> <span class='st'>'nyc3'</span>) <span class='kw'>%&gt;%</span> <span class='fu'>droplet_freeze</span>()
 
 <span class='co'># thaw</span>
 <span class='fu'>droplet_thaw</span>(<span class='kw'>image</span><span class='kw'>=</span><span class='st'>'chiromantical-1412718795'</span>, <span class='kw'>region</span><span class='kw'>=</span><span class='st'>'nyc3'</span>)
-<span class='co'># }</span></pre>
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -186,13 +186,16 @@ it accepts an image as first argument, and returns a droplet.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

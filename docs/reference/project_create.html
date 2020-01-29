@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pipe operator — %&gt;% • analogsea</title>
+<title>Create a project — project_create • analogsea</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Pipe operator — %&gt;%" />
-<meta property="og:description" content="Pipe operator" />
+<meta property="og:title" content="Create a project — project_create" />
+<meta property="og:description" content="Create a project" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -111,23 +111,92 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pipe operator</h1>
-    <small class="dont-index">Source: <a href='https://github.com/sckott/analogsea/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
-    <div class="hidden name"><code>pipe.Rd</code></div>
+    <h1>Create a project</h1>
+    <small class="dont-index">Source: <a href='https://github.com/sckott/analogsea/blob/master/R/projects.R'><code>R/projects.R</code></a></small>
+    <div class="hidden name"><code>project_create.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Pipe operator</p>
+    <p>Create a project</p>
     </div>
 
-    <pre class="usage"><span class='no'>lhs</span> <span class='kw'>%&gt;%</span> <span class='no'>rhs</span></pre>
+    <pre class="usage"><span class='fu'>project_create</span>(<span class='no'>name</span>, <span class='no'>purpose</span>, <span class='kw'>description</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>environment</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>name</th>
+      <td><p>(character) Name of the project. required</p></td>
+    </tr>
+    <tr>
+      <th>purpose</th>
+      <td><p>(character) The purpose of the project. The maximum length
+is 255 characters. For examples of valid purposes, see the "Purposes"
+section. required</p></td>
+    </tr>
+    <tr>
+      <th>description</th>
+      <td><p>(character) The description of the project. The maximum
+length is 255 characters. optional</p></td>
+    </tr>
+    <tr>
+      <th>environment</th>
+      <td><p>(character) The environment of the project's resources.
+optional</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional options passed down to <code><a href='https://httr.r-lib.org/reference/POST.html'>POST</a></code></p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>A project object</p>
+    <h2 class="hasAnchor" id="purposes"><a class="anchor" href="#purposes"></a>Purposes</h2>
+
+    
+
+<p>The purpose attribute can have one of the following values:</p><ul>
+<li><p>Just trying out DigitalOcean</p></li>
+<li><p>Class project / Educational purposes</p></li>
+<li><p>Website or blog</p></li>
+<li><p>Web Application</p></li>
+<li><p>Service or API</p></li>
+<li><p>Mobile Application</p></li>
+<li><p>Machine learning / AI / Data processing</p></li>
+<li><p>IoT</p></li>
+<li><p>Operational / Developer tooling</p></li>
+</ul>
+
+<p>If specify another value for purpose, for example "your custom purpose",
+your purpose will be stored as Other: your custom purpose</p>
+    <h2 class="hasAnchor" id="environments"><a class="anchor" href="#environments"></a>Environments</h2>
+
+    
+
+<p>The environment attribute must have one of the following values:</p><ul>
+<li><p>Development</p></li>
+<li><p>Staging</p></li>
+<li><p>Production</p></li>
+</ul>
+
+<p>If another value is specified, a 400 Bad Request is returned.</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'>project_create</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"venus"</span>, <span class='kw'>purpose</span> <span class='kw'>=</span> <span class='st'>"Web Application"</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#purposes">Purposes</a></li>
+      <li><a href="#environments">Environments</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>

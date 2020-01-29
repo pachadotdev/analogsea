@@ -8,11 +8,13 @@
 
 <title>Create a new droplet. — droplet_create • analogsea</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -32,12 +34,13 @@
 
 
 
-<meta property="og:title" content="Create a new droplet. — droplet_create" />
 
+<meta property="og:title" content="Create a new droplet. — droplet_create" />
 <meta property="og:description" content="There are defaults for each of size, image, and region so that a quick
 one-liner with one parameter is possible: simply specify the name of the
 droplet and your'e up and running." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -49,6 +52,7 @@ droplet and your'e up and running." />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -67,7 +71,7 @@ droplet and your'e up and running." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">analogsea</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
       </span>
     </div>
 
@@ -89,7 +93,6 @@ droplet and your'e up and running." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/sckott/analogsea">
@@ -104,6 +107,7 @@ droplet and your'e up and running." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -115,22 +119,27 @@ droplet and your'e up and running." />
     </div>
 
     <div class="ref-description">
-    
     <p>There are defaults for each of size, image, and region so that a quick
 one-liner with one parameter is possible: simply specify the name of the
 droplet and your'e up and running.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>droplet_create</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'>random_name</span>(), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_size"</span>,
-  <span class='st'>"s-1vcpu-1gb"</span>), <span class='kw'>image</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_image"</span>, <span class='st'>"ubuntu-18-04-x64"</span>),
-  <span class='kw'>region</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_region"</span>, <span class='st'>"sfo1"</span>),
+    <pre class="usage"><span class='fu'>droplet_create</span>(
+  <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'>random_name</span>(),
+  <span class='kw'>size</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_size"</span>, <span class='st'>"s-1vcpu-1gb"</span>),
+  <span class='kw'>image</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_image"</span>, <span class='st'>"ubuntu-18-04-x64"</span>),
+  <span class='kw'>region</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_region"</span>, <span class='st'>"sfo2"</span>),
   <span class='kw'>ssh_keys</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_ssh_keys"</span>, <span class='kw'>NULL</span>),
-  <span class='kw'>backups</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_backups"</span>, <span class='kw'>NULL</span>), <span class='kw'>ipv6</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_ipv6"</span>,
-  <span class='kw'>NULL</span>), <span class='kw'>private_networking</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_private_networking"</span>, <span class='kw'>NULL</span>),
-  <span class='kw'>tags</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>user_data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cloud_config</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>wait</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
-    
+  <span class='kw'>backups</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_backups"</span>, <span class='kw'>NULL</span>),
+  <span class='kw'>ipv6</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_ipv6"</span>, <span class='kw'>NULL</span>),
+  <span class='kw'>private_networking</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"do_private_networking"</span>, <span class='kw'>NULL</span>),
+  <span class='kw'>tags</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  <span class='kw'>user_data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>cloud_config</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>wait</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -159,7 +168,7 @@ list. Default: ubuntu-18-04-x64</p></td>
       <th>region</th>
       <td><p>(character) The unique slug identifier for the region that you
 wish to deploy in. See <code><a href='regions.html'>regions</a>()</code> for a complete list.
-Default: sfo1</p></td>
+Default: sfo2</p></td>
     </tr>
     <tr>
       <th>ssh_keys</th>
@@ -221,31 +230,29 @@ instead of outside of it.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional options passed down to <code><a href='https://rdrr.io/pkg/httr/man/POST.html'>POST</a></code></p></td>
+      <td><p>Additional options passed down to <code><a href='https://httr.r-lib.org/reference/POST.html'>POST</a></code></p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A droplet object</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Note that if you exit the R session or kill the function call
 after it's in waiting process (the string of ...), the droplet creation
 will continue.</p>
-    
     <h2 class="hasAnchor" id="missing-droplet-id"><a class="anchor" href="#missing-droplet-id"></a>Missing droplet ID</h2>
 
     
-    <p>If you get a droplet object back without an IP address, the IP
+
+<p>If you get a droplet object back without an IP address, the IP
 address was not assigned when the payload was returned by DigitalOcean.
 Simply run <code>d &lt;- droplet(d$id)</code> to update your droplet object and the IP
 address will populate.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'># by default we give your droplet a name</span>
 <span class='fu'>droplet_create</span>()
 
@@ -254,7 +261,7 @@ address will populate.</p>
 
 <span class='co'># set name, size, image, and region</span>
 <span class='fu'>droplet_create</span>(<span class='kw'>name</span><span class='kw'>=</span><span class='st'>"newdrop"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='st'>'512mb'</span>, <span class='kw'>image</span> <span class='kw'>=</span> <span class='st'>'ubuntu-14-04-x64'</span>,
-  <span class='kw'>region</span> <span class='kw'>=</span> <span class='st'>'sfo1'</span>)
+  <span class='kw'>region</span> <span class='kw'>=</span> <span class='st'>'sfo2'</span>)
 
 <span class='co'># use an ssh key</span>
 <span class='fu'>droplet_create</span>(<span class='kw'>ssh_keys</span><span class='kw'>=</span><span class='fl'>89103</span>)
@@ -262,24 +269,21 @@ address will populate.</p>
 <span class='co'># add tags</span>
 (<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'>droplet_create</span>(<span class='kw'>tags</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'venus'</span>, <span class='st'>'mars'</span>)))
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>d</span>)
-<span class='co'># }</span></pre>
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#missing-droplet-id">Missing droplet ID</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -287,13 +291,16 @@ address will populate.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
