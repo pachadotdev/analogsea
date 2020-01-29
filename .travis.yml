@@ -19,6 +19,3 @@ r_binary_packages:
 
 after_success:
   - if [[ "${R_CODECOV}" ]]; then R -e 'covr::codecov()'; fi
-
-secure:
-  "auH9vehj7OMqodPC1CZ92DsubAzNFi+TxDGVbAlbZQ6w0uwco2PeW/xa0K5a/xsSOGoUtpkU6uD27YxJatIyTez8TNd/r5BXplhrx2rwGlTfgXPG0SWSNYZOAfwiS21CVfwZfGSUD7tfQ+2gpRJKFDqGHVcfkJSxxuGQUfUlhb4="
