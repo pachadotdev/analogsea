@@ -78,15 +78,25 @@ droplet_ssh <- function(droplet, ..., user = "root", keyfile = NULL, ssh_passwd 
 
 #' @export
 #' @rdname droplet_ssh
-droplet_upload <- function(droplet, local, remote, user = "root", keyfile = NULL, 
+droplet_upload <- function(droplet, local, remote, user = "root", keyfile = NULL,
   ssh_passwd = NULL, verbose = FALSE) {
 
   check_for_a_pkg("ssh")
   droplet <- as.droplet(droplet)
-  do_scp(droplet, local, remote, user, 
-    keyfile = keyfile, ssh_passwd = ssh_passwd, 
+  do_scp(droplet, local, remote, user,
+    keyfile = keyfile, ssh_passwd = ssh_passwd,
     verbose = verbose)
 }
+
+#' @export
+#' @rdname droplet_ssh
+droplet_ls = function(droplet, remote) {
+  analogsea::droplet_ssh(
+    droplet,
+    sprintf("ls %s", remote),
+    ...)
+}
+
 
 #' @export
 #' @rdname droplet_ssh
@@ -95,7 +105,7 @@ droplet_download <- function(droplet, remote, local, user = "root",
 
   check_for_a_pkg("ssh")
   droplet <- as.droplet(droplet)
-  do_scp(droplet, local, remote, user, scp = "download", 
+  do_scp(droplet, local, remote, user, scp = "download",
     keyfile, ssh_passwd, verbose = verbose)
 }
 
