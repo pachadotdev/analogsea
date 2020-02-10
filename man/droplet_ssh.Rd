@@ -3,6 +3,7 @@
 \name{droplet_ssh}
 \alias{droplet_ssh}
 \alias{droplet_upload}
+\alias{droplet_ls}
 \alias{droplet_download}
 \title{Remotely execute ssh code, upload & download files.}
 \usage{
@@ -24,6 +25,8 @@ droplet_upload(
   ssh_passwd = NULL,
   verbose = FALSE
 )
+
+droplet_ls(droplet, remote)
 
 droplet_download(
   droplet,
