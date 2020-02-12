@@ -127,11 +127,11 @@ install_github_r_package <- function(droplet, package, repo = "http://cran.rstud
     }
   })
   command = "Rscript -e \"cat(requireNamespace('remotes', quietly = TRUE))\""
-  analogsea::droplet_ssh(droplet, paste0(command, " > /tmp/",
+  droplet_ssh(droplet, paste0(command, " > /tmp/",
                                          randName), verbose = FALSE)
-  analogsea::droplet_download(droplet, paste0("/tmp/", randName),
+  droplet_download(droplet, paste0("/tmp/", randName),
                               tf, verbose = FALSE)
-  analogsea::droplet_ssh(droplet, paste0("rm /tmp/", randName),
+  droplet_ssh(droplet, paste0("rm /tmp/", randName),
                          verbose = FALSE)
 
   have_remotes <- readLines(tff, warn = FALSE)
@@ -148,7 +148,7 @@ install_github_r_package <- function(droplet, package, repo = "http://cran.rstud
     install_r_package(droplet, "remotes", repo = repo)
   }
 
-  analogsea::droplet_ssh(
+ droplet_ssh(
     droplet,
     sprintf("Rscript -e \"remotes::install_github('%s')\"",
             package))
