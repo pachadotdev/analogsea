@@ -88,15 +88,6 @@ droplet_upload <- function(droplet, local, remote, user = "root", keyfile = NULL
     verbose = verbose)
 }
 
-#' @export
-#' @rdname droplet_ssh
-droplet_ls = function(droplet, remote) {
-  analogsea::droplet_ssh(
-    droplet,
-    sprintf("ls %s", remote),
-    ...)
-}
-
 
 #' @export
 #' @rdname droplet_ssh
