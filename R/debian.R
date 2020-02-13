@@ -106,7 +106,7 @@ debian_apt_get_install <- function(droplet, ...) {
 #' @export
 #' @param package Name of R package to install.
 #' @param repo CRAN mirror to use.
-install_r_package <- function(droplet, package, repo = "http://cran.rstudio.com") {
+install_r_package <- function(droplet, package, repo = "https://cloud.r-project.org/") {
   droplet_ssh(droplet,
               sprintf("Rscript -e \"install.packages(\'%s\', repos=\'%s/\')\"", package, repo)
   )
@@ -116,7 +116,7 @@ install_r_package <- function(droplet, package, repo = "http://cran.rstudio.com"
 #' @export
 #' @param package Name of R package to install.
 #' @param repo CRAN mirror to use.
-install_github_r_package <- function(droplet, package, repo = "http://cran.rstudio.com") {
+install_github_r_package <- function(droplet, package, repo = "https://cloud.r-project.org/") {
   tf <- tempdir()
   randName <- paste(sample(c(letters, LETTERS), size = 10,
                            replace = TRUE), collapse = "")
