@@ -10,14 +10,14 @@
   "codeRepository": "https://github.com/sckott/analogsea",
   "issueTracker": "https://github.com/sckott/analogsea/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.8.0",
+  "version": "0.8.0.91",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.6.2",
+    "version": "3.6.3",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.6.2 Patched (2020-01-25 r77715)",
+  "runtimePlatform": "R version 3.6.3 Patched (2020-02-29 r77909)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -117,14 +117,7 @@
     {
       "@type": "SoftwareApplication",
       "identifier": "aws.s3",
-      "name": "aws.s3",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=aws.s3"
+      "name": "aws.s3"
     }
   ],
   "softwareRequirements": [
@@ -191,12 +184,13 @@
   ],
   "releaseNotes": "https://github.com/sckott/analogsea/blob/master/NEWS.md",
   "readme": "https://github.com/sckott/analogsea/blob/master/README.md",
-  "fileSize": "95.353KB",
+  "fileSize": "95.789KB",
   "contIntegration": ["https://travis-ci.org/sckott/analogsea", "https://ci.appveyor.com/project/sckott/analogsea/branch/master", "https://codecov.io/github/sckott/analogsea?branch=master"],
   "keywords": [
     "cloud-computing",
     "rstats",
     "droplet",
     "ssh"
-  ]
+  ],
+  "relatedLink": "https://analogsea.icu/"
 }
