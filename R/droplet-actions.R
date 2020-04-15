@@ -507,8 +507,8 @@ droplet_actions <- function(droplet, actionid = NULL, ...) {
 #' neighbors()
 #' }
 neighbors <- function(...) {
-  res <- do_GET('reports/droplet_neighbors', ...)
-  res$droplets
+  res <- do_GET('reports/droplet_neighbors_ids', ...)
+  res$neighbor_ids
 }
 
 #' @export
