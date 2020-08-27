@@ -42,11 +42,11 @@ droplet_execute <- function(droplet, code, verbose=TRUE) {
   droplet_ssh(droplet, "Rscript --save remote.R")
 
   mssg(verbose, "Downloading results...")
-  tmp <- tempfile()
+  tmp <- tempdir()
   droplet_download(droplet, ".RData", tmp)
 
   e <- new.env(parent = emptyenv())
-  load(tmp, envir = e)
+  load(file.path(tmp, ".RData"), envir = e)
 
   as.list(e)
 }
