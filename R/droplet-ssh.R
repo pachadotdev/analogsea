@@ -78,6 +78,17 @@ droplet_ssh <- function(droplet, ..., user = "root", keyfile = NULL, ssh_passwd 
 
 #' @export
 #' @rdname droplet_ssh
+droplet_ssh_data <- function(droplet, ..., user = "root", keyfile = NULL, ssh_passwd = NULL, verbose = FALSE) {
+  check_for_a_pkg("ssh")
+  droplet <- as.droplet(droplet)
+
+  lines <- paste(c(...), collapse = " \\\n&& ")
+  if (lines == "") stop("Provide commands", call. = FALSE)
+  do_ssh_internal(droplet, lines, user, keyfile = keyfile, ssh_passwd = ssh_passwd, verbose = verbose)
+}
+
+#' @export
+#' @rdname droplet_ssh
 droplet_upload <- function(droplet, local, remote, user = "root", keyfile = NULL,
   ssh_passwd = NULL, verbose = FALSE) {
 
@@ -144,6 +155,36 @@ do_ssh <- function(droplet, cmd, user, keyfile = NULL, ssh_passwd = NULL, verbos
   }
 
   invisible(droplet)
+}
+
+do_ssh_internal <- function(droplet, cmd, user, keyfile = NULL, ssh_passwd = NULL, verbose = FALSE) {
+  mssg(verbose, cmd)
+  user_ip <- sprintf("%s@%s", user, droplet_ip_safe(droplet))
+  if (user_ip %in% ls(envir = analogsea_sessions)) {
+    session <- get(user_ip, envir = analogsea_sessions)
+    if (!ssh::ssh_info(session=session)$connected) {
+      session <- if (is.null(ssh_passwd)) {
+        ssh::ssh_connect(user_ip, keyfile)
+      } else {
+        ssh::ssh_connect(user_ip, keyfile, ssh_passwd)
+      }
+      assign(user_ip, session, envir = analogsea_sessions)
+    }
+  } else {
+    session <- if (is.null(ssh_passwd)) {
+      ssh::ssh_connect(user_ip, keyfile)
+    } else {
+      ssh::ssh_connect(user_ip, keyfile, ssh_passwd)
+    }
+    assign(user_ip, session, envir = analogsea_sessions)
+  }
+  out <- ssh::ssh_exec_internal(session = session, command = cmd)
+  if (out$status != 0) {
+    stop("ssh failed\n", cmd, call. = FALSE)
+  }
+  return(rawToChar(out$stdout))
+  # txt <- strsplit(rawToChar(out$stdout), "\n")[[1]]
+  # utils::read.table(text = txt, sep="", na.strings = "")
 }
 
 do_scp <- function(droplet, local, remote, user,
