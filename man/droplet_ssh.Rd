@@ -2,11 +2,21 @@
 % Please edit documentation in R/droplet-ssh.R
 \name{droplet_ssh}
 \alias{droplet_ssh}
+\alias{droplet_ssh_data}
 \alias{droplet_upload}
 \alias{droplet_download}
 \title{Remotely execute ssh code, upload & download files.}
 \usage{
 droplet_ssh(
+  droplet,
+  ...,
+  user = "root",
+  keyfile = NULL,
+  ssh_passwd = NULL,
+  verbose = FALSE
+)
+
+droplet_ssh_data(
   droplet,
   ...,
   user = "root",
