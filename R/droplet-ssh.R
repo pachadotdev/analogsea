@@ -115,7 +115,7 @@ droplet_ip <- function(x) {
   if (!any(public_ip)) {
     ip <- v4[[1]]$ip_address
   } else {
-    ip <- ips$ip_address[public_ip] [[1]]
+    ip <- ips$ip_address[public_ip][[1]]
   }
   ip
 }
