@@ -28,8 +28,8 @@ test_that("works with type parameter", {
   expect_is(imgs_dist, "list")
   expect_is(imgs_appl, "list")
 
-  expect_false(any(grepl("Docker", names(imgs_dist))))
-  expect_true(any(grepl("Docker", names(imgs_appl))))
+  expect_false(any(grepl("MySQL", names(imgs_dist))))
+  expect_true(any(grepl("MySQL", names(imgs_appl))))
 })
 
 test_that("public parameter is defunct", {
