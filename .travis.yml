@@ -1,5 +1,6 @@
 language: r
 cache: packages
+os: linux
 
 addons:
   apt:
