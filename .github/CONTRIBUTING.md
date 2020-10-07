@@ -1,9 +1,5 @@
 # CONTRIBUTING #
 
-### Please contribute!
-
-We love collaboration.
-
 ### Bugs?
 
 * Submit an issue on the [Issues page](https://github.com/sckott/analogsea/issues)
@@ -17,5 +13,3 @@ We love collaboration.
 * Please do write a test(s) for your changes if they affect code and not just docs
 * Push up to your account
 * Submit a pull request to home base at `sckott/analogsea`
-
-### Thanks for contributing!
