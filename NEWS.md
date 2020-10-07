@@ -3,18 +3,18 @@ analogsea 0.9.0
 
 ### NEW FEATURES
 
-* xxx (#xxx)
-* xxx (#xxx)
+* gains function `install_github_r_package()` for installing R packages from github on your droplet (#191) thanks @muschellij2
 
 ### MINOR IMPROVEMENTS
 
-* xxx (#xxx)
-* xxx (#xxx)
-* xxx (#xxx)
+* `neighbors()` fxn fix: DigitalOcean updated the route used for neighbors information, and the returned named element in the response body (#186)
 
 ### BUG FIXES
 
 * fix for `droplet_execute()` for running R on a droplet  (#193) (#195) thanks @pieterprovoost
+* fixed `droplet_action()` internal function - explicitly state the content type for each request - should affect many exported functions (#192)
+* fix for internal function `droplet_ip()`: we were sometimes extracting the private IP instead of the public IP address (#198) thanks @muschellij2
+
 
 analogsea 0.8.0
 ===============

@@ -14,7 +14,7 @@ There are no reverse dependencies.
 
 ---
 
-This release xxxx.
+This version includes a number of bug fixes.
 
 Thanks!
 Scott Chamberlain
