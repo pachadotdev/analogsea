@@ -1,3 +1,21 @@
+analogsea 0.9.0
+===============
+
+### NEW FEATURES
+
+* xxx (#xxx)
+* xxx (#xxx)
+
+### MINOR IMPROVEMENTS
+
+* xxx (#xxx)
+* xxx (#xxx)
+* xxx (#xxx)
+
+### BUG FIXES
+
+* fix for `droplet_execute()` for running R on a droplet  (#193) (#195) thanks @pieterprovoost
+
 analogsea 0.8.0
 ===============
 
