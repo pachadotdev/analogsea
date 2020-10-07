@@ -17,9 +17,9 @@
 #' \pkg{analogsea} allows you to interact with your droplet(s) from R via SSH.
 #' To do this you need to setup SSH keys with Digital Ocean. Make sure you
 #' provide Digitial Ocean your public key at
-#' \url{https://cloud.digitalocean.com/ssh_keys}. GitHub has some good advice
+#' https://cloud.digitalocean.com/ssh_keys - GitHub has some good advice
 #' on creating a new public key if you don't already have one:
-#' \url{https://help.github.com/articles/generating-ssh-keys}.
+#' https://help.github.com/articles/generating-ssh-keys
 #'
 #' Note that when using ssh, you'll likely get warnings like "The authenticity
 #' of host can't be established ...". This is normal, don't be worried about
@@ -38,11 +38,11 @@
 #' @importFrom yaml yaml.load_file as.yaml
 #' @name analogsea-package
 #' @aliases analogsea
-#' @author Scott Chamberlain \email{myrmecocystus@@gmail.com}
-#' @author Hadley Wickham \email{hadley@@rstudio.com}
-#' @author Winston Chang \email{winston@@stdout.org}
-#' @author Bob Rudis \email{bob@@rudis.net}
-#' @author Bryce Mecum \email{brycemecum@@gmail.com}
+#' @author Scott Chamberlain
+#' @author Hadley Wickham
+#' @author Winston Chang
+#' @author Bob Rudis
+#' @author Bryce Mecum
 #' @docType package
 #' @keywords package
 NULL
@@ -58,7 +58,7 @@ NULL
 #' for a droplet
 #'
 #' @details A vector of 999 adjectives. From the GitHub repo
-#' \url{https://github.com/dariusk/corpora} - the data is licensed CC0.
+#' https://github.com/dariusk/corpora - the data is licensed CC0.
 #' @name adjectives
 #' @docType data
 #' @keywords data
@@ -68,7 +68,7 @@ NULL
 #' for a droplet
 #'
 #' @details A vector of 1000 nouns From the GitHub repo
-#' \url{https://github.com/dariusk/corpora} - the data is licensed CC0.
+#' https://github.com/dariusk/corpora - the data is licensed CC0.
 #' @name nouns
 #' @docType data
 #' @keywords data

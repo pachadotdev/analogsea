@@ -11,6 +11,6 @@ for a droplet
 }
 \details{
 A vector of 1000 nouns From the GitHub repo
-\url{https://github.com/dariusk/corpora} - the data is licensed CC0.
+https://github.com/dariusk/corpora - the data is licensed CC0.
 }
 \keyword{data}

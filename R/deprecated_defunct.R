@@ -9,12 +9,10 @@ NULL
 #'
 #' These functions are gone, no longer available.
 #'
-#' \itemize{
-#'  \item \code{\link{tag_rename}}: DigitalOcean removed this functionality
-#'  from their API. See
-#'  \url{https://developers.digitalocean.com/documentation/changelog/api-v2/deprecating-update-tag/}
+#' - `tag_rename()`: DigitalOcean removed this functionality from their API.
+#'  See
+#'  https://developers.digitalocean.com/documentation/changelog/api-v2/deprecating-update-tag/
 #'  for details.
-#' }
 #'
 #' @name analogsea-defunct
 NULL

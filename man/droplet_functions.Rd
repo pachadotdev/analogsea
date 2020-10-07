@@ -11,9 +11,9 @@ Here's a breakdown of what they all do.
 
 \itemize{
 \item DigitalOcean docs overview:
-\url{https://developers.digitalocean.com/documentation/}
+https://developers.digitalocean.com/documentation/
 \item DigitalOcean API docs:
-\url{https://developers.digitalocean.com/documentation/v2/}
+https://developers.digitalocean.com/documentation/v2/
 }
 }
 
@@ -119,10 +119,10 @@ not realy intended for public use
 Install RStudio things:
 \itemize{
 \item \code{\link[=docklet_rstudio]{docklet_rstudio()}}: install RStudio on your docklet using
-Rocker images (\url{https://hub.docker.com/u/rocker})
+Rocker images (https://hub.docker.com/u/rocker)
 \item \code{\link[=docklet_rstudio_addusers]{docklet_rstudio_addusers()}}: add users to an RStudio docker image
 \item \code{\link[=docklet_shinyserver]{docklet_shinyserver()}}: install Shiny server on your docklet using
-Rocker images (\url{https://hub.docker.com/u/rocker})
+Rocker images (https://hub.docker.com/u/rocker)
 \item \code{\link[=docklet_shinyapp]{docklet_shinyapp()}}: install a Shiny app on your Shiny server docker
 container
 }

@@ -24,9 +24,9 @@ https://cloud.digitalocean.com/settings/api/tokens - See
 \pkg{analogsea} allows you to interact with your droplet(s) from R via SSH.
 To do this you need to setup SSH keys with Digital Ocean. Make sure you
 provide Digitial Ocean your public key at
-\url{https://cloud.digitalocean.com/ssh_keys}. GitHub has some good advice
+https://cloud.digitalocean.com/ssh_keys - GitHub has some good advice
 on creating a new public key if you don't already have one:
-\url{https://help.github.com/articles/generating-ssh-keys}.
+https://help.github.com/articles/generating-ssh-keys
 
 Note that when using ssh, you'll likely get warnings like "The authenticity
 of host can't be established ...". This is normal, don't be worried about
@@ -39,14 +39,14 @@ Ocean API, but you can't access the droplet over SSH.
 }
 
 \author{
-Scott Chamberlain \email{myrmecocystus@gmail.com}
+Scott Chamberlain
 
-Hadley Wickham \email{hadley@rstudio.com}
+Hadley Wickham
 
-Winston Chang \email{winston@stdout.org}
+Winston Chang
 
-Bob Rudis \email{bob@rudis.net}
+Bob Rudis
 
-Bryce Mecum \email{brycemecum@gmail.com}
+Bryce Mecum
 }
 \keyword{package}

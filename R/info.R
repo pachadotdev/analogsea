@@ -7,9 +7,9 @@
 #' @section Documentation:
 #'
 #' - DigitalOcean docs overview:
-#' <https://developers.digitalocean.com/documentation/>
+#' https://developers.digitalocean.com/documentation/
 #' - DigitalOcean API docs:
-#' <https://developers.digitalocean.com/documentation/v2/>
+#' https://developers.digitalocean.com/documentation/v2/
 #'
 #' @section Functions:
 #'
@@ -102,10 +102,10 @@
 #' Install RStudio things:
 #'
 #' - [docklet_rstudio()]: install RStudio on your docklet using
-#' Rocker images (<https://hub.docker.com/u/rocker>)
+#' Rocker images (https://hub.docker.com/u/rocker)
 #' - [docklet_rstudio_addusers()]: add users to an RStudio docker image
 #' - [docklet_shinyserver()]: install Shiny server on your docklet using
-#' Rocker images (<https://hub.docker.com/u/rocker>)
+#' Rocker images (https://hub.docker.com/u/rocker)
 #' - [docklet_shinyapp()]: install a Shiny app on your Shiny server docker
 #' container
 NULL
