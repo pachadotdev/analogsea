@@ -21,7 +21,6 @@ URL: https://github.com/sckott/analogsea (devel)
     https://analogsea.icu/ (docs)
 BugReports: https://github.com/sckott/analogsea/issues
 LazyData: yes
-VignetteBuilder: knitr
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
