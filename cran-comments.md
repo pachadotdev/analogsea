@@ -16,5 +16,7 @@ There are no reverse dependencies.
 
 This version includes a number of bug fixes.
 
+This is a re-submission of this same version after fixing some urls.
+
 Thanks!
 Scott Chamberlain

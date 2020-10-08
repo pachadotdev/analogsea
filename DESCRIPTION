@@ -1,7 +1,7 @@
 Package: analogsea
 Title: Interface to 'Digital Ocean'
 Description: Provides a set of functions for interacting with the 'Digital
-    Ocean' API at <https://developers.digitalocean.com/documentation/v2>, including
+    Ocean' API <https://www.digitalocean.com/>, including
     creating images, destroying them, rebooting, getting details on regions, and
     available images.
 Version: 0.9.0

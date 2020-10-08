@@ -7,7 +7,7 @@ analogsea
 [![rstudio mirror downloads](https://cranlogs.r-pkg.org/badges/analogsea)](https://github.com/r-hub/cranlogs.app)
 [![cran version](https://www.r-pkg.org/badges/version/analogsea)](https://cran.r-project.org/package=analogsea)
 
-`analogsea` is an R client for version 2 of the [Digital Ocean API](https://developers.digitalocean.com/v2/).  See `?droplet_functions` after loading analogsea. It allows you to programatically create and destroy droplets (remote computers), and install various R related tools: (these are still a work in progress):
+`analogsea` is an R client for version 2 of the Digital Ocean API.  See `?droplet_functions` after loading analogsea. It allows you to programatically create and destroy droplets (remote computers), and install various R related tools: (these are still a work in progress):
 
 * R (done)
 * RStudio Server (done)
