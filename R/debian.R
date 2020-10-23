@@ -3,7 +3,6 @@
 #' @param droplet A droplet, or object that can be coerced to a droplet
 #'   by \code{\link{as.droplet}}.
 #' @param user User name. Defaults to "root".
-#' @param local,remote Local and remote paths.
 #' @param keyfile Optional private key file.
 #' @param ssh_passwd Optional passphrase or callback function for authentication.
 #'   Refer to the \code{ssh::ssh_connect} documentation for more
