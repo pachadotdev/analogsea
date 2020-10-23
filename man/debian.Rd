@@ -107,8 +107,6 @@ details.}
 \item{package}{Name of R package to install.}
 
 \item{repo}{CRAN mirror to use.}
-
-\item{local, remote}{Local and remote paths.}
 }
 \description{
 Helpers for managing a debian droplets.
