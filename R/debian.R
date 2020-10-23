@@ -2,6 +2,13 @@
 #'
 #' @param droplet A droplet, or object that can be coerced to a droplet
 #'   by \code{\link{as.droplet}}.
+#' @param user User name. Defaults to "root".
+#' @param local,remote Local and remote paths.
+#' @param keyfile Optional private key file.
+#' @param ssh_passwd Optional passphrase or callback function for authentication.
+#'   Refer to the \code{ssh::ssh_connect} documentation for more
+#'   details.
+#' @param verbose If TRUE, will print command before executing it.
 #' @name debian
 #' @examples
 #' \dontrun{
@@ -21,22 +28,46 @@ NULL
 
 #' @rdname debian
 #' @export
-debian_add_swap <- function(droplet) {
+debian_add_swap <- function(droplet,
+                            user = "root",
+                            keyfile = NULL,
+                            ssh_passwd = NULL,
+                            verbose = FALSE
+                            ) {
   droplet_ssh(droplet,
               "fallocate -l 4G /swapfile",
               "chmod 600 /swapfile",
               "mkswap /swapfile",
               "sudo swapon /swapfile",
-              "sudo echo \"/swapfile   none    swap    sw    0   0\" >> /etc/fstab"
+              "sudo echo \"/swapfile   none    swap    sw    0   0\" >> /etc/fstab",
+              user = user,
+              keyfile = keyfile,
+              ssh_passwd = ssh_passwd,
+              verbose = verbose
   )
 }
 
 #' @rdname debian
 #' @export
-debian_install_r <- function(droplet) {
+debian_install_r <- function(droplet,
+                             user = "root",
+                             keyfile = NULL,
+                             ssh_passwd = NULL,
+                             verbose = FALSE
+                             ) {
   droplet %>%
-    debian_apt_get_install("r-base", "r-base-dev") %>%
-    droplet_ssh('echo "options(repos=c(\'http://cran.rstudio.com/\'))" > .Rprofile')
+    debian_apt_get_install("r-base", "r-base-dev",
+                           user = user,
+                           keyfile = keyfile,
+                           ssh_passwd = ssh_passwd,
+                           verbose = verbose
+                           ) %>%
+    droplet_ssh('echo "options(repos=c(\'http://cran.rstudio.com/\'))" > .Rprofile',
+                user = user,
+                keyfile = keyfile,
+                ssh_passwd = ssh_passwd,
+                verbose = verbose
+                )
 }
 
 #' @rdname debian
@@ -45,38 +76,89 @@ debian_install_r <- function(droplet) {
 #' @param version Version of rstudio to install.
 #' @export
 debian_install_rstudio <- function(droplet, user = "rstudio", password = "server",
-                                   version = "0.99.484") {
+                                   version = "0.99.484",
+                                   keyfile = NULL,
+                                   ssh_passwd = NULL,
+                                   verbose = FALSE
+                                   ) {
   droplet %>%
-    debian_apt_get_install("gdebi-core", "libapparmor1") %>%
+    debian_apt_get_install("gdebi-core", "libapparmor1",
+                           user = user,
+                           keyfile = keyfile,
+                           ssh_passwd = ssh_passwd,
+                           verbose = verbose
+                           ) %>%
     droplet_ssh(
       sprintf('wget http://download2.rstudio.org/rstudio-server-%s-amd64.deb', version),
       sprintf("sudo gdebi rstudio-server-%s-amd64.deb --non-interactive", version),
       sprintf('adduser %s --disabled-password --gecos ""', user),
-      sprintf('echo "%s:%s" | chpasswd', user, password)
+      sprintf('echo "%s:%s" | chpasswd', user, password),
+      user = user,
+      keyfile = keyfile,
+      ssh_passwd = ssh_passwd,
+      verbose = verbose
     )
 }
 
 #' @rdname debian
 #' @export
-debian_install_shiny <- function(droplet, version = "1.4.0.756") {
+debian_install_shiny <- function(droplet, version = "1.4.0.756",
+                                 user = "root",
+                                 keyfile = NULL,
+                                 ssh_passwd = NULL,
+                                 verbose = FALSE
+                                 ) {
   droplet %>%
-    debian_install_r() %>%
-    install_r_package("shiny") %>%
-    install_r_package("rmarkdown") %>%
-    debian_apt_get_install("gdebi-core") %>%
+    debian_install_r(
+      user = user,
+      keyfile = keyfile,
+      ssh_passwd = ssh_passwd,
+      verbose = verbose
+    ) %>%
+    install_r_package("shiny",
+                      user = user,
+                      keyfile = keyfile,
+                      ssh_passwd = ssh_passwd,
+                      verbose = verbose
+                      ) %>%
+    install_r_package("rmarkdown",
+                      user = user,
+                      keyfile = keyfile,
+                      ssh_passwd = ssh_passwd,
+                      verbose = verbose
+                      ) %>%
+    debian_apt_get_install("gdebi-core",
+                           user = user,
+                           keyfile = keyfile,
+                           ssh_passwd = ssh_passwd,
+                           verbose = verbose
+                           ) %>%
     droplet_ssh(
       sprintf("wget http://download3.rstudio.org/ubuntu-12.04/x86_64/shiny-server-%s-amd64.deb", version),
-      sprintf("sudo gdebi shiny-server-%s-amd64.deb --non-interactive", version)
+      sprintf("sudo gdebi shiny-server-%s-amd64.deb --non-interactive", version),
+      user = user,
+      keyfile = keyfile,
+      ssh_passwd = ssh_passwd,
+      verbose = verbose
     )
 }
 
-debian_install_opencpu <- function(droplet, version = "1.5") {
+debian_install_opencpu <- function(droplet, version = "1.5",
+                                   user = "root",
+                                   keyfile = NULL,
+                                   ssh_passwd = NULL,
+                                   verbose = FALSE
+                                   ) {
   droplet %>%
     droplet_ssh(
       paste0("sudo add-apt-repository ppa:opencpu/opencpu-", version),
       "sudo apt-get update",
       "sudo apt-get -q -y install opencpu",
-      "sudo service opencpu start"
+      "sudo service opencpu start",
+      user = user,
+      keyfile = keyfile,
+      ssh_passwd = ssh_passwd,
+      verbose = verbose
     )
 }
 
@@ -84,19 +166,35 @@ debian_install_opencpu <- function(droplet, version = "1.5") {
 
 #' @rdname debian
 #' @export
-debian_apt_get_update <- function(droplet) {
+debian_apt_get_update <- function(droplet,
+                                  user = "root",
+                                  keyfile = NULL,
+                                  ssh_passwd = NULL,
+                                  verbose = FALSE) {
   droplet_ssh(droplet,
               "sudo apt-get update -qq",
-              "sudo apt-get upgrade -y"
+              "sudo apt-get upgrade -y",
+              user = user,
+              keyfile = keyfile,
+              ssh_passwd = ssh_passwd,
+              verbose = verbose
   )
 }
 
 #' @rdname debian
 #' @export
 #' @param ... Arguments to apt-get install.
-debian_apt_get_install <- function(droplet, ...) {
+debian_apt_get_install <- function(droplet, ...,
+                                   user = "root",
+                                   keyfile = NULL,
+                                   ssh_passwd = NULL,
+                                   verbose = FALSE) {
   droplet_ssh(droplet,
-              paste0("sudo apt-get install -y --force-yes ", paste(..., collapse = " "))
+              paste0("sudo apt-get install -y --force-yes ", paste(..., collapse = " ")),
+              user = user,
+              keyfile = keyfile,
+              ssh_passwd = ssh_passwd,
+              verbose = verbose
   )
 }
 
@@ -106,9 +204,19 @@ debian_apt_get_install <- function(droplet, ...) {
 #' @export
 #' @param package Name of R package to install.
 #' @param repo CRAN mirror to use.
-install_r_package <- function(droplet, package, repo = "https://cloud.r-project.org/") {
+install_r_package <- function(droplet, package, repo = "https://cloud.r-project.org/",
+                              user = "root",
+                              keyfile = NULL,
+                              ssh_passwd = NULL,
+                              verbose = FALSE
+) {
   droplet_ssh(droplet,
-              sprintf("Rscript -e \"install.packages(\'%s\', repos=\'%s/\')\"", package, repo)
+              sprintf("Rscript -e \"install.packages(\'%s\', repos=\'%s/\')\"",
+                      package, repo),
+              user = user,
+              keyfile = keyfile,
+              ssh_passwd = ssh_passwd,
+              verbose = verbose
   )
 }
 
@@ -116,7 +224,13 @@ install_r_package <- function(droplet, package, repo = "https://cloud.r-project.
 #' @export
 #' @param package Name of R package to install.
 #' @param repo CRAN mirror to use.
-install_github_r_package <- function(droplet, package, repo = "https://cloud.r-project.org/") {
+install_github_r_package <- function(droplet, package,
+                                     repo = "https://cloud.r-project.org/",
+                                     user = "root",
+                                     keyfile = NULL,
+                                     ssh_passwd = NULL,
+                                     verbose = FALSE
+) {
   tf <- tempdir()
   randName <- paste(sample(c(letters, LETTERS), size = 10,
                            replace = TRUE), collapse = "")
@@ -127,12 +241,27 @@ install_github_r_package <- function(droplet, package, repo = "https://cloud.r-p
     }
   })
   command = "Rscript -e \"cat(requireNamespace('remotes', quietly = TRUE))\""
-  droplet_ssh(droplet, paste0(command, " > /tmp/",
-                                         randName), verbose = FALSE)
-  droplet_download(droplet, paste0("/tmp/", randName),
-                              tf, verbose = FALSE)
+  droplet_ssh(droplet,
+              paste0(command,
+                     " > /tmp/",
+                     randName),
+              user = user,
+              keyfile = keyfile,
+              ssh_passwd = ssh_passwd,
+              verbose = verbose
+  )
+  droplet_download(droplet,
+                   paste0("/tmp/", randName),
+                   tf,
+                   user = user,
+                   keyfile = keyfile,
+                   ssh_passwd = ssh_passwd,
+                   verbose = verbose)
   droplet_ssh(droplet, paste0("rm /tmp/", randName),
-                         verbose = FALSE)
+              user = user,
+              keyfile = keyfile,
+              ssh_passwd = ssh_passwd,
+              verbose = verbose)
 
   have_remotes <- readLines(tff, warn = FALSE)
   if (length(have_remotes) == 1) {
@@ -145,11 +274,21 @@ install_github_r_package <- function(droplet, package, repo = "https://cloud.r-p
     have_remotes = FALSE
   }
   if (!have_remotes) {
-    install_r_package(droplet, "remotes", repo = repo)
+    install_r_package(droplet, "remotes", repo = repo,
+                      user = user,
+                      keyfile = keyfile,
+                      ssh_passwd = ssh_passwd,
+                      verbose = verbose
+    )
   }
 
- droplet_ssh(
+  droplet_ssh(
     droplet,
     sprintf("Rscript -e \"remotes::install_github('%s')\"",
-            package))
+            package),
+    user = user,
+    keyfile = keyfile,
+    ssh_passwd = ssh_passwd,
+    verbose = verbose
+  )
 }

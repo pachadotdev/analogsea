@@ -12,29 +12,76 @@
 \alias{install_github_r_package}
 \title{Helpers for managing a debian droplets.}
 \usage{
-debian_add_swap(droplet)
+debian_add_swap(
+  droplet,
+  user = "root",
+  keyfile = NULL,
+  ssh_passwd = NULL,
+  verbose = FALSE
+)
 
-debian_install_r(droplet)
+debian_install_r(
+  droplet,
+  user = "root",
+  keyfile = NULL,
+  ssh_passwd = NULL,
+  verbose = FALSE
+)
 
 debian_install_rstudio(
   droplet,
   user = "rstudio",
   password = "server",
-  version = "0.99.484"
+  version = "0.99.484",
+  keyfile = NULL,
+  ssh_passwd = NULL,
+  verbose = FALSE
 )
 
-debian_install_shiny(droplet, version = "1.4.0.756")
+debian_install_shiny(
+  droplet,
+  version = "1.4.0.756",
+  user = "root",
+  keyfile = NULL,
+  ssh_passwd = NULL,
+  verbose = FALSE
+)
 
-debian_apt_get_update(droplet)
+debian_apt_get_update(
+  droplet,
+  user = "root",
+  keyfile = NULL,
+  ssh_passwd = NULL,
+  verbose = FALSE
+)
 
-debian_apt_get_install(droplet, ...)
+debian_apt_get_install(
+  droplet,
+  ...,
+  user = "root",
+  keyfile = NULL,
+  ssh_passwd = NULL,
+  verbose = FALSE
+)
 
-install_r_package(droplet, package, repo = "https://cloud.r-project.org/")
+install_r_package(
+  droplet,
+  package,
+  repo = "https://cloud.r-project.org/",
+  user = "root",
+  keyfile = NULL,
+  ssh_passwd = NULL,
+  verbose = FALSE
+)
 
 install_github_r_package(
   droplet,
   package,
-  repo = "https://cloud.r-project.org/"
+  repo = "https://cloud.r-project.org/",
+  user = "root",
+  keyfile = NULL,
+  ssh_passwd = NULL,
+  verbose = FALSE
 )
 }
 \arguments{
@@ -42,6 +89,14 @@ install_github_r_package(
 by \code{\link{as.droplet}}.}
 
 \item{user}{Default username for Rstudio.}
+
+\item{keyfile}{Optional private key file.}
+
+\item{ssh_passwd}{Optional passphrase or callback function for authentication.
+Refer to the \code{ssh::ssh_connect} documentation for more
+details.}
+
+\item{verbose}{If TRUE, will print command before executing it.}
 
 \item{password}{Default password for Rstudio.}
 
@@ -52,6 +107,8 @@ by \code{\link{as.droplet}}.}
 \item{package}{Name of R package to install.}
 
 \item{repo}{CRAN mirror to use.}
+
+\item{local, remote}{Local and remote paths.}
 }
 \description{
 Helpers for managing a debian droplets.
