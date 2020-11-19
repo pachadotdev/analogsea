@@ -70,7 +70,8 @@
 
       
 
-      </header><script src="analogsea_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="analogsea_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="analogsea_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="analogsea_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip></h1>
@@ -128,25 +129,25 @@
 <p>You can set all of these options in your <code>.Rprofile</code> file like <code><a href="https://rdrr.io/r/base/options.html">options(do_size = "8gb")</a></code> for a default of 8 GB.</p>
 <p>The name given to the droplet is picked at random from a list of 1000 random names.</p>
 <p>You can of course set any of these parameters.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="../reference/droplet_create.html">droplet_create</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/droplet_create.html">droplet_create</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>You can also create many droplets at once:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="../reference/droplets_create.html">droplets_create</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/droplets_create.html">droplets_create</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="get-a-droplet-or-droplets" class="section level2">
 <h2 class="hasAnchor">
 <a href="#get-a-droplet-or-droplets" class="anchor"></a>Get a droplet or droplets</h2>
 <p>Listing droplets can be done in singular or plural fashion. <code><a href="../reference/droplet.html">droplet()</a></code> accepts a droplet ID, while <code><a href="../reference/droplets.html">droplets()</a></code> list all droplets.</p>
 <p>If you don’t have any droplets yet, you will get an empty list running <code><a href="../reference/droplets.html">droplets()</a></code>, and you of course can’t pass in a droplet ID number to <code><a href="../reference/droplet.html">droplet()</a></code> if you don’t have any droplets yet.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/sckott/analogsea">"analogsea"</a></span><span class="op">)</span></pre></div>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="../reference/droplets.html">droplets</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; named list()</span></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/sckott/analogsea">"analogsea"</a></span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/droplets.html">droplets</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; named list()</span></code></pre></div>
 <p>Create a droplet</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="fu"><a href="../reference/droplet_create.html">droplet_create</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/droplet_create.html">droplet_create</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>#&gt; Waiting for create .................</code></pre>
 <pre><code>#&gt; &lt;droplet&gt;ErodedPosterity (31860257)
 #&gt;   IP:        162.243.139.148
@@ -156,11 +157,11 @@
 #&gt;   Size:      512mb
 #&gt;   Volumes:</code></pre>
 <p>After creating a droplet and running <code><a href="../reference/droplets.html">droplets()</a></code> again, we see a list of our droplet(s)</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="op">(</span><span class="va">drops</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/droplets.html">droplets</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">(</span><span class="va">drops</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/droplets.html">droplets</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Or we can pass in a droplet id to <code><a href="../reference/droplet.html">droplet()</a></code>. There is a <code>print.droplet()</code> method that is used to print a brief summary of each droplet.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="fu"><a href="../reference/droplet.html">droplet</a></span><span class="op">(</span><span class="va">drops</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/droplet.html">droplet</a></span><span class="op">(</span><span class="va">drops</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></code></pre></div>
 <pre><code>#&gt; &lt;droplet&gt;droppy (31859471)
 #&gt;   IP:        159.203.214.8
 #&gt;   Status:    active
@@ -169,8 +170,8 @@
 #&gt;   Size:      512mb
 #&gt;   Volumes:</code></pre>
 <p>Get more detailed information on your droplet with <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code>. This is a <code><a href="../reference/droplet.html">summary.droplet()</a></code> method, that is just a little more verbose than the <code>print.droplet()</code> method</p>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="fu"><a href="../reference/droplet.html">droplet</a></span><span class="op">(</span><span class="va">drops</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">summary</span></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/droplet.html">droplet</a></span><span class="op">(</span><span class="va">drops</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">summary</span></code></pre></div>
 <pre><code>#&gt; &lt;droplet_detail&gt;droppy (31859471)
 #&gt;   Status: active
 #&gt;   Region: San Francisco 1
@@ -194,17 +195,17 @@
 <h3 class="hasAnchor">
 <a href="#delete" class="anchor"></a>Delete</h3>
 <p>You can delete a droplet with <code><a href="../reference/droplet_delete.html">droplet_delete()</a></code>. Be careful, as this completely removes your droplet. Backup your droplet or make an image if you want to use the droplet later.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="fu"><a href="../reference/droplet_create.html">droplet_create</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/droplet_delete.html">droplet_delete</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/droplet_create.html">droplet_create</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/droplet_delete.html">droplet_delete</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>#&gt; Waiting for create ..............................</code></pre>
 </div>
 <div id="actions" class="section level3">
 <h3 class="hasAnchor">
 <a href="#actions" class="anchor"></a>Actions</h3>
 <p>List actions on a droplet, newer ones at the top. Here, list actions</p>
-<div class="sourceCode" id="cb15"><pre class="downlit">
-<span class="va">drops</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/droplet_actions.html">droplet_actions</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">drops</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/droplet_actions.html">droplet_actions</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>#&gt; [[1]]
 #&gt; &lt;action&gt; rename (166715389)
 #&gt;   Status: completed
@@ -215,8 +216,8 @@
 #&gt;   Status: completed
 #&gt;   Resource: droplet 31859471</code></pre>
 <p>Then rename and list actions again</p>
-<div class="sourceCode" id="cb17"><pre class="downlit">
-<span class="va">drops</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">drops</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/droplet_modify.html">droplet_rename</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"droppy"</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/droplet_wait.html">droplet_wait</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/droplet_actions.html">droplet_actions</a></span><span class="op">(</span><span class="op">)</span>
@@ -229,24 +230,24 @@
 <span class="co">#&gt; [[2]]</span>
 <span class="co">#&gt; &lt;action&gt; create (166715005)</span>
 <span class="co">#&gt;   Status: completed</span>
-<span class="co">#&gt;   Resource: droplet 31859471</span></pre></div>
+<span class="co">#&gt;   Resource: droplet 31859471</span></code></pre></div>
 </div>
 <div id="snapshot" class="section level3">
 <h3 class="hasAnchor">
 <a href="#snapshot" class="anchor"></a>Snapshot</h3>
 <p>Making a snapshot of a droplet can be done with <code><a href="../reference/droplet_snapshot.html">droplet_snapshot()</a></code>. This action requires that you turn off the droplet first, then take the snapshot. First, create a droplet</p>
-<div class="sourceCode" id="cb18"><pre class="downlit">
-<span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/droplet_create.html">droplet_create</a></span><span class="op">(</span>size <span class="op">=</span> <span class="st">"2gb"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/droplet_create.html">droplet_create</a></span><span class="op">(</span>size <span class="op">=</span> <span class="st">"2gb"</span><span class="op">)</span></code></pre></div>
 <p>Then power off, and take a snapshot, which gives an action object describing that the snapshot is in progress.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit">
-<span class="va">d</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">d</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/droplet_action.html">droplet_power_off</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/droplet_wait.html">droplet_wait</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/droplet_snapshot.html">droplet_snapshot</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"mynewsnap"</span><span class="op">)</span>
 <span class="co">#&gt; Waiting for power_off ...................................................</span>
 <span class="co">#&gt; &lt;action&gt; snapshot (166715834)</span>
 <span class="co">#&gt;   Status: in-progress</span>
-<span class="co">#&gt;   Resource: droplet 31859617</span></pre></div>
+<span class="co">#&gt;   Resource: droplet 31859617</span></code></pre></div>
 </div>
 </div>
 <div id="regions" class="section level2">
@@ -254,8 +255,8 @@
 <a href="#regions" class="anchor"></a>Regions</h2>
 <p>The <code><a href="../reference/regions.html">regions()</a></code> function lists region slug names, full names, available sizes, whether the region is available at all, and features.</p>
 <p>This helps you get an overview of region details, which you can select from when creating droplets</p>
-<div class="sourceCode" id="cb20"><pre class="downlit">
-<span class="fu"><a href="../reference/regions.html">regions</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/regions.html">regions</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>#&gt;    slug            name
 #&gt; 1  nyc1      New York 1
 #&gt; 2  sfo1 San Francisco 1
@@ -301,8 +302,8 @@
 <a href="#sizes" class="anchor"></a>Sizes</h2>
 <p>The <code><a href="../reference/sizes.html">sizes()</a></code> function lists size slug names, associated memory, vcpus, disk size, prices, and regions where the size is available.</p>
 <p>This helps you get an overview of sizes, which you can select from when creating droplets</p>
-<div class="sourceCode" id="cb22"><pre class="downlit">
-<span class="fu"><a href="../reference/sizes.html">sizes</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/sizes.html">sizes</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>#&gt;       slug memory vcpus disk transfer price_monthly price_hourly available
 #&gt; 1    512mb    512     1   20        1             5      0.00744      TRUE
 #&gt; 2      1gb   1024     1   30        2            10      0.01488      TRUE
@@ -339,8 +340,8 @@
 <a href="#keys" class="anchor"></a>Keys</h2>
 <p>We suggest you use SSH keys to interact with Digital Ocean from <code>analogsea</code>. There are a variety of functions for working with SSH keys.</p>
 <p>List your keys</p>
-<div class="sourceCode" id="cb24"><pre class="downlit">
-<span class="fu"><a href="../reference/keys.html">keys</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/keys.html">keys</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>#&gt; $`Scott Chamberlain`
 #&gt; &lt;key&gt; Scott Chamberlain (89103)
 #&gt;   Fingerprint: 6b:2e:f6:be:e7:b4:58:0e:2a:a0:23:7e:16:ac:fc:17
@@ -349,23 +350,23 @@
 #&gt; &lt;key&gt; Scott Chamberlain (700950)
 #&gt;   Fingerprint: ba:5e:64:f4:c7:53:d1:5c:22:24:f0:84:12:f4:7b:03</code></pre>
 <p>Get a key by id</p>
-<div class="sourceCode" id="cb26"><pre class="downlit">
-<span class="fu"><a href="../reference/keys.html">key</a></span><span class="op">(</span><span class="fu"><a href="../reference/keys.html">keys</a></span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/keys.html">key</a></span><span class="op">(</span><span class="fu"><a href="../reference/keys.html">keys</a></span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></code></pre></div>
 <pre><code>#&gt; &lt;key&gt; Scott Chamberlain (89103)
 #&gt;   Fingerprint: 6b:2e:f6:be:e7:b4:58:0e:2a:a0:23:7e:16:ac:fc:17</code></pre>
 <p>You can also create a key, rename a key, and delete a key</p>
-<div class="sourceCode" id="cb28"><pre class="downlit">
-<span class="va">k</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/key-crud.html">key_create</a></span><span class="op">(</span><span class="st">"key"</span>, <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="st">"~/.ssh/id_rsa.pub"</span><span class="op">)</span><span class="op">)</span>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">k</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/key-crud.html">key_create</a></span><span class="op">(</span><span class="st">"key"</span>, <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="st">"~/.ssh/id_rsa.pub"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">k</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/key-crud.html">key_rename</a></span><span class="op">(</span><span class="va">k</span>, <span class="st">"new_name"</span><span class="op">)</span>
-<span class="fu"><a href="../reference/key-crud.html">key_delete</a></span><span class="op">(</span><span class="va">k</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="../reference/key-crud.html">key_delete</a></span><span class="op">(</span><span class="va">k</span><span class="op">)</span></code></pre></div>
 <p>Note that if you’re on Windows you may experience some problems connecting over SSH. We hope to resolve these problems as soon as possible.</p>
 </div>
 <div id="images" class="section level2">
 <h2 class="hasAnchor">
 <a href="#images" class="anchor"></a>Images</h2>
 <p>The <code><a href="../reference/as.image.html">images()</a></code> function can list both your own private images, and public images. If <code>public=FALSE</code> only your private images are listed, while if <code>public=TRUE</code>, your private images are listed along with publicly avaialble images.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit">
-<span class="fu"><a href="../reference/as.image.html">images</a></span><span class="op">(</span>page <span class="op">=</span> <span class="fl">4</span>, per_page <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/as.image.html">images</a></span><span class="op">(</span>page <span class="op">=</span> <span class="fl">4</span>, per_page <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></code></pre></div>
 <pre><code>#&gt; $`24 x64`
 #&gt; &lt;image&gt; 24 x64 (18027532)
 #&gt;   Slug:    fedora-24-x64 [public]
@@ -396,53 +397,53 @@
 #&gt;   Distro:  FreeBSD
 #&gt;   Regions: nyc1, sfo1, nyc2, ams2, sgp1, lon1, nyc3, ams3, fra1, tor1, sfo2, blr1</code></pre>
 <p>You can also do various actions on images. First, you can pass in an image ID to the <code><a href="../reference/as.image.html">image()</a></code> function to get an image object.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit">
-<span class="va">img</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as.image.html">images</a></span><span class="op">(</span>per_page <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
-<span class="fu"><a href="../reference/as.image.html">image</a></span><span class="op">(</span><span class="va">img</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">img</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as.image.html">images</a></span><span class="op">(</span>per_page <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
+<span class="fu"><a href="../reference/as.image.html">image</a></span><span class="op">(</span><span class="va">img</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></code></pre></div>
 <pre><code>#&gt; &lt;image&gt; 1192.2.0 (beta) (20666772)
 #&gt;   Slug:    coreos-beta [public]
 #&gt;   Distro:  CoreOS
 #&gt;   Regions: nyc1, sfo1, nyc2, ams2, sgp1, lon1, nyc3, ams3, fra1, tor1, sfo2, blr1</code></pre>
 <p>You can rename an image</p>
-<div class="sourceCode" id="cb33"><pre class="downlit">
-<span class="va">img</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/image_delete.html">image_rename</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"analog"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">img</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/image_delete.html">image_rename</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"analog"</span><span class="op">)</span></code></pre></div>
 <p>You can transfer an image to another region</p>
-<div class="sourceCode" id="cb34"><pre class="downlit">
-<span class="fu"><a href="../reference/as.image.html">image</a></span><span class="op">(</span><span class="va">img</span><span class="op">$</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/image_transfer.html">image_transfer</a></span><span class="op">(</span>region <span class="op">=</span> <span class="st">"sfo2"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/as.image.html">image</a></span><span class="op">(</span><span class="va">img</span><span class="op">$</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/image_transfer.html">image_transfer</a></span><span class="op">(</span>region <span class="op">=</span> <span class="st">"sfo2"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="domains" class="section level2">
 <h2 class="hasAnchor">
 <a href="#domains" class="anchor"></a>Domains</h2>
 <p>You can use domain names for your droplets on Digital Ocean. <code>analogsea</code> has a variety of functions to work with domain names.</p>
 <p>List domain names</p>
-<div class="sourceCode" id="cb35"><pre class="downlit">
-<span class="fu"><a href="../reference/domains.html">domains</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/domains.html">domains</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>#&gt; $fishbaseapi.info
 #&gt; &lt;domain&gt; fishbaseapi.info
 #&gt;   ttl: 1800</code></pre>
 <p>Create a new domain name</p>
-<div class="sourceCode" id="cb37"><pre class="downlit">
-<span class="va">dom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">words</span>, <span class="fl">1</span><span class="op">)</span>, <span class="st">".info"</span><span class="op">)</span>
-<span class="fu"><a href="../reference/domain_create.html">domain_create</a></span><span class="op">(</span>name <span class="op">=</span> <span class="va">dom</span>, ip_address <span class="op">=</span> <span class="st">"127.0.0.1"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">words</span>, <span class="fl">1</span><span class="op">)</span>, <span class="st">".info"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/domain_create.html">domain_create</a></span><span class="op">(</span>name <span class="op">=</span> <span class="va">dom</span>, ip_address <span class="op">=</span> <span class="st">"127.0.0.1"</span><span class="op">)</span></code></pre></div>
 <pre><code>#&gt; &lt;domain&gt; leptometer.info
 #&gt;   ttl:</code></pre>
 <p>Get a single domain by domain name</p>
-<div class="sourceCode" id="cb39"><pre class="downlit">
-<span class="fu"><a href="../reference/domains.html">domain</a></span><span class="op">(</span><span class="va">dom</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/domains.html">domain</a></span><span class="op">(</span><span class="va">dom</span><span class="op">)</span></code></pre></div>
 <pre><code>#&gt; &lt;domain&gt; leptometer.info
 #&gt;   ttl: 1800</code></pre>
 <p>Create a domain record, list records and delete the one just created</p>
-<div class="sourceCode" id="cb41"><pre class="downlit">
-<span class="fu"><a href="../reference/domains.html">domain</a></span><span class="op">(</span><span class="va">dom</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/as.domain_record.html">domain_record_create</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"TXT"</span>, name <span class="op">=</span> <span class="st">"hello"</span>, data <span class="op">=</span> <span class="st">"world"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/domains.html">domain</a></span><span class="op">(</span><span class="va">dom</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/as.domain_record.html">domain_record_create</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"TXT"</span>, name <span class="op">=</span> <span class="st">"hello"</span>, data <span class="op">=</span> <span class="st">"world"</span><span class="op">)</span></code></pre></div>
 <pre><code>#&gt; &lt;domain_record&gt; 19285352
 #&gt;   TXT world</code></pre>
-<div class="sourceCode" id="cb43"><pre class="downlit">
-<span class="va">records</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/domains.html">domain</a></span><span class="op">(</span><span class="va">dom</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/as.domain_record.html">domain_records</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu"><a href="../reference/as.domain_record.html">domain_record_delete</a></span><span class="op">(</span><span class="va">records</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">records</span><span class="op">)</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">records</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/domains.html">domain</a></span><span class="op">(</span><span class="va">dom</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/as.domain_record.html">domain_records</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="../reference/as.domain_record.html">domain_record_delete</a></span><span class="op">(</span><span class="va">records</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">records</span><span class="op">)</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 <p>List records</p>
-<div class="sourceCode" id="cb44"><pre class="downlit">
-<span class="fu"><a href="../reference/domains.html">domain</a></span><span class="op">(</span><span class="va">dom</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/as.domain_record.html">domain_records</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/domains.html">domain</a></span><span class="op">(</span><span class="va">dom</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/as.domain_record.html">domain_records</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>#&gt; [[1]]
 #&gt; &lt;domain_record&gt; 19285348
 #&gt;   NS ns1.digitalocean.com
@@ -459,8 +460,8 @@
 #&gt; &lt;domain_record&gt; 19285351
 #&gt;   A 127.0.0.1</code></pre>
 <p>Delete a domain name, returns nothing if delete is successful</p>
-<div class="sourceCode" id="cb46"><pre class="downlit">
-<span class="fu"><a href="../reference/domains.html">domain</a></span><span class="op">(</span><span class="va">dom</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/domain_create.html">domain_delete</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/domains.html">domain</a></span><span class="op">(</span><span class="va">dom</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/domain_create.html">domain_delete</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
   </div>
