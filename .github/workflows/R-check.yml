@@ -68,7 +68,7 @@ jobs:
       - name: Install dependencies
         run: |
           pak::local_install_dev_deps()
-          pak::pkg_install(c("ssh", "aws.s3"))
+          pak::pkg_install(c("ssh", "aws.s3", "rcmdcheck", "sessioninfo"))
         shell: Rscript {0}
 
       - name: Session info
