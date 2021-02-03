@@ -13,3 +13,5 @@ docs
 ^Makefile$
 vignettes/analogsea.Rmd
 ^LICENSE\.md$
+^README\.md$
+vignettes/
