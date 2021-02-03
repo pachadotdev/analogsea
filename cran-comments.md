@@ -1,7 +1,7 @@
 ## Test environments
 
-* local OS X install, R 4.0.2 patched
-* ubuntu 16.04 (on travis-ci), R 4.0.2
+* local OS X install, R 4.0.3 patched
+* ubuntu 16.04 (on github actions), R 4.0.3
 * win-builder (devel and release)
 
 ## R CMD check results
@@ -14,9 +14,7 @@ There are no reverse dependencies.
 
 ---
 
-This version includes a number of bug fixes.
-
-This is a re-submission of this same version after fixing some urls.
+This version makes changes for a suite of functions to better handle ssh usage.
 
 Thanks!
 Scott Chamberlain

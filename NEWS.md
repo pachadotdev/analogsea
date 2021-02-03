@@ -1,3 +1,11 @@
+analogsea 0.9.4
+===============
+
+### NEW FEATURES
+
+* all `debian_` functions gain four parameters: `user`, `keyfile`, `ssh_passwd` and `verbose` (#199) thanks @muschellij2
+
+
 analogsea 0.9.0
 ===============
 

@@ -5,18 +5,18 @@
   ],
   "@type": "SoftwareSourceCode",
   "identifier": "analogsea",
-  "description": "Provides a set of functions for interacting with the 'Digital\n    Ocean' API at <https://developers.digitalocean.com/documentation/v2>, including\n    creating images, destroying them, rebooting, getting details on regions, and\n    available images.",
+  "description": "Provides a set of functions for interacting with the 'Digital\n    Ocean' API <https://www.digitalocean.com/>, including\n    creating images, destroying them, rebooting, getting details on regions, and\n    available images.",
   "name": "analogsea: Interface to 'Digital Ocean'",
   "codeRepository": "https://github.com/sckott/analogsea",
   "issueTracker": "https://github.com/sckott/analogsea/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.9.0",
+  "version": "0.9.4",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.2 Patched (2020-09-01 r79114)",
+  "runtimePlatform": "R version 4.0.3 Patched (2021-02-02 r79929)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -190,8 +190,7 @@
   ],
   "releaseNotes": "https://github.com/sckott/analogsea/blob/master/NEWS.md",
   "readme": "https://github.com/sckott/analogsea/blob/master/README.md",
-  "fileSize": "0KB",
-  "contIntegration": ["https://travis-ci.org/sckott/analogsea", "https://ci.appveyor.com/project/sckott/analogsea/branch/master", "https://codecov.io/github/sckott/analogsea?branch=master"],
+  "fileSize": "330.323KB",
   "keywords": [
     "cloud-computing",
     "rstats",
