@@ -1,9 +1,7 @@
 analogsea
 =========
 
-[![Build Status](https://api.travis-ci.org/sckott/analogsea.png?branch=master)](https://travis-ci.org/sckott/analogsea)
-[![Build status](https://ci.appveyor.com/api/projects/status/ll9lcqafuw338q0h/branch/master)](https://ci.appveyor.com/project/sckott/analogsea/branch/master)
-[![codecov.io](https://codecov.io/github/sckott/analogsea/coverage.svg?branch=master)](https://codecov.io/github/sckott/analogsea?branch=master)
+<!-- [![codecov.io](https://codecov.io/github/sckott/analogsea/coverage.svg?branch=master)](https://codecov.io/github/sckott/analogsea?branch=master) -->
 [![rstudio mirror downloads](https://cranlogs.r-pkg.org/badges/analogsea)](https://github.com/r-hub/cranlogs.app)
 [![cran version](https://www.r-pkg.org/badges/version/analogsea)](https://cran.r-project.org/package=analogsea)
 
