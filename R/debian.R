@@ -61,7 +61,7 @@ debian_install_r <- function(droplet,
                            ssh_passwd = ssh_passwd,
                            verbose = verbose
                            ) %>%
-    droplet_ssh('echo "options(repos=c(\'https://cran.rstudio.com/\'))" > .Rprofile',
+    droplet_ssh('echo "options(repos=c(\'https://cloud.r-project.org/\'))" > .Rprofile',
                 user = user,
                 keyfile = keyfile,
                 ssh_passwd = ssh_passwd,
