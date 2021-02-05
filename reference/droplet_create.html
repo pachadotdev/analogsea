@@ -131,7 +131,7 @@ droplet and your'e up and running.</p>
   name <span class='op'>=</span> <span class='fu'>random_name</span><span class='op'>(</span><span class='op'>)</span>,
   size <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"do_size"</span>, <span class='st'>"s-1vcpu-1gb"</span><span class='op'>)</span>,
   image <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"do_image"</span>, <span class='st'>"ubuntu-18-04-x64"</span><span class='op'>)</span>,
-  region <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"do_region"</span>, <span class='st'>"sfo2"</span><span class='op'>)</span>,
+  region <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"do_region"</span>, <span class='st'>"sfo3"</span><span class='op'>)</span>,
   ssh_keys <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"do_ssh_keys"</span>, <span class='cn'>NULL</span><span class='op'>)</span>,
   backups <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"do_backups"</span>, <span class='cn'>NULL</span><span class='op'>)</span>,
   ipv6 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"do_ipv6"</span>, <span class='cn'>NULL</span><span class='op'>)</span>,
@@ -171,7 +171,7 @@ list. Default: ubuntu-18-04-x64</p></td>
       <th>region</th>
       <td><p>(character) The unique slug identifier for the region that you
 wish to deploy in. See <code><a href='regions.html'>regions</a>()</code> for a complete list.
-Default: sfo2</p></td>
+Default: sfo3</p></td>
     </tr>
     <tr>
       <th>ssh_keys</th>
@@ -264,7 +264,7 @@ address will populate.</p>
 
 <span class='co'># set name, size, image, and region</span>
 <span class='fu'>droplet_create</span><span class='op'>(</span>name<span class='op'>=</span><span class='st'>"newdrop"</span>, size <span class='op'>=</span> <span class='st'>'512mb'</span>, image <span class='op'>=</span> <span class='st'>'ubuntu-14-04-x64'</span>,
-  region <span class='op'>=</span> <span class='st'>'sfo2'</span><span class='op'>)</span>
+  region <span class='op'>=</span> <span class='st'>'sfo3'</span><span class='op'>)</span>
 
 <span class='co'># use an ssh key</span>
 <span class='fu'>droplet_create</span><span class='op'>(</span>ssh_keys<span class='op'>=</span><span class='fl'>89103</span><span class='op'>)</span>

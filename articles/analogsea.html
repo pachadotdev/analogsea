@@ -117,9 +117,9 @@
 <a href="#create-a-droplet" class="anchor"></a>Create a droplet</h2>
 <p><code><a href="../reference/droplet_create.html">droplet_create()</a></code> will create a droplet on your account. You can run it as below without any inputs, and it will use sensible defaults:</p>
 <ul>
-<li>The smallest memory size of 512mb</li>
-<li>Ubuntu 14.04 box</li>
-<li>Region sfo1</li>
+<li>Memory size of 1gb</li>
+<li>Ubuntu 18.04 box</li>
+<li>Region sfo3</li>
 <li>Uses your ssh key</li>
 <li>Don’t use ipv6</li>
 <li>Don’t allow backups</li>
@@ -408,7 +408,7 @@
 <code class="sourceCode R"><span class="va">img</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/image_delete.html">image_rename</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"analog"</span><span class="op">)</span></code></pre></div>
 <p>You can transfer an image to another region</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/as.image.html">image</a></span><span class="op">(</span><span class="va">img</span><span class="op">$</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/image_transfer.html">image_transfer</a></span><span class="op">(</span>region <span class="op">=</span> <span class="st">"sfo2"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/as.image.html">image</a></span><span class="op">(</span><span class="va">img</span><span class="op">$</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/image_transfer.html">image_transfer</a></span><span class="op">(</span>region <span class="op">=</span> <span class="st">"sfo3"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="domains" class="section level2">
 <h2 class="hasAnchor">
