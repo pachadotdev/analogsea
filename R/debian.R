@@ -8,6 +8,7 @@
 #'   Refer to the \code{ssh::ssh_connect} documentation for more
 #'   details.
 #' @param verbose If TRUE, will print command before executing it.
+#' @param rprofile A character string that will be added to the .Rprofile
 #' @name debian
 #' @examples
 #' \dontrun{
@@ -52,16 +53,17 @@ debian_install_r <- function(droplet,
                              user = "root",
                              keyfile = NULL,
                              ssh_passwd = NULL,
-                             verbose = FALSE
+                             verbose = FALSE,
+                             rprofile = "options(repos=c('CRAN'='https://cloud.r-project.org/'))"
                              ) {
-  droplet %>%
+    droplet %>%
     debian_apt_get_install("r-base", "r-base-dev",
                            user = user,
                            keyfile = keyfile,
                            ssh_passwd = ssh_passwd,
                            verbose = verbose
                            ) %>%
-    droplet_ssh('echo "options(repos=c(\'https://cloud.r-project.org/\'))" > .Rprofile',
+    droplet_ssh(paste("echo", shQuote(rprofile), "> .Rprofile"),
                 user = user,
                 keyfile = keyfile,
                 ssh_passwd = ssh_passwd,
@@ -105,14 +107,16 @@ debian_install_shiny <- function(droplet, version = "1.4.0.756",
                                  user = "root",
                                  keyfile = NULL,
                                  ssh_passwd = NULL,
-                                 verbose = FALSE
+                                 verbose = FALSE,
+                                 rprofile = "options(repos=c('CRAN'='https://cloud.r-project.org/'))"
                                  ) {
   droplet %>%
     debian_install_r(
       user = user,
       keyfile = keyfile,
       ssh_passwd = ssh_passwd,
-      verbose = verbose
+      verbose = verbose,
+      rprofile = rprofile
     ) %>%
     install_r_package("shiny",
                       user = user,

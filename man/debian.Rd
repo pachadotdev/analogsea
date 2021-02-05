@@ -25,7 +25,8 @@ debian_install_r(
   user = "root",
   keyfile = NULL,
   ssh_passwd = NULL,
-  verbose = FALSE
+  verbose = FALSE,
+  rprofile = "options(repos=c('CRAN'='https://cloud.r-project.org/'))"
 )
 
 debian_install_rstudio(
@@ -44,7 +45,8 @@ debian_install_shiny(
   user = "root",
   keyfile = NULL,
   ssh_passwd = NULL,
-  verbose = FALSE
+  verbose = FALSE,
+  rprofile = "options(repos=c('CRAN'='https://cloud.r-project.org/'))"
 )
 
 debian_apt_get_update(
@@ -97,6 +99,8 @@ Refer to the \code{ssh::ssh_connect} documentation for more
 details.}
 
 \item{verbose}{If TRUE, will print command before executing it.}
+
+\item{rprofile}{A character string that will be added to the .Rprofile}
 
 \item{password}{Default password for Rstudio.}
 
