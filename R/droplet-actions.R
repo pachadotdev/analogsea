@@ -19,7 +19,7 @@
 #'   list. Default: ubuntu-18-04-x64
 #' @param region (character) The unique slug identifier for the region that you
 #'   wish to deploy in. See \code{\link{regions}()} for a complete list.
-#'   Default: sfo2
+#'   Default: sfo3
 #' @param ssh_keys (character) A character vector of key names, an integer
 #'   vector of key ids, or NULL, to use all keys in your account. Accounts
 #'   with the corresponding private key will be able to log in to the droplet.
@@ -73,7 +73,7 @@
 #'
 #' # set name, size, image, and region
 #' droplet_create(name="newdrop", size = '512mb', image = 'ubuntu-14-04-x64',
-#'   region = 'sfo2')
+#'   region = 'sfo3')
 #'
 #' # use an ssh key
 #' droplet_create(ssh_keys=89103)
@@ -85,7 +85,7 @@
 droplet_create <- function(name = random_name(),
                         size = getOption("do_size", "s-1vcpu-1gb"),
                         image = getOption("do_image", "ubuntu-18-04-x64"),
-                        region = getOption("do_region", "sfo2"),
+                        region = getOption("do_region", "sfo3"),
                         ssh_keys = getOption("do_ssh_keys", NULL),
                         backups = getOption("do_backups", NULL),
                         ipv6 = getOption("do_ipv6", NULL),

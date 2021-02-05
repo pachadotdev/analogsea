@@ -8,7 +8,7 @@ droplets_create(
   names = NULL,
   size = getOption("do_size", "s-1vcpu-1gb"),
   image = getOption("do_image", "ubuntu-18-04-x64"),
-  region = getOption("do_region", "sfo2"),
+  region = getOption("do_region", "sfo3"),
   ssh_keys = getOption("do_ssh_keys", NULL),
   backups = getOption("do_backups", NULL),
   ipv6 = getOption("do_ipv6", NULL),
@@ -38,7 +38,7 @@ list. Default: ubuntu-18-04-x64}
 
 \item{region}{(character) The unique slug identifier for the region that you
 wish to deploy in. See \code{\link{regions}()} for a complete list.
-Default: sfo2}
+Default: sfo3}
 
 \item{ssh_keys}{(character) A character vector of key names, an integer
 vector of key ids, or NULL, to use all keys in your account. Accounts

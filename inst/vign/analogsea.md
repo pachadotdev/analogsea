@@ -46,9 +46,9 @@ but you can't access the droplet over SSH.
 `droplet_create()` will create a droplet on your account. You can run it as
 below without any inputs, and it will use sensible defaults:
 
-* The smallest memory size of 512mb
-* Ubuntu 14.04 box
-* Region sfo1
+* Memory size of 1gb
+* Ubuntu 18.04 box
+* Region sfo3
 * Uses your ssh key
 * Don't use ipv6
 * Don't allow backups
@@ -472,7 +472,7 @@ You can transfer an image to another region
 
 
 ```r
-image(img$id) %>% image_transfer(region = "sfo1")
+image(img$id) %>% image_transfer(region = "sfo3")
 ```
 
 ## Domains
