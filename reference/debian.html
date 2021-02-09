@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">analogsea</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.93</span>
       </span>
     </div>
 
@@ -136,7 +136,8 @@
   user <span class='op'>=</span> <span class='st'>"root"</span>,
   keyfile <span class='op'>=</span> <span class='cn'>NULL</span>,
   ssh_passwd <span class='op'>=</span> <span class='cn'>NULL</span>,
-  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  rprofile <span class='op'>=</span> <span class='st'>"options(repos=c('CRAN'='https://cloud.r-project.org/'))"</span>
 <span class='op'>)</span>
 
 <span class='fu'>debian_install_rstudio</span><span class='op'>(</span>
@@ -155,7 +156,8 @@
   user <span class='op'>=</span> <span class='st'>"root"</span>,
   keyfile <span class='op'>=</span> <span class='cn'>NULL</span>,
   ssh_passwd <span class='op'>=</span> <span class='cn'>NULL</span>,
-  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  rprofile <span class='op'>=</span> <span class='st'>"options(repos=c('CRAN'='https://cloud.r-project.org/'))"</span>
 <span class='op'>)</span>
 
 <span class='fu'>debian_apt_get_update</span><span class='op'>(</span>
@@ -220,6 +222,10 @@ details.</p></td>
     <tr>
       <th>verbose</th>
       <td><p>If TRUE, will print command before executing it.</p></td>
+    </tr>
+    <tr>
+      <th>rprofile</th>
+      <td><p>A character string that will be added to the .Rprofile</p></td>
     </tr>
     <tr>
       <th>password</th>
