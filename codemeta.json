@@ -10,13 +10,13 @@
   "codeRepository": "https://github.com/sckott/analogsea",
   "issueTracker": "https://github.com/sckott/analogsea/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.9.4",
+  "version": "0.9.4.93",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.3 Patched (2021-02-02 r79929)",
+  "runtimePlatform": "R version 4.0.5 Patched (2021-03-31 r80136)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -190,12 +190,12 @@
   ],
   "releaseNotes": "https://github.com/sckott/analogsea/blob/master/NEWS.md",
   "readme": "https://github.com/sckott/analogsea/blob/master/README.md",
-  "fileSize": "330.323KB",
+  "fileSize": "330.811KB",
   "keywords": [
     "cloud-computing",
     "rstats",
     "droplet",
     "ssh"
   ],
-  "relatedLink": "https://analogsea.icu/"
+  "relatedLink": ["https://analogsea.icu/", "https://sckott.github.io/analogsea/"]
 }

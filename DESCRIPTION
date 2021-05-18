@@ -18,7 +18,7 @@ Authors@R: c(
     )
 License: MIT + file LICENSE
 URL: https://github.com/sckott/analogsea (devel)
-    https://analogsea.icu/ (docs)
+    https://sckott.github.io/analogsea/ (docs)
 BugReports: https://github.com/sckott/analogsea/issues
 LazyData: yes
 Encoding: UTF-8

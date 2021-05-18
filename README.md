@@ -13,7 +13,7 @@ analogsea
 * OpenCPU (not yet)
 * Use packrat to move a project to a droplet (not yet)
 
-Docs: https://analogsea.icu/
+Docs: https://sckott.github.io/analogsea/
 
 ## Install
 
