@@ -1,7 +1,7 @@
 ## Test environments
 
-* local OS X install, R 4.0.3 patched
-* ubuntu 16.04 (on github actions), R 4.0.3
+* local macOS install, R 4.1.0
+* ubuntu 16.04 (on github actions), R 4.1.0
 * win-builder (devel and release)
 
 ## R CMD check results
@@ -10,11 +10,11 @@
 
 ## Reverse dependencies
 
-There are no reverse dependencies.
+* I have run R CMD check on the 2 reverse dependencies. Reverse dependency checks at <https://github.com/sckott/analogsea/tree/master/revdep>. No problems were found related to this package.
 
 ---
 
-This version makes changes for a suite of functions to better handle ssh usage.
+This version makes a number of minor improvements.
 
 Thanks!
 Scott Chamberlain

@@ -20,7 +20,6 @@ License: MIT + file LICENSE
 URL: https://github.com/sckott/analogsea (devel)
     https://sckott.github.io/analogsea/ (docs)
 BugReports: https://github.com/sckott/analogsea/issues
-LazyData: yes
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)

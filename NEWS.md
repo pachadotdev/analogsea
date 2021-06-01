@@ -1,3 +1,14 @@
+analogsea 1.0.0
+===============
+
+### MINOR IMPROVEMENTS
+
+* xxx (#xxx) thanks @xxx
+* xxx (#xxx) thanks @xxx
+* xxx (#xxx) thanks @xxx
+* update link to package docs
+
+
 analogsea 0.9.4
 ===============
 
