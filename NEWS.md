@@ -1,11 +1,14 @@
 analogsea 1.0.0
 ===============
 
+### NEW FEATURES
+
+* `debian_install_r()` gains argument `rprofile` to customize the `options` setting when installing R (#204) thanks @csgillespie
+
 ### MINOR IMPROVEMENTS
 
-* xxx (#xxx) thanks @xxx
-* xxx (#xxx) thanks @xxx
-* xxx (#xxx) thanks @xxx
+* `debian_install_r()`: change `repos` entry from `http://cran.rstudio.com` to `https://cloud.r-project.org` (#202) thanks @csgillespie
+* change default region to `sfo3` throughout package (#203)
 * update link to package docs
 
 
