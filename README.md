@@ -15,6 +15,10 @@ analogsea
 
 Docs: https://sckott.github.io/analogsea/
 
+## Use cases
+
+- Andrew Heiss: [Create a cheap, disposable supercomputer with R, DigitalOcean, and future](https://www.andrewheiss.com/blog/2018/07/30/disposable-supercomputer-future/)
+
 ## Install
 
 Stable version from CRAN
