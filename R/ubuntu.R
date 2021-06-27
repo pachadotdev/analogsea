@@ -1,4 +1,4 @@
-#' Helpers for managing a debian droplets.
+#' Helpers for managing a ubuntu droplets.
 #'
 #' @param droplet A droplet, or object that can be coerced to a droplet
 #'   by \code{\link{as.droplet}}.
@@ -9,26 +9,26 @@
 #'   details.
 #' @param verbose If TRUE, will print command before executing it.
 #' @param rprofile A character string that will be added to the .Rprofile
-#' @name debian
+#' @name ubuntu
 #' @examples
 #' \dontrun{
 #' d <- droplet_create()
-#' d %>% debian_add_swap()
-#' d %>% debian_apt_get_update()
+#' d %>% ubuntu_add_swap()
+#' d %>% ubuntu_apt_get_update()
 #'
-#' d %>% debian_install_r()
-#' d %>% debian_install_rstudio()
+#' d %>% ubuntu_install_r()
+#' d %>% ubuntu_install_rstudio()
 #'
 #' # Install libcurl, then build RCurl from source
-#' d %>% debian_apt_get_install("libcurl4-openssl-dev")
+#' d %>% ubuntu_apt_get_install("libcurl4-openssl-dev")
 #' d %>% install_r_package("RCurl")
 #' droplet_delete(d)
 #' }
 NULL
 
-#' @rdname debian
+#' @rdname ubuntu
 #' @export
-debian_add_swap <- function(droplet,
+ubuntu_add_swap <- function(droplet,
                             user = "root",
                             keyfile = NULL,
                             ssh_passwd = NULL,
@@ -47,9 +47,9 @@ debian_add_swap <- function(droplet,
   )
 }
 
-#' @rdname debian
+#' @rdname ubuntu
 #' @export
-debian_install_r <- function(droplet,
+ubuntu_install_r <- function(droplet,
                              user = "root",
                              keyfile = NULL,
                              ssh_passwd = NULL,
@@ -57,7 +57,7 @@ debian_install_r <- function(droplet,
                              rprofile = "options(repos=c('CRAN'='https://cloud.r-project.org/'))"
                              ) {
     droplet %>%
-    debian_apt_get_install("r-base", "r-base-dev",
+    ubuntu_apt_get_install("r-base", "r-base-dev",
                            user = user,
                            keyfile = keyfile,
                            ssh_passwd = ssh_passwd,
@@ -71,19 +71,19 @@ debian_install_r <- function(droplet,
                 )
 }
 
-#' @rdname debian
+#' @rdname ubuntu
 #' @param user Default username for Rstudio.
 #' @param password Default password for Rstudio.
 #' @param version Version of rstudio to install.
 #' @export
-debian_install_rstudio <- function(droplet, user = "rstudio", password = "server",
+ubuntu_install_rstudio <- function(droplet, user = "rstudio", password = "server",
                                    version = "0.99.484",
                                    keyfile = NULL,
                                    ssh_passwd = NULL,
                                    verbose = FALSE
                                    ) {
   droplet %>%
-    debian_apt_get_install("gdebi-core", "libapparmor1",
+    ubuntu_apt_get_install("gdebi-core", "libapparmor1",
                            user = user,
                            keyfile = keyfile,
                            ssh_passwd = ssh_passwd,
@@ -101,9 +101,9 @@ debian_install_rstudio <- function(droplet, user = "rstudio", password = "server
     )
 }
 
-#' @rdname debian
+#' @rdname ubuntu
 #' @export
-debian_install_shiny <- function(droplet, version = "1.4.0.756",
+ubuntu_install_shiny <- function(droplet, version = "1.4.0.756",
                                  user = "root",
                                  keyfile = NULL,
                                  ssh_passwd = NULL,
@@ -111,7 +111,7 @@ debian_install_shiny <- function(droplet, version = "1.4.0.756",
                                  rprofile = "options(repos=c('CRAN'='https://cloud.r-project.org/'))"
                                  ) {
   droplet %>%
-    debian_install_r(
+    ubuntu_install_r(
       user = user,
       keyfile = keyfile,
       ssh_passwd = ssh_passwd,
@@ -130,7 +130,7 @@ debian_install_shiny <- function(droplet, version = "1.4.0.756",
                       ssh_passwd = ssh_passwd,
                       verbose = verbose
                       ) %>%
-    debian_apt_get_install("gdebi-core",
+    ubuntu_apt_get_install("gdebi-core",
                            user = user,
                            keyfile = keyfile,
                            ssh_passwd = ssh_passwd,
@@ -146,7 +146,7 @@ debian_install_shiny <- function(droplet, version = "1.4.0.756",
     )
 }
 
-debian_install_opencpu <- function(droplet, version = "1.5",
+ubuntu_install_opencpu <- function(droplet, version = "1.5",
                                    user = "root",
                                    keyfile = NULL,
                                    ssh_passwd = NULL,
@@ -167,9 +167,9 @@ debian_install_opencpu <- function(droplet, version = "1.5",
 
 # apt-get helpers --------------------------------------------------------------
 
-#' @rdname debian
+#' @rdname ubuntu
 #' @export
-debian_apt_get_update <- function(droplet,
+ubuntu_apt_get_update <- function(droplet,
                                   user = "root",
                                   keyfile = NULL,
                                   ssh_passwd = NULL,
@@ -184,10 +184,10 @@ debian_apt_get_update <- function(droplet,
   )
 }
 
-#' @rdname debian
+#' @rdname ubuntu
 #' @export
 #' @param ... Arguments to apt-get install.
-debian_apt_get_install <- function(droplet, ...,
+ubuntu_apt_get_install <- function(droplet, ...,
                                    user = "root",
                                    keyfile = NULL,
                                    ssh_passwd = NULL,
@@ -203,7 +203,7 @@ debian_apt_get_install <- function(droplet, ...,
 
 # r helpers --------------------------------------------------------------------
 
-#' @rdname debian
+#' @rdname ubuntu
 #' @export
 #' @param package Name of R package to install.
 #' @param repo CRAN mirror to use.
@@ -223,7 +223,7 @@ install_r_package <- function(droplet, package, repo = "https://cloud.r-project.
   )
 }
 
-#' @rdname debian
+#' @rdname ubuntu
 #' @export
 #' @param package Name of R package to install.
 #' @param repo CRAN mirror to use.
@@ -293,5 +293,51 @@ install_github_r_package <- function(droplet, package,
     keyfile = keyfile,
     ssh_passwd = ssh_passwd,
     verbose = verbose
+  )
+}
+
+# add users ----
+
+#' Create a password with digits, letters and special characters
+#' @param n Password length (8-15 characters)
+#' @examples create_password(10)
+#' @export
+create_password <- function(n = 8) {
+  stopifnot(n >= 8 & n <= 15)
+  stopifnot(length(n) == 1 & is.numeric(n))
+
+  sam <- list()
+  sam[[1]] <- 0:9
+  sam[[2]] <- letters
+  sam[[3]] <- LETTERS
+
+  p <- mapply(sample, sam, 10)
+  return(paste(sample(p, n), collapse = ""))
+}
+
+#' @rdname ubuntu
+#' @param user Username for non-root account.
+#' @param password Password for non-root acount. Default: root
+#' @export
+create_user <- function(droplet, user, password,
+                        ssh_user = "root", keyfile = NULL,
+                        ssh_passwd = NULL, verbose = FALSE) {
+  check_for_a_pkg("ssh")
+  if (missing(user)) stop("'user' is required")
+  if (missing(password)) {
+    password <- create_password(10)
+    warning(sprintf("no 'password' suplied for '%s', using '%s'", user, password))
+  }
+  if (password == "rstudio") stop("supply a 'password' other than 'rstudio'")
+  droplet <- as.droplet(droplet)
+
+  droplet_ssh(droplet,
+              sprintf(
+                "useradd -m -p $(openssl passwd -1 %s) %s", password, user
+              ),
+              user = ssh_user,
+              keyfile = keyfile,
+              ssh_passwd = ssh_passwd,
+              verbose = verbose
   )
 }

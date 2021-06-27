@@ -1,9 +1,12 @@
 analogsea
 =========
 
-<!-- [![codecov.io](https://codecov.io/github/sckott/analogsea/coverage.svg?branch=master)](https://codecov.io/github/sckott/analogsea?branch=master) -->
+[![codecov.io](https://codecov.io/github/pachamaltese/analogsea/coverage.svg?branch=master)](https://codecov.io/github/pachamaltese/analogsea?branch=master)
 [![rstudio mirror downloads](https://cranlogs.r-pkg.org/badges/analogsea)](https://github.com/r-hub/cranlogs.app)
 [![cran version](https://www.r-pkg.org/badges/version/analogsea)](https://cran.r-project.org/package=analogsea)
+[![R-CMD-check](https://github.com/pachamaltese/digitalocean/workflows/R-CMD-check/badge.svg)](https://github.com/pachamaltese/digitalocean/actions)
+<!-- badges: end -->
+
 
 `analogsea` is an R client for version 2 of the Digital Ocean API.  See `?droplet_functions` after loading analogsea. It allows you to programatically create and destroy droplets (remote computers), and install various R related tools: (these are still a work in progress):
 
@@ -123,9 +126,42 @@ d %>%
    droplet_power_on() %>%
 ```
 
-## R
+## R/RStudio
 
-We're still working on these, but would love feedback.
+*We're still working on these, but would love feedback.*
+
+By default, `analogsea` creates an RStudio Server image with R 4.0, this comes with full Tidyverse. This image is based on Ubuntu 20.04.
+
+```r
+droplet_create()
+```
+
+This is almost ready, for example, to run a virtual machine for a workshop. Let's say you've got ten students, then you can run
+
+```r
+users <- list(
+  user = paste0("student", 1:5),
+  password = sapply(rep(8,5), create_password)
+)
+  
+for (i in seq_along(users$user)) {
+  expect_silent(
+    create_user(x, users$user[i], users$password[i], keyfile = "~/.ssh/id_rsa")
+  )
+}
+```
+
+Then, each student shall be able to open RStudio from the browser, by visiting http://123.456.789:8787 and accessing with studentX (X = 1,...,10) and the password created.
+
+To install more R packages, you can make them readily available for all the users that have access to your droplet with
+
+```r
+install_r_package("arrow")
+```
+
+## Shiny
+
+The default RStudio Server image (see R/RStudio section) also features readily available Shiny Server.
 
 ## Install RStudio Server
 
