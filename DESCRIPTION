@@ -14,9 +14,11 @@ Authors@R: c(
     person("Bob", "Rudis", role = "ctb", email = "bob@rudis.net"),
     person("Bryce", "Mecum", role = "ctb", email = "brycemecum@gmail.com",
            comment = c("ORCID" = "0000-0002-0381-3766")),
+    person("Mauricio", "Vargas", "ctb", email = "mavargas11@uc.cl",
+           comment = c(ORCID = "0000-0003-1017-7574")),
     person("RStudio", role = "cph")
     )
-License: MIT + file LICENSE
+License: Apache License (>= 2)
 URL: https://github.com/sckott/analogsea (devel)
     https://sckott.github.io/analogsea/ (docs)
 BugReports: https://github.com/sckott/analogsea/issues

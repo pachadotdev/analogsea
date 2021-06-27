@@ -23,9 +23,9 @@ Assumes that the droplet has R installed.
 \examples{
 \dontrun{
 d <- droplet_create() \%>\%
-  debian_add_swap() \%>\%
+  ubuntu_add_swap() \%>\%
   droplet_ssh("apt-get update") \%>\%
-  debian_install_r()
+  ubuntu_install_r()
 
 results <- d \%>\% droplet_execute({
   x <- letters
