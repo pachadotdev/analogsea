@@ -4,7 +4,7 @@ analogsea
 [![codecov.io](https://codecov.io/github/pachamaltese/analogsea/coverage.svg?branch=master)](https://codecov.io/github/pachamaltese/analogsea?branch=master)
 [![rstudio mirror downloads](https://cranlogs.r-pkg.org/badges/analogsea)](https://github.com/r-hub/cranlogs.app)
 [![cran version](https://www.r-pkg.org/badges/version/analogsea)](https://cran.r-project.org/package=analogsea)
-[![R-CMD-check](https://github.com/pachamaltese/digitalocean/workflows/R-CMD-check/badge.svg)](https://github.com/pachamaltese/digitalocean/actions)
+[![R-CMD-check](https://github.com/pachamaltese/analogsea/workflows/R-CMD-check/badge.svg)](https://github.com/pachamaltese/analogsea/actions)
 <!-- badges: end -->
 
 
