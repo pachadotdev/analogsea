@@ -7,7 +7,7 @@
 droplet_create(
   name = random_name(),
   size = getOption("do_size", "s-1vcpu-1gb"),
-  image = getOption("do_image", "ubuntu-18-04-x64"),
+  image = getOption("do_image", "rstudio-20-04"),
   region = getOption("do_region", "sfo3"),
   ssh_keys = getOption("do_ssh_keys", NULL),
   backups = getOption("do_backups", NULL),
