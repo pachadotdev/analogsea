@@ -4,9 +4,7 @@ analogsea
 [![codecov.io](https://codecov.io/github/pachamaltese/analogsea/coverage.svg?branch=master)](https://codecov.io/github/pachamaltese/analogsea?branch=master)
 [![rstudio mirror downloads](https://cranlogs.r-pkg.org/badges/analogsea)](https://github.com/r-hub/cranlogs.app)
 [![cran version](https://www.r-pkg.org/badges/version/analogsea)](https://cran.r-project.org/package=analogsea)
-[![R-CMD-check](https://github.com/pachamaltese/analogsea/workflows/R-CMD-check/badge.svg)](https://github.com/pachamaltese/analogsea/actions)
-<!-- badges: end -->
-
+[![R-CMD-check](https://github.com/pachadotdev/analogsea/actions/workflows/R-CMD-check.yml/badge.svg)](https://github.com/pachadotdev/analogsea/actions/workflows/R-CMD-check.yml)
 
 `analogsea` is an R client for version 2 of the Digital Ocean API.  See `?droplet_functions` after loading analogsea. It allows you to programatically create and destroy droplets (remote computers), and install various R related tools: (these are still a work in progress):
 
