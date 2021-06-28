@@ -16,8 +16,8 @@ test_that("install R and user creation work", {
   # wait until all services load
   Sys.sleep(30)
 
-  expect_output(add_swap(x, keyfile = "~/.ssh/id_rsa"))
-  expect_output(install_r(x, keyfile = "~/.ssh/id_rsa"))
+  expect_output(ubuntu_add_swap(x, keyfile = "~/.ssh/id_rsa"))
+  expect_output(ubuntu_install_r(x, keyfile = "~/.ssh/id_rsa"))
 
   expect_equal(x$status, "active")
   expect_false(x$locked)

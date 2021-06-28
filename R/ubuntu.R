@@ -4,6 +4,7 @@
 #'   by \code{\link{as.droplet}}.
 #' @param user User name. Defaults to "root".
 #' @param keyfile Optional private key file.
+#' @param ssh_user (character) User account for ssh commands against droplet.
 #' @param ssh_passwd Optional passphrase or callback function for authentication.
 #'   Refer to the \code{ssh::ssh_connect} documentation for more
 #'   details.
@@ -56,19 +57,29 @@ ubuntu_install_r <- function(droplet,
                              verbose = FALSE,
                              rprofile = "options(repos=c('CRAN'='https://cloud.r-project.org/'))"
                              ) {
-    droplet %>%
+  droplet %>%
+    ubuntu_apt_get_cran(user = user,
+                 keyfile = keyfile,
+                 ssh_passwd = ssh_passwd,
+                 verbose = verbose
+    ) %>%
+    ubuntu_apt_get_update(user = user,
+                   keyfile = keyfile,
+                   ssh_passwd = ssh_passwd,
+                   verbose = verbose
+    ) %>%
     ubuntu_apt_get_install("r-base", "r-base-dev",
-                           user = user,
-                           keyfile = keyfile,
-                           ssh_passwd = ssh_passwd,
-                           verbose = verbose
-                           ) %>%
+                    user = user,
+                    keyfile = keyfile,
+                    ssh_passwd = ssh_passwd,
+                    verbose = verbose
+    ) %>%
     droplet_ssh(paste("echo", shQuote(rprofile), "> .Rprofile"),
                 user = user,
                 keyfile = keyfile,
                 ssh_passwd = ssh_passwd,
                 verbose = verbose
-                )
+    )
 }
 
 #' @rdname ubuntu
@@ -166,6 +177,41 @@ ubuntu_install_opencpu <- function(droplet, version = "1.5",
 }
 
 # apt-get helpers --------------------------------------------------------------
+
+#' @rdname ubuntu
+#' @export
+ubuntu_apt_get_cran <- function(droplet,
+                         user = "root",
+                         keyfile = NULL,
+                         ssh_passwd = NULL,
+                         verbose = FALSE) {
+  version <- droplet$image$name
+  cran_key <- if(any(version %in% c("20.04 (LTS) x64", "18.04 (LTS) x64"))) {
+    "E298A3A825C0D65DFD57CBB651716619E084DAB9"
+  }
+  if (is.null(cran_key)) {
+    message("The CRAN setup requires to use the ubuntu-20-04-x64 or ubuntu-18-04-x64 images.")
+    stop()
+  }
+  cran_url <- "https://cran.pacha.dev/bin/linux/ubuntu/"
+  cran_apt <- switch(
+    version,
+    "20.04 (LTS) x64" = "focal-cran40",
+    "18.04 (LTS) x64" = "bionic-cran35"
+  )
+  droplet_ssh(droplet,
+              sprintf(
+                "apt-key adv --keyserver keyserver.ubuntu.com --recv-keys %s", cran_key
+              ),
+              sprintf(
+                "printf '\n#CRAN mirror\n deb %s %s/\n' | sudo tee -a /etc/apt/sources.list", cran_url, cran_apt
+              ),
+              user = user,
+              keyfile = keyfile,
+              ssh_passwd = ssh_passwd,
+              verbose = verbose
+  )
+}
 
 #' @rdname ubuntu
 #' @export

@@ -6,6 +6,7 @@
 \alias{ubuntu_install_r}
 \alias{ubuntu_install_rstudio}
 \alias{ubuntu_install_shiny}
+\alias{ubuntu_apt_get_cran}
 \alias{ubuntu_apt_get_update}
 \alias{ubuntu_apt_get_install}
 \alias{install_r_package}
@@ -48,6 +49,14 @@ ubuntu_install_shiny(
   ssh_passwd = NULL,
   verbose = FALSE,
   rprofile = "options(repos=c('CRAN'='https://cloud.r-project.org/'))"
+)
+
+ubuntu_apt_get_cran(
+  droplet,
+  user = "root",
+  keyfile = NULL,
+  ssh_passwd = NULL,
+  verbose = FALSE
 )
 
 ubuntu_apt_get_update(
@@ -122,6 +131,8 @@ details.}
 \item{package}{Name of R package to install.}
 
 \item{repo}{CRAN mirror to use.}
+
+\item{ssh_user}{(character) User account for ssh commands against droplet.}
 }
 \description{
 Helpers for managing a ubuntu droplets.

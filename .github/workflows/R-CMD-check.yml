@@ -80,7 +80,7 @@ jobs:
       - name: Check
         env:
           _R_CHECK_CRAN_INCOMING_: false
-          DO_TOKEN: ${{ secrets.DO_TOKEN }}
+          DO_PAT: ${{ secrets.DO_PAT }}
         run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
 

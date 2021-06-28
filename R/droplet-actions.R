@@ -84,7 +84,7 @@
 #' }
 droplet_create <- function(name = random_name(),
                         size = getOption("do_size", "s-1vcpu-1gb"),
-                        image = getOption("do_image", "ubuntu-18-04-x64"),
+                        image = getOption("do_image", "rstudio-20-04"),
                         region = getOption("do_region", "sfo3"),
                         ssh_keys = getOption("do_ssh_keys", NULL),
                         backups = getOption("do_backups", NULL),
@@ -391,7 +391,7 @@ droplet_change_kernel <- function(droplet, kernel, ...) {
 #' \describe{
 #' \item{snapshot}{Take a snapshot of the droplet once it has been powered
 #'   off, which can later be restored or used to create a new droplet from
-#'   the same image. Please be aware this may cause a reboot.}
+#'   the same image.}
 #' \item{snapshots_list}{List available snapshots}
 #' \item{backups_list}{List available snapshots}
 #' \item{restore}{Restore a droplet with a previous image or snapshot.
@@ -405,6 +405,9 @@ droplet_change_kernel <- function(droplet, kernel, ...) {
 #' create. If not set, the  snapshot name will default to the current date/time
 #' @param image (optional) The image ID of the backup image that you would like
 #' to restore.
+#' @param wait If \code{TRUE} (default), wait until the snapshot has been
+#' completed and is ready for use. If set to \code{FALSE} we return a
+#' droplet object right away after droplet snapshot request has been sent.
 #' @param ... Additional options passed down to \code{\link[httr]{POST}}
 #' @examples \dontrun{
 #' d <- droplet_create()
@@ -412,21 +415,30 @@ droplet_change_kernel <- function(droplet, kernel, ...) {
 #' d %>% droplet_backups_list()
 #'
 #' d %>%
-#'   droplet_power_off() %>%
 #'   droplet_snapshot() %>%
 #'   droplet_power_on() %>%
 #'   droplet_snapshots_list()
 #'
 #' # To delete safely
 #' d %>%
-#'   droplet_power_off() %>%
 #'   droplet_snapshot() %>%
 #'   droplet_delete() %>%
 #'   action_wait()
 #' }
 #' @export
-droplet_snapshot <- function(droplet, name = NULL, ...) {
+droplet_snapshot <- function(droplet, name = NULL, wait = TRUE, ...) {
+  droplet_status <- droplet$status
+  droplet_power_off(droplet)
+  droplet_wait(droplet)
+
   droplet_action("snapshot", droplet, name = name, ...)
+
+  if (wait) {
+    droplet_wait(droplet)
+    droplet
+  } else {
+    droplet
+  }
 }
 
 #' @export

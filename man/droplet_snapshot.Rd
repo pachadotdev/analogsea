@@ -7,7 +7,7 @@
 \alias{droplet_backups_list}
 \title{Take and restore snapshots.}
 \usage{
-droplet_snapshot(droplet, name = NULL, ...)
+droplet_snapshot(droplet, name = NULL, wait = TRUE, ...)
 
 droplet_snapshots_list(droplet, ...)
 
@@ -22,6 +22,10 @@ droplet_backups_list(droplet, ...)
 \item{name}{(character) Optional. Name of the new snapshot you want to
 create. If not set, the  snapshot name will default to the current date/time}
 
+\item{wait}{If \code{TRUE} (default), wait until the snapshot has been
+completed and is ready for use. If set to \code{FALSE} we return a
+droplet object right away after droplet snapshot request has been sent.}
+
 \item{...}{Additional options passed down to \code{\link[httr]{POST}}}
 
 \item{image}{(optional) The image ID of the backup image that you would like
@@ -31,7 +35,7 @@ to restore.}
 \describe{
 \item{snapshot}{Take a snapshot of the droplet once it has been powered
 off, which can later be restored or used to create a new droplet from
-the same image. Please be aware this may cause a reboot.}
+the same image.}
 \item{snapshots_list}{List available snapshots}
 \item{backups_list}{List available snapshots}
 \item{restore}{Restore a droplet with a previous image or snapshot.
@@ -46,14 +50,12 @@ d \%>\% droplet_snapshots_list()
 d \%>\% droplet_backups_list()
 
 d \%>\%
-  droplet_power_off() \%>\%
   droplet_snapshot() \%>\%
   droplet_power_on() \%>\%
   droplet_snapshots_list()
 
 # To delete safely
 d \%>\%
-  droplet_power_off() \%>\%
   droplet_snapshot() \%>\%
   droplet_delete() \%>\%
   action_wait()
