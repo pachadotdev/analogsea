@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      DO_TOKEN: ${{ secrets.DO_TOKEN }}
+      DO_PAT: ${{ secrets.DO_PAT }}
     steps:
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2.3.0
