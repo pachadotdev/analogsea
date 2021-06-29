@@ -4,10 +4,11 @@ test_that("install R pkgs works", {
   # using 4 CPUs + 8GB RAM droplet for faster testing
   r <- "tor1"
   s <- "c2-4vcpu-8gb"
+  img <- "rstudio-20-04"
 
-  # use rstudio image
+  # use rstudio image fro quicker testing
   n <- paste("ubuntu-test", gsub(":", "", gsub(".* ", "", Sys.time())), sep = "-")
-  x <- droplet_create(n, region = r, size = s, wait = T)
+  x <- droplet_create(n, region = r, size = s, image = img, wait = T)
   x <- droplet(x$id)
 
   # wait until all services load
