@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Helpers for managing a debian droplets. — debian • analogsea</title>
+<title>Helpers for managing a ubuntu droplets. — ubuntu • analogsea</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Helpers for managing a debian droplets. — debian" />
-<meta property="og:description" content="Helpers for managing a debian droplets." />
+<meta property="og:title" content="Helpers for managing a ubuntu droplets. — ubuntu" />
+<meta property="og:description" content="Helpers for managing a ubuntu droplets." />
 
 
 
@@ -114,16 +114,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Helpers for managing a debian droplets.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/sckott/analogsea/blob/master/R/debian.R'><code>R/debian.R</code></a></small>
-    <div class="hidden name"><code>debian.Rd</code></div>
+    <h1>Helpers for managing a ubuntu droplets.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/sckott/analogsea/blob/master/R/ubuntu.R'><code>R/ubuntu.R</code></a></small>
+    <div class="hidden name"><code>ubuntu.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Helpers for managing a debian droplets.</p>
+    <p>Helpers for managing a ubuntu droplets.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>debian_add_swap</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>ubuntu_add_swap</span><span class='op'>(</span>
   <span class='va'>droplet</span>,
   user <span class='op'>=</span> <span class='st'>"root"</span>,
   keyfile <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -131,7 +131,7 @@
   verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span>
 
-<span class='fu'>debian_install_r</span><span class='op'>(</span>
+<span class='fu'>ubuntu_install_r</span><span class='op'>(</span>
   <span class='va'>droplet</span>,
   user <span class='op'>=</span> <span class='st'>"root"</span>,
   keyfile <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -140,7 +140,7 @@
   rprofile <span class='op'>=</span> <span class='st'>"options(repos=c('CRAN'='https://cloud.r-project.org/'))"</span>
 <span class='op'>)</span>
 
-<span class='fu'>debian_install_rstudio</span><span class='op'>(</span>
+<span class='fu'>ubuntu_install_rstudio</span><span class='op'>(</span>
   <span class='va'>droplet</span>,
   user <span class='op'>=</span> <span class='st'>"rstudio"</span>,
   password <span class='op'>=</span> <span class='st'>"server"</span>,
@@ -150,7 +150,7 @@
   verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span>
 
-<span class='fu'>debian_install_shiny</span><span class='op'>(</span>
+<span class='fu'>ubuntu_install_shiny</span><span class='op'>(</span>
   <span class='va'>droplet</span>,
   version <span class='op'>=</span> <span class='st'>"1.4.0.756"</span>,
   user <span class='op'>=</span> <span class='st'>"root"</span>,
@@ -160,7 +160,7 @@
   rprofile <span class='op'>=</span> <span class='st'>"options(repos=c('CRAN'='https://cloud.r-project.org/'))"</span>
 <span class='op'>)</span>
 
-<span class='fu'>debian_apt_get_update</span><span class='op'>(</span>
+<span class='fu'>ubuntu_apt_get_cran</span><span class='op'>(</span>
   <span class='va'>droplet</span>,
   user <span class='op'>=</span> <span class='st'>"root"</span>,
   keyfile <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -168,10 +168,48 @@
   verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span>
 
-<span class='fu'>debian_apt_get_install</span><span class='op'>(</span>
+<span class='fu'>ubuntu_apt_get_update</span><span class='op'>(</span>
+  <span class='va'>droplet</span>,
+  user <span class='op'>=</span> <span class='st'>"root"</span>,
+  keyfile <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ssh_passwd <span class='op'>=</span> <span class='cn'>NULL</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
+
+<span class='fu'>ubuntu_apt_get_install</span><span class='op'>(</span>
   <span class='va'>droplet</span>,
   <span class='va'>...</span>,
   user <span class='op'>=</span> <span class='st'>"root"</span>,
+  keyfile <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ssh_passwd <span class='op'>=</span> <span class='cn'>NULL</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
+
+<span class='fu'>install_r_package</span><span class='op'>(</span>
+  <span class='va'>droplet</span>,
+  <span class='va'>package</span>,
+  repo <span class='op'>=</span> <span class='st'>"https://cloud.r-project.org/"</span>,
+  user <span class='op'>=</span> <span class='st'>"root"</span>,
+  keyfile <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ssh_passwd <span class='op'>=</span> <span class='cn'>NULL</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
+
+<span class='fu'>install_github_r_package</span><span class='op'>(</span>
+  <span class='va'>droplet</span>,
+  <span class='va'>package</span>,
+  repo <span class='op'>=</span> <span class='st'>"https://cloud.r-project.org/"</span>,
+  user <span class='op'>=</span> <span class='st'>"root"</span>,
+  keyfile <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ssh_passwd <span class='op'>=</span> <span class='cn'>NULL</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
+
+<span class='fu'>create_user</span><span class='op'>(</span>
+  <span class='va'>droplet</span>,
+  <span class='va'>user</span>,
+  <span class='va'>password</span>,
+  ssh_user <span class='op'>=</span> <span class='st'>"root"</span>,
   keyfile <span class='op'>=</span> <span class='cn'>NULL</span>,
   ssh_passwd <span class='op'>=</span> <span class='cn'>NULL</span>,
   verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
@@ -187,7 +225,7 @@ by <code><a href='droplet.html'>as.droplet</a></code>.</p></td>
     </tr>
     <tr>
       <th>user</th>
-      <td><p>Default username for Rstudio.</p></td>
+      <td><p>Username for non-root account.</p></td>
     </tr>
     <tr>
       <th>keyfile</th>
@@ -209,7 +247,7 @@ details.</p></td>
     </tr>
     <tr>
       <th>password</th>
-      <td><p>Default password for Rstudio.</p></td>
+      <td><p>Password for non-root acount. Default: root</p></td>
     </tr>
     <tr>
       <th>version</th>
@@ -218,6 +256,14 @@ details.</p></td>
     <tr>
       <th>...</th>
       <td><p>Arguments to apt-get install.</p></td>
+    </tr>
+    <tr>
+      <th>package</th>
+      <td><p>Name of R package to install.</p></td>
+    </tr>
+    <tr>
+      <th>repo</th>
+      <td><p>CRAN mirror to use.</p></td>
     </tr>
     <tr>
       <th>ssh_user</th>
@@ -229,15 +275,15 @@ details.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='droplet_create.html'>droplet_create</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>d</span> <span class='op'>%&gt;%</span> <span class='fu'>debian_add_swap</span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>d</span> <span class='op'>%&gt;%</span> <span class='fu'>debian_apt_get_update</span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>d</span> <span class='op'>%&gt;%</span> <span class='fu'>ubuntu_add_swap</span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>d</span> <span class='op'>%&gt;%</span> <span class='fu'>ubuntu_apt_get_update</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='va'>d</span> <span class='op'>%&gt;%</span> <span class='fu'>debian_install_r</span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>d</span> <span class='op'>%&gt;%</span> <span class='fu'>debian_install_rstudio</span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>d</span> <span class='op'>%&gt;%</span> <span class='fu'>ubuntu_install_r</span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>d</span> <span class='op'>%&gt;%</span> <span class='fu'>ubuntu_install_rstudio</span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># Install libcurl, then build RCurl from source</span>
-<span class='va'>d</span> <span class='op'>%&gt;%</span> <span class='fu'>debian_apt_get_install</span><span class='op'>(</span><span class='st'>"libcurl4-openssl-dev"</span><span class='op'>)</span>
-<span class='va'>d</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='ubuntu.html'>install_r_package</a></span><span class='op'>(</span><span class='st'>"RCurl"</span><span class='op'>)</span>
+<span class='va'>d</span> <span class='op'>%&gt;%</span> <span class='fu'>ubuntu_apt_get_install</span><span class='op'>(</span><span class='st'>"libcurl4-openssl-dev"</span><span class='op'>)</span>
+<span class='va'>d</span> <span class='op'>%&gt;%</span> <span class='fu'>install_r_package</span><span class='op'>(</span><span class='st'>"RCurl"</span><span class='op'>)</span>
 <span class='fu'><a href='droplet_delete.html'>droplet_delete</a></span><span class='op'>(</span><span class='va'>d</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>

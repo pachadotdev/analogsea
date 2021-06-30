@@ -78,7 +78,6 @@
 <div id="analogsea" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#analogsea" class="anchor"></a>analogsea</h1></div>
-<!-- [![codecov.io](https://codecov.io/github/sckott/analogsea/coverage.svg?branch=master)](https://codecov.io/github/sckott/analogsea?branch=master) -->
 
 <p><code>analogsea</code> is an R client for version 2 of the Digital Ocean API. See <code><a href="reference/droplet_functions.html">?droplet_functions</a></code> after loading analogsea. It allows you to programatically create and destroy droplets (remote computers), and install various R related tools: (these are still a work in progress):</p>
 <ul>
@@ -179,16 +178,40 @@
 <span id="cb11-3"><a href="#cb11-3"></a><span class="st">   </span><span class="kw">droplet_snapshot</span>() <span class="op">%&gt;%</span></span>
 <span id="cb11-4"><a href="#cb11-4"></a><span class="st">   </span><span class="kw">droplet_power_on</span>() <span class="op">%&gt;%</span></span></code></pre></div>
 </div>
-<div id="r" class="section level2">
+<div id="rrstudio" class="section level2">
 <h2 class="hasAnchor">
-<a href="#r" class="anchor"></a>R</h2>
-<p>We’re still working on these, but would love feedback.</p>
+<a href="#rrstudio" class="anchor"></a>R/RStudio</h2>
+<p><em>We’re still working on these, but would love feedback.</em></p>
+<p>By default, <code>analogsea</code> creates an RStudio Server image with R 4.0, this comes with full Tidyverse. This image is based on Ubuntu 20.04.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/droplet_create.html">droplet_create</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p>This is almost ready, for example, to run a virtual machine for a workshop. Let’s say you’ve got ten students, then you can run</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">users</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  user <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"student"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>,
+  password <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">8</span>,<span class="fl">5</span><span class="op">)</span>, <span class="va">create_password</span><span class="op">)</span>
+<span class="op">)</span>
+  
+<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">users</span><span class="op">$</span><span class="va">user</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu">expect_silent</span><span class="op">(</span>
+    <span class="fu"><a href="reference/ubuntu.html">create_user</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">users</span><span class="op">$</span><span class="va">user</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="va">users</span><span class="op">$</span><span class="va">password</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, keyfile <span class="op">=</span> <span class="st">"~/.ssh/id_rsa"</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>Then, each student shall be able to open RStudio from the browser, by visiting <a href="http://123.456.789:8787" class="uri">http://123.456.789:8787</a> and accessing with studentX (X = 1,…,10) and the password created.</p>
+<p>To install more R packages, you can make them readily available for all the users that have access to your droplet with</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/ubuntu.html">install_r_package</a></span><span class="op">(</span><span class="st">"arrow"</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="shiny" class="section level2">
+<h2 class="hasAnchor">
+<a href="#shiny" class="anchor"></a>Shiny</h2>
+<p>The default RStudio Server image (see R/RStudio section) also features readily available Shiny Server.</p>
 </div>
 <div id="install-rstudio-server" class="section level2">
 <h2 class="hasAnchor">
 <a href="#install-rstudio-server" class="anchor"></a>Install RStudio Server</h2>
 <p>This requires a “docklet”, a droplet with docker installed:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/docklet_create.html">docklet_create</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="reference/docklet_create.html">docklet_rstudio</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>This will install R, RStudio Server and it’s dependencies. It will automatically pop open the RStudio server instance in your default browser, with default <code>username/password</code> of <code>rstudio/server</code>.</p>
@@ -217,7 +240,7 @@
 <h2>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+<li><small>Apache License (&gt;= 2)</small></li>
 </ul>
 </div>
 <div class="community">
@@ -241,8 +264,10 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
+<li><a href="https://codecov.io/github/pachamaltese/analogsea?branch=master"><img src="https://codecov.io/github/pachamaltese/analogsea/coverage.svg?branch=master" alt="codecov.io"></a></li>
 <li><a href="https://github.com/r-hub/cranlogs.app"><img src="https://cranlogs.r-pkg.org/badges/analogsea" alt="rstudio mirror downloads"></a></li>
 <li><a href="https://cran.r-project.org/package=analogsea"><img src="https://www.r-pkg.org/badges/version/analogsea" alt="cran version"></a></li>
+<li><a href="https://github.com/pachadotdev/analogsea/actions/workflows/R-CMD-check.yml"><img src="https://github.com/pachadotdev/analogsea/actions/workflows/R-CMD-check.yml/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
 </div>

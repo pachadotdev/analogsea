@@ -44,7 +44,7 @@
 
 snapshotTake a snapshot of the droplet once it has been powered
 off, which can later be restored or used to create a new droplet from
-the same image. Please be aware this may cause a reboot.
+the same image.
 snapshots_listList available snapshots
 backups_listList available snapshots
 restoreRestore a droplet with a previous image or snapshot.
@@ -136,7 +136,7 @@ sure you have backed up any necessary information prior to restore.
 <dl>
 <dt>snapshot</dt><dd><p>Take a snapshot of the droplet once it has been powered
 off, which can later be restored or used to create a new droplet from
-the same image. Please be aware this may cause a reboot.</p></dd>
+the same image.</p></dd>
 <dt>snapshots_list</dt><dd><p>List available snapshots</p></dd>
 <dt>backups_list</dt><dd><p>List available snapshots</p></dd>
 <dt>restore</dt><dd><p>Restore a droplet with a previous image or snapshot.
@@ -147,7 +147,7 @@ sure you have backed up any necessary information prior to restore.</p></dd>
 
     </div>
 
-    <pre class="usage"><span class='fu'>droplet_snapshot</span><span class='op'>(</span><span class='va'>droplet</span>, name <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>droplet_snapshot</span><span class='op'>(</span><span class='va'>droplet</span>, name <span class='op'>=</span> <span class='cn'>NULL</span>, wait <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='fu'>droplet_snapshots_list</span><span class='op'>(</span><span class='va'>droplet</span>, <span class='va'>...</span><span class='op'>)</span>
 
@@ -169,6 +169,12 @@ sure you have backed up any necessary information prior to restore.</p></dd>
 create. If not set, the  snapshot name will default to the current date/time</p></td>
     </tr>
     <tr>
+      <th>wait</th>
+      <td><p>If <code>TRUE</code> (default), wait until the snapshot has been
+completed and is ready for use. If set to <code>FALSE</code> we return a
+droplet object right away after droplet snapshot request has been sent.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>Additional options passed down to <code><a href='https://httr.r-lib.org/reference/POST.html'>POST</a></code></p></td>
     </tr>
@@ -187,14 +193,12 @@ to restore.</p></td>
 <span class='va'>d</span> <span class='op'>%&gt;%</span> <span class='fu'>droplet_backups_list</span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='va'>d</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='droplet_action.html'>droplet_power_off</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>droplet_snapshot</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='droplet_action.html'>droplet_power_on</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>droplet_snapshots_list</span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># To delete safely</span>
 <span class='va'>d</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='droplet_action.html'>droplet_power_off</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>droplet_snapshot</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='droplet_delete.html'>droplet_delete</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='actions.html'>action_wait</a></span><span class='op'>(</span><span class='op'>)</span>
