@@ -50,7 +50,7 @@ do_oauth <- function(app = do_app, reauth = FALSE) {
 cache <- new.env(parent = emptyenv())
 
 do_app <- httr::oauth_app(
-  "rdigocean",
-  "9039627f86f984a13f4736b94458154bdeba668537d50c6394172f6185b14063",
-  "ffaa1c6775656d3e2aee0d079768bc4b444832164c8953ec1129cf8b41007928"
+  "Rstats",
+  "6d5dbd8599989781ea6ca1fd7cd25a6a55a9f746afbeabb8834b8d5269751749",
+  "b771ae783b65aae96bec459b1bdeb023810d318a6f73019a1fb0abf7dc01bc24"
 )
