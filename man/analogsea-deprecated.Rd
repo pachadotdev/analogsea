@@ -4,5 +4,14 @@
 \alias{analogsea-deprecated}
 \title{Deprecated functions in \pkg{analogsea}}
 \description{
-None at the moment
+Debian functions, prefer the Ubuntu equivalents.
+\itemize{
+\item \code{debian_add_swap()}
+\item \code{debian_install_r()}
+\item \code{debian_install_rstudio()}
+\item \code{debian_install_shiny()}
+\item \code{debian_install_opencpu()}
+\item \code{debian_apt_get_update()}
+\item \code{debian_apt_get_install()}
+}
 }
