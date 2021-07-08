@@ -85,8 +85,6 @@ details.}
 \item{version}{Version of rstudio to install.}
 
 \item{...}{Arguments to apt-get install.}
-
-\item{ssh_user}{(character) User account for ssh commands against droplet.}
 }
 \description{
 Helpers for managing a debian droplets.

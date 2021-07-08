@@ -32,7 +32,7 @@ test_that("install R and user creation work (Ubuntu)", {
 
   for (i in seq_along(users$user)) {
     expect_silent(
-      create_user(x, users$user[i], users$password[i], keyfile = "~/.ssh/id_rsa")
+      ubuntu_create_user(x, users$user[i], users$password[i], keyfile = "~/.ssh/id_rsa")
     )
   }
 
@@ -79,7 +79,7 @@ test_that("install R and user creation work (Debian)", {
 
   for (i in seq_along(users$user)) {
     expect_silent(
-      create_user(x, users$user[i], users$password[i], keyfile = "~/.ssh/id_rsa")
+      ubuntu_create_user(x, users$user[i], users$password[i], keyfile = "~/.ssh/id_rsa")
     )
   }
 

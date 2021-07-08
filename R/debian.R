@@ -4,7 +4,6 @@
 #'   by \code{\link{as.droplet}}.
 #' @param user User name. Defaults to "root".
 #' @param keyfile Optional private key file.
-#' @param ssh_user (character) User account for ssh commands against droplet.
 #' @param ssh_passwd Optional passphrase or callback function for authentication.
 #'   Refer to the \code{ssh::ssh_connect} documentation for more
 #'   details.

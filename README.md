@@ -143,9 +143,7 @@ users <- list(
 )
   
 for (i in seq_along(users$user)) {
-  expect_silent(
-    create_user(x, users$user[i], users$password[i], keyfile = "~/.ssh/id_rsa")
-  )
+  ubuntu_create_user(x, users$user[i], users$password[i], keyfile = "~/.ssh/id_rsa")
 }
 ```
 

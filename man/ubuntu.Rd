@@ -11,7 +11,7 @@
 \alias{ubuntu_apt_get_install}
 \alias{install_r_package}
 \alias{install_github_r_package}
-\alias{create_user}
+\alias{ubuntu_create_user}
 \title{Helpers for managing a ubuntu droplets.}
 \usage{
 ubuntu_add_swap(
@@ -96,7 +96,7 @@ install_github_r_package(
   verbose = FALSE
 )
 
-create_user(
+ubuntu_create_user(
   droplet,
   user,
   password,
