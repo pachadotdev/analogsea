@@ -4,9 +4,9 @@ Description: Provides a set of functions for interacting with the 'Digital
     Ocean' API <https://www.digitalocean.com/>, including
     creating images, destroying them, rebooting, getting details on regions, and
     available images.
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: c(
-    person("Scott", "Chamberlain", role = c("aut", "cre"),
+    person("Scott", "Chamberlain", role = "aut",
         email = "myrmecocystus@gmail.com",
         comment = c(ORCID="0000-0003-1444-9135")),
     person("Hadley", "Wickham", role = "aut", email = "hadley@rstudio.com"),
@@ -14,7 +14,7 @@ Authors@R: c(
     person("Bob", "Rudis", role = "ctb", email = "bob@rudis.net"),
     person("Bryce", "Mecum", role = "ctb", email = "brycemecum@gmail.com",
            comment = c("ORCID" = "0000-0002-0381-3766")),
-    person("Mauricio", "Vargas", role = c("aut","cre"), email = "mavargas11@uc.cl",
+    person("Mauricio", "Vargas", role = c("aut", "cre"), email = "mavargas11@uc.cl",
            comment = c(ORCID = "0000-0003-1017-7574")),
     person("RStudio", role = "cph")
     )
