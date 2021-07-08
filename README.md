@@ -14,7 +14,7 @@ analogsea
 * OpenCPU (not yet)
 * Use packrat to move a project to a droplet (not yet)
 
-Docs: https://sckott.github.io/analogsea/
+Docs: https://pacha.dev/analogsea/. 
 
 ## Use cases
 
@@ -40,11 +40,11 @@ library("analogsea")
 
 ## Create a DO account
 
-If you don't already have one, [create a DO account](https://www.digitalocean.com/?refcode=0740f5169634). By using this link, you'll start with $10 in credits (enough for >600 hours of computing on a 1 gb machine), and if you become a digital ocean customer we'll get some DO credits for us to offset our costs for testing. Thanks :)
+If you don't already have one, [create a DO account](https://m.do.co/c/6119f0430dad). By using this link, you'll start with $100 in credits (enough for >600 hours of computing on a 1 gb machine). Thanks to DigitalOcean for covering the costs for testing!
 
 ## Authenticate
 
-The best way to authenticate is to generate a personal access token (https://cloud.digitalocean.com/settings/tokens/new) and save it in an environment variable called `DO_PAT`.  If you don't do this, you'll be prompted to authenticate in your browser the first time you use analogsea.
+The best way to authenticate is to generate a personal access token (https://cloud.digitalocean.com/settings/tokens/new) and save it in an environment variable called `DO_PAT`. If you don't do this, you'll be prompted to authenticate in your browser the first time you use analogsea.
 
 Make sure you provide digitial ocean your public key at https://cloud.digitalocean.com/ssh_keys. Github has some good advice on creating a new public key if you don't already have one: https://help.github.com/articles/generating-ssh-keys/.
 
