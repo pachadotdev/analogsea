@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Interface to Digital Ocean • analogsea</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">analogsea</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
       </span>
     </div>
 
@@ -79,7 +79,8 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#analogsea" class="anchor"></a>analogsea</h1></div>
 
-<p><code>analogsea</code> is an R client for version 2 of the Digital Ocean API. See <code><a href="reference/droplet_functions.html">?droplet_functions</a></code> after loading analogsea. It allows you to programatically create and destroy droplets (remote computers), and install various R related tools: (these are still a work in progress):</p>
+<p><img src="https://raw.githubusercontent.com/pachadotdev/analogsea/gh-pages/analogsea.svg" width="150" align="center" alt="sticker"></p>
+<p><code>analogsea</code> is an R client for version 2 of the Digital Ocean API. See <code><a href="reference/droplet_functions.html">?droplet_functions</a></code> after loading analogsea. It allows you to programatically create and destroy droplets (remote computers), and install various R related tools:</p>
 <ul>
 <li>R (done)</li>
 <li>RStudio Server (done)</li>
@@ -87,7 +88,8 @@
 <li>OpenCPU (not yet)</li>
 <li>Use packrat to move a project to a droplet (not yet)</li>
 </ul>
-<p>Docs: <a href="https://sckott.github.io/analogsea/" class="uri">https://sckott.github.io/analogsea/</a></p>
+<p>In addition, it allows you to use a readily available image with RStudio Server, Shiny Server and fully tidyverse from <a href="https://marketplace.digitalocean.com/apps/rstudio">DigitalOcean Marketplace</a>.</p>
+<p>Docs: <a href="https://pacha.dev/analogsea/" class="uri">https://pacha.dev/analogsea/</a>.</p>
 <div id="use-cases" class="section level2">
 <h2 class="hasAnchor">
 <a href="#use-cases" class="anchor"></a>Use cases</h2>
@@ -111,7 +113,7 @@
 <div id="create-a-do-account" class="section level2">
 <h2 class="hasAnchor">
 <a href="#create-a-do-account" class="anchor"></a>Create a DO account</h2>
-<p>If you don’t already have one, <a href="https://www.digitalocean.com/?refcode=0740f5169634">create a DO account</a>. By using this link, you’ll start with $10 in credits (enough for &gt;600 hours of computing on a 1 gb machine), and if you become a digital ocean customer we’ll get some DO credits for us to offset our costs for testing. Thanks :)</p>
+<p>If you don’t already have one, <a href="https://m.do.co/c/6119f0430dad">create a DO account</a>. By using this link, you’ll start with $100 in credits with a 2 months limit. This is enough for 1440 hours of computing on a machine with 4 GB memory and 2 dedicated CPUs and additional hours to experiment with 1 GB memory machines. Thanks to DigitalOcean for covering the costs for testing!</p>
 </div>
 <div id="authenticate" class="section level2">
 <h2 class="hasAnchor">
@@ -125,28 +127,28 @@
 <p>All droplets</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/droplets.html">droplets</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="op">&lt;</span>r<span class="op">&gt;</span><span class="st"> </span><span class="kw">droplets</span>()</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="op">$</span>unintrenchable</span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="op">&lt;</span>droplet<span class="op">&gt;</span><span class="kw">unintrenchable</span> (<span class="dv">2724525</span>)</span>
-<span id="cb5-4"><a href="#cb5-4"></a>  Status<span class="op">:</span><span class="st"> </span>off</span>
-<span id="cb5-5"><a href="#cb5-5"></a>  Region<span class="op">:</span><span class="st"> </span>San Francisco <span class="dv">1</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a>  Image<span class="op">:</span><span class="st"> </span>Ubuntu <span class="fl">14.04</span> x64</span>
-<span id="cb5-7"><a href="#cb5-7"></a>  Size<span class="op">:</span><span class="st"> </span>512mb (<span class="op">$</span><span class="fl">0.00744</span> <span class="op">/</span><span class="st"> </span>hr)</span>
-<span id="cb5-8"><a href="#cb5-8"></a></span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="op">$</span>basipterygium</span>
-<span id="cb5-10"><a href="#cb5-10"></a><span class="op">&lt;</span>droplet<span class="op">&gt;</span><span class="kw">basipterygium</span> (<span class="dv">2724526</span>)</span>
-<span id="cb5-11"><a href="#cb5-11"></a>  Status<span class="op">:</span><span class="st"> </span>active</span>
-<span id="cb5-12"><a href="#cb5-12"></a>  Region<span class="op">:</span><span class="st"> </span>San Francisco <span class="dv">1</span></span>
-<span id="cb5-13"><a href="#cb5-13"></a>  Image<span class="op">:</span><span class="st"> </span>Ubuntu <span class="fl">14.04</span> x64</span>
-<span id="cb5-14"><a href="#cb5-14"></a>  Size<span class="op">:</span><span class="st"> </span>512mb (<span class="op">$</span><span class="fl">0.00744</span> <span class="op">/</span><span class="st"> </span>hr)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&lt;</span>r<span class="sc">&gt;</span> <span class="fu">droplets</span>()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>unintrenchable</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&lt;</span>droplet<span class="sc">&gt;</span><span class="fu">unintrenchable</span> (<span class="dv">2724525</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  Status<span class="sc">:</span> off</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  Region<span class="sc">:</span> San Francisco <span class="dv">1</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  Image<span class="sc">:</span> Ubuntu <span class="fl">14.04</span> x64</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  Size<span class="sc">:</span> 512mb (<span class="sc">$</span><span class="fl">0.00744</span> <span class="sc">/</span> hr)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>basipterygium</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&lt;</span>droplet<span class="sc">&gt;</span><span class="fu">basipterygium</span> (<span class="dv">2724526</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  Status<span class="sc">:</span> active</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  Region<span class="sc">:</span> San Francisco <span class="dv">1</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  Image<span class="sc">:</span> Ubuntu <span class="fl">14.04</span> x64</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  Size<span class="sc">:</span> 512mb (<span class="sc">$</span><span class="fl">0.00744</span> <span class="sc">/</span> hr)</span></code></pre></div>
 <p>A single droplet. Pass in a single droplet id.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/droplet.html">droplet</a></span><span class="op">(</span><span class="fl">2724525</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="op">&lt;</span>droplet<span class="op">&gt;</span><span class="kw">unintrenchable</span> (<span class="dv">2724525</span>)</span>
-<span id="cb7-2"><a href="#cb7-2"></a>  Status<span class="op">:</span><span class="st"> </span>off</span>
-<span id="cb7-3"><a href="#cb7-3"></a>  Region<span class="op">:</span><span class="st"> </span>San Francisco <span class="dv">1</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a>  Image<span class="op">:</span><span class="st"> </span>Ubuntu <span class="fl">14.04</span> x64</span>
-<span id="cb7-5"><a href="#cb7-5"></a>  Size<span class="op">:</span><span class="st"> </span>512mb (<span class="op">$</span><span class="fl">0.00744</span> <span class="op">/</span><span class="st"> </span>hr)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&lt;</span>droplet<span class="sc">&gt;</span><span class="fu">unintrenchable</span> (<span class="dv">2724525</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  Status<span class="sc">:</span> off</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  Region<span class="sc">:</span> San Francisco <span class="dv">1</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  Image<span class="sc">:</span> Ubuntu <span class="fl">14.04</span> x64</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  Size<span class="sc">:</span> 512mb (<span class="sc">$</span><span class="fl">0.00744</span> <span class="sc">/</span> hr)</span></code></pre></div>
 </div>
 <div id="spin-up-a-new-droplet" class="section level2">
 <h2 class="hasAnchor">
@@ -154,13 +156,13 @@
 <p>To make this as dead simple as possible, you just use one function, without any parameters.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/droplet_create.html">droplet_create</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>Using default ssh key<span class="op">:</span><span class="st"> </span>Jane Doe</span>
-<span id="cb9-2"><a href="#cb9-2"></a>NB<span class="op">:</span><span class="st"> </span>This costs <span class="op">$</span><span class="fl">0.00744</span> <span class="op">/</span><span class="st"> </span>hour  until you <span class="kw">droplet_delete</span>() it</span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="op">&lt;</span>droplet<span class="op">&gt;</span><span class="kw">sabaoth</span> (<span class="dv">2727258</span>)</span>
-<span id="cb9-4"><a href="#cb9-4"></a>  Status<span class="op">:</span><span class="st"> </span>new</span>
-<span id="cb9-5"><a href="#cb9-5"></a>  Region<span class="op">:</span><span class="st"> </span>San Francisco <span class="dv">1</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a>  Image<span class="op">:</span><span class="st"> </span>Ubuntu <span class="fl">14.04</span> x64</span>
-<span id="cb9-7"><a href="#cb9-7"></a>  Size<span class="op">:</span><span class="st"> </span>512mb (<span class="op">$</span><span class="fl">0.00744</span> <span class="op">/</span><span class="st"> </span>hr)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Using default ssh key<span class="sc">:</span> Jane Doe</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>NB<span class="sc">:</span> This costs <span class="sc">$</span><span class="fl">0.00744</span> <span class="sc">/</span> hour  until you <span class="fu">droplet_delete</span>() it</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&lt;</span>droplet<span class="sc">&gt;</span><span class="fu">sabaoth</span> (<span class="dv">2727258</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  Status<span class="sc">:</span> new</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  Region<span class="sc">:</span> San Francisco <span class="dv">1</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  Image<span class="sc">:</span> Ubuntu <span class="fl">14.04</span> x64</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  Size<span class="sc">:</span> 512mb (<span class="sc">$</span><span class="fl">0.00744</span> <span class="sc">/</span> hr)</span></code></pre></div>
 <p>You can of course pass in lots of options for name of the droplet, RAM size, disk size, ssh keys, etc. See <code><a href="reference/regions.html">regions()</a></code> and <code><a href="reference/sizes.html">sizes()</a></code> to list available regions and sizes.</p>
 <div id="delete-a-droplet" class="section level3">
 <h3 class="hasAnchor">
@@ -173,21 +175,20 @@
 <h2 class="hasAnchor">
 <a href="#chaining" class="anchor"></a>Chaining</h2>
 <p>Most of the <code>droplet_*</code> functions can be chained together using the <code><a href="reference/%&gt;%.html">%&gt;%</a></code> function. For example, you can turn a droplet off, snapshot, and then turn it back on with:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>d <span class="op">%&gt;%</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="st">   </span><span class="kw">droplet_power_off</span>() <span class="op">%&gt;%</span></span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="st">   </span><span class="kw">droplet_snapshot</span>() <span class="op">%&gt;%</span></span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="st">   </span><span class="kw">droplet_power_on</span>() <span class="op">%&gt;%</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">droplet_power_off</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">droplet_snapshot</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">droplet_power_on</span>() <span class="sc">%&gt;%</span></span></code></pre></div>
 </div>
 <div id="rrstudio" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rrstudio" class="anchor"></a>R/RStudio</h2>
 <p><em>We’re still working on these, but would love feedback.</em></p>
-<p>By default, <code>analogsea</code> creates an RStudio Server image with R 4.0, this comes with full Tidyverse. This image is based on Ubuntu 20.04.</p>
+<p>By default, <code>analogsea</code> creates an Ubuntu 20.04 image. Let’s say you’ve got ten students fron an R workshop, then you can run</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/droplet_create.html">droplet_create</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p>This is almost ready, for example, to run a virtual machine for a workshop. Let’s say you’ve got ten students, then you can run</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">users</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="fu"><a href="reference/droplet_create.html">droplet_create</a></span><span class="op">(</span><span class="st">"rstudio-20-04"</span><span class="op">)</span>
+
+<span class="va">users</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   user <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"student"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>,
   password <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">8</span>,<span class="fl">5</span><span class="op">)</span>, <span class="va">create_password</span><span class="op">)</span>
 <span class="op">)</span>
@@ -199,19 +200,21 @@
 <span class="op">}</span></code></pre></div>
 <p>Then, each student shall be able to open RStudio from the browser, by visiting <a href="http://123.456.789:8787" class="uri">http://123.456.789:8787</a> and accessing with studentX (X = 1,…,10) and the password created.</p>
 <p>To install more R packages, you can make them readily available for all the users that have access to your droplet with</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/ubuntu.html">install_r_package</a></span><span class="op">(</span><span class="st">"arrow"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/ubuntu.html">ubuntu_install_r</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># ohlf if you didn't use the RStudio image</span>
+<span class="fu"><a href="reference/ubuntu.html">install_r_package</a></span><span class="op">(</span><span class="st">"arrow"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="shiny" class="section level2">
 <h2 class="hasAnchor">
 <a href="#shiny" class="anchor"></a>Shiny</h2>
-<p>The default RStudio Server image (see R/RStudio section) also features readily available Shiny Server.</p>
+<p>The RStudio Server image also features readily available Shiny Server, but we provide the functions <code><a href="reference/ubuntu.html">ubuntu_install_shiny()</a></code> and <code><a href="reference/docklet_create.html">docklet_shinyserver()</a></code> (requires to use the Docker image, i.e. <code><a href="reference/docklet_create.html">docklet_create()</a></code>) to configure Shiny from scratch.</p>
 </div>
 <div id="install-rstudio-server" class="section level2">
 <h2 class="hasAnchor">
 <a href="#install-rstudio-server" class="anchor"></a>Install RStudio Server</h2>
-<p>This requires a “docklet”, a droplet with docker installed:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<p>For the standard Ubuntu image you can use <code><a href="reference/ubuntu.html">ubuntu_install_rstudio()</a></code>.</p>
+<p>For dockerized RStudio you have the next option:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/docklet_create.html">docklet_create</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="reference/docklet_create.html">docklet_rstudio</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>This will install R, RStudio Server and it’s dependencies. It will automatically pop open the RStudio server instance in your default browser, with default <code>username/password</code> of <code>rstudio/server</code>.</p>
@@ -253,10 +256,11 @@
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Scott Chamberlain <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-1444-9135" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Scott Chamberlain <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-1444-9135" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>
 <a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author </small>  </li>
 <li>Winston Chang <br><small class="roles"> Author </small>  </li>
+<li>Mauricio Vargas <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-1017-7574" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li><a href="authors.html">All authors...</a></li>
 </ul>
 </div>
@@ -275,7 +279,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Scott Chamberlain, <a href="http://hadley.nz">Hadley Wickham</a>, Winston Chang.</p>
+  <p>Developed by Scott Chamberlain, <a href="http://hadley.nz">Hadley Wickham</a>, Winston Chang, Mauricio Vargas.</p>
 </div>
 
 <div class="pkgdown">

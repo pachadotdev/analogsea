@@ -12,8 +12,8 @@
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">analogsea</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
       </span>
     </div>
 
@@ -117,21 +117,43 @@
       <small>Source: <a href='https://github.com/sckott/analogsea/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="analogsea-100" class="section level1">
-<h1 class="page-header" data-toc-text="1.0.0">
-<a href="#analogsea-100" class="anchor"></a>analogsea 1.0.0<small> 2021-06-01 </small>
+    <div id="analogsea-101" class="section level1">
+<h1 class="page-header" data-toc-text="1.0.1">
+<a href="#analogsea-101" class="anchor"></a>analogsea 1.0.1<small> Unreleased </small>
 </h1>
 <div id="new-features" class="section level3">
 <h3 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>NEW FEATURES</h3>
 <ul>
-<li>
-<code><a href="../reference/debian.html">debian_install_r()</a></code> gains argument <code>rprofile</code> to customize the <code>options</code> setting when installing R (<a href='https://github.com/sckott/analogsea/issues/204'>#204</a>) thanks <a href='https://github.com/csgillespie'>@csgillespie</a></li>
+<li>The new referral link provides 100 USD in credits for end users instead of 10.</li>
+<li>Uses Ubuntu machines by default.</li>
+<li>Benefits from CRAN mirror hosted on DigitalOcean data center.</li>
+<li>Extended battery of unit tests for droplet creation, installing packages, etc. <a href='https://github.com/pachadotdev'>@pachadotdev</a></li>
 </ul>
 </div>
 <div id="minor-improvements" class="section level3">
 <h3 class="hasAnchor">
 <a href="#minor-improvements" class="anchor"></a>MINOR IMPROVEMENTS</h3>
+<ul>
+<li>The documentation now mentions how use the RStudio Server image from DigitalOcean Marketplace.</li>
+</ul>
+</div>
+</div>
+    <div id="analogsea-100" class="section level1">
+<h1 class="page-header" data-toc-text="1.0.0">
+<a href="#analogsea-100" class="anchor"></a>analogsea 1.0.0<small> 2021-06-01 </small>
+</h1>
+<div id="new-features-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#new-features-1" class="anchor"></a>NEW FEATURES</h3>
+<ul>
+<li>
+<code><a href="../reference/debian.html">debian_install_r()</a></code> gains argument <code>rprofile</code> to customize the <code>options</code> setting when installing R (<a href='https://github.com/sckott/analogsea/issues/204'>#204</a>) thanks <a href='https://github.com/csgillespie'>@csgillespie</a></li>
+</ul>
+</div>
+<div id="minor-improvements-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#minor-improvements-1" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
 <li>
 <code><a href="../reference/debian.html">debian_install_r()</a></code>: change <code>repos</code> entry from <code>http://cran.rstudio.com</code> to <code>https://cloud.r-project.org</code> (<a href='https://github.com/sckott/analogsea/issues/202'>#202</a>) thanks <a href='https://github.com/csgillespie'>@csgillespie</a></li>
@@ -144,9 +166,9 @@
 <h1 class="page-header" data-toc-text="0.9.4">
 <a href="#analogsea-094" class="anchor"></a>analogsea 0.9.4<small> 2021-02-03 </small>
 </h1>
-<div id="new-features-1" class="section level3">
+<div id="new-features-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-2" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>all <code>debian_</code> functions gain four parameters: <code>user</code>, <code>keyfile</code>, <code>ssh_passwd</code> and <code>verbose</code> (<a href='https://github.com/sckott/analogsea/issues/199'>#199</a>) thanks <a href='https://github.com/muschellij2'>@muschellij2</a></li>
 </ul>
@@ -156,16 +178,16 @@
 <h1 class="page-header" data-toc-text="0.9.0">
 <a href="#analogsea-090" class="anchor"></a>analogsea 0.9.0<small> 2020-10-08 </small>
 </h1>
-<div id="new-features-2" class="section level3">
+<div id="new-features-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-2" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-3" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>gains function <code><a href="../reference/ubuntu.html">install_github_r_package()</a></code> for installing R packages from github on your droplet (<a href='https://github.com/sckott/analogsea/issues/191'>#191</a>) thanks <a href='https://github.com/muschellij2'>@muschellij2</a></li>
 </ul>
 </div>
-<div id="minor-improvements-1" class="section level3">
+<div id="minor-improvements-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-improvements-1" class="anchor"></a>MINOR IMPROVEMENTS</h3>
+<a href="#minor-improvements-2" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
 <li>
 <code><a href="../reference/neighbors.html">neighbors()</a></code> fxn fix: DigitalOcean updated the route used for neighbors information, and the returned named element in the response body (<a href='https://github.com/sckott/analogsea/issues/186'>#186</a>)</li>
@@ -195,9 +217,9 @@
 <li>Functions for working with DigitalOcean Spaces have been partly introduced in previous releases, and various fixes have been made in this version (<a href='https://github.com/sckott/analogsea/issues/136'>#136</a>) (<a href='https://github.com/sckott/analogsea/issues/138'>#138</a>) (<a href='https://github.com/sckott/analogsea/issues/146'>#146</a>) (<a href='https://github.com/sckott/analogsea/issues/161'>#161</a>) (<a href='https://github.com/sckott/analogsea/issues/165'>#165</a>)</li>
 </ul>
 </div>
-<div id="minor-improvements-2" class="section level3">
+<div id="minor-improvements-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-improvements-2" class="anchor"></a>MINOR IMPROVEMENTS</h3>
+<a href="#minor-improvements-3" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
 <li>
 <code>aws.s3</code> has been orphaned; moved <code>aws.s3</code> to Suggests, use is now conditional (<a href='https://github.com/sckott/analogsea/issues/188'>#188</a>) (<a href='https://github.com/sckott/analogsea/issues/189'>#189</a>)</li>
@@ -209,16 +231,16 @@
 <h1 class="page-header" data-toc-text="0.7.2">
 <a href="#analogsea-072" class="anchor"></a>analogsea 0.7.2<small> 2019-06-27 </small>
 </h1>
-<div id="new-features-3" class="section level3">
+<div id="new-features-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-3" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-4" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>gains new functions to support working with Digital Ocean projects: <code>as.project</code>, <code>as.url.project</code>, <code>project</code>, <code>projects</code>, <code>project_create</code>, <code>project_delete</code>, <code>project_patch</code>, and <code>project_update</code> (<a href='https://github.com/sckott/analogsea/issues/183'>#183</a>)</li>
 </ul>
 </div>
-<div id="minor-improvements-3" class="section level3">
+<div id="minor-improvements-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-improvements-3" class="anchor"></a>MINOR IMPROVEMENTS</h3>
+<a href="#minor-improvements-4" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
 <li>changed default region from ‘sfo1’ to ‘sfo2’ throughout package (<a href='https://github.com/sckott/analogsea/issues/180'>#180</a>) thanks <a href='https://github.com/patperu'>@patperu</a></li>
 <li>
@@ -233,18 +255,18 @@
 <h1 class="page-header" data-toc-text="0.7.0">
 <a href="#analogsea-070" class="anchor"></a>analogsea 0.7.0<small> 2019-06-04 </small>
 </h1>
-<div id="new-features-4" class="section level3">
+<div id="new-features-5" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-4" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-5" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>Now using package <code>ssh</code> to do ssh operations instead of shelling out via <code>system</code>/etc. (<a href='https://github.com/sckott/analogsea/issues/143'>#143</a>) (<a href='https://github.com/sckott/analogsea/issues/160'>#160</a>) &amp; various fixes for ssh (<a href='https://github.com/sckott/analogsea/issues/154'>#154</a>)</li>
 <li>New functions for working with DO certificates API routes: <code>certificate</code>, <code>certificate_create</code>, <code>certificate_delete</code>, <code>certificates</code>, and <code>as.certificate</code> (<a href='https://github.com/sckott/analogsea/issues/156'>#156</a>)</li>
 <li>New functions for working with DO firewalls API routes: <code>firewall</code>, <code>firewall_add_droplets</code>, <code>firewall_add_tags</code>, <code>firewall_create</code>, <code>firewall_delete</code>, <code>firewall_remove_droplets</code>, <code>firewall_remove_tags</code>, <code>firewall_update</code>, <code>firewalls</code>, and <code>as.firewall</code> (<a href='https://github.com/sckott/analogsea/issues/157'>#157</a>)</li>
 </ul>
 </div>
-<div id="minor-improvements-4" class="section level3">
+<div id="minor-improvements-5" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-improvements-4" class="anchor"></a>MINOR IMPROVEMENTS</h3>
+<a href="#minor-improvements-5" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
 <li>Changed default droplet size from “1gb” to “s-1vcpu-2gb” (<a href='https://github.com/sckott/analogsea/issues/149'>#149</a>) (<a href='https://github.com/sckott/analogsea/issues/152'>#152</a>)</li>
 <li>Changed default droplet image from “ubuntu-14-04-x64” (Ubuntu 14) to “ubuntu-18-04-x64” (Ubuntu 18) (<a href='https://github.com/sckott/analogsea/issues/151'>#151</a>)</li>
@@ -268,9 +290,9 @@
 <h1 class="page-header" data-toc-text="0.6.0">
 <a href="#analogsea-060" class="anchor"></a>analogsea 0.6.0<small> 2018-01-04 </small>
 </h1>
-<div id="new-features-5" class="section level3">
+<div id="new-features-6" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-5" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-6" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>
 <code>as.key</code> function changed to <code>as.sshkey</code> to avoid collision with <code>openssl</code> package (<a href='https://github.com/sckott/analogsea/issues/126'>#126</a>)</li>
@@ -279,9 +301,9 @@
 <code>domain_record_create</code> gains paramater <code>ttl</code> for time to live for the domain record, in seconds (<a href='https://github.com/sckott/analogsea/issues/124'>#124</a>)</li>
 </ul>
 </div>
-<div id="minor-improvements-5" class="section level3">
+<div id="minor-improvements-6" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-improvements-5" class="anchor"></a>MINOR IMPROVEMENTS</h3>
+<a href="#minor-improvements-6" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
 <li>Fixed some typos (<a href='https://github.com/sckott/analogsea/issues/131'>#131</a>) thanks <a href='https://github.com/patperu'>@patperu</a></li>
 <li>
@@ -316,18 +338,18 @@
 <h1 class="page-header" data-toc-text="0.5.0">
 <a href="#analogsea-050" class="anchor"></a>analogsea 0.5.0<small> 2016-11-11 </small>
 </h1>
-<div id="new-features-6" class="section level3">
+<div id="new-features-7" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-6" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-7" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>New function <code><a href="../reference/docklets_create.html">docklets_create()</a></code> to create many docklets at once (similar to <code><a href="../reference/droplets_create.html">droplets_create()</a></code>) (<a href='https://github.com/sckott/analogsea/issues/120'>#120</a>)</li>
 <li>New volumes methods for the new block storage (aka volumes): <code>volume</code>, <code>volume_action</code>, <code>volume_actions</code>, <code>volume_attach</code>, <code>volume_create</code>, <code>volume_delete</code>, <code>volume_detach</code>, <code>volume_resize</code>, <code>volume_snapshot_create</code>, <code>volume_snapshots</code>, <code>volumes</code>, <code>as.volume</code> (<a href='https://github.com/sckott/analogsea/issues/121'>#121</a>)</li>
 <li>New methods for new unified snapshots DO endpoints: <code>snapshot</code>, <code>snapshots</code>, <code>snapshot_delete</code>, and <code>as.shapshot</code> (<a href='https://github.com/sckott/analogsea/issues/121'>#121</a>)</li>
 </ul>
 </div>
-<div id="minor-improvements-6" class="section level3">
+<div id="minor-improvements-7" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-improvements-6" class="anchor"></a>MINOR IMPROVEMENTS</h3>
+<a href="#minor-improvements-7" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
 <li>You can now pass <code>tags</code> to the parameter of the same name when creating droplets, with either <code>droplet_create</code>, <code>droplets_create</code>, <code>docklet_create</code>, or <code>docklets_create</code>. The tags can be existing ones, or if not they will be created (<a href='https://github.com/sckott/analogsea/issues/122'>#122</a>)</li>
 <li>Added more help on ssh keys to pkg level man file and to vignette (<a href='https://github.com/sckott/analogsea/issues/115'>#115</a>)</li>
@@ -338,9 +360,9 @@
 <h1 class="page-header" data-toc-text="0.4.0">
 <a href="#analogsea-040" class="anchor"></a>analogsea 0.4.0<small> 2016-08-25 </small>
 </h1>
-<div id="new-features-7" class="section level3">
+<div id="new-features-8" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-7" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-8" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>Suite of new functions for tags: <code><a href="../reference/tags.html">tag()</a></code>, <code><a href="../reference/tag_create.html">tag_create()</a></code>, <code><a href="../reference/tag_delete.html">tag_delete()</a></code>, <code><a href="../reference/tag_rename.html">tag_rename()</a></code>, <code><a href="../reference/tag_resource.html">tag_resource()</a></code>, <code><a href="../reference/tag_resource_delete.html">tag_resource_delete()</a></code>, <code><a href="../reference/tags.html">tags()</a></code>, and <code><a href="../reference/tags.html">as.tag()</a></code> (<a href='https://github.com/sckott/analogsea/issues/117'>#117</a>)</li>
 <li>Related to last bulllet: <code><a href="../reference/droplet_delete.html">droplet_delete()</a></code> gains new parameter <code>tag</code>; <code><a href="../reference/droplets.html">droplets()</a></code> gains new parameter <code>tag</code>, and examples added to its man file for tag usage.</li>
@@ -350,9 +372,9 @@
 <li>New function <code><a href="../reference/droplets_cost.html">droplets_cost()</a></code> to calculate cost of droplets across one or more droplets.</li>
 </ul>
 </div>
-<div id="minor-improvements-7" class="section level3">
+<div id="minor-improvements-8" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-improvements-7" class="anchor"></a>MINOR IMPROVEMENTS</h3>
+<a href="#minor-improvements-8" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
 <li>Added <code>floating_ip_limit</code> field to <code><a href="../reference/account.html">account()</a></code> print method (<a href='https://github.com/sckott/analogsea/issues/111'>#111</a>)</li>
 <li>Improved description of <code>name</code> parameter for <code><a href="../reference/droplet_create.html">droplet_create()</a></code> and <code><a href="../reference/docklet_create.html">docklet_create()</a></code>
@@ -374,9 +396,9 @@
 <h1 class="page-header" data-toc-text="0.3.0">
 <a href="#analogsea-030" class="anchor"></a>analogsea 0.3.0<small> 2015-10-02 </small>
 </h1>
-<div id="new-features-8" class="section level3">
+<div id="new-features-9" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-8" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-9" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>Released to CRAN.</li>
 </ul>
@@ -395,7 +417,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Scott Chamberlain, <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang.</p>
+  <p>Developed by Scott Chamberlain, <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Mauricio Vargas.</p>
 </div>
 
 <div class="pkgdown">
