@@ -194,9 +194,7 @@
 <span class="op">)</span>
   
 <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">users</span><span class="op">$</span><span class="va">user</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">expect_silent</span><span class="op">(</span>
-    <span class="fu"><a href="reference/ubuntu.html">create_user</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">users</span><span class="op">$</span><span class="va">user</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="va">users</span><span class="op">$</span><span class="va">password</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, keyfile <span class="op">=</span> <span class="st">"~/.ssh/id_rsa"</span><span class="op">)</span>
-  <span class="op">)</span>
+  <span class="fu"><a href="reference/ubuntu.html">ubuntu_create_user</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">users</span><span class="op">$</span><span class="va">user</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="va">users</span><span class="op">$</span><span class="va">password</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, keyfile <span class="op">=</span> <span class="st">"~/.ssh/id_rsa"</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>Then, each student shall be able to open RStudio from the browser, by visiting <a href="http://123.456.789:8787" class="uri">http://123.456.789:8787</a> and accessing with studentX (X = 1,…,10) and the password created.</p>
 <p>To install more R packages, you can make them readily available for all the users that have access to your droplet with</p>
