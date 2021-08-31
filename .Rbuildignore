@@ -12,7 +12,7 @@ docs
 ^codemeta\.json$
 ^Makefile$
 vignettes/analogsea.Rmd
-^LICENSE\.md$
+^LICENSE$
 ^README\.md$
 vignettes/
 _pkgdown.yml
