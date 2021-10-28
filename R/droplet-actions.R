@@ -129,16 +129,15 @@ droplet_create <- function(name = random_name(),
                    user_data = unbox(user_data)
                  ), ...
   )
-  droplet <- droplet(res$droplet$id)
-
-  message("NB: This costs $", droplet$size$price_hourly, " / hour ",
+  dres <- droplet(res$droplet$id)
+  message("NB: This costs $", dres$size$price_hourly, " / hour ",
           "until you droplet_delete() it")
 
   if (wait) {
-    droplet_wait(droplet)
-    droplet
+    droplet_wait(dres)
+    droplet(dres$id)
   } else {
-    droplet
+    droplet(dres$id)
   }
 }
 
@@ -531,4 +530,30 @@ droplet_neighbors <- function(droplet, ...) {
 
   res <- do_GET(sprintf('droplets/%s/neighbors', droplet$id), ...)
   res$droplets
+}
+
+#' Get droplet's IP address
+#'
+#' @export
+#' @inheritParams droplet_delete
+#' @examples \dontrun{
+#' # Obtain the droplet's IP as a string
+#' my_droplet <- droplet_create("demo", region = "sfo3")
+#' droplet_ip(my_droplet)
+#' }
+droplet_ip <- function(droplet) {
+  v4 <- droplet$networks$v4
+  if (length(v4) == 0) {
+    stop("No network interface registered for this droplet\n  Try refreshing like: droplet(d$id)",
+         call. = FALSE
+    )
+  }
+  ips <- do.call("rbind", lapply(v4, as.data.frame))
+  public_ip <- ips$type == "public"
+  if (!any(public_ip)) {
+    ip <- v4[[1]]$ip_address
+  } else {
+    ip <- ips$ip_address[public_ip][[1]]
+  }
+  ip
 }

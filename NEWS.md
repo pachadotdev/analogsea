@@ -1,3 +1,12 @@
+analogsea 1.0.2
+===============
+
+### NEW FEATURES
+
+* `droplet_create()` captures the droplet status and IP for immediate use without
+additional steps such as status update.
+* adds `droplet_ip()` function to avoid cumbersome writing to obtain droplet's IP
+
 analogsea 1.0.1
 ===============
 

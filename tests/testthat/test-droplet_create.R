@@ -23,7 +23,7 @@ test_that("create and delete droplet works", {
   expect_gte(x$id, 0)
   expect_equal(x$name, n)
   expect_false(x$locked)
-  expect_equal(x$status, "new")
+  expect_equal(x$status, "active")
   expect_is(x$features, "list")
   expect_is(x$region, "list")
   expect_equal(x$region$slug, r)

@@ -12,7 +12,7 @@ sizes <- function(page = 1, per_page = 25, ...) {
   res <- do_GET('sizes', query = list(page = page, per_page = per_page), ...)
   sizes <- res$sizes
 
-  data.frame(
+  d <- data.frame(
     slug = vapply(
     pluck(sizes, "slug"), function(x) if (is.null(x)) "" else x, character(1)),
     memory = pluck(sizes, "memory", numeric(1)),
@@ -28,4 +28,6 @@ sizes <- function(page = 1, per_page = 25, ...) {
     stringsAsFactors = FALSE
   )
 
+  class(d) <- c("tbl_df", "tbl", "data.frame")
+  return(d)
 }
