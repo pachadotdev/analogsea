@@ -95,7 +95,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/sckott/analogsea/">
+  <a href="https://github.com/pachadotdev/analogsea/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -114,7 +114,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/sckott/analogsea/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+      <small>Source: <a href='https://github.com/pachadotdev/analogsea/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
     <div id="analogsea-102" class="section level1">
@@ -162,7 +162,7 @@
 <a href="#new-features-2" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>
-<code><a href="../reference/debian.html">debian_install_r()</a></code> gains argument <code>rprofile</code> to customize the <code>options</code> setting when installing R (<a href='https://github.com/sckott/analogsea/issues/204'>#204</a>) thanks <a href='https://github.com/csgillespie'>@csgillespie</a></li>
+<code><a href="../reference/debian.html">debian_install_r()</a></code> gains argument <code>rprofile</code> to customize the <code>options</code> setting when installing R (<a href='https://github.com/pachadotdev/analogsea/issues/204'>#204</a>) thanks <a href='https://github.com/csgillespie'>@csgillespie</a></li>
 </ul>
 </div>
 <div id="minor-improvements-1" class="section level3">
@@ -170,8 +170,8 @@
 <a href="#minor-improvements-1" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
 <li>
-<code><a href="../reference/debian.html">debian_install_r()</a></code>: change <code>repos</code> entry from <code>http://cran.rstudio.com</code> to <code>https://cloud.r-project.org</code> (<a href='https://github.com/sckott/analogsea/issues/202'>#202</a>) thanks <a href='https://github.com/csgillespie'>@csgillespie</a></li>
-<li>change default region to <code>sfo3</code> throughout package (<a href='https://github.com/sckott/analogsea/issues/203'>#203</a>)</li>
+<code><a href="../reference/debian.html">debian_install_r()</a></code>: change <code>repos</code> entry from <code>http://cran.rstudio.com</code> to <code>https://cloud.r-project.org</code> (<a href='https://github.com/pachadotdev/analogsea/issues/202'>#202</a>) thanks <a href='https://github.com/csgillespie'>@csgillespie</a></li>
+<li>change default region to <code>sfo3</code> throughout package (<a href='https://github.com/pachadotdev/analogsea/issues/203'>#203</a>)</li>
 <li>update link to package docs</li>
 </ul>
 </div>
@@ -184,7 +184,7 @@
 <h3 class="hasAnchor">
 <a href="#new-features-3" class="anchor"></a>NEW FEATURES</h3>
 <ul>
-<li>all <code>debian_</code> functions gain four parameters: <code>user</code>, <code>keyfile</code>, <code>ssh_passwd</code> and <code>verbose</code> (<a href='https://github.com/sckott/analogsea/issues/199'>#199</a>) thanks <a href='https://github.com/muschellij2'>@muschellij2</a></li>
+<li>all <code>debian_</code> functions gain four parameters: <code>user</code>, <code>keyfile</code>, <code>ssh_passwd</code> and <code>verbose</code> (<a href='https://github.com/pachadotdev/analogsea/issues/199'>#199</a>) thanks <a href='https://github.com/muschellij2'>@muschellij2</a></li>
 </ul>
 </div>
 </div>
@@ -196,7 +196,7 @@
 <h3 class="hasAnchor">
 <a href="#new-features-4" class="anchor"></a>NEW FEATURES</h3>
 <ul>
-<li>gains function <code><a href="../reference/ubuntu.html">install_github_r_package()</a></code> for installing R packages from github on your droplet (<a href='https://github.com/sckott/analogsea/issues/191'>#191</a>) thanks <a href='https://github.com/muschellij2'>@muschellij2</a></li>
+<li>gains function <code><a href="../reference/ubuntu.html">install_github_r_package()</a></code> for installing R packages from github on your droplet (<a href='https://github.com/pachadotdev/analogsea/issues/191'>#191</a>) thanks <a href='https://github.com/muschellij2'>@muschellij2</a></li>
 </ul>
 </div>
 <div id="minor-improvements-2" class="section level3">
@@ -204,16 +204,16 @@
 <a href="#minor-improvements-2" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
 <li>
-<code><a href="../reference/neighbors.html">neighbors()</a></code> fxn fix: DigitalOcean updated the route used for neighbors information, and the returned named element in the response body (<a href='https://github.com/sckott/analogsea/issues/186'>#186</a>)</li>
+<code><a href="../reference/neighbors.html">neighbors()</a></code> fxn fix: DigitalOcean updated the route used for neighbors information, and the returned named element in the response body (<a href='https://github.com/pachadotdev/analogsea/issues/186'>#186</a>)</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>BUG FIXES</h3>
 <ul>
-<li>fix for <code><a href="../reference/droplet_execute.html">droplet_execute()</a></code> for running R on a droplet (<a href='https://github.com/sckott/analogsea/issues/193'>#193</a>) (<a href='https://github.com/sckott/analogsea/issues/195'>#195</a>) thanks <a href='https://github.com/pieterprovoost'>@pieterprovoost</a></li>
-<li>fixed <code><a href="../reference/droplet_action.html">droplet_action()</a></code> internal function - explicitly state the content type for each request - should affect many exported functions (<a href='https://github.com/sckott/analogsea/issues/192'>#192</a>)</li>
-<li>fix for internal function <code><a href="../reference/droplet_ip.html">droplet_ip()</a></code>: we were sometimes extracting the private IP instead of the public IP address (<a href='https://github.com/sckott/analogsea/issues/198'>#198</a>) thanks <a href='https://github.com/muschellij2'>@muschellij2</a></li>
+<li>fix for <code><a href="../reference/droplet_execute.html">droplet_execute()</a></code> for running R on a droplet (<a href='https://github.com/pachadotdev/analogsea/issues/193'>#193</a>) (<a href='https://github.com/pachadotdev/analogsea/issues/195'>#195</a>) thanks <a href='https://github.com/pieterprovoost'>@pieterprovoost</a></li>
+<li>fixed <code><a href="../reference/droplet_action.html">droplet_action()</a></code> internal function - explicitly state the content type for each request - should affect many exported functions (<a href='https://github.com/pachadotdev/analogsea/issues/192'>#192</a>)</li>
+<li>fix for internal function <code><a href="../reference/droplet_ip.html">droplet_ip()</a></code>: we were sometimes extracting the private IP instead of the public IP address (<a href='https://github.com/pachadotdev/analogsea/issues/198'>#198</a>) thanks <a href='https://github.com/muschellij2'>@muschellij2</a></li>
 </ul>
 </div>
 </div>
@@ -226,9 +226,9 @@
 <a href="#spaces" class="anchor"></a>Spaces</h3>
 <p>The following were partly introduced in previous versions, partly worked on for this version:</p>
 <ul>
-<li>clean up spaces code: consistent terminology, rearrange code so its easier to find, all <code>spaces_*</code> functions renamed to <code>space_*</code> (<a href='https://github.com/sckott/analogsea/issues/175'>#175</a>) (<a href='https://github.com/sckott/analogsea/issues/176'>#176</a>)</li>
-<li>add high level documentation object <code>?info</code> with details on droplet focused functions and spaces focused functions (<a href='https://github.com/sckott/analogsea/issues/150'>#150</a>)</li>
-<li>Functions for working with DigitalOcean Spaces have been partly introduced in previous releases, and various fixes have been made in this version (<a href='https://github.com/sckott/analogsea/issues/136'>#136</a>) (<a href='https://github.com/sckott/analogsea/issues/138'>#138</a>) (<a href='https://github.com/sckott/analogsea/issues/146'>#146</a>) (<a href='https://github.com/sckott/analogsea/issues/161'>#161</a>) (<a href='https://github.com/sckott/analogsea/issues/165'>#165</a>)</li>
+<li>clean up spaces code: consistent terminology, rearrange code so its easier to find, all <code>spaces_*</code> functions renamed to <code>space_*</code> (<a href='https://github.com/pachadotdev/analogsea/issues/175'>#175</a>) (<a href='https://github.com/pachadotdev/analogsea/issues/176'>#176</a>)</li>
+<li>add high level documentation object <code>?info</code> with details on droplet focused functions and spaces focused functions (<a href='https://github.com/pachadotdev/analogsea/issues/150'>#150</a>)</li>
+<li>Functions for working with DigitalOcean Spaces have been partly introduced in previous releases, and various fixes have been made in this version (<a href='https://github.com/pachadotdev/analogsea/issues/136'>#136</a>) (<a href='https://github.com/pachadotdev/analogsea/issues/138'>#138</a>) (<a href='https://github.com/pachadotdev/analogsea/issues/146'>#146</a>) (<a href='https://github.com/pachadotdev/analogsea/issues/161'>#161</a>) (<a href='https://github.com/pachadotdev/analogsea/issues/165'>#165</a>)</li>
 </ul>
 </div>
 <div id="minor-improvements-3" class="section level3">
@@ -236,8 +236,8 @@
 <a href="#minor-improvements-3" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
 <li>
-<code>aws.s3</code> has been orphaned; moved <code>aws.s3</code> to Suggests, use is now conditional (<a href='https://github.com/sckott/analogsea/issues/188'>#188</a>) (<a href='https://github.com/sckott/analogsea/issues/189'>#189</a>)</li>
-<li>add new section to <code><a href="../reference/docklet_create.html">docklet_create()</a></code> manual file <em>Managing Docker containers from R</em>, with notes about managing Docker containers from R (<a href='https://github.com/sckott/analogsea/issues/179'>#179</a>)</li>
+<code>aws.s3</code> has been orphaned; moved <code>aws.s3</code> to Suggests, use is now conditional (<a href='https://github.com/pachadotdev/analogsea/issues/188'>#188</a>) (<a href='https://github.com/pachadotdev/analogsea/issues/189'>#189</a>)</li>
+<li>add new section to <code><a href="../reference/docklet_create.html">docklet_create()</a></code> manual file <em>Managing Docker containers from R</em>, with notes about managing Docker containers from R (<a href='https://github.com/pachadotdev/analogsea/issues/179'>#179</a>)</li>
 </ul>
 </div>
 </div>
@@ -249,19 +249,19 @@
 <h3 class="hasAnchor">
 <a href="#new-features-5" class="anchor"></a>NEW FEATURES</h3>
 <ul>
-<li>gains new functions to support working with Digital Ocean projects: <code>as.project</code>, <code>as.url.project</code>, <code>project</code>, <code>projects</code>, <code>project_create</code>, <code>project_delete</code>, <code>project_patch</code>, and <code>project_update</code> (<a href='https://github.com/sckott/analogsea/issues/183'>#183</a>)</li>
+<li>gains new functions to support working with Digital Ocean projects: <code>as.project</code>, <code>as.url.project</code>, <code>project</code>, <code>projects</code>, <code>project_create</code>, <code>project_delete</code>, <code>project_patch</code>, and <code>project_update</code> (<a href='https://github.com/pachadotdev/analogsea/issues/183'>#183</a>)</li>
 </ul>
 </div>
 <div id="minor-improvements-4" class="section level3">
 <h3 class="hasAnchor">
 <a href="#minor-improvements-4" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
-<li>changed default region from ‘sfo1’ to ‘sfo2’ throughout package (<a href='https://github.com/sckott/analogsea/issues/180'>#180</a>) thanks <a href='https://github.com/patperu'>@patperu</a></li>
+<li>changed default region from ‘sfo1’ to ‘sfo2’ throughout package (<a href='https://github.com/pachadotdev/analogsea/issues/180'>#180</a>) thanks <a href='https://github.com/patperu'>@patperu</a></li>
 <li>
-<code>droplets_create</code> and <code>docklets_create</code>: use <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> instead of <code>NULL</code> as default (<a href='https://github.com/sckott/analogsea/issues/181'>#181</a>)</li>
-<li>fixed <code>print.tag</code> to use <code>last_tagged_uri</code> instead of the defunct <code>last_tagged$id</code> (<a href='https://github.com/sckott/analogsea/issues/182'>#182</a>)</li>
+<code>droplets_create</code> and <code>docklets_create</code>: use <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> instead of <code>NULL</code> as default (<a href='https://github.com/pachadotdev/analogsea/issues/181'>#181</a>)</li>
+<li>fixed <code>print.tag</code> to use <code>last_tagged_uri</code> instead of the defunct <code>last_tagged$id</code> (<a href='https://github.com/pachadotdev/analogsea/issues/182'>#182</a>)</li>
 <li>
-<code><a href="../reference/as.volume.html">volume_create()</a></code> gains new parameters <code>filesystem_type</code>, <code>filesystem_label</code>, and <code>tags</code> (<a href='https://github.com/sckott/analogsea/issues/184'>#184</a>)</li>
+<code><a href="../reference/as.volume.html">volume_create()</a></code> gains new parameters <code>filesystem_type</code>, <code>filesystem_label</code>, and <code>tags</code> (<a href='https://github.com/pachadotdev/analogsea/issues/184'>#184</a>)</li>
 </ul>
 </div>
 </div>
@@ -273,19 +273,19 @@
 <h3 class="hasAnchor">
 <a href="#new-features-6" class="anchor"></a>NEW FEATURES</h3>
 <ul>
-<li>Now using package <code>ssh</code> to do ssh operations instead of shelling out via <code>system</code>/etc. (<a href='https://github.com/sckott/analogsea/issues/143'>#143</a>) (<a href='https://github.com/sckott/analogsea/issues/160'>#160</a>) &amp; various fixes for ssh (<a href='https://github.com/sckott/analogsea/issues/154'>#154</a>)</li>
-<li>New functions for working with DO certificates API routes: <code>certificate</code>, <code>certificate_create</code>, <code>certificate_delete</code>, <code>certificates</code>, and <code>as.certificate</code> (<a href='https://github.com/sckott/analogsea/issues/156'>#156</a>)</li>
-<li>New functions for working with DO firewalls API routes: <code>firewall</code>, <code>firewall_add_droplets</code>, <code>firewall_add_tags</code>, <code>firewall_create</code>, <code>firewall_delete</code>, <code>firewall_remove_droplets</code>, <code>firewall_remove_tags</code>, <code>firewall_update</code>, <code>firewalls</code>, and <code>as.firewall</code> (<a href='https://github.com/sckott/analogsea/issues/157'>#157</a>)</li>
+<li>Now using package <code>ssh</code> to do ssh operations instead of shelling out via <code>system</code>/etc. (<a href='https://github.com/pachadotdev/analogsea/issues/143'>#143</a>) (<a href='https://github.com/pachadotdev/analogsea/issues/160'>#160</a>) &amp; various fixes for ssh (<a href='https://github.com/pachadotdev/analogsea/issues/154'>#154</a>)</li>
+<li>New functions for working with DO certificates API routes: <code>certificate</code>, <code>certificate_create</code>, <code>certificate_delete</code>, <code>certificates</code>, and <code>as.certificate</code> (<a href='https://github.com/pachadotdev/analogsea/issues/156'>#156</a>)</li>
+<li>New functions for working with DO firewalls API routes: <code>firewall</code>, <code>firewall_add_droplets</code>, <code>firewall_add_tags</code>, <code>firewall_create</code>, <code>firewall_delete</code>, <code>firewall_remove_droplets</code>, <code>firewall_remove_tags</code>, <code>firewall_update</code>, <code>firewalls</code>, and <code>as.firewall</code> (<a href='https://github.com/pachadotdev/analogsea/issues/157'>#157</a>)</li>
 </ul>
 </div>
 <div id="minor-improvements-5" class="section level3">
 <h3 class="hasAnchor">
 <a href="#minor-improvements-5" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
-<li>Changed default droplet size from “1gb” to “s-1vcpu-2gb” (<a href='https://github.com/sckott/analogsea/issues/149'>#149</a>) (<a href='https://github.com/sckott/analogsea/issues/152'>#152</a>)</li>
-<li>Changed default droplet image from “ubuntu-14-04-x64” (Ubuntu 14) to “ubuntu-18-04-x64” (Ubuntu 18) (<a href='https://github.com/sckott/analogsea/issues/151'>#151</a>)</li>
-<li>fix <code><a href="../reference/docklet_create.html">docklet_create()</a></code> to use by default the image “docker-18-04” instead of “docker” (<a href='https://github.com/sckott/analogsea/issues/174'>#174</a>)</li>
-<li>Add more documentation for how to deal with droplet object not have the IP address. Happens when the DO API tells R that the droplet is up, but they haven’t given us the IP address yet (<a href='https://github.com/sckott/analogsea/issues/166'>#166</a>)</li>
+<li>Changed default droplet size from “1gb” to “s-1vcpu-2gb” (<a href='https://github.com/pachadotdev/analogsea/issues/149'>#149</a>) (<a href='https://github.com/pachadotdev/analogsea/issues/152'>#152</a>)</li>
+<li>Changed default droplet image from “ubuntu-14-04-x64” (Ubuntu 14) to “ubuntu-18-04-x64” (Ubuntu 18) (<a href='https://github.com/pachadotdev/analogsea/issues/151'>#151</a>)</li>
+<li>fix <code><a href="../reference/docklet_create.html">docklet_create()</a></code> to use by default the image “docker-18-04” instead of “docker” (<a href='https://github.com/pachadotdev/analogsea/issues/174'>#174</a>)</li>
+<li>Add more documentation for how to deal with droplet object not have the IP address. Happens when the DO API tells R that the droplet is up, but they haven’t given us the IP address yet (<a href='https://github.com/pachadotdev/analogsea/issues/166'>#166</a>)</li>
 <li>Package gains new manual page <code><a href="../reference/droplet_functions.html">?droplet_functions</a></code> to help the user navigate the many functions for working with the DO API</li>
 <li>
 <code>droplet_ssh</code> gains new parameters <code>keyfile</code> and <code>ssh_passwd</code> for specifying the user’s optional private key file, and the optional passphrase or callback function for authentication</li>
@@ -295,8 +295,8 @@
 <h3 class="hasAnchor">
 <a href="#bug-fixes-1" class="anchor"></a>BUG FIXES</h3>
 <ul>
-<li>fix to user and password params for <code><a href="../reference/docklet_create.html">docklet_rstudio()</a></code>: at first thanks <a href='https://github.com/nielsaka'>@nielsaka</a> for (<a href='https://github.com/sckott/analogsea/issues/170'>#170</a>) (<a href='https://github.com/sckott/analogsea/issues/171'>#171</a>) but then we decided better to go with (<a href='https://github.com/sckott/analogsea/issues/172'>#172</a>) and make both params required with no default so the user is forced to set their own values</li>
-<li>Change default value for <code>ssh_keys</code> param in <code><a href="../reference/droplet_create.html">droplet_create()</a></code> and related functions to <code>NULL</code> (<a href='https://github.com/sckott/analogsea/issues/144'>#144</a>)</li>
+<li>fix to user and password params for <code><a href="../reference/docklet_create.html">docklet_rstudio()</a></code>: at first thanks <a href='https://github.com/nielsaka'>@nielsaka</a> for (<a href='https://github.com/pachadotdev/analogsea/issues/170'>#170</a>) (<a href='https://github.com/pachadotdev/analogsea/issues/171'>#171</a>) but then we decided better to go with (<a href='https://github.com/pachadotdev/analogsea/issues/172'>#172</a>) and make both params required with no default so the user is forced to set their own values</li>
+<li>Change default value for <code>ssh_keys</code> param in <code><a href="../reference/droplet_create.html">droplet_create()</a></code> and related functions to <code>NULL</code> (<a href='https://github.com/pachadotdev/analogsea/issues/144'>#144</a>)</li>
 </ul>
 </div>
 </div>
@@ -309,34 +309,34 @@
 <a href="#new-features-7" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>
-<code>as.key</code> function changed to <code>as.sshkey</code> to avoid collision with <code>openssl</code> package (<a href='https://github.com/sckott/analogsea/issues/126'>#126</a>)</li>
-<li>Gains new functions <code>domain_record_update</code> to update a domain record and <code>domain_record</code> to get a domain record by id (<a href='https://github.com/sckott/analogsea/issues/124'>#124</a>)</li>
+<code>as.key</code> function changed to <code>as.sshkey</code> to avoid collision with <code>openssl</code> package (<a href='https://github.com/pachadotdev/analogsea/issues/126'>#126</a>)</li>
+<li>Gains new functions <code>domain_record_update</code> to update a domain record and <code>domain_record</code> to get a domain record by id (<a href='https://github.com/pachadotdev/analogsea/issues/124'>#124</a>)</li>
 <li>
-<code>domain_record_create</code> gains paramater <code>ttl</code> for time to live for the domain record, in seconds (<a href='https://github.com/sckott/analogsea/issues/124'>#124</a>)</li>
+<code>domain_record_create</code> gains paramater <code>ttl</code> for time to live for the domain record, in seconds (<a href='https://github.com/pachadotdev/analogsea/issues/124'>#124</a>)</li>
 </ul>
 </div>
 <div id="minor-improvements-6" class="section level3">
 <h3 class="hasAnchor">
 <a href="#minor-improvements-6" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
-<li>Fixed some typos (<a href='https://github.com/sckott/analogsea/issues/131'>#131</a>) thanks <a href='https://github.com/patperu'>@patperu</a></li>
+<li>Fixed some typos (<a href='https://github.com/pachadotdev/analogsea/issues/131'>#131</a>) thanks <a href='https://github.com/patperu'>@patperu</a></li>
 <li>
-<code>docklet_rstudio</code>, <code>docklet_shinyserver</code>, and <code>docklet_shinyapp</code> now return a droplet instead of a URL so they can be piped - docs now contain how to construct the URL for the rstudio or shiny server instance in case user sets <code>browse = FALSE</code> (<a href='https://github.com/sckott/analogsea/issues/134'>#134</a>)</li>
+<code>docklet_rstudio</code>, <code>docklet_shinyserver</code>, and <code>docklet_shinyapp</code> now return a droplet instead of a URL so they can be piped - docs now contain how to construct the URL for the rstudio or shiny server instance in case user sets <code>browse = FALSE</code> (<a href='https://github.com/pachadotdev/analogsea/issues/134'>#134</a>)</li>
 <li>
-<code>domain_record_create</code> and <code>domain_record_update</code> gain parameters <code>flags</code> and <code>tag</code> for CAA support for Domain Record resources (<a href='https://github.com/sckott/analogsea/issues/137'>#137</a>)</li>
+<code>domain_record_create</code> and <code>domain_record_update</code> gain parameters <code>flags</code> and <code>tag</code> for CAA support for Domain Record resources (<a href='https://github.com/pachadotdev/analogsea/issues/137'>#137</a>)</li>
 <li>
-<code>docklet_images</code> gets an <code>all</code> param, with default value of <code>TRUE</code> (<a href='https://github.com/sckott/analogsea/issues/135'>#135</a>)</li>
-<li>Added examples to docs for how to install specific R versions easily with docker, see <code><a href="../reference/docklet_create.html">?docklet_create</a></code> (<a href='https://github.com/sckott/analogsea/issues/106'>#106</a>)</li>
+<code>docklet_images</code> gets an <code>all</code> param, with default value of <code>TRUE</code> (<a href='https://github.com/pachadotdev/analogsea/issues/135'>#135</a>)</li>
+<li>Added examples to docs for how to install specific R versions easily with docker, see <code><a href="../reference/docklet_create.html">?docklet_create</a></code> (<a href='https://github.com/pachadotdev/analogsea/issues/106'>#106</a>)</li>
 </ul>
 </div>
 <div id="bug-fixes-2" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bug-fixes-2" class="anchor"></a>BUG FIXES</h3>
 <ul>
-<li>Fix to <code>droplet_create</code>: it couldn’t generate a random name without first loading the package via <code>library</code> (<a href='https://github.com/sckott/analogsea/issues/125'>#125</a>) thanks <a href='https://github.com/trestletech'>@trestletech</a></li>
+<li>Fix to <code>droplet_create</code>: it couldn’t generate a random name without first loading the package via <code>library</code> (<a href='https://github.com/pachadotdev/analogsea/issues/125'>#125</a>) thanks <a href='https://github.com/trestletech'>@trestletech</a></li>
 <li>
-<code>debian_add_swap</code> adds swap memory, but was not persisted across reboots. fixed now (<a href='https://github.com/sckott/analogsea/issues/127'>#127</a>) thanks <a href='https://github.com/trestletech'>@trestletech</a></li>
-<li>In <code>droplet_create</code>, the parameters <code>ssh_keys</code> and <code>tags</code> now default to <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> instead of <code>NULL</code> as they path pass to <code><a href="https://rdrr.io/r/base/AsIs.html">I()</a></code> that warns now on <code>NULL</code> (<a href='https://github.com/sckott/analogsea/issues/129'>#129</a>)</li>
+<code>debian_add_swap</code> adds swap memory, but was not persisted across reboots. fixed now (<a href='https://github.com/pachadotdev/analogsea/issues/127'>#127</a>) thanks <a href='https://github.com/trestletech'>@trestletech</a></li>
+<li>In <code>droplet_create</code>, the parameters <code>ssh_keys</code> and <code>tags</code> now default to <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> instead of <code>NULL</code> as they path pass to <code><a href="https://rdrr.io/r/base/AsIs.html">I()</a></code> that warns now on <code>NULL</code> (<a href='https://github.com/pachadotdev/analogsea/issues/129'>#129</a>)</li>
 </ul>
 </div>
 <div id="deprecated-and-defunct" class="section level3">
@@ -344,7 +344,7 @@
 <a href="#deprecated-and-defunct" class="anchor"></a>DEPRECATED AND DEFUNCT</h3>
 <ul>
 <li>
-<code>tag_rename</code> is now defunct as is you can no longer rename tags (<a href='https://github.com/sckott/analogsea/issues/123'>#123</a>)</li>
+<code>tag_rename</code> is now defunct as is you can no longer rename tags (<a href='https://github.com/pachadotdev/analogsea/issues/123'>#123</a>)</li>
 </ul>
 </div>
 </div>
@@ -356,17 +356,17 @@
 <h3 class="hasAnchor">
 <a href="#new-features-8" class="anchor"></a>NEW FEATURES</h3>
 <ul>
-<li>New function <code><a href="../reference/docklets_create.html">docklets_create()</a></code> to create many docklets at once (similar to <code><a href="../reference/droplets_create.html">droplets_create()</a></code>) (<a href='https://github.com/sckott/analogsea/issues/120'>#120</a>)</li>
-<li>New volumes methods for the new block storage (aka volumes): <code>volume</code>, <code>volume_action</code>, <code>volume_actions</code>, <code>volume_attach</code>, <code>volume_create</code>, <code>volume_delete</code>, <code>volume_detach</code>, <code>volume_resize</code>, <code>volume_snapshot_create</code>, <code>volume_snapshots</code>, <code>volumes</code>, <code>as.volume</code> (<a href='https://github.com/sckott/analogsea/issues/121'>#121</a>)</li>
-<li>New methods for new unified snapshots DO endpoints: <code>snapshot</code>, <code>snapshots</code>, <code>snapshot_delete</code>, and <code>as.shapshot</code> (<a href='https://github.com/sckott/analogsea/issues/121'>#121</a>)</li>
+<li>New function <code><a href="../reference/docklets_create.html">docklets_create()</a></code> to create many docklets at once (similar to <code><a href="../reference/droplets_create.html">droplets_create()</a></code>) (<a href='https://github.com/pachadotdev/analogsea/issues/120'>#120</a>)</li>
+<li>New volumes methods for the new block storage (aka volumes): <code>volume</code>, <code>volume_action</code>, <code>volume_actions</code>, <code>volume_attach</code>, <code>volume_create</code>, <code>volume_delete</code>, <code>volume_detach</code>, <code>volume_resize</code>, <code>volume_snapshot_create</code>, <code>volume_snapshots</code>, <code>volumes</code>, <code>as.volume</code> (<a href='https://github.com/pachadotdev/analogsea/issues/121'>#121</a>)</li>
+<li>New methods for new unified snapshots DO endpoints: <code>snapshot</code>, <code>snapshots</code>, <code>snapshot_delete</code>, and <code>as.shapshot</code> (<a href='https://github.com/pachadotdev/analogsea/issues/121'>#121</a>)</li>
 </ul>
 </div>
 <div id="minor-improvements-7" class="section level3">
 <h3 class="hasAnchor">
 <a href="#minor-improvements-7" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
-<li>You can now pass <code>tags</code> to the parameter of the same name when creating droplets, with either <code>droplet_create</code>, <code>droplets_create</code>, <code>docklet_create</code>, or <code>docklets_create</code>. The tags can be existing ones, or if not they will be created (<a href='https://github.com/sckott/analogsea/issues/122'>#122</a>)</li>
-<li>Added more help on ssh keys to pkg level man file and to vignette (<a href='https://github.com/sckott/analogsea/issues/115'>#115</a>)</li>
+<li>You can now pass <code>tags</code> to the parameter of the same name when creating droplets, with either <code>droplet_create</code>, <code>droplets_create</code>, <code>docklet_create</code>, or <code>docklets_create</code>. The tags can be existing ones, or if not they will be created (<a href='https://github.com/pachadotdev/analogsea/issues/122'>#122</a>)</li>
+<li>Added more help on ssh keys to pkg level man file and to vignette (<a href='https://github.com/pachadotdev/analogsea/issues/115'>#115</a>)</li>
 </ul>
 </div>
 </div>
@@ -378,11 +378,11 @@
 <h3 class="hasAnchor">
 <a href="#new-features-9" class="anchor"></a>NEW FEATURES</h3>
 <ul>
-<li>Suite of new functions for tags: <code><a href="../reference/tags.html">tag()</a></code>, <code><a href="../reference/tag_create.html">tag_create()</a></code>, <code><a href="../reference/tag_delete.html">tag_delete()</a></code>, <code><a href="../reference/tag_rename.html">tag_rename()</a></code>, <code><a href="../reference/tag_resource.html">tag_resource()</a></code>, <code><a href="../reference/tag_resource_delete.html">tag_resource_delete()</a></code>, <code><a href="../reference/tags.html">tags()</a></code>, and <code><a href="../reference/tags.html">as.tag()</a></code> (<a href='https://github.com/sckott/analogsea/issues/117'>#117</a>)</li>
+<li>Suite of new functions for tags: <code><a href="../reference/tags.html">tag()</a></code>, <code><a href="../reference/tag_create.html">tag_create()</a></code>, <code><a href="../reference/tag_delete.html">tag_delete()</a></code>, <code><a href="../reference/tag_rename.html">tag_rename()</a></code>, <code><a href="../reference/tag_resource.html">tag_resource()</a></code>, <code><a href="../reference/tag_resource_delete.html">tag_resource_delete()</a></code>, <code><a href="../reference/tags.html">tags()</a></code>, and <code><a href="../reference/tags.html">as.tag()</a></code> (<a href='https://github.com/pachadotdev/analogsea/issues/117'>#117</a>)</li>
 <li>Related to last bulllet: <code><a href="../reference/droplet_delete.html">droplet_delete()</a></code> gains new parameter <code>tag</code>; <code><a href="../reference/droplets.html">droplets()</a></code> gains new parameter <code>tag</code>, and examples added to its man file for tag usage.</li>
-<li>New functions <code><a href="../reference/docklet_create.html">docklet_shinyserver()</a></code> and <code><a href="../reference/docklet_create.html">docklet_shinyapp()</a></code> to spin up Shiny server and a Shiny app, respectively. (<a href='https://github.com/sckott/analogsea/issues/100'>#100</a>)</li>
-<li>New function <code><a href="../reference/droplet_action.html">droplet_enable_backups()</a></code> (<a href='https://github.com/sckott/analogsea/issues/110'>#110</a>)</li>
-<li>New function <code><a href="../reference/droplets_create.html">droplets_create()</a></code> to create many droplets at once (<a href='https://github.com/sckott/analogsea/issues/112'>#112</a>)</li>
+<li>New functions <code><a href="../reference/docklet_create.html">docklet_shinyserver()</a></code> and <code><a href="../reference/docklet_create.html">docklet_shinyapp()</a></code> to spin up Shiny server and a Shiny app, respectively. (<a href='https://github.com/pachadotdev/analogsea/issues/100'>#100</a>)</li>
+<li>New function <code><a href="../reference/droplet_action.html">droplet_enable_backups()</a></code> (<a href='https://github.com/pachadotdev/analogsea/issues/110'>#110</a>)</li>
+<li>New function <code><a href="../reference/droplets_create.html">droplets_create()</a></code> to create many droplets at once (<a href='https://github.com/pachadotdev/analogsea/issues/112'>#112</a>)</li>
 <li>New function <code><a href="../reference/droplets_cost.html">droplets_cost()</a></code> to calculate cost of droplets across one or more droplets.</li>
 </ul>
 </div>
@@ -390,7 +390,7 @@
 <h3 class="hasAnchor">
 <a href="#minor-improvements-8" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
-<li>Added <code>floating_ip_limit</code> field to <code><a href="../reference/account.html">account()</a></code> print method (<a href='https://github.com/sckott/analogsea/issues/111'>#111</a>)</li>
+<li>Added <code>floating_ip_limit</code> field to <code><a href="../reference/account.html">account()</a></code> print method (<a href='https://github.com/pachadotdev/analogsea/issues/111'>#111</a>)</li>
 <li>Improved description of <code>name</code> parameter for <code><a href="../reference/droplet_create.html">droplet_create()</a></code> and <code><a href="../reference/docklet_create.html">docklet_create()</a></code>
 </li>
 </ul>
@@ -399,10 +399,10 @@
 <h3 class="hasAnchor">
 <a href="#bug-fixes-3" class="anchor"></a>BUG FIXES</h3>
 <ul>
-<li>Fixed problem with <code><a href="../reference/docklet_create.html">docklet_create()</a></code> when port 22 is not open before further action is taken on the droplet. We now check if port 22 is open and error with informative message about waiting a bit for it to open (<a href='https://github.com/sckott/analogsea/issues/113'>#113</a>) thanks <a href='https://github.com/fmichonneau'>@fmichonneau</a> <a href='https://github.com/hrbrmstr'>@hrbrmstr</a></li>
-<li>Fixed problem in the <code>print.droplet</code> due to problem in <code><a href="../reference/droplet_ip.html">droplet_ip()</a></code> internal function (<a href='https://github.com/sckott/analogsea/issues/109'>#109</a>)</li>
-<li>Fix to <code>*_create</code> to allow flexibility in how often DO API is pinged. Previously we pinged every second, meaning you could hit your API rate limit fastish. Now you can set an option <code>do.wait_time</code> to tweak time bewtween pings to check for droplet creation (or other actions). for example of doing droplet creation in parallel. (<a href='https://github.com/sckott/analogsea/issues/108'>#108</a>) thanks <a href='https://github.com/simecek'>@simecek</a> !</li>
-<li>Fixed parsing bug in <code><a href="../reference/sizes.html">sizes()</a></code> (<a href='https://github.com/sckott/analogsea/issues/119'>#119</a>)</li>
+<li>Fixed problem with <code><a href="../reference/docklet_create.html">docklet_create()</a></code> when port 22 is not open before further action is taken on the droplet. We now check if port 22 is open and error with informative message about waiting a bit for it to open (<a href='https://github.com/pachadotdev/analogsea/issues/113'>#113</a>) thanks <a href='https://github.com/fmichonneau'>@fmichonneau</a> <a href='https://github.com/hrbrmstr'>@hrbrmstr</a></li>
+<li>Fixed problem in the <code>print.droplet</code> due to problem in <code><a href="../reference/droplet_ip.html">droplet_ip()</a></code> internal function (<a href='https://github.com/pachadotdev/analogsea/issues/109'>#109</a>)</li>
+<li>Fix to <code>*_create</code> to allow flexibility in how often DO API is pinged. Previously we pinged every second, meaning you could hit your API rate limit fastish. Now you can set an option <code>do.wait_time</code> to tweak time bewtween pings to check for droplet creation (or other actions). for example of doing droplet creation in parallel. (<a href='https://github.com/pachadotdev/analogsea/issues/108'>#108</a>) thanks <a href='https://github.com/simecek'>@simecek</a> !</li>
+<li>Fixed parsing bug in <code><a href="../reference/sizes.html">sizes()</a></code> (<a href='https://github.com/pachadotdev/analogsea/issues/119'>#119</a>)</li>
 </ul>
 </div>
 </div>
