@@ -19,9 +19,9 @@ Authors@R: c(
     person("RStudio", role = "cph")
     )
 License: Apache License (>= 2)
-URL: https://github.com/sckott/analogsea (devel)
-    https://sckott.github.io/analogsea/ (docs)
-BugReports: https://github.com/sckott/analogsea/issues
+URL: https://github.com/pachadotdev/analogsea (devel)
+    https://pacha.dev/analogsea/ (docs)
+BugReports: https://github.com/pachadotdev/analogsea/issues
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)

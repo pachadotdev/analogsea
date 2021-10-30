@@ -10,8 +10,8 @@ Working with the Digital Ocean API
 
 ## Create a DO account
 
-If you don't already have one, [create a DO account](https://www.digitalocean.com/?refcode=0740f5169634).
-By using this link, you'll start with $10 in credits (enough for >600 hours of
+If you don't already have one, [create a DO account](https://m.do.co/c/6119f0430dad).
+By using this link, you'll start with $100 in credits (enough for >1000 hours of
 computing on a 1 gb machine), and if you become a digital ocean customer we'll
 get some DO credits for us to offset our costs for testing. Thanks :)
 

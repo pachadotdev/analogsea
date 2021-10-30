@@ -7,16 +7,17 @@
   "identifier": "analogsea",
   "description": "Provides a set of functions for interacting with the 'Digital\n    Ocean' API <https://www.digitalocean.com/>, including\n    creating images, destroying them, rebooting, getting details on regions, and\n    available images.",
   "name": "analogsea: Interface to 'Digital Ocean'",
-  "codeRepository": "https://github.com/sckott/analogsea",
-  "issueTracker": "https://github.com/sckott/analogsea/issues",
-  "license": "https://spdx.org/licenses/MIT",
-  "version": "1.0.0",
+  "codeRepository": "https://github.com/pachadotdev/analogsea",
+  "relatedLink": "https://pacha.dev/analogsea/",
+  "issueTracker": "https://github.com/pachadotdev/analogsea/issues",
+  "license": "Apache License 2",
+  "version": "1.0.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.1.0 (2021-05-18)",
+  "runtimePlatform": "R version 4.1.1 (2021-08-10)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -42,6 +43,13 @@
       "givenName": "Winston",
       "familyName": "Chang",
       "email": "winston@stdout.org"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Mauricio",
+      "familyName": "Vargas",
+      "email": "mavargas11@uc.cl",
+      "@id": "https://orcid.org/0000-0003-1017-7574"
     }
   ],
   "contributor": [
@@ -69,10 +77,10 @@
   "maintainer": [
     {
       "@type": "Person",
-      "givenName": "Scott",
-      "familyName": "Chamberlain",
-      "email": "myrmecocystus@gmail.com",
-      "@id": "https://orcid.org/0000-0003-1444-9135"
+      "givenName": "Mauricio",
+      "familyName": "Vargas",
+      "email": "mavargas11@uc.cl",
+      "@id": "https://orcid.org/0000-0003-1017-7574"
     }
   ],
   "softwareSuggestions": [
@@ -188,17 +196,14 @@
       "sameAs": "https://CRAN.R-project.org/package=yaml"
     }
   ],
-  "releaseNotes": "https://github.com/sckott/analogsea/blob/master/NEWS.md",
-  "readme": "https://github.com/sckott/analogsea/blob/master/README.md",
-  "fileSize": "331.391KB",
+  "releaseNotes": "https://github.com/pachadotdev/analogsea/blob/master/NEWS.md",
+  "readme": "https://github.com/pachadotdev/analogsea/blob/master/README.md",
+  "fileSize": "352.111KB",
+  "contIntegration": ["https://codecov.io/github/pachadotdev/analogsea?branch=master", "https://github.com/pachadotdev/analogsea/actions/workflows/R-CMD-check.yml"],
   "keywords": [
     "cloud-computing",
     "rstats",
     "droplet",
     "ssh"
-  ],
-  "relatedLink": [
-    "https://analogsea.icu/",
-    "https://sckott.github.io/analogsea/"
   ]
 }

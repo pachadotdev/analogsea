@@ -10,7 +10,7 @@
 
 ## Reverse dependencies
 
-* I have run R CMD check on the 2 reverse dependencies. Reverse dependency checks at <https://github.com/sckott/analogsea/tree/master/revdep>. No problems were found related to this package.
+* I have run R CMD check on the 2 reverse dependencies. Reverse dependency checks at <https://github.com/pachadotdev/analogsea/tree/master/revdep>. No problems were found related to this package.
 
 ---
 

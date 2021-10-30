@@ -5,6 +5,7 @@ analogsea
 [![rstudio mirror downloads](https://cranlogs.r-pkg.org/badges/analogsea)](https://github.com/r-hub/cranlogs.app)
 [![cran version](https://www.r-pkg.org/badges/version/analogsea)](https://cran.r-project.org/package=analogsea)
 [![R-CMD-check](https://github.com/pachadotdev/analogsea/actions/workflows/R-CMD-check.yml/badge.svg)](https://github.com/pachadotdev/analogsea/actions/workflows/R-CMD-check.yml)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 
 <img src="https://raw.githubusercontent.com/pachadotdev/analogsea/gh-pages/analogsea.svg" width=150 align="center" alt="sticker"/>
 
@@ -35,7 +36,7 @@ install.packages("analogsea")
 Development version from GitHub
 
 ```r
-remotes::install_github("sckott/analogsea")
+remotes::install_github("pachadotdev/analogsea")
 ```
 
 ```r
@@ -176,4 +177,4 @@ This will install R, RStudio Server and it's dependencies. It will automatically
 
 ## Meta
 
-Please note that this project is released with a [Contributor Code of Conduct](https://github.com/sckott/analogsea/blob/master/CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+Please note that this project is released with a [Contributor Code of Conduct](https://github.com/pachadotdev/analogsea/blob/master/CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
