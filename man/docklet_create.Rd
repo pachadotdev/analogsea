@@ -104,7 +104,8 @@ docklet_shinyserver(
   volume = "",
   dir = "",
   browse = TRUE,
-  ssh_user = "root"
+  ssh_user = "root",
+  keyfile = NULL
 )
 
 docklet_shinyapp(
@@ -114,7 +115,8 @@ docklet_shinyapp(
   port = "80",
   dir = "",
   browse = TRUE,
-  ssh_user = "root"
+  ssh_user = "root",
+  keyfile = NULL
 )
 }
 \arguments{

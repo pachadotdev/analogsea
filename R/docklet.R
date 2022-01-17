@@ -56,11 +56,11 @@
 #' instance, you can construct like \code{http://<ip address>:<port>} where
 #' IP address can most likely be found like \code{d$networks$v4[[1]]$ip_address}
 #' and the port is the port you set in the function call.
-#' 
+#'
 #' @section Managing Docker containers from R:
 #' There's a few things to be note about managing Docker containers from
 #' analogsea:
-#' 
+#'
 #' - To see running containers run `docklet_ps(d)`
 #' - To get get logs run `droplet_ssh(d, "docker logs <container ID>")`
 #' - To get a continuous feed of the logs run
@@ -71,7 +71,7 @@
 #' - To install R package dependencies for a Shiny app, or similar, run
 #' `droplet_ssh(d, "docker exec <ID> R -e 'install.packages(\"pkg-name\")'")`
 #' where `d` is your droplet object and `<ID>` is the docker container ID
-#'  
+#'
 #' @template dropid
 #'
 #' @examples
@@ -169,25 +169,25 @@ docklet_images <- function(droplet, all = TRUE, ssh_user = "root") {
 #' @export
 #' @rdname docklet_create
 docklet_pull <- function(droplet, repo, ssh_user = "root", keyfile = NULL,
-  ssh_passwd = NULL, verbose = FALSE) {
+                         ssh_passwd = NULL, verbose = FALSE) {
 
   docklet_docker(droplet, "pull", repo, ssh_user = ssh_user,
-    keyfile = keyfile, ssh_passwd = ssh_passwd, verbose = verbose)
+                 keyfile = keyfile, ssh_passwd = ssh_passwd, verbose = verbose)
 }
 
 #' @export
 #' @rdname docklet_create
 docklet_run <- function(droplet, ..., rm = FALSE, name = NULL,
-  ssh_user = "root", keyfile = NULL, ssh_passwd = NULL, verbose = FALSE) {
+                        ssh_user = "root", keyfile = NULL, ssh_passwd = NULL, verbose = FALSE) {
 
   docklet_docker(droplet,
-    "run", c(
-      if (rm) " --rm",
-      if (!is.null(name)) paste0(" --name=", name),
-      ...
-    ),
-    ssh_user = ssh_user, keyfile = keyfile, ssh_passwd = ssh_passwd,
-    verbose = verbose
+                 "run", c(
+                   if (rm) " --rm",
+                   if (!is.null(name)) paste0(" --name=", name),
+                   ...
+                 ),
+                 ssh_user = ssh_user, keyfile = keyfile, ssh_passwd = ssh_passwd,
+                 verbose = verbose
   )
 }
 
@@ -207,7 +207,7 @@ docklet_rm <- function(droplet, container, ssh_user = "root") {
 #' @export
 #' @rdname docklet_create
 docklet_docker <- function(droplet, cmd, args = NULL, docker_args = NULL,
-  ssh_user = "root", keyfile = NULL, ssh_passwd = NULL, verbose = FALSE) {
+                           ssh_user = "root", keyfile = NULL, ssh_passwd = NULL, verbose = FALSE) {
 
   check_for_a_pkg("ssh")
   args <- paste(args, collapse = " ")
@@ -221,9 +221,9 @@ docklet_docker <- function(droplet, cmd, args = NULL, docker_args = NULL,
 #' @export
 #' @rdname docklet_create
 docklet_rstudio <- function(droplet, user, password,
-  email = 'rstudio@example.com', img = 'rocker/rstudio', port = '8787',
-  volume = '', dir = '', browse = TRUE, add_users = FALSE,
-  ssh_user = "root", keyfile = NULL, ssh_passwd = NULL, verbose = FALSE) {
+                            email = 'rstudio@example.com', img = 'rocker/rstudio', port = '8787',
+                            volume = '', dir = '', browse = TRUE, add_users = FALSE,
+                            ssh_user = "root", keyfile = NULL, ssh_passwd = NULL, verbose = FALSE) {
 
   if (missing(user)) stop("'user' is required")
   if (missing(password)) stop("'password' is required")
@@ -231,20 +231,20 @@ docklet_rstudio <- function(droplet, user, password,
   droplet <- as.droplet(droplet)
 
   docklet_pull(droplet, img, ssh_user, keyfile = keyfile,
-    ssh_passwd = ssh_passwd, verbose = verbose)
+               ssh_passwd = ssh_passwd, verbose = verbose)
   docklet_run(droplet,
-    " -d",
-    " -p ", paste0(port, ":8787"),
-    cn(" -v ", volume),
-    cn(" -w", dir),
-    paste0(" -e USER=", user),
-    paste0(" -e PASSWORD=", password),
-    paste0(" -e EMAIL=", email), " ",
-    img,
-    ifelse(add_users, ' bash -c "add-students && supervisord" ', ' '),
-    ssh_user = ssh_user,
-    keyfile = keyfile,
-    ssh_passwd = ssh_passwd
+              " -d",
+              " -p ", paste0(port, ":8787"),
+              cn(" -v ", volume),
+              cn(" -w", dir),
+              paste0(" -e USER=", user),
+              paste0(" -e PASSWORD=", password),
+              paste0(" -e EMAIL=", email), " ",
+              img,
+              ifelse(add_users, ' bash -c "add-students && supervisord" ', ' '),
+              ssh_user = ssh_user,
+              keyfile = keyfile,
+              ssh_passwd = ssh_passwd
   )
 
   url <- sprintf("http://%s:%s/", droplet_ip(droplet), port)
@@ -259,8 +259,8 @@ docklet_rstudio <- function(droplet, user, password,
 #' @export
 #' @rdname docklet_create
 docklet_rstudio_addusers <- function(droplet, user, password,
-  img = 'rocker/rstudio', port = '8787', ssh_user = "root", keyfile = NULL,
-  ssh_passwd = NULL, verbose = FALSE) {
+                                     img = 'rocker/rstudio', port = '8787', ssh_user = "root", keyfile = NULL,
+                                     ssh_passwd = NULL, verbose = FALSE) {
 
   check_for_a_pkg("ssh")
   if (missing(user)) stop("'user' is required")
@@ -270,7 +270,7 @@ docklet_rstudio_addusers <- function(droplet, user, password,
 
   # check if rstudio container already running, shut down if up
   cons <- docklet_ps_data(droplet, ssh_user = ssh_user,
-    keyfile = keyfile, ssh_passwd = ssh_passwd, verbose = verbose)
+                          keyfile = keyfile, ssh_passwd = ssh_passwd, verbose = verbose)
   id <- cons[ grep("rocker/rstudio:latest", cons$image), "container.id" ]
   if (length(id) > 0) {
     docklet_stop(droplet, container = id)
@@ -293,15 +293,16 @@ docklet_rstudio_addusers <- function(droplet, user, password,
 #' @export
 #' @rdname docklet_create
 docklet_shinyserver <- function(droplet,
-                            img = 'rocker/shiny',
-                            port = '3838',
-                            volume = '',
-                            dir = '',
-                            browse = TRUE,
-                            ssh_user = "root") {
+                                img = 'rocker/shiny',
+                                port = '3838',
+                                volume = '',
+                                dir = '',
+                                browse = TRUE,
+                                ssh_user = "root",
+                                keyfile = NULL) {
   droplet <- as.droplet(droplet)
 
-  docklet_pull(droplet, img, ssh_user)
+  docklet_pull(droplet, img, ssh_user, keyfile = keyfile)
   docklet_run(droplet,
               " -d",
               " -p ", paste0(port, ":3838"),
@@ -309,7 +310,8 @@ docklet_shinyserver <- function(droplet,
               cn(" -w", dir),
               " ",
               img,
-              ssh_user = ssh_user
+              ssh_user = ssh_user,
+              keyfile = keyfile
   )
 
   url <- sprintf("http://%s:%s/", droplet_ip(droplet), port)
@@ -329,14 +331,15 @@ docklet_shinyapp <- function(droplet,
                              port = '80',
                              dir = '',
                              browse = TRUE,
-                             ssh_user = "root") {
+                             ssh_user = "root",
+                             keyfile = NULL) {
   check_for_a_pkg("ssh")
   droplet <- as.droplet(droplet)
   # move files to server
-  droplet_ssh(droplet, "mkdir -p /srv/shinyapps")
-  droplet_upload(droplet, path, "/srv/shinyapps/")
+  droplet_ssh(droplet, "mkdir -p /srv/shinyapps", keyfile = keyfile)
+  droplet_upload(droplet, path, "/srv/shinyapps/", keyfile = keyfile)
   # spin up shiny server
   docklet_shinyserver(
     droplet, img, port, volume = '/srv/shinyapps/:/srv/shiny-server/',
-                      dir, browse, ssh_user)
+    dir, browse, ssh_user, keyfile)
 }
