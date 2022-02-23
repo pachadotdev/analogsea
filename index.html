@@ -22,6 +22,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -34,18 +36,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">analogsea</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.2</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="articles/analogsea.html">Get started</a>
 </li>
@@ -58,7 +54,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/pachadotdev/analogsea/">
+  <a href="https://github.com/pachadotdev/analogsea/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -75,9 +71,9 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="analogsea" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#analogsea" class="anchor"></a>analogsea</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="analogsea">analogsea<a class="anchor" aria-label="anchor" href="#analogsea"></a>
+</h1></div>
 
 <p><img src="https://raw.githubusercontent.com/pachadotdev/analogsea/gh-pages/analogsea.svg" width="150" align="center" alt="sticker"></p>
 <p><code>analogsea</code> is an R client for version 2 of the Digital Ocean API. See <code><a href="reference/droplet_functions.html">?droplet_functions</a></code> after loading analogsea. It allows you to programatically create and destroy droplets (remote computers), and install various R related tools:</p>
@@ -88,42 +84,42 @@
 <li>OpenCPU (not yet)</li>
 <li>Use packrat to move a project to a droplet (not yet)</li>
 </ul>
-<p>In addition, it allows you to use a readily available image with RStudio Server, Shiny Server and fully tidyverse from <a href="https://marketplace.digitalocean.com/apps/rstudio">DigitalOcean Marketplace</a>.</p>
-<p>Docs: <a href="https://pacha.dev/analogsea/" class="uri">https://pacha.dev/analogsea/</a>.</p>
-<div id="use-cases" class="section level2">
-<h2 class="hasAnchor">
-<a href="#use-cases" class="anchor"></a>Use cases</h2>
+<p>In addition, it allows you to use a readily available image with RStudio Server, Shiny Server and fully tidyverse from <a href="https://marketplace.digitalocean.com/apps/rstudio" class="external-link">DigitalOcean Marketplace</a>.</p>
+<p>Docs: <a href="https://pacha.dev/analogsea/" class="external-link uri">https://pacha.dev/analogsea/</a>.</p>
+<div class="section level2">
+<h2 id="use-cases">Use cases<a class="anchor" aria-label="anchor" href="#use-cases"></a>
+</h2>
 <ul>
-<li>Andrew Heiss: <a href="https://www.andrewheiss.com/blog/2018/07/30/disposable-supercomputer-future/">Create a cheap, disposable supercomputer with R, DigitalOcean, and future</a>
+<li>Andrew Heiss: <a href="https://www.andrewheiss.com/blog/2018/07/30/disposable-supercomputer-future/" class="external-link">Create a cheap, disposable supercomputer with R, DigitalOcean, and future</a>
 </li>
 </ul>
 </div>
-<div id="install" class="section level2">
-<h2 class="hasAnchor">
-<a href="#install" class="anchor"></a>Install</h2>
+<div class="section level2">
+<h2 id="install">Install<a class="anchor" aria-label="anchor" href="#install"></a>
+</h2>
 <p>Stable version from CRAN</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"analogsea"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"analogsea"</span><span class="op">)</span></code></pre></div>
 <p>Development version from GitHub</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"pachadotdev/analogsea"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"pachadotdev/analogsea"</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/pachadotdev/analogsea">"analogsea"</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/pachadotdev/analogsea" class="external-link">"analogsea"</a></span><span class="op">)</span></code></pre></div>
 </div>
-<div id="create-a-do-account" class="section level2">
-<h2 class="hasAnchor">
-<a href="#create-a-do-account" class="anchor"></a>Create a DO account</h2>
-<p>If you don’t already have one, <a href="https://m.do.co/c/6119f0430dad">create a DO account</a>. By using this link, you’ll start with $100 in credits with a 2 months limit. This is enough for 1440 hours of computing on a machine with 4 GB memory and 2 dedicated CPUs and additional hours to experiment with 1 GB memory machines. Thanks to DigitalOcean for covering the costs for testing!</p>
+<div class="section level2">
+<h2 id="create-a-do-account">Create a DO account<a class="anchor" aria-label="anchor" href="#create-a-do-account"></a>
+</h2>
+<p>If you don’t already have one, <a href="https://m.do.co/c/6119f0430dad" class="external-link">create a DO account</a>. By using this link, you’ll start with $100 in credits with a 2 months limit. This is enough for 1440 hours of computing on a machine with 4 GB memory and 2 dedicated CPUs and additional hours to experiment with 1 GB memory machines. Thanks to DigitalOcean for covering the costs for testing!</p>
 </div>
-<div id="authenticate" class="section level2">
-<h2 class="hasAnchor">
-<a href="#authenticate" class="anchor"></a>Authenticate</h2>
-<p>The best way to authenticate is to generate a personal access token (<a href="https://cloud.digitalocean.com/settings/tokens/new" class="uri">https://cloud.digitalocean.com/settings/tokens/new</a>) and save it in an environment variable called <code>DO_PAT</code>. If you don’t do this, you’ll be prompted to authenticate in your browser the first time you use analogsea.</p>
-<p>Make sure you provide digitial ocean your public key at <a href="https://cloud.digitalocean.com/ssh_keys" class="uri">https://cloud.digitalocean.com/ssh_keys</a>. Github has some good advice on creating a new public key if you don’t already have one: <a href="https://help.github.com/articles/generating-ssh-keys/" class="uri">https://help.github.com/articles/generating-ssh-keys/</a>.</p>
+<div class="section level2">
+<h2 id="authenticate">Authenticate<a class="anchor" aria-label="anchor" href="#authenticate"></a>
+</h2>
+<p>The best way to authenticate is to generate a personal access token (<a href="https://cloud.digitalocean.com/settings/tokens/new" class="external-link uri">https://cloud.digitalocean.com/settings/tokens/new</a>) and save it in an environment variable called <code>DO_PAT</code>. If you don’t do this, you’ll be prompted to authenticate in your browser the first time you use analogsea.</p>
+<p>Make sure you provide digitial ocean your public key at <a href="https://cloud.digitalocean.com/ssh_keys" class="external-link uri">https://cloud.digitalocean.com/ssh_keys</a>. Github has some good advice on creating a new public key if you don’t already have one: <a href="https://help.github.com/articles/generating-ssh-keys/" class="external-link uri">https://help.github.com/articles/generating-ssh-keys/</a>.</p>
 </div>
-<div id="get-droplets" class="section level2">
-<h2 class="hasAnchor">
-<a href="#get-droplets" class="anchor"></a>Get droplets</h2>
+<div class="section level2">
+<h2 id="get-droplets">Get droplets<a class="anchor" aria-label="anchor" href="#get-droplets"></a>
+</h2>
 <p>All droplets</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/droplets.html">droplets</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -150,9 +146,9 @@
 <span id="cb7-4"><a href="#cb7-4"></a>  Image<span class="op">:</span><span class="st"> </span>Ubuntu <span class="fl">14.04</span> x64</span>
 <span id="cb7-5"><a href="#cb7-5"></a>  Size<span class="op">:</span><span class="st"> </span>512mb (<span class="op">$</span><span class="fl">0.00744</span> <span class="op">/</span><span class="st"> </span>hr)</span></code></pre></div>
 </div>
-<div id="spin-up-a-new-droplet" class="section level2">
-<h2 class="hasAnchor">
-<a href="#spin-up-a-new-droplet" class="anchor"></a>Spin up a new droplet</h2>
+<div class="section level2">
+<h2 id="spin-up-a-new-droplet">Spin up a new droplet<a class="anchor" aria-label="anchor" href="#spin-up-a-new-droplet"></a>
+</h2>
 <p>To make this as dead simple as possible, you just use one function, without any parameters.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/droplet_create.html">droplet_create</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -164,124 +160,133 @@
 <span id="cb9-6"><a href="#cb9-6"></a>  Image<span class="op">:</span><span class="st"> </span>Ubuntu <span class="fl">14.04</span> x64</span>
 <span id="cb9-7"><a href="#cb9-7"></a>  Size<span class="op">:</span><span class="st"> </span>512mb (<span class="op">$</span><span class="fl">0.00744</span> <span class="op">/</span><span class="st"> </span>hr)</span></code></pre></div>
 <p>You can of course pass in lots of options for name of the droplet, RAM size, disk size, ssh keys, etc. See <code><a href="reference/regions.html">regions()</a></code> and <code><a href="reference/sizes.html">sizes()</a></code> to list available regions and sizes.</p>
-<div id="delete-a-droplet" class="section level3">
-<h3 class="hasAnchor">
-<a href="#delete-a-droplet" class="anchor"></a>Delete a droplet</h3>
+<div class="section level3">
+<h3 id="delete-a-droplet">Delete a droplet<a class="anchor" aria-label="anchor" href="#delete-a-droplet"></a>
+</h3>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/droplet_delete.html">droplet_delete</a></span><span class="op">(</span><span class="fl">1707487</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
-<div id="chaining" class="section level2">
-<h2 class="hasAnchor">
-<a href="#chaining" class="anchor"></a>Chaining</h2>
-<p>Most of the <code>droplet_*</code> functions can be chained together using the <code><a href="reference/%&gt;%.html">%&gt;%</a></code> function. For example, you can turn a droplet off, snapshot, and then turn it back on with:</p>
+<div class="section level2">
+<h2 id="chaining">Chaining<a class="anchor" aria-label="anchor" href="#chaining"></a>
+</h2>
+<p>Most of the <code>droplet_*</code> functions can be chained together using the <code>%&gt;%</code> function. For example, you can turn a droplet off, snapshot, and then turn it back on with:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>d <span class="op">%&gt;%</span></span>
 <span id="cb11-2"><a href="#cb11-2"></a><span class="st">   </span><span class="kw">droplet_power_off</span>() <span class="op">%&gt;%</span></span>
 <span id="cb11-3"><a href="#cb11-3"></a><span class="st">   </span><span class="kw">droplet_snapshot</span>() <span class="op">%&gt;%</span></span>
 <span id="cb11-4"><a href="#cb11-4"></a><span class="st">   </span><span class="kw">droplet_power_on</span>() <span class="op">%&gt;%</span></span></code></pre></div>
 </div>
-<div id="rrstudio" class="section level2">
-<h2 class="hasAnchor">
-<a href="#rrstudio" class="anchor"></a>R/RStudio</h2>
+<div class="section level2">
+<h2 id="rrstudio">R/RStudio<a class="anchor" aria-label="anchor" href="#rrstudio"></a>
+</h2>
 <p><em>We’re still working on these, but would love feedback.</em></p>
 <p>By default, <code>analogsea</code> creates an Ubuntu 20.04 image. Let’s say you’ve got ten students fron an R workshop, then you can run</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/droplet_create.html">droplet_create</a></span><span class="op">(</span><span class="st">"rstudio-20-04"</span><span class="op">)</span>
 
-<span class="va">users</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  user <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"student"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>,
-  password <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">8</span>,<span class="fl">5</span><span class="op">)</span>, <span class="va">create_password</span><span class="op">)</span>
+<span class="va">users</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+  user <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"student"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>,
+  password <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">8</span>,<span class="fl">5</span><span class="op">)</span>, <span class="va">create_password</span><span class="op">)</span>
 <span class="op">)</span>
   
-<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">users</span><span class="op">$</span><span class="va">user</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">users</span><span class="op">$</span><span class="va">user</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="reference/ubuntu.html">ubuntu_create_user</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">users</span><span class="op">$</span><span class="va">user</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="va">users</span><span class="op">$</span><span class="va">password</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, keyfile <span class="op">=</span> <span class="st">"~/.ssh/id_rsa"</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<p>Then, each student shall be able to open RStudio from the browser, by visiting <a href="http://123.456.789:8787" class="uri">http://123.456.789:8787</a> and accessing with studentX (X = 1,…,10) and the password created.</p>
+<p>Then, each student shall be able to open RStudio from the browser, by visiting <a href="http://123.456.789:8787" class="external-link uri">http://123.456.789:8787</a> and accessing with studentX (X = 1,…,10) and the password created.</p>
 <p>To install more R packages, you can make them readily available for all the users that have access to your droplet with</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/ubuntu.html">ubuntu_install_r</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># ohlf if you didn't use the RStudio image</span>
 <span class="fu"><a href="reference/ubuntu.html">install_r_package</a></span><span class="op">(</span><span class="st">"arrow"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="shiny" class="section level2">
-<h2 class="hasAnchor">
-<a href="#shiny" class="anchor"></a>Shiny</h2>
+<div class="section level2">
+<h2 id="shiny">Shiny<a class="anchor" aria-label="anchor" href="#shiny"></a>
+</h2>
 <p>The RStudio Server image also features readily available Shiny Server, but we provide the functions <code><a href="reference/ubuntu.html">ubuntu_install_shiny()</a></code> and <code><a href="reference/docklet_create.html">docklet_shinyserver()</a></code> (requires to use the Docker image, i.e. <code><a href="reference/docklet_create.html">docklet_create()</a></code>) to configure Shiny from scratch.</p>
 </div>
-<div id="install-rstudio-server" class="section level2">
-<h2 class="hasAnchor">
-<a href="#install-rstudio-server" class="anchor"></a>Install RStudio Server</h2>
+<div class="section level2">
+<h2 id="install-rstudio-server">Install RStudio Server<a class="anchor" aria-label="anchor" href="#install-rstudio-server"></a>
+</h2>
 <p>For the standard Ubuntu image you can use <code><a href="reference/ubuntu.html">ubuntu_install_rstudio()</a></code>.</p>
 <p>For dockerized RStudio you have the next option:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/docklet_create.html">docklet_create</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="fu"><a href="reference/docklet_create.html">docklet_create</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="reference/docklet_create.html">docklet_rstudio</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>This will install R, RStudio Server and it’s dependencies. It will automatically pop open the RStudio server instance in your default browser, with default <code>username/password</code> of <code>rstudio/server</code>.</p>
 </div>
-<div id="meta" class="section level2">
-<h2 class="hasAnchor">
-<a href="#meta" class="anchor"></a>Meta</h2>
-<p>Please note that this project is released with a <a href="https://github.com/pachadotdev/analogsea/blob/master/CODE_OF_CONDUCT.md">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
+<div class="section level2">
+<h2 id="meta">Meta<a class="anchor" aria-label="anchor" href="#meta"></a>
+</h2>
+<p>Please note that this project is released with a <a href="https://github.com/pachadotdev/analogsea/blob/master/CODE_OF_CONDUCT.md" class="external-link">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=analogsea">https://​cloud.r-project.org/​package=analogsea</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/pachadotdev/analogsea/">https://​github.com/​pachadotdev/​analogsea/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/pachadotdev/analogsea/issues">https://​github.com/​pachadotdev/​analogsea/​issues</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=analogsea" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/pachadotdev/analogsea/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/pachadotdev/analogsea/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li>Apache License (&gt;= 2)</li>
 </ul>
 </div>
+
 <div class="community">
-<h2>Community</h2>
+<h2 data-toc-skip>Community</h2>
 <ul class="list-unstyled">
 <li><a href="CONTRIBUTING.html">Contributing guide</a></li>
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>Scott Chamberlain <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-1444-9135" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>
-<a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author </small>  </li>
-<li>Winston Chang <br><small class="roles"> Author </small>  </li>
-<li>Mauricio Vargas <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-1017-7574" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="authors.html#citation">Citing analogsea</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li><a href="https://codecov.io/github/pachadotdev/analogsea?branch=master"><img src="https://codecov.io/github/pachadotdev/analogsea/coverage.svg?branch=master" alt="codecov.io"></a></li>
-<li><a href="https://github.com/r-hub/cranlogs.app"><img src="https://cranlogs.r-pkg.org/badges/analogsea" alt="rstudio mirror downloads"></a></li>
-<li><a href="https://cran.r-project.org/package=analogsea"><img src="https://www.r-pkg.org/badges/version/analogsea" alt="cran version"></a></li>
-<li><a href="https://github.com/pachadotdev/analogsea/actions/workflows/R-CMD-check.yml"><img src="https://github.com/pachadotdev/analogsea/actions/workflows/R-CMD-check.yml/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
+<li>Scott Chamberlain <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-1444-9135" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Hadley Wickham <br><small class="roles"> Author </small>  </li>
+<li>Winston Chang <br><small class="roles"> Author </small>  </li>
+<li>Mauricio Vargas <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-1017-7574" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://codecov.io/github/pachadotdev/analogsea?branch=master" class="external-link"><img src="https://codecov.io/github/pachadotdev/analogsea/coverage.svg?branch=master" alt="codecov.io"></a></li>
+<li><a href="https://github.com/r-hub/cranlogs.app" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/analogsea" alt="rstudio mirror downloads"></a></li>
+<li><a href="https://cran.r-project.org/package=analogsea" class="external-link"><img src="https://www.r-pkg.org/badges/version/analogsea" alt="cran version"></a></li>
+<li><a href="https://github.com/pachadotdev/analogsea/actions/workflows/R-CMD-check.yml" class="external-link"><img src="https://github.com/pachadotdev/analogsea/actions/workflows/R-CMD-check.yml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
+</ul>
 </div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Scott Chamberlain, <a href="http://hadley.nz">Hadley Wickham</a>, Winston Chang, Mauricio Vargas.</p>
+  <p></p>
+<p>Developed by Scott Chamberlain, Hadley Wickham, Winston Chang, Mauricio Vargas.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -289,6 +294,8 @@
 
   
 
+
+  
 
   </body>
 </html>
