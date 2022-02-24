@@ -205,3 +205,187 @@ space_files <- function(space_info) {
   # remove entries with size 0 (those are nested directories)
   length(lapply(space_info, function(x) x[x$Size > 0]))
 }
+
+#' Create a new Space
+#'
+#' @export
+#' @param name (character) The name of the new Space
+#' @template spaces_args
+#' @param ... Additional arguments to `aws.s3::put_bucket`
+#' @return (character) The name of the created Space.
+#' @examples
+#' \dontrun{
+#' # Create a new Space
+#' # (Names must be unique within region)
+#' space_create("new_space_name")
+#' }
+space_create <- function(name,
+                         spaces_region = NULL,
+                         spaces_key = NULL,
+                         spaces_secret = NULL,
+                         ...) {
+  check_for_a_pkg("aws.s3")
+
+  spaces_region <- check_space_region(spaces_region)
+  spaces_key <- check_space_access(spaces_key)
+  spaces_secret <- check_space_secret(spaces_secret)
+
+  res <- aws.s3::put_bucket(name,
+                            region = spaces_region,
+                            key = spaces_key,
+                            secret = spaces_secret,
+                            base_url = spaces_base,
+                            location_constraint = NULL,
+                            ...)
+
+  if (res) message(sprintf("New Space %s created successfully.", name))
+
+  invisible(name)
+}
+
+#' Delete an existing Space
+#'
+#' @export
+#' @param name (character) The name of the existing Space
+#' @template spaces_args
+#' @param ... Additional arguments to `aws.s3::delete_bucket`
+#' @return (character) The name of the deleted Space.
+#' @examples
+#' \dontrun{
+#' # Delete an existing Space
+#' # (Check names within region)
+#' space_delete("new_space_name")
+#' }
+space_delete <- function(name,
+                         spaces_region = NULL,
+                         spaces_key = NULL,
+                         spaces_secret = NULL,
+                         ...) {
+  check_for_a_pkg("aws.s3")
+  check_for_a_pkg("arrow")
+
+  spaces_region <- check_space_region(spaces_region)
+  spaces_key <- check_space_access(spaces_key)
+  spaces_secret <- check_space_secret(spaces_secret)
+
+  fs <- arrow::S3FileSystem$create(
+    anonymous = ifelse(is.null(spaces_key), TRUE, FALSE),
+    scheme = "https",
+    access_key = spaces_key,
+    secret_key = spaces_secret,
+    endpoint_override = sprintf("%s.digitaloceanspaces.com", spaces_region)
+  )
+
+  fs$DeleteDirContents(name)
+
+  res <- aws.s3::delete_bucket(name,
+                               region = spaces_region,
+                               key = spaces_key,
+                               secret = spaces_secret,
+                               base_url = spaces_base,
+                               ...)
+
+  if (res) message(sprintf("Space %s deleted successfully.", name))
+
+  invisible(name)
+}
+
+#' Upload a directory to an existing Space
+#'
+#' @export
+#' @param name (character) The name of the existing Space
+#' @param local (character) The name of the local directory
+#' @param remote (character) The name of the remote directory
+#' @template spaces_args
+#' @param ... Additional arguments to `arrow::copy_files`
+#' @return (character) Success/error message.
+#' @examples
+#' \dontrun{
+#' # Upload to an existing Space
+#' # (Check names within region)
+#' space_upload("my_space", "my_subdir", "my_subdir", "nyc3",
+#'  spaces_key = Sys.getenv("SPACES_KEY"),
+#'  spaces_secret = Sys.getenv("SPACES_SECRET"))
+#' }
+space_upload <- function(name,
+                         local = NULL,
+                         remote = NULL,
+                         spaces_region = NULL,
+                         spaces_key = NULL,
+                         spaces_secret = NULL,
+                         ...) {
+  check_for_a_pkg("arrow")
+
+  stopifnot(dir.exists(local))
+
+  if (is.null(remote)) {
+    remote <- local
+  }
+
+  spaces_region <- check_space_region(spaces_region)
+  spaces_key <- check_space_access(spaces_key)
+  spaces_secret <- check_space_secret(spaces_secret)
+
+  fs <- arrow::S3FileSystem$create(
+    anonymous = ifelse(is.null(spaces_key), TRUE, FALSE),
+    scheme = "https",
+    access_key = spaces_key,
+    secret_key = spaces_secret,
+    endpoint_override = sprintf("%s.digitaloceanspaces.com", spaces_region)
+  )
+
+  res <- arrow::copy_files(local,
+                           fs$path(sprintf("%s/%s", name, remote)),
+                           ...)
+
+  message(sprintf("%s uploaded successfully.", local))
+}
+
+#' Upload a directory to an existing Space
+#'
+#' @export
+#' @param name (character) The name of the existing Space
+#' @param local (character) The name of the local directory
+#' @param remote (character) The name of the remote directory
+#' @template spaces_args
+#' @param ... Additional arguments to `arrow::copy_files`
+#' @return (character) Success/error message.
+#' @examples
+#' \dontrun{
+#' # Upload to an existing Space
+#' # (Check names within region)
+#' space_download("my_space", "my_subdir", "my_subdir", "nyc3",
+#'  spaces_key = Sys.getenv("SPACES_KEY"),
+#'  spaces_secret = Sys.getenv("SPACES_SECRET"))
+#' }
+space_download <- function(name,
+                           local = NULL,
+                           remote = NULL,
+                           spaces_region = NULL,
+                           spaces_key = NULL,
+                           spaces_secret = NULL,
+                           ...) {
+  check_for_a_pkg("arrow")
+
+  if (is.null(local)) {
+    local <- remote
+  }
+
+  spaces_region <- check_space_region(spaces_region)
+  spaces_key <- check_space_access(spaces_key)
+  spaces_secret <- check_space_secret(spaces_secret)
+
+  fs <- arrow::S3FileSystem$create(
+    anonymous = ifelse(is.null(spaces_key), TRUE, FALSE),
+    scheme = "https",
+    access_key = spaces_key,
+    secret_key = spaces_secret,
+    endpoint_override = sprintf("%s.digitaloceanspaces.com", spaces_region)
+  )
+
+  res <- arrow::copy_files(fs$path(sprintf("%s/%s", name, remote)),
+                           local,
+                           ...)
+
+  message(sprintf("%s download successfully.", remote))
+}

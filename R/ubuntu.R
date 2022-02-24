@@ -363,9 +363,9 @@ create_password <- function(n = 8) {
 
 #' @rdname ubuntu
 #' @param user Username for non-root account.
-#' @param password Password for non-root acount. Default: root
+#' @param password Password for non-root account.
 #' @export
-ubuntu_create_user <- function(droplet, user, password,
+ubuntu_create_user <- function(droplet, user, password ,
                         ssh_user = "root", keyfile = NULL,
                         ssh_passwd = NULL, verbose = FALSE) {
   check_for_a_pkg("ssh")

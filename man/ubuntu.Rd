@@ -122,7 +122,7 @@ details.}
 
 \item{rprofile}{A character string that will be added to the .Rprofile}
 
-\item{password}{Password for non-root acount. Default: root}
+\item{password}{Password for non-root account.}
 
 \item{version}{Version of rstudio to install.}
 

@@ -7,7 +7,7 @@ analogsea
 [![R-CMD-check](https://github.com/pachadotdev/analogsea/actions/workflows/R-CMD-check.yml/badge.svg)](https://github.com/pachadotdev/analogsea/actions/workflows/R-CMD-check.yml)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 
-<img src="https://raw.githubusercontent.com/pachadotdev/analogsea/gh-pages/analogsea.svg" width=150 align="center" alt="sticker"/>
+<img src="https://raw.githubusercontent.com/pachadotdev/analogsea/main/inst/analogsea.svg" width=150 align="center" alt="sticker"/>
 
 `analogsea` is an R client for version 2 of the Digital Ocean API.  See `?droplet_functions` after loading analogsea. It allows you to programatically create and destroy droplets (remote computers), and install various R related tools:
 
@@ -133,7 +133,7 @@ d %>%
 
 *We're still working on these, but would love feedback.*
 
-By default, `analogsea` creates an Ubuntu 20.04 image. Let's say you've got ten students fron an R workshop, then you can run
+By default, `analogsea` creates an Ubuntu 20.04 image. Let's say you've got ten students from an R workshop, then you can run
 
 ```r
 droplet_create("rstudio-20-04")
