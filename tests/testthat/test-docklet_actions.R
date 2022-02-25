@@ -11,6 +11,9 @@ test_that("pull Docker images work (Ubuntu)", {
   x <- docklet_create(n, region = r, size = s, image = "docker-20-04", wait = T)
   x <- droplet(x$id)
 
+  # wait until all services load
+  Sys.sleep(30)
+
   expect_output(docklet_pull(x, "rocker/tidyverse"))
 
   expect_silent(droplet_delete(x))
