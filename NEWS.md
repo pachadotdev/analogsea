@@ -12,6 +12,7 @@ analogsea 1.0.5
 
 * Makes conditional use on `arrow`, which can write in Parquet format, which is
   ideal for S3 filesystems.
+* `docklet_create()` now defaults to Ubuntu 20.04
 
 analogsea 1.0.2
 ===============

@@ -1,12 +1,11 @@
-test_that("install R pkgs works", {
+test_that("create/delete snapshots works", {
   skip_on_cran()
 
-  # using 4 CPUs + 8GB RAM droplet for faster testing
+  # using 25 GB SSD droplet to save time with blank space trimming for snapshot
   r <- "tor1"
-  s <- "c2-4vcpu-8gb"
-  img <- "rstudio-20-04"
+  s <- "s-1vcpu-1gb"
+  img <- "ubuntu-20-04-x64"
 
-  # use rstudio image fro quicker testing
   n <- paste("ubuntu-test", gsub(":", "", gsub(".* ", "", Sys.time())), sep = "-")
   x <- droplet_create(n, region = r, size = s, image = img, wait = T)
   x <- droplet(x$id)
@@ -16,15 +15,9 @@ test_that("install R pkgs works", {
 
   expect_equal(x$status, "active")
   expect_false(x$locked)
+  expect_output(droplet_snapshot(x))
 
-  # install eflm bc it has no deps besides base, quick test
-  y <- install_r_package(x, "eflm", keyfile = "~/.ssh/id_rsa")
-  expect_false(y$locked)
-  expect_equal(y$status, "active")
-
-  z <- install_github_r_package(x, "pachamaltese/eflm")
-  expect_false(z$locked)
-  expect_equal(z$status, "active")
-
+  x <- droplet(x$id)
+  expect_silent(snapshot_delete(x$snapshot_ids[[1]]))
   expect_silent(droplet_delete(x))
 })
