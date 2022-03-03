@@ -56,7 +56,7 @@
 #' instance, you can construct like \code{http://<ip address>:<port>} where
 #' IP address can most likely be found like \code{d$networks$v4[[1]]$ip_address}
 #' and the port is the port you set in the function call.
-#'
+#' 
 #' @section Managing Docker containers from R:
 #' There's a few things to be note about managing Docker containers from
 #' analogsea:
