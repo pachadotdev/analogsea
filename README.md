@@ -51,7 +51,7 @@ If you don't already have one, [create a DO account](https://m.do.co/c/6119f0430
 
 The best way to authenticate is to generate a personal access token (https://cloud.digitalocean.com/settings/tokens/new) and save it in an environment variable called `DO_PAT`. If you don't do this, you'll be prompted to authenticate in your browser the first time you use analogsea.
 
-Make sure you provide digitial ocean your public key at https://cloud.digitalocean.com/ssh_keys. Github has some good advice on creating a new public key if you don't already have one: https://help.github.com/articles/generating-ssh-keys/.
+Make sure you provide digital ocean your public key at https://cloud.digitalocean.com/ssh_keys. Github has some good advice on creating a new public key if you don't already have one: https://help.github.com/articles/generating-ssh-keys/.
 
 ## Get droplets
 
