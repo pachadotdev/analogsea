@@ -25,7 +25,7 @@ docklet_create(
   private_networking = getOption("do_private_networking", NULL),
   tags = list(),
   wait = TRUE,
-  image = "docker-18-04",
+  image = "docker-20-04",
   ...
 )
 

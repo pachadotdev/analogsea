@@ -1,3 +1,19 @@
+analogsea 1.0.5
+===============
+
+### NEW FEATURES
+
+* `space_delete()` deletes an existing (empty) space and all of its contents.
+* `space_upload()` allows to upload a local directory to an existing Space.
+* `space_download()` allows to download a remote directory from an existing 
+  Space.
+
+### MINOR IMPROVEMENTS
+
+* Makes conditional use on `arrow`, it can write in Parquet format, which is
+  ideal for S3 filesystems.
+* `docklet_create()` now defaults to Ubuntu 20.04
+
 analogsea 1.0.2
 ===============
 
@@ -5,7 +21,7 @@ analogsea 1.0.2
 
 * `droplet_create()` captures the droplet status and IP for immediate use without
 additional steps such as status update.
-* adds `droplet_ip()` function to avoid cumbersome writing to obtain droplet's IP
+* adds `droplet_ip()` function to avoid cumbersome writing to obtain droplet's IP.
 
 analogsea 1.0.1
 ===============

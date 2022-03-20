@@ -16,3 +16,5 @@ vignettes/analogsea.Rmd
 ^README\.md$
 vignettes/
 _pkgdown.yml
+inst/analogsea.svg
+^\.github$
