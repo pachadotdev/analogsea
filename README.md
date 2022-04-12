@@ -45,7 +45,7 @@ library("analogsea")
 
 ## Create a DO account
 
-If you don't already have one, [create a DO account](https://m.do.co/c/6119f0430dad). By using this link, you'll start with $100 in credits with a 2 months limit. This is enough for 1440 hours of computing on a machine with 4 GB memory and 2 dedicated CPUs and additional hours to experiment with 1 GB memory machines. Thanks to DigitalOcean for covering the costs for testing!
+If you don't already have one, [create a DO account](https://m.do.co/c/1d5a471e5f54). By using this link, you'll start with $100 in credits with a 2 months limit. This is enough for 1440 hours of computing on a machine with 4 GB memory and 2 dedicated CPUs and additional hours to experiment with 1 GB memory machines. Thanks to DigitalOcean for covering the costs for testing!
 
 ## Authenticate
 
