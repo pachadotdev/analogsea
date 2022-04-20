@@ -138,6 +138,7 @@ docklet_create <- function(name = random_name(),
                            tags = list(),
                            wait = TRUE,
                            image = "docker-20-04",
+                           keyfile = NULL,
                            ...) {
   droplet_create(
     name = name,
@@ -298,7 +299,8 @@ docklet_shinyserver <- function(droplet,
                             volume = '',
                             dir = '',
                             browse = TRUE,
-                            ssh_user = "root") {
+                            ssh_user = "root",
+                            keyfile = NULL) {
   droplet <- as.droplet(droplet)
 
   docklet_pull(droplet, img, ssh_user, keyfile = keyfile)
@@ -338,7 +340,7 @@ docklet_shinyapp <- function(droplet,
   droplet_ssh(droplet, "mkdir -p /srv/shinyapps", keyfile = keyfile)
   droplet_upload(droplet, path, "/srv/shinyapps/", keyfile = keyfile)
   # spin up shiny server
-  docklet_shinyserver(
-    droplet, img, port, volume = '/srv/shinyapps/:/srv/shiny-server/',
+  docklet_shinyserver(droplet, img, port, 
+                      volume = '/srv/shinyapps/:/srv/shiny-server/',
                       dir, browse, ssh_user, keyfile)
 }

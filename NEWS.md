@@ -1,9 +1,10 @@
-analogsea 1.0.5
+analogsea 1.0.6
 ===============
 
 ### NEW FEATURES
 
-* `docklet_shinyapp` allows to specify the ssh key location.
+* `docklet_create()`, `docklet_shinyserver()` and `docklet_shinyapp()` now allow
+  to specify the ssh key location.
 
 analogsea 1.0.5
 ===============

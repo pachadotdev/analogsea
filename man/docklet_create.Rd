@@ -26,6 +26,7 @@ docklet_create(
   tags = list(),
   wait = TRUE,
   image = "docker-20-04",
+  keyfile = NULL,
   ...
 )
 
@@ -104,7 +105,8 @@ docklet_shinyserver(
   volume = "",
   dir = "",
   browse = TRUE,
-  ssh_user = "root"
+  ssh_user = "root",
+  keyfile = NULL
 )
 
 docklet_shinyapp(
@@ -114,7 +116,8 @@ docklet_shinyapp(
   port = "80",
   dir = "",
   browse = TRUE,
-  ssh_user = "root"
+  ssh_user = "root",
+  keyfile = NULL
 )
 }
 \arguments{
@@ -171,6 +174,8 @@ base image for your droplet. See \code{\link{images}()} for a complete
 list. Use rstudio-20-04 for a DigitalOcean Marketplace image with R and
 Tidyverse readily available. Default: ubuntu-18-04-x64}
 
+\item{keyfile}{Optional private key file.}
+
 \item{...}{For \code{docklet_create}, additional options passed down to
 \code{\link[httr]{POST}}. For \code{docklet_run}, additional arguments
 combined and applied to docker statement.}
@@ -185,8 +190,6 @@ Default: root}
 
 \item{repo}{(character) Docker name, can be local to the Droplet or remote,
 e.g., \code{rocker/rstudio}}
-
-\item{keyfile}{Optional private key file.}
 
 \item{ssh_passwd}{Optional passphrase or callback function for authentication.
 Refer to the \code{ssh::ssh_connect} documentation for more details.}
