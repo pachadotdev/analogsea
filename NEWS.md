@@ -3,6 +3,13 @@ analogsea 1.0.5
 
 ### NEW FEATURES
 
+* `docklet_shinyapp` allows to specify the ssh key location.
+
+analogsea 1.0.5
+===============
+
+### NEW FEATURES
+
 * `space_delete()` deletes an existing (empty) space and all of its contents.
 * `space_upload()` allows to upload a local directory to an existing Space.
 * `space_download()` allows to download a remote directory from an existing 

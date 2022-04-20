@@ -301,7 +301,7 @@ docklet_shinyserver <- function(droplet,
                             ssh_user = "root") {
   droplet <- as.droplet(droplet)
 
-  docklet_pull(droplet, img, ssh_user)
+  docklet_pull(droplet, img, ssh_user, keyfile = keyfile)
   docklet_run(droplet,
               " -d",
               " -p ", paste0(port, ":3838"),
@@ -309,7 +309,8 @@ docklet_shinyserver <- function(droplet,
               cn(" -w", dir),
               " ",
               img,
-              ssh_user = ssh_user
+              ssh_user = ssh_user,
+              keyfile = keyfile
   )
 
   url <- sprintf("http://%s:%s/", droplet_ip(droplet), port)
@@ -329,14 +330,15 @@ docklet_shinyapp <- function(droplet,
                              port = '80',
                              dir = '',
                              browse = TRUE,
-                             ssh_user = "root") {
+                             ssh_user = "root",
+                             keyfile = NULL) {
   check_for_a_pkg("ssh")
   droplet <- as.droplet(droplet)
   # move files to server
-  droplet_ssh(droplet, "mkdir -p /srv/shinyapps")
-  droplet_upload(droplet, path, "/srv/shinyapps/")
+  droplet_ssh(droplet, "mkdir -p /srv/shinyapps", keyfile = keyfile)
+  droplet_upload(droplet, path, "/srv/shinyapps/", keyfile = keyfile)
   # spin up shiny server
   docklet_shinyserver(
     droplet, img, port, volume = '/srv/shinyapps/:/srv/shiny-server/',
-                      dir, browse, ssh_user)
+                      dir, browse, ssh_user, keyfile)
 }
