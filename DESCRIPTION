@@ -1,10 +1,9 @@
 Package: analogsea
-Title: Interface to 'Digital Ocean'
-Description: Provides a set of functions for interacting with the 'Digital
-    Ocean' API <https://www.digitalocean.com/>, including
-    creating images, destroying them, rebooting, getting details on regions, and
-    available images.
-Version: 1.0.6
+Title: Interface to 'DigitalOcean'
+Description: Provides a set of functions for interacting with the 'DigitalOcean'
+    API <https://www.digitalocean.com/>, including creating images, destroying 
+    them, rebooting, getting details on regions, and available images.
+Version: 1.0.7
 Authors@R: c(
     person("Scott", "Chamberlain", role = "aut",
         email = "myrmecocystus@gmail.com",
@@ -39,4 +38,4 @@ Suggests:
     ssh (>= 0.6),
     aws.s3,
     arrow
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0

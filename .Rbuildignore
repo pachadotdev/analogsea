@@ -18,3 +18,5 @@ vignettes/
 _pkgdown.yml
 inst/analogsea.svg
 ^\.github$
+^CRAN-SUBMISSION$
+^dev$
