@@ -9,6 +9,8 @@ analogsea
 
 <img src="https://raw.githubusercontent.com/pachadotdev/analogsea/main/inst/analogsea.svg" width=150 align="center" alt="sticker"/>
 
+**Use our link https://m.do.co/c/1d5a471e5f54, you'll get 100 usd in credits to try DO!**
+
 `analogsea` is an R client for version 2 of the Digital Ocean API.  See `?droplet_functions` after loading analogsea. It allows you to programatically create and destroy droplets (remote computers), and install various R related tools:
 
 * R (done)
