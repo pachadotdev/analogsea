@@ -69,7 +69,7 @@ as.snapshot.character <- function(x) {
 #' @export
 #' @rdname snapshots
 snapshots <- function(type = NULL, page = 1, per_page = 20, ...) {
-  per_page = max(per_page, 200)
+  per_page = min(per_page, 200)
   as.snapshot(
     do_GET(snapshot_url(), query = ascompact(list(resource_type = type,
                                                   page = page, 
