@@ -9,7 +9,7 @@
 \usage{
 as.snapshot(x)
 
-snapshots(type = NULL, ...)
+snapshots(type = NULL, page = 1, per_page = 20, ...)
 
 snapshot(id, ...)
 
@@ -20,6 +20,10 @@ snapshot_delete(snapshot, ...)
 
 \item{type}{(character) \code{NULL} (all snapshots), or one of droplet
 (droplet snapshots) or volume (volume snapshots)}
+
+\item{page}{Which 'page' of paginated results to return (default 1).}
+
+\item{per_page}{Number of items returned per page (default 20, maximum 200)}
 
 \item{...}{Additional options passed down to \code{\link[httr]{GET}},
 \code{\link[httr]{POST}}, etc.}
@@ -46,6 +50,10 @@ snapshots(type = "droplet")
 
 # list volume snapshots
 snapshots(type = "volume")
+
+# paging
+snapshots(per_page = 5)
+snapshots(per_page = 5, page = 2)
 
 # get a single snapshot
 snapshot(res[[1]]$id)
