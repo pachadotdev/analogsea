@@ -32,6 +32,8 @@ as.snapshot.character <- function(x) {
 #'   \code{\link{as.snapshot}}.
 #' @param type (character) \code{NULL} (all snapshots), or one of droplet
 #' (droplet snapshots) or volume (volume snapshots)
+#' @param page Which 'page' of paginated results to return (default 1).
+#' @param per_page Number of items returned per page (default 20, maximum 200)
 #' @param id A snapshot id (varies depending on droplet or volume ID)
 #' @param ... Additional options passed down to \code{\link[httr]{GET}},
 #' \code{\link[httr]{POST}}, etc.
@@ -44,6 +46,10 @@ as.snapshot.character <- function(x) {
 #'
 #' # list volume snapshots
 #' snapshots(type = "volume")
+#'
+#' # paging
+#' snapshots(per_page = 5)
+#' snapshots(per_page = 5, page = 2)
 #'
 #' # get a single snapshot
 #' snapshot(res[[1]]$id)
@@ -62,9 +68,12 @@ as.snapshot.character <- function(x) {
 
 #' @export
 #' @rdname snapshots
-snapshots <- function(type = NULL, ...) {
+snapshots <- function(type = NULL, page = 1, per_page = 20, ...) {
+  per_page = min(per_page, 200)
   as.snapshot(
-    do_GET(snapshot_url(), query = ascompact(list(resource_type = type)), ...)
+    do_GET(snapshot_url(), query = ascompact(list(resource_type = type,
+                                                  page = page, 
+                                                  per_page = per_page)), ...)
   )
 }
 
