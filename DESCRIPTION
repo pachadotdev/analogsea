@@ -3,7 +3,7 @@ Title: Interface to 'DigitalOcean'
 Description: Provides a set of functions for interacting with the 'DigitalOcean'
     API <https://www.digitalocean.com/>, including creating images, destroying 
     them, rebooting, getting details on regions, and available images.
-Version: 1.0.7
+Version: 1.0.7.1
 Authors@R: c(
     person("Scott", "Chamberlain", role = "aut",
         email = "myrmecocystus@gmail.com",
