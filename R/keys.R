@@ -63,7 +63,7 @@ NULL
 #' @rdname key-crud
 #' @export
 key_create <- function(name, public_key, ...) {
-  res <- do_POST(key_url(), query = list(
+  res <- do_POST(key_url(), body = list(
     name = name,
     public_key = public_key
   ), ...)
