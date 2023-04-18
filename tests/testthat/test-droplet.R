@@ -8,7 +8,7 @@ test_that("fails well with no input", {
 test_that("fails well with non-existent droplet", {
 	skip_on_cran()
 
-  expect_error(droplet("Baby Shark doo doo, doo doo doo doo"), "The resource you were accessing could not be found")
+  expect_error(droplet("Baby Shark doo doo, doo doo doo doo"), "URL using bad/illegal format or missing URL")
 })
 
 test_that("httr curl options work", {

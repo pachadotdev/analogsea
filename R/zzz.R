@@ -71,9 +71,5 @@ check_for_a_pkg <- function(x) {
 }
 
 .onAttach <- function(...) {
-  message("ANALOGSEA")
-  message("=========")
-  message("This package requieres a DigitalOcean account.")
-  message("Visit m.do.co/c/1d5a471e5f54. By using this link, you'll \nstart with $100 in credits with a 2 months limit.")
-  message("You can also sponsor this package at buymeacoffee.com/pacha.")
+  packageStartupMessage("ANALOGSEA\n=========\nThis package requieres a DigitalOcean account.\nVisit m.do.co/c/1d5a471e5f54. By using this link, you'll \nstart with $100 in credits with a 2 months limit.\nYou can also sponsor this package at buymeacoffee.com/pacha.")
 }

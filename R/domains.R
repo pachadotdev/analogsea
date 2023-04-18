@@ -27,7 +27,7 @@ domain <- function(x, ...) {
 }
 
 #' @export
-as.url.domain <- function(x) domain_url(x$name)
+as.url.domain <- function(x, ...) domain_url(x$name)
 domain_url <- function(x = NULL) url("domains", x)
 
 #' @export

@@ -6,7 +6,8 @@ analogsea 1.0.7
 * Added databases() function, which does the same as droplets()
   but for managed databases.
 * Offers link with 100 dollars in promotional credits.
-* Fixes authentication issues when creating keys
+* Fixes authentication issues when creating keys.
+* Method `as.url.domain` supports additional arguments.
 
 analogsea 1.0.6
 ===============
