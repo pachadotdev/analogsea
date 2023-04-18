@@ -8,6 +8,10 @@ analogsea 1.0.7
 * Offers link with 100 dollars in promotional credits.
 * Fixes authentication issues when creating keys
 
+### FEATURE FIXES
+
+* Method `as.url.domain` supports `...`
+
 analogsea 1.0.6
 ===============
 
