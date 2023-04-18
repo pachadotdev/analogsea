@@ -9,6 +9,10 @@ analogsea 1.0.7
 * Fixes authentication issues when creating keys.
 * Method `as.url.domain` supports additional arguments.
 
+### FEATURE FIXES
+
+* Method `as.url.domain` supports `...`
+
 analogsea 1.0.6
 ===============
 
