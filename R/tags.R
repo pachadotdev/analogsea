@@ -45,7 +45,7 @@ tag_rename <- function(...) {
 #'
 #' @export
 #' @param name (character) Name of the tag
-#' @param resource_id (integer) a droplet id
+#' @param resource_id (character) a droplet id
 #' @param resource_type (character) only "droplet" for now. Default: "droplet"
 #' @param resources (list) instead of \code{resource_id} and \code{resource_type}
 #' you can pass in a list to this parameter. see examples
@@ -61,6 +61,9 @@ tag_rename <- function(...) {
 tag_resource <- function(name, resource_id = NULL, resource_type = "droplet",
                          resources = NULL, ...) {
 
+  # sanity checks ----
+  resource_id <- as.character(resource_id) # inspect this later
+  
   if (!xor(!is.null(resource_id), !is.null(resources))) {
     stop("One of 'resource_id' or 'resources' must be non-NULL", call. = FALSE)
   }
