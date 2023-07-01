@@ -15,7 +15,7 @@ tag_resource(
 \arguments{
 \item{name}{(character) Name of the tag}
 
-\item{resource_id}{(integer) a droplet id}
+\item{resource_id}{(character) a droplet id}
 
 \item{resource_type}{(character) only "droplet" for now. Default: "droplet"}
 

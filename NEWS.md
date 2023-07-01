@@ -6,6 +6,10 @@ analogsea 1.0.8
 * Uses Ubuntu 22 by default.
 * The GitHub actions are now using the most recent version of R and GH workflows.
 
+### FEATURE FIXES
+ 
+* Fixes wrong resource_id with `tag_resource()`.
+
 analogsea 1.0.7
 ===============
 
