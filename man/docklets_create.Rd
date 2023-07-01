@@ -70,7 +70,7 @@ instead of outside of it.}
 or the unique slug identifier for a public image. This image will be the
 base image for your droplet. See \code{\link{images}()} for a complete
 list. Use rstudio-20-04 for a DigitalOcean Marketplace image with R and
-Tidyverse readily available. Default: ubuntu-18-04-x64}
+Tidyverse readily available. Default: ubuntu-22-04-x64}
 
 \item{...}{Additional options passed down to \code{\link[httr]{POST}}}
 }

@@ -43,7 +43,7 @@ ubuntu_install_rstudio(
 
 ubuntu_install_shiny(
   droplet,
-  version = "1.4.0.756",
+  version = "1.5.20.1002",
   user = "root",
   keyfile = NULL,
   ssh_passwd = NULL,

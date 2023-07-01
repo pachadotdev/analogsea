@@ -5,7 +5,7 @@
 #' @export
 #' @param size (optional) A Digital Ocean size slug name, e.g. '1gb'. Saved in
 #' options as 'do_size'
-#' @param image (optional) A Digital Ocean image name, e.g., 'ubuntu-14-04-x64'.
+#' @param image (optional) A Digital Ocean image name, e.g., 'ubuntu-22-04-x64'.
 #' Saved in options as 'do_image'
 #' @param region (optional) A Digital Ocean region name, e.g., 'nyc1'. Saved
 #' in options as 'do_region'
@@ -37,7 +37,7 @@
 #' do_options(ssh_keys=89103)
 #' getOption('do_ssh_keys')
 #' do_options(size="8gb")
-#' do_options(size="1gb", image='ubuntu-14-04-x64', region='nyc1')
+#' do_options(size="1gb", image='ubuntu-22-04-x64', region='nyc1')
 #' getOption('do_size')
 #' getOption('do_image')
 #' getOption('do_region')
@@ -72,7 +72,7 @@ do_options <- function(size = NULL, image = NULL, region = NULL, ssh_keys = NULL
 
   cat("Default options for spinning up a new droplet:", "\n")
   cat("[size]:     ", getOption("do_size", "not set (Defaults to: s-1vcpu-1gb)"), "\n")
-  cat("[image]:    ", getOption("do_image", "not set (Defaults to: ubuntu-18-04-x64)"), "\n")
+  cat("[image]:    ", getOption("do_image", "not set (Defaults to: ubuntu-22-04-x64)"), "\n")
   cat("[region]:   ", getOption("do_region", "not set (Defaults to: sfo3)"), "\n")
   cat("[ssh keys]: ", getOption("do_ssh_keys"), "\n")
   cat("[private networking]", getOption("do_private_networking"), "\n")

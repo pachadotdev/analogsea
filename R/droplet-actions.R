@@ -17,7 +17,7 @@
 #'   or the unique slug identifier for a public image. This image will be the
 #'   base image for your droplet. See \code{\link{images}()} for a complete
 #'   list. Use rstudio-20-04 for a DigitalOcean Marketplace image with R and
-#'   Tidyverse readily available. Default: ubuntu-18-04-x64
+#'   Tidyverse readily available. Default: ubuntu-22-04-x64
 #' @param region (character) The unique slug identifier for the region that you
 #'   wish to deploy in. See \code{\link{regions}()} for a complete list.
 #'   Default: sfo3
@@ -73,7 +73,7 @@
 #' droplet_create('droppinit')
 #'
 #' # set name, size, image, and region
-#' droplet_create(name="newdrop", size = '512mb', image = 'ubuntu-14-04-x64',
+#' droplet_create(name="newdrop", size = '512mb', image = 'ubuntu-22-04-x64',
 #'   region = 'sfo3')
 #'
 #' # use an ssh key
@@ -85,7 +85,7 @@
 #' }
 droplet_create <- function(name = random_name(),
                         size = getOption("do_size", "s-1vcpu-1gb"),
-                        image = getOption("do_image", "ubuntu-18-04-x64"),
+                        image = getOption("do_image", "ubuntu-22-04-x64"),
                         region = getOption("do_region", "sfo3"),
                         ssh_keys = getOption("do_ssh_keys", NULL),
                         backups = getOption("do_backups", NULL),

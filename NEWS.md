@@ -1,6 +1,14 @@
 analogsea 1.0.7
 ===============
 
+### JUST MAINTENANCE
+
+* Uses Ubuntu 22 by default.
+* The GitHub actions are now using the most recent version of R and GH workflows.
+
+analogsea 1.0.7
+===============
+
 ### NEW FEATURES
 
 * Added databases() function, which does the same as droplets()

@@ -114,7 +114,7 @@ ubuntu_install_rstudio <- function(droplet, user = "rstudio", password = "server
 
 #' @rdname ubuntu
 #' @export
-ubuntu_install_shiny <- function(droplet, version = "1.4.0.756",
+ubuntu_install_shiny <- function(droplet, version = "1.5.20.1002",
                                  user = "root",
                                  keyfile = NULL,
                                  ssh_passwd = NULL,
@@ -148,7 +148,7 @@ ubuntu_install_shiny <- function(droplet, version = "1.4.0.756",
                            verbose = verbose
                            ) %>%
     droplet_ssh(
-      sprintf("wget http://download3.rstudio.org/ubuntu-12.04/x86_64/shiny-server-%s-amd64.deb", version),
+      sprintf("https://download3.rstudio.org/ubuntu-18.04/x86_64/shiny-server-%s-amd64.deb", version),
       sprintf("sudo gdebi shiny-server-%s-amd64.deb --non-interactive", version),
       user = user,
       keyfile = keyfile,
@@ -186,18 +186,18 @@ ubuntu_apt_get_cran <- function(droplet,
                          ssh_passwd = NULL,
                          verbose = FALSE) {
   version <- droplet$image$name
-  cran_key <- if(any(version %in% c("20.04 (LTS) x64", "18.04 (LTS) x64"))) {
+  cran_key <- if(any(version %in% c("22.04 (LTS) x64", "20.04 (LTS) x64"))) {
     "E298A3A825C0D65DFD57CBB651716619E084DAB9"
   }
   if (is.null(cran_key)) {
-    message("The CRAN setup requires to use the ubuntu-20-04-x64 or ubuntu-18-04-x64 images.")
+    message("The CRAN setup requires to use the ubuntu-22-04-x64 or ubuntu-20-04-x64 images.")
     stop()
   }
-  cran_url <- "https://cran.pacha.dev/bin/linux/ubuntu/"
+  cran_url <- "https://cran.rstudio.com/bin/linux/ubuntu/"
   cran_apt <- switch(
     version,
+    "22.04 (LTS) x64" = "jammy-cran40",
     "20.04 (LTS) x64" = "focal-cran40",
-    "18.04 (LTS) x64" = "bionic-cran35"
   )
   droplet_ssh(droplet,
               sprintf(

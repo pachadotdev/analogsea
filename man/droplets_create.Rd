@@ -7,7 +7,7 @@
 droplets_create(
   names = NULL,
   size = getOption("do_size", "s-1vcpu-1gb"),
-  image = getOption("do_image", "ubuntu-18-04-x64"),
+  image = getOption("do_image", "ubuntu-22-04-x64"),
   region = getOption("do_region", "sfo3"),
   ssh_keys = getOption("do_ssh_keys", NULL),
   backups = getOption("do_backups", NULL),
@@ -35,7 +35,7 @@ a complete list. Default: s-1vcpu-1gb, the smallest}
 or the unique slug identifier for a public image. This image will be the
 base image for your droplet. See \code{\link{images}()} for a complete
 list. Use rstudio-20-04 for a DigitalOcean Marketplace image with R and
-Tidyverse readily available. Default: ubuntu-18-04-x64}
+Tidyverse readily available. Default: ubuntu-22-04-x64}
 
 \item{region}{(character) The unique slug identifier for the region that you
 wish to deploy in. See \code{\link{regions}()} for a complete list.

@@ -19,7 +19,7 @@ do_options(
 \item{size}{(optional) A Digital Ocean size slug name, e.g. '1gb'. Saved in
 options as 'do_size'}
 
-\item{image}{(optional) A Digital Ocean image name, e.g., 'ubuntu-14-04-x64'.
+\item{image}{(optional) A Digital Ocean image name, e.g., 'ubuntu-22-04-x64'.
 Saved in options as 'do_image'}
 
 \item{region}{(optional) A Digital Ocean region name, e.g., 'nyc1'. Saved
@@ -61,7 +61,7 @@ do_options()
 do_options(ssh_keys=89103)
 getOption('do_ssh_keys')
 do_options(size="8gb")
-do_options(size="1gb", image='ubuntu-14-04-x64', region='nyc1')
+do_options(size="1gb", image='ubuntu-22-04-x64', region='nyc1')
 getOption('do_size')
 getOption('do_image')
 getOption('do_region')
